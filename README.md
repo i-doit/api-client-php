@@ -15,7 +15,7 @@ This client provides an simple, but powerful abstraction layer to send requests 
 Why should you use this client? There are some good reasons:
 
 *   Easy to use
-*   There is a PHP function for each API method 
+*   There is a PHP function for each API method
 *   Supports batch requests
 *   Sends user-defined requests
 *   Supports login and logout to save sessions
@@ -83,8 +83,8 @@ $apiClient = new net\benjaminheisig\idoitapi\API([
     *   `host`: FQDN or IP address to proxy
     *   `port`: port on which the proxy server listens
     *   `username` and `password`: optional credentials used to authenticate against the proxy
-    
-    
+
+
 ##  Examples
 
 A basic example:
@@ -113,11 +113,10 @@ It's simple like that. For more examples take a look at the next sub sections.
 
 One sweet thing about i-doit's API you can (and should) use one user session for your stuff. This saves resources on the server side and allows you to perform a lot more calls in a short time.
 
-The session handling is done by the API client. You just need to login. And if you are nice you logout after your work are done.
+The session handling is done by the API client. You just need to login. And if you are nice you want to logout after your work is done.
 
 ~~~ {.php}
 use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\Idoit;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -129,6 +128,135 @@ $apiClient = new API([
 $apiClient->login();
 // Do your stuff…
 $apiClient->logout();
+~~~
+
+If you are unsure in which condition your session is try `isLoggedIn()`:
+
+~~~ {.php}
+$apiClient->isLoggedIn(); // Returns true or false
+~~~
+
+
+### Pre-defined Methods
+
+For almost every case there is a remote procedure you may call to read from or manipulate i-doit's database through its API. Each remote procedure is assigned to a namespace to keep the API clean and smoothly. Furtunately, you do not need to call these remote procedures on your own. The API client provides for each namespace a class and for each remote procedure a method. Here is a quick overview:
+
+Namespace       Remote Procedure    API Client Class    Method
+=========       ================    ================    ======
+idoit           idoit.version       Idoit               getVersion()
+                idoit.search                            search()
+                idoit.constants                         getConstants()
+cmdb.object     cmdb.object.create  CMDBObject          create()
+                cmdb.object.read                        read()
+                cmdb.object.update                      udpate()
+                cmdb.object.delete                      delete()
+cmdb.objects    cmdb.objects.read   CMDBObjects         read()
+
+
+####    Read Common Information About An Object
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+use net\benjaminheisig\idoitapi\CMDBObject;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+$object = new CMDBObject($apiClient);
+$objectInfo = $object->read(42);
+
+var_dump($objectInfo);
+~~~
+
+
+### Self-defined Request
+
+Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this client. Here is the way to perform a self-defined request:
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+$result = $apiClient->request('idoit.version');
+
+var_dump($result);
+~~~
+
+`request()` takes the method and optional parameters.
+
+
+### Self-defined Batch Requests
+
+Similar to a simple requests you may perform a batch requests with many sub-requests as you need:
+
+~~~ {.php}
+$result = $idoitAPI->batchRequest([
+    [
+        'method' => 'idoit.version'
+    ],
+    [
+       'method' => 'cmdb.object.read',
+       'params' => ['id' => 1]
+    ]
+]);
+
+var_dump($result);
+~~~
+
+
+### Some Special Features
+
+Sometimes you need a fresh connection. You may explicitly disconnect from the i-doit server and re-connect to it:
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+// Do your stuff…
+$apiClient->disconnect();
+$apiClient->isConnected(); // Returns false
+$apiClient->connect();
+$apiClient->isConnected(); // Returns true
+~~~
+
+For debugging purposes it is great to fetch some details about your API calls. These methods may help you:
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+// Just a simple API call:
+$request = new Idoit($apiClient);
+$request->getVersion();
+
+// Debugging methods:
+var_dump($apiClient->countRequests());
+var_dump($apiClient->getLastInfo());
+var_dump($apiClient->getLastRequestContent());
+var_dump($apiClient->getLastRequestHeaders());
+var_dump($apiClient->getLastResponseHeaders());
 ~~~
 
 

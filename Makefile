@@ -49,7 +49,7 @@ phpdox :
 	phpdox
 
 phploc :
-	phploc --exclude=lib .
+	phploc --exclude=lib --exclude=tests .
 
 phpunit :
-	phpunit --bootstrap tests/bootstrap.php tests/
+	phpunit --configuration tests/phpunit.xml

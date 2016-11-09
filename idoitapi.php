@@ -29,12 +29,10 @@
 spl_autoload_register(
     function ($class) {
         if (strpos($class, 'bheisig\\idoitapi\\') === 0) {
-            $file = strtolower(
-                str_replace(
-                    'bheisig\\idoitapi\\',
-                    '',
-                    $class
-                )
+            $file = str_replace(
+                'bheisig\\idoitapi\\',
+                '',
+                $class
             );
 
             require_once 'src/' . $file . '.php';

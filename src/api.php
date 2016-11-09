@@ -299,7 +299,7 @@ class API {
     /**
      * Logins to API
      *
-     * @return array Result of request
+     * @return self Returns itself
      *
      * @throws \Exception on error
      */
@@ -323,13 +323,13 @@ class API {
 
         $this->session = $response['session-id'];
 
-        return $response;
+        return $this;
     } //function
 
     /**
      * Logouts from API
      *
-     * @return array Result of request
+     * @return self Returns itself
      *
      * @throws \Exception on error
      */
@@ -338,13 +338,13 @@ class API {
             throw new \Exception('Client is not logged-in.');
         } //if
 
-        $response = $this->request(
+        $this->request(
             'idoit.logout'
         );
 
         $this->session = null;
 
-        return $response;
+        return $this;
     } //function
 
     /**

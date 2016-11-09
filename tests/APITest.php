@@ -28,157 +28,93 @@ use net\benjaminheisig\idoitapi\API;
 
 class APITest extends TestCase {
 
-    public function testTestConfig() {
-        $idoitAPI = new API([
+    /**
+     * @var net\benjaminheisig\idoitapi\API
+     */
+    protected $api;
+
+    public function setUp() {
+        $this->api = new API([
             'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
             'key' => 'c1ia5q',
             'username' => 'admin',
             'password' => 'admin'
         ]);
+    } //function
 
-        $this->assertTrue($idoitAPI->testConfig());
+    public function testTestConfig() {
+        $this->assertTrue($this->api->testConfig());
     } //function
 
     public function testConnect() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
-
-        $this->assertInstanceOf(API::class, $idoitAPI->connect());
+        $this->assertInstanceOf(API::class, $this->api->connect());
     } //function
 
     public function testDisconnect() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
+        $this->api->connect();
 
-        $idoitAPI->connect();
-
-        $this->assertInstanceOf(API::class, $idoitAPI->disconnect());
+        $this->assertInstanceOf(API::class, $this->api->disconnect());
     } //function
 
     public function testIsConnected() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
+        $this->assertFalse($this->api->isConnected());
 
-        $this->assertFalse($idoitAPI->isConnected());
+        $this->api->connect();
 
-        $idoitAPI->connect();
+        $this->assertTrue($this->api->isConnected());
 
-        $this->assertTrue($idoitAPI->isConnected());
+        $this->api->disconnect();
 
-        $idoitAPI->disconnect();
-
-        $this->assertFalse($idoitAPI->isConnected());
+        $this->assertFalse($this->api->isConnected());
     } //function
 
     public function testLogin() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
-
-        $result = $idoitAPI->login();
-
-        $this->assertInternalType('array', $result);
-        $this->assertArrayHasKey('session-id', $result);
-        $this->assertStringMatchesFormat('%s', $result['session-id']);
+        $this->assertInstanceOf(API::class, $this->api->login());
     } //function
 
     public function testLogout() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
+        $this->api->login();
 
-        $idoitAPI->login();
-
-        $result = $idoitAPI->logout();
-
-        $this->assertInternalType('array', $result);
-        $this->assertArrayHasKey('result', $result);
-        $this->assertTrue($result['result']);
+        $this->assertInstanceOf(API::class, $this->api->logout());
     } //function
 
     public function testIsLoggedIn() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
+        $this->assertFalse($this->api->isLoggedIn());
 
-        $this->assertFalse($idoitAPI->isLoggedIn());
+        $this->api->login();
 
-        $idoitAPI->login();
+        $this->assertTrue($this->api->isLoggedIn());
 
-        $this->assertTrue($idoitAPI->isLoggedIn());
+        $this->api->logout();
 
-        $idoitAPI->logout();
-
-        $this->assertFalse($idoitAPI->isLoggedIn());
+        $this->assertFalse($this->api->isLoggedIn());
     } //function
 
     public function testCountRequests() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
+        $this->api->request('idoit.version');
 
-        $idoitAPI->request('idoit.version');
-
-        $count = $idoitAPI->countRequests();
+        $count = $this->api->countRequests();
 
         $this->assertInternalType('integer', $count);
         $this->assertEquals(1, $count);
 
-        $idoitAPI->request('idoit.version');
+        $this->api->request('idoit.version');
 
-        $count = $idoitAPI->countRequests();
+        $count = $this->api->countRequests();
 
         $this->assertInternalType('integer', $count);
         $this->assertEquals(2, $count);
     } //function
 
     public function testRequest() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
-
-        $result = $idoitAPI->request('idoit.version');
+        $result = $this->api->request('idoit.version');
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
     } //function
 
     public function testBatchRequest() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
-
-        $results = $idoitAPI->batchRequest([
+        $results = $this->api->batchRequest([
             [
                 'method' => 'idoit.version'
             ],
@@ -198,59 +134,31 @@ class APITest extends TestCase {
     } //function
 
     public function testGetLastInfo() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
+        $this->api->request('idoit.version');
 
-        $idoitAPI->request('idoit.version');
-
-        $this->assertInternalType('array', $idoitAPI->getLastInfo());
-        $this->assertNotCount(0, $idoitAPI->getLastInfo());
+        $this->assertInternalType('array', $this->api->getLastInfo());
+        $this->assertNotCount(0, $this->api->getLastInfo());
     } //function
 
     public function testGetLastRequestContent() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
+        $this->api->request('idoit.version');
 
-        $idoitAPI->request('idoit.version');
-
-        $this->assertInternalType('array', $idoitAPI->getLastRequestContent());
-        $this->assertNotCount(0, $idoitAPI->getLastRequestContent());
+        $this->assertInternalType('array', $this->api->getLastRequestContent());
+        $this->assertNotCount(0, $this->api->getLastRequestContent());
     } //function
 
     public function testGetLastResponseHeaders() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
+        $this->api->request('idoit.version');
 
-        $idoitAPI->request('idoit.version');
-
-        $this->assertInternalType('string', $idoitAPI->getLastResponseHeaders());
-        $this->assertNotEmpty($idoitAPI->getLastResponseHeaders());
+        $this->assertInternalType('string', $this->api->getLastResponseHeaders());
+        $this->assertNotEmpty($this->api->getLastResponseHeaders());
     } //function
 
     public function testGetLastRequestHeaders() {
-        $idoitAPI = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
-        ]);
+        $this->api->request('idoit.version');
 
-        $idoitAPI->request('idoit.version');
-
-        $this->assertInternalType('string', $idoitAPI->getLastRequestHeaders());
-        $this->assertNotEmpty($idoitAPI->getLastRequestHeaders());
+        $this->assertInternalType('string', $this->api->getLastRequestHeaders());
+        $this->assertNotEmpty($this->api->getLastRequestHeaders());
     } //function
 
 } //class

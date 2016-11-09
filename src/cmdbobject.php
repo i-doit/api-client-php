@@ -30,8 +30,31 @@ namespace net\benjaminheisig\idoitapi;
  */
 class CMDBObject extends Request {
 
-    public function create() {
-        // @todo Implement it.
+    /**
+     * Creates a new object
+     *
+     * @param string|int $type Object type identifier or its constant
+     * @param string $title Object title
+     * @param array $attributes (Optional) additional common attributes ('category', 'purpose', 'cmdb_status', 'description')
+     *
+     * @return int Object identifier
+     *
+     * @throws \Exception on error
+     */
+    public function create($type, $title, $attributes = []) {
+        $attributes['type'] = $type;
+        $attributes['title'] = $title;
+
+        $result = $this->api->request(
+            'cmdb.object.create',
+            $attributes
+        );
+
+        if (array_key_exists('id', $result)) {
+            return (int) $result['id'];
+        } else {
+            throw new \Exception('Unable to create object');
+        } //if
     } //function
 
     /**
@@ -47,48 +70,160 @@ class CMDBObject extends Request {
         ]);
     } //function
 
-    public function update() {
-        // @todo Implement it.
-    } //function
+    /**
+     * Updates an existing object
+     *
+     * @param int $objectID Object identifier
+     * @param array $attributes (Optional) common attributes (only 'title' is supported at the moment)
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function update($objectID, $attributes = []) {
+        $params = [
+            'id' => $objectID
+        ];
 
-    public function delete($objectID) {
-        // @todo Implement it.
-    } //function
+        $supportedAttributes = [
+            'title'
+        ];
 
-    public function batchCreate() {
-        // @todo Implement it.
+        foreach ($supportedAttributes as $supportedAttribute) {
+            if (array_key_exists($supportedAttribute, $attributes)) {
+                $params[$supportedAttribute] = $attributes[$supportedAttribute];
+            } //if
+        } //foreach
+
+        $result = $this->api->request(
+            'cmdb.object.update',
+            $params
+        );
+
+        if (!is_array($result) ||
+            !array_key_exists('success', $result) ||
+            $result['success'] === false) {
+            throw new \Exception(sprintf(
+                'Unable to archive object %s',
+                $objectID
+            ));
+        } //if
+
+        return $this;
     } //function
 
     /**
-     * Reads objects
+     * Archives an object
      *
-     * @param int[] $objectIDs List of object identifiers
+     * @param int $objectID Object identifier
      *
-     * @return array Index array of associative arrays
+     * @return self Returns itself
      *
-     * @throws \Exception
+     * @throws \Exception on error
      */
-    public function batchRead(array $objectIDs) {
-        $requests = [];
+    public function archive($objectID) {
+        $result = $this->api->request(
+            'cmdb.object.delete',
+            [
+                'id' => $objectID,
+                'status' => 'C__RECORD_STATUS__ARCHIVED'
+            ]
+        );
 
-        foreach ($objectIDs as $objectID) {
-            $requests[] = [
-                'method' => 'cmdb.object.read',
-                'params' => [
-                    'id' => $objectID
-                ]
-            ];
-        } //foreach
+        if (!is_array($result) ||
+            !array_key_exists('success', $result) ||
+            $result['success'] === false) {
+            throw new \Exception(sprintf(
+                'Unable to archive object %s',
+                $objectID
+            ));
+        } //if
 
-        return $this->api->batchRequest($requests);
+        return $this;
     } //function
 
-    public function batchUpdate() {
-        // @todo Implement it.
+    /**
+     * Deletes an object
+     *
+     * @param int $objectID Object identifier
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function delete($objectID) {
+        $result = $this->api->request(
+            'cmdb.object.delete',
+            [
+                'id' => $objectID,
+                'status' => 'C__RECORD_STATUS__DELETED'
+            ]
+        );
+
+        if (!is_array($result) ||
+            !array_key_exists('success', $result) ||
+            $result['success'] === false) {
+            throw new \Exception(sprintf(
+                'Unable to delete object %s',
+                $objectID
+            ));
+        } //if
+
+        return $this;
     } //function
 
-    public function batchDelete($objectIDs) {
-        // @todo Implement it.
+    /**
+     * Purges an object
+     *
+     * @param int $objectID Object identifier
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function purge($objectID) {
+        $result = $this->api->request(
+            'cmdb.object.delete',
+            [
+                'id' => $objectID,
+                'status' => 'C__RECORD_STATUS__PURGE'
+            ]
+        );
+
+        if (!is_array($result) ||
+            !array_key_exists('success', $result) ||
+            $result['success'] === false) {
+            throw new \Exception(sprintf(
+                'Unable to purge object %s',
+                $objectID
+            ));
+        } //if
+
+        return $this;
     } //function
+
+// @todo Does not work:
+//    public function restore($objectID) {
+//        $result = $this->api->request(
+//            'cmdb.category.update',
+//            [
+//                'objID' => $objectID,
+//                'category' => 'C__CATG__GLOBAL',
+//                'data' => [
+//                    // C__RECORD_STATUS__NORMAL
+//                    'status' => 2
+//                ]
+//            ]
+//        );
+//
+//        if (!is_array($result) ||
+//            !array_key_exists('success', $result) ||
+//            $result['success'] === false) {
+//            throw new \Exception(sprintf(
+//                'Unable to restore object %s',
+//                $objectID
+//            ));
+//        } //if
+//    } //function
 
 } //class

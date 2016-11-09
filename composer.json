@@ -1,0 +1,37 @@
+{
+    "name": "bheisig/idoitapi",
+    "description": "Simple PHP client for i-doit's JSON-RPC API",
+    "type": "library",
+    "keywords": ["i-doit", "cmdb", "it documentation", "api", "json-rpc"],
+    "homepage": "https://github.com/bheisig/i-doit-api-client-php",
+    "license": "AGPL-3.0+",
+    "authors": [
+        {
+            "name": "Benjamin Heisig",
+            "email": "benjamin@heisig.name",
+            "homepage": "https://benjamin.heisig.name/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/bheisig/i-doit-api-client-php/issues",
+        "source": "https://github.com/bheisig/i-doit-api-client-php"
+    },
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "bheisig\\idoitapi\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bheisig/i-doit-api-client-php"
+        }
+    ]
+}

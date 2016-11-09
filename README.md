@@ -101,7 +101,7 @@ $apiClient = new API([
 ]);
 
 $request = new Idoit($apiClient);
-$info = $request->getVersion();
+$info = $request->readVersion();
 
 var_dump($info);
 ~~~
@@ -142,18 +142,86 @@ $apiClient->isLoggedIn(); // Returns true or false
 For almost every case there is a remote procedure you may call to read from or manipulate i-doit's database through its API. Each remote procedure is assigned to a namespace to keep the API clean and smoothly. Furtunately, you do not need to call these remote procedures on your own. The API client provides for each namespace a class and for each remote procedure a method. Here is a quick overview:
 
 Namespace       Remote Procedure    API Client Class    Method
-=========       ================    ================    ======
-idoit           idoit.version       Idoit               getVersion()
+---------       ----------------    ----------------    ------
+idoit           idoit.version       Idoit               readVersion()
                 idoit.search                            search()
-                idoit.constants                         getConstants()
+                idoit.constants                         readConstants()
+                idoit.login         _See "Login and Logout"_
+                idoit.logout        _See "Login and Logout"_
 cmdb.object     cmdb.object.create  CMDBObject          create()
                 cmdb.object.read                        read()
                 cmdb.object.update                      udpate()
-                cmdb.object.delete                      delete()
+                cmdb.object.delete                      archive(), delete(), purge()
 cmdb.objects    cmdb.objects.read   CMDBObjects         read()
 
 
-####    Read Common Information About An Object
+####    Search in i-doit's database
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+use net\benjaminheisig\idoitapi\Idoit;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+$idoit = new Idoit($apiClient);
+$result = $idoit->search('Server XY');
+
+var_dump($result);
+~~~
+
+Perform more than one search at once:
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+use net\benjaminheisig\idoitapi\Idoit;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+$idoit = new Idoit($apiClient);
+$result = $idoit->batchSearch([
+    'Server XY',
+    'Client A',
+    'John Doe'
+]);
+
+var_dump($result);
+~~~
+
+
+####    Create a New Object
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+use net\benjaminheisig\idoitapi\CMDBObject;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+$object = new CMDBObject($apiClient);
+$objectID = $object->create(
+    'C__OBJTYPE__SERVER',
+    'Server XY'
+);
+
+var_dump($objectID);
+~~~
+
+
+####    Read Common Information About an Object
 
 ~~~ {.php}
 use net\benjaminheisig\idoitapi\API;
@@ -170,6 +238,57 @@ $object = new CMDBObject($apiClient);
 $objectInfo = $object->read(42);
 
 var_dump($objectInfo);
+~~~
+
+
+####    Update an Existing Object
+
+Currently, you are able to update an object's title:
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+use net\benjaminheisig\idoitapi\CMDBObject;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+$object = new CMDBObject($apiClient);
+$object->update(
+    42,
+    [
+        'title' => 'A shiny new object title'
+    ]
+);
+~~~
+
+
+####    Change Documentation Status of an Object
+
+i-doit has the concept of archiving your IT documentation. Each object has an status (`normal`, `archived`, marked as `deleted`). And last but not least, an object may be purged from the database.
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+use net\benjaminheisig\idoitapi\CMDBObject;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+$object = new CMDBObject($apiClient);
+$objectID = 42;
+// Archive:
+$object->archive($objectID);
+// Mark as deleted:
+$object->delete($objectID);
+// Purge from database:
+$object->purge($objectID);
 ~~~
 
 
@@ -195,7 +314,7 @@ var_dump($result);
 `request()` takes the method and optional parameters.
 
 
-### Self-defined Batch Requests
+### Self-defined Batch Request
 
 Similar to a simple requests you may perform a batch requests with many sub-requests as you need:
 
@@ -214,7 +333,28 @@ var_dump($result);
 ~~~
 
 
-### Some Special Features
+### Read Information About i-doit Itself
+
+~~~ {.php}
+use net\benjaminheisig\idoitapi\API;
+use net\benjaminheisig\idoitapi\Idoit;
+
+$apiClient = new API([
+    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'key' => 'c1ia5q',
+    'username' => 'admin',
+    'password' => 'admin'
+]);
+
+$idoit = new Idoit($apiClient);
+$version = $idoit->readVersion();
+$constants = $idoit->readConstants();
+
+var_dump($constants);
+~~~
+
+
+### Re-connect to Server
 
 Sometimes you need a fresh connection. You may explicitly disconnect from the i-doit server and re-connect to it:
 
@@ -235,6 +375,9 @@ $apiClient->connect();
 $apiClient->isConnected(); // Returns true
 ~~~
 
+
+### Debugging API Calls
+
 For debugging purposes it is great to fetch some details about your API calls. These methods may help you:
 
 ~~~ {.php}
@@ -249,7 +392,7 @@ $apiClient = new API([
 
 // Just a simple API call:
 $request = new Idoit($apiClient);
-$request->getVersion();
+$request->readVersion();
 
 // Debugging methods:
 var_dump($apiClient->countRequests());

@@ -30,6 +30,65 @@ Why should you use this client? There are some good reasons:
 
 ##  Download
 
+You have several options to download (and kinda install) the API client:
+
+*   Install any version via [Composer](https://getcomposer.org/)
+*   Download any stable release manually
+*   Clone the Git repository to fetch the (unstable) development branch
+
+### Using Composer
+
+####    Locally
+
+Add a new dependency on `bheisig/idoitapi` to your project's `composer.json` file. Here is a minimal example to install the current development branch locally:
+
+~~~ {.json}
+{
+    "require": {
+        "bheisig/idoitapi": "@DEV"
+    }
+}
+~~~
+
+After that you need to call composer to install the API client (under `vendor/bheisig/idoitapi` by default):
+
+~~~ {.bash}
+composer install
+~~~
+
+####    System-wide
+
+For a system-wide installation you may use:
+
+~~~ {.bash}
+composer global require "bheisig/idoitapi=@DEV"
+~~~
+
+Make sure you have `~/.composer/vendor/bin/` in your path.
+
+
+####    Updates
+
+Composer has the great advantage (besides many other) that you can simply update the API client by running this command:
+
+~~~ {.bash}
+composer update
+~~~
+
+### Download Release
+
+You will find [all releases on this site](https://github.com/bheisig/i-doit-api-client-php/releases).
+
+To fetch the latest stable release:
+
+~~~ {.bash}
+wget FIXME // No releases at the moment ;-)
+tar xvzf FIXME
+cd i-doit-api-client-php/
+~~~
+
+### Using Git
+
 Fetch the current (unstable) development branch:
 
 ~~~ {.bash}
@@ -48,13 +107,21 @@ require_once 'idoitapi.php';
 
 That's it. All other files will be auto-loaded if needed.
 
+If you use Composer you should use its own autoloader:
+
+~~~ {.php}
+require_once 'vendor/autoload.php';
+~~~
+
 
 ##  Configuration
 
 The API client class requires a configuration:
 
 ~~~ {.php}
-$apiClient = new bheisig\idoitapi\API([
+use bheisig\idoitapi\API;
+
+$api = new API([
     'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
     'port' => 443,
     'key' => 'c1ia5q',
@@ -93,14 +160,14 @@ A basic example:
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\Idoit;
 
-$apiClient = new API([
+$api = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
     'key' => 'c1ia5q',
     'username' => 'admin',
     'password' => 'admin'
 ]);
 
-$request = new Idoit($apiClient);
+$request = new Idoit($api);
 $info = $request->readVersion();
 
 var_dump($info);
@@ -118,22 +185,17 @@ The session handling is done by the API client. You just need to login. And if y
 ~~~ {.php}
 use bheisig\idoitapi\API;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
-$apiClient->login();
+$api->login();
 // Do your stuff…
-$apiClient->logout();
+$api->logout();
 ~~~
 
 If you are unsure in which condition your session is try `isLoggedIn()`:
 
 ~~~ {.php}
-$apiClient->isLoggedIn(); // Returns true or false
+$api->isLoggedIn(); // Returns true or false
 ~~~
 
 
@@ -161,14 +223,9 @@ For almost every case there is a remote procedure you may call to read from or m
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\Idoit;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
-$idoit = new Idoit($apiClient);
+$idoit = new Idoit($api);
 $result = $idoit->search('Server XY');
 
 var_dump($result);
@@ -180,14 +237,9 @@ Perform more than one search at once:
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\Idoit;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
-$idoit = new Idoit($apiClient);
+$idoit = new Idoit($api);
 $result = $idoit->batchSearch([
     'Server XY',
     'Client A',
@@ -204,14 +256,9 @@ var_dump($result);
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObject;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
-$object = new CMDBObject($apiClient);
+$object = new CMDBObject($api);
 $objectID = $object->create(
     'C__OBJTYPE__SERVER',
     'Server XY'
@@ -227,14 +274,9 @@ var_dump($objectID);
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObject;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
-$object = new CMDBObject($apiClient);
+$object = new CMDBObject($api);
 $objectInfo = $object->read(42);
 
 var_dump($objectInfo);
@@ -249,14 +291,9 @@ Currently, you are able to update an object's title:
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObject;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
-$object = new CMDBObject($apiClient);
+$object = new CMDBObject($api);
 $object->update(
     42,
     [
@@ -274,14 +311,9 @@ i-doit has the concept of archiving your IT documentation. Each object has an st
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObject;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
-$object = new CMDBObject($apiClient);
+$object = new CMDBObject($api);
 $objectID = 42;
 // Archive:
 $object->archive($objectID);
@@ -299,14 +331,9 @@ Sometimes it is better to define a request on your own instead of using pre-defi
 ~~~ {.php}
 use bheisig\idoitapi\API;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
-$result = $apiClient->request('idoit.version');
+$result = $api->request('idoit.version');
 
 var_dump($result);
 ~~~
@@ -319,7 +346,11 @@ var_dump($result);
 Similar to a simple requests you may perform a batch requests with many sub-requests as you need:
 
 ~~~ {.php}
-$result = $idoitAPI->batchRequest([
+use bheisig\idoitapi\API;
+
+$api = new API([/* … */]);
+
+$result = $api->batchRequest([
     [
         'method' => 'idoit.version'
     ],
@@ -339,14 +370,9 @@ var_dump($result);
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\Idoit;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
-$idoit = new Idoit($apiClient);
+$idoit = new Idoit($api);
 $version = $idoit->readVersion();
 $constants = $idoit->readConstants();
 
@@ -361,18 +387,13 @@ Sometimes you need a fresh connection. You may explicitly disconnect from the i-
 ~~~ {.php}
 use bheisig\idoitapi\API;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
 // Do your stuff…
-$apiClient->disconnect();
-$apiClient->isConnected(); // Returns false
-$apiClient->connect();
-$apiClient->isConnected(); // Returns true
+$api->disconnect();
+$api->isConnected(); // Returns false
+$api->connect();
+$api->isConnected(); // Returns true
 ~~~
 
 
@@ -383,23 +404,18 @@ For debugging purposes it is great to fetch some details about your API calls. T
 ~~~ {.php}
 use bheisig\idoitapi\API;
 
-$apiClient = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
-]);
+$api = new API([/* … */]);
 
 // Just a simple API call:
-$request = new Idoit($apiClient);
+$request = new Idoit($api);
 $request->readVersion();
 
 // Debugging methods:
-var_dump($apiClient->countRequests());
-var_dump($apiClient->getLastInfo());
-var_dump($apiClient->getLastRequestContent());
-var_dump($apiClient->getLastRequestHeaders());
-var_dump($apiClient->getLastResponseHeaders());
+var_dump($api->countRequests());
+var_dump($api->getLastInfo());
+var_dump($api->getLastRequestContent());
+var_dump($api->getLastRequestHeaders());
+var_dump($api->getLastResponseHeaders());
 ~~~
 
 

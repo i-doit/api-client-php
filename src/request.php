@@ -46,4 +46,4 @@ abstract class Request {
         $this->api = $api;
     } //function
 
-} //function
+} //class

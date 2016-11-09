@@ -31,29 +31,65 @@ namespace net\benjaminheisig\idoitapi;
 class Idoit extends Request {
 
     /**
-     * Gets information about i-doit
+     * Reads information about i-doit
      *
      * @return array Associative array
+     *
+     * @throws \Exception on error
      */
-    public function getVersion() {
+    public function readVersion() {
         return $this->api->request('idoit.version');
     } //function
 
     /**
-     * Gets list of defined constants
+     * Reads list of defined constants
      *
      * @return array Associative array
+     *
+     * @throws \Exception on error
      */
-    public function getConstants() {
+    public function readConstants() {
         return $this->api->request('idoit.constants');
     } //function
 
-    public function search() {
-        // @todo Implement it.
+    /**
+     * Searches i-doit's database
+     *
+     * @param string $query Query
+     *
+     * @return array Search results
+     *
+     * @throws \Exception on error
+     */
+    public function search($query) {
+        return $this->api->request(
+            'idoit.search',
+            ['q' => $query]
+        );
     } //function
 
-    public function batchSearch() {
-        // @todo Implement it.
+    /**
+     * Performs one or more searches at once
+     *
+     * @param string[] $queries Queries
+     *
+     * @return array Search results
+     *
+     * @throws \Exception on error
+     */
+    public function batchSearch(array $queries) {
+        $requests = [];
+
+        foreach ($queries as $query) {
+            $requests[] = [
+                'method' => 'idoit.search',
+                'params' => [
+                    'q' => $query
+                ]
+            ];
+        } //foreach
+
+        return $this->api->batchRequest($requests);
     } //function
 
-} //function
+} //class

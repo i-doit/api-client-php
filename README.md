@@ -141,18 +141,18 @@ $apiClient->isLoggedIn(); // Returns true or false
 
 For almost every case there is a remote procedure you may call to read from or manipulate i-doit's database through its API. Each remote procedure is assigned to a namespace to keep the API clean and smoothly. Furtunately, you do not need to call these remote procedures on your own. The API client provides for each namespace a class and for each remote procedure a method. Here is a quick overview:
 
-Namespace       Remote Procedure    API Client Class    Method
----------       ----------------    ----------------    ------
-idoit           idoit.version       Idoit               readVersion()
-                idoit.search                            search()
-                idoit.constants                         readConstants()
-                idoit.login         _See "Login and Logout"_
-                idoit.logout        _See "Login and Logout"_
-cmdb.object     cmdb.object.create  CMDBObject          create()
-                cmdb.object.read                        read()
-                cmdb.object.update                      udpate()
-                cmdb.object.delete                      archive(), delete(), purge()
-cmdb.objects    cmdb.objects.read   CMDBObjects         read()
+| Namespace         | Remote Procedure      | API Client Class          | Method                                |
+| ----------------- | --------------------- | ------------------------- | ------------------------------------- |
+| `idoit`           | `idoit.version`       | `Idoit`                   | `readVersion()`                       |
+|                   | `idoit.search`        |                           | `search()`                            |
+|                   | `idoit.constants`     |                           | `readConstants()`                     |
+|                   | `idoit.login`         | `API`                     | `login()`                             |
+|                   | `idoit.logout`        |                           | `logout()`                            |
+| `cmdb.object`     | `cmdb.object.create`  | `CMDBObject`              | `create()`                            |
+|                   | `cmdb.object.read`    |                           | `read()`                              |
+|                   | `cmdb.object.update`  |                           | `udpate()`                            |
+|                   | `cmdb.object.delete`  |                           | `archive()`, `delete()`, `purge()`    |
+| `cmdb.objects`    | `cmdb.objects.read`   | `CMDBObjects`             | `read()`                              |
 
 
 ####    Search in i-doit's database

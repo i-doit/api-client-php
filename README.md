@@ -54,7 +54,7 @@ That's it. All other files will be auto-loaded if needed.
 The API client class requires a configuration:
 
 ~~~ {.php}
-$apiClient = new net\benjaminheisig\idoitapi\API([
+$apiClient = new bheisig\idoitapi\API([
     'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
     'port' => 443,
     'key' => 'c1ia5q',
@@ -90,8 +90,8 @@ $apiClient = new net\benjaminheisig\idoitapi\API([
 A basic example:
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\Idoit;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\Idoit;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -116,7 +116,7 @@ One sweet thing about i-doit's API you can (and should) use one user session for
 The session handling is done by the API client. You just need to login. And if you are nice you want to logout after your work is done.
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
+use bheisig\idoitapi\API;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -158,8 +158,8 @@ cmdb.objects    cmdb.objects.read   CMDBObjects         read()
 ####    Search in i-doit's database
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\Idoit;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\Idoit;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -177,8 +177,8 @@ var_dump($result);
 Perform more than one search at once:
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\Idoit;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\Idoit;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -201,8 +201,8 @@ var_dump($result);
 ####    Create a New Object
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\CMDBObject;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObject;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -224,8 +224,8 @@ var_dump($objectID);
 ####    Read Common Information About an Object
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\CMDBObject;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObject;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -246,8 +246,8 @@ var_dump($objectInfo);
 Currently, you are able to update an object's title:
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\CMDBObject;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObject;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -271,8 +271,8 @@ $object->update(
 i-doit has the concept of archiving your IT documentation. Each object has an status (`normal`, `archived`, marked as `deleted`). And last but not least, an object may be purged from the database.
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\CMDBObject;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObject;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -297,7 +297,7 @@ $object->purge($objectID);
 Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this client. Here is the way to perform a self-defined request:
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
+use bheisig\idoitapi\API;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -336,8 +336,8 @@ var_dump($result);
 ### Read Information About i-doit Itself
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\Idoit;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\Idoit;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -359,7 +359,7 @@ var_dump($constants);
 Sometimes you need a fresh connection. You may explicitly disconnect from the i-doit server and re-connect to it:
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
+use bheisig\idoitapi\API;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -381,7 +381,7 @@ $apiClient->isConnected(); // Returns true
 For debugging purposes it is great to fetch some details about your API calls. These methods may help you:
 
 ~~~ {.php}
-use net\benjaminheisig\idoitapi\API;
+use bheisig\idoitapi\API;
 
 $apiClient = new API([
     'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',

@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * @package net\benjaminheisig\idoitapi
  * @author Benjamin Heisig <https://benjamin.heisig.name/>
  * @copyright Copyright (C) 2016 Benjamin Heisig
  * @license http://www.gnu.org/licenses/agpl-3.0 GNU Affero General Public License (AGPL)
@@ -24,18 +23,18 @@
  */
 
 use PHPUnit\Framework\TestCase;
-use net\benjaminheisig\idoitapi\API;
-use net\benjaminheisig\idoitapi\CMDBObject;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObject;
 
 class CMDBObjectTest extends TestCase {
 
     /**
-     * @var net\benjaminheisig\idoitapi\API
+     * @var \bheisig\idoitapi\API
      */
     protected $api;
 
     /**
-     * @var net\benjaminheisig\idoitapi\CMDBObject
+     * @var \bheisig\idoitapi\CMDBObject
      */
     protected $object;
 

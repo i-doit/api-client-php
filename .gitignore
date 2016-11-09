@@ -1,4 +1,5 @@
 .idea/
+vendor/
 ChangeLog
 README
 *.tar.gz

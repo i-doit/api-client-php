@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * @package net\benjaminheisig\idoitapi
  * @author Benjamin Heisig <https://benjamin.heisig.name/>
  * @copyright Copyright (C) 2016 Benjamin Heisig
  * @license http://www.gnu.org/licenses/agpl-3.0 GNU Affero General Public License (AGPL)
@@ -29,10 +28,10 @@
 
 spl_autoload_register(
     function ($class) {
-        if (strpos($class, 'net\\benjaminheisig\\idoitapi\\') === 0) {
+        if (strpos($class, 'bheisig\\idoitapi\\') === 0) {
             $file = strtolower(
                 str_replace(
-                    'net\\benjaminheisig\\idoitapi\\',
+                    'bheisig\\idoitapi\\',
                     '',
                     $class
                 )

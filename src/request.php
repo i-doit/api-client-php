@@ -16,14 +16,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * @package net\benjaminheisig\idoitapi
  * @author Benjamin Heisig <https://benjamin.heisig.name/>
  * @copyright Copyright (C) 2016 Benjamin Heisig
  * @license http://www.gnu.org/licenses/agpl-3.0 GNU Affero General Public License (AGPL)
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-namespace net\benjaminheisig\idoitapi;
+namespace bheisig\idoitapi;
 
 /**
  * Request
@@ -33,14 +32,14 @@ abstract class Request {
     /**
      * API client
      *
-     * @var \net\benjaminheisig\idoitapi\API
+     * @var \bheisig\idoitapi\API
      */
     protected $api;
 
     /**
      * Constructor
      *
-     * @param \net\benjaminheisig\idoitapi\API $api API client
+     * @param \bheisig\idoitapi\API $api API client
      */
     public function __construct(API $api) {
         $this->api = $api;

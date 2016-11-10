@@ -7,7 +7,7 @@ Simple PHP client for i-doit's JSON-RPC API
 
 [i-doit](https://i-doit.com) is a software application for IT documentation and a CMDB (Configuration Management Database). This application is very useful to collect all your knowledge about the IT infrastructure you are dealing with. i-doit is a Web application and [has an exhausting API](https://kb.i-doit.com/pages/viewpage.action?pageId=37355644) which is very useful to automate your infrastructure.
 
-This client provides an simple, but powerful abstraction layer to send requests to i-doit's API. It is written in PHP so you may use it in your own software application.
+This client provides a simple, but powerful abstraction layer to send requests to i-doit's API. It is written in PHP so you may use it in your own project.
 
 
 ##  Features
@@ -25,7 +25,8 @@ Why should you use this client? There are some good reasons:
 *   Throws exception on error
 *   Many examples
 *   Well-documented
-*   Unit tests!!11
+*   Easy to install via Composer
+*   Unit tests!!!11
 
 
 ##  Download
@@ -321,6 +322,23 @@ $object->archive($objectID);
 $object->delete($objectID);
 // Purge from database:
 $object->purge($objectID);
+~~~
+
+
+####    Fetch Relations Between Objects
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObjectsByRelation;
+
+$api = new API([/* … */]);
+
+$result = $this->relation->read(
+    10,
+    'C__RELATION_TYPE__PERSON_ASSIGNED_GROUPS'
+);
+
+var_dump($result);
 ~~~
 
 

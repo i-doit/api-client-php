@@ -62,6 +62,8 @@ class CMDBObject extends Request {
      * @param int $objectID Object identifier
      *
      * @return array Associative array
+     *
+     * @throws \Exception on error
      */
     public function read($objectID) {
         return $this->api->request('cmdb.object.read', [

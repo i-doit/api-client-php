@@ -325,6 +325,37 @@ $object->purge($objectID);
 ~~~
 
 
+####    Build a Location Tree
+
+Read objects located directly under an object:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBLocationTree;
+
+$api = new API([/* … */]);
+
+$locationTree = new CMDBLocationTree($api);
+$result = $locationTree->read(1);
+
+var_dump($result);
+~~~
+
+Read recursively objects located under an object:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBLocationTree;
+
+$api = new API([/* … */]);
+
+$locationTree = new CMDBLocationTree($api);
+$result = $locationTree->readRecursively(1);
+
+var_dump($result);
+~~~
+
+
 ####    Fetch Relations Between Objects
 
 ~~~ {.php}
@@ -332,8 +363,9 @@ use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObjectsByRelation;
 
 $api = new API([/* … */]);
+$relation = new CMDBObjectsByRelation($api);
 
-$result = $this->relation->read(
+$result = $relation->read(
     10,
     'C__RELATION_TYPE__PERSON_ASSIGNED_GROUPS'
 );

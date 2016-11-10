@@ -81,19 +81,46 @@ class CMDBObjectTest extends TestCase {
     } //function
 
     public function testUpdate() {
-        // @todo Implement it!
+        $this->assertInstanceOf(
+            CMDBObject::class,
+            $this->object->update(9, ['title' => 'Anne Admin'])
+        );
     } //function
 
     public function testArchive() {
-        // @todo Implement it!
+        $objectID = $this->object->create(
+            'C__OBJTYPE__SERVER',
+            'Archive Me'
+        );
+
+        $this->assertInstanceOf(
+            CMDBObject::class,
+            $this->object->archive($objectID)
+        );
     } //function
 
     public function testDelete() {
-        // @todo Implement it!
+        $objectID = $this->object->create(
+            'C__OBJTYPE__SERVER',
+            'Delete Me'
+        );
+
+        $this->assertInstanceOf(
+            CMDBObject::class,
+            $this->object->delete($objectID)
+        );
     } //function
 
     public function testPurge() {
-        // @todo Implement it!
+        $objectID = $this->object->create(
+            'C__OBJTYPE__SERVER',
+            'Purge Me'
+        );
+
+        $this->assertInstanceOf(
+            CMDBObject::class,
+            $this->object->purge($objectID)
+        );
     } //function
 
 } //class

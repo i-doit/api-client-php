@@ -374,6 +374,51 @@ var_dump($result);
 ~~~
 
 
+####    Reports
+
+List all reports:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBReports;
+
+$api = new API([/* … */]);
+$reports = new CMDBReports($api);
+
+$result = $reports->listReports();
+
+var_dump($result);
+~~~
+
+Fetch the result of a report:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBReports;
+
+$api = new API([/* … */]);
+$reports = new CMDBReports($api);
+
+$result = $reports->read(1);
+
+var_dump($result);
+~~~
+
+Fetch the result of one or more reports:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBReports;
+
+$api = new API([/* … */]);
+$reports = new CMDBReports($api);
+
+$result = $reports->batchRead([1, 2]);
+
+var_dump($result);
+~~~
+
+
 ### Self-defined Request
 
 Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this client. Here is the way to perform a self-defined request:

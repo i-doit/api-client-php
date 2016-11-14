@@ -32,7 +32,7 @@ class CMDBObject extends Request {
     /**
      * Creates a new object
      *
-     * @param string|int $type Object type identifier or its constant
+     * @param int|string $type Object type identifier or its constant
      * @param string $title Object title
      * @param array $attributes (Optional) additional common attributes ('category', 'purpose', 'cmdb_status', 'description')
      *

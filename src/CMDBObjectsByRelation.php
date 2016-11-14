@@ -30,16 +30,36 @@ namespace bheisig\idoitapi;
 class CMDBObjectsByRelation extends Request {
 
     /**
-     * Reads object relations by type
+     * Reads object relations by their type identifier
      *
      * @param int $objectID Object identifier
-     * @param string|int $relationType Relation type constant or its identifier
+     * @param int $relationType Relation type identifier
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function read($objectID, $relationType) {
+    public function readByID($objectID, $relationType) {
+        return $this->api->request(
+            'cmdb.objects_by_relation.read',
+            [
+                'id' => $objectID,
+                'relation_type' => $relationType
+            ]
+        );
+    } //function
+
+    /**
+     * Reads object relations by their type constant
+     *
+     * @param int $objectID Object identifier
+     * @param string $relationType Relation type constant
+     *
+     * @return array
+     *
+     * @throws \Exception on error
+     */
+    public function readByConst($objectID, $relationType) {
         return $this->api->request(
             'cmdb.objects_by_relation.read',
             [

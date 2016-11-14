@@ -70,7 +70,7 @@ class CMDBLocationTree extends Request {
 
             $node = $child;
 
-            $childChildren = $this->read($child['id']);
+            $childChildren = $this->read((int) $child['id']);
 
             if (count($childChildren) > 0) {
                 $node['children'] = $childChildren;

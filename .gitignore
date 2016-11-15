@@ -3,3 +3,4 @@ vendor/
 ChangeLog
 README
 *.tar.gz
+composer.lock

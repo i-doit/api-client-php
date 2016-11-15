@@ -57,6 +57,12 @@ After that you need to call composer to install the API client (under `vendor/bh
 composer install
 ~~~
 
+As an alternative to the steps mentioned above just run:
+
+~~~ {.bash}
+composer require "bheisig/idoitapi=@DEV"
+~~~
+
 ####    System-wide
 
 For a system-wide installation you may use:

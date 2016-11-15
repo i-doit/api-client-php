@@ -205,8 +205,30 @@ class CMDBCategory extends Request {
         // @todo Implement it.
     } //function
 
-    public function batchRead() {
-        // @todo Implement it.
+    /**
+     * Reads one or more category entries for a specific object
+     *
+     * @param int[] $objectIDs List of object identifiers
+     * @param string $categoryConst Category constant
+     *
+     * @return array Indexed array of result sets (for both single- and multi-valued categories)
+     *
+     * @throws \Exception on error
+     */
+    public function batchRead($objectIDs, $categoryConst) {
+        $requests = [];
+
+        foreach ($objectIDs as $objectID) {
+            $requests[] = [
+                'method' => 'cmdb.category.read',
+                'params' => [
+                    'objID' => $objectID,
+                    'category' => $categoryConst
+                ]
+            ];
+        } //foreach
+
+        return $this->api->batchRequest($requests);
     } //function
 
     public function batchUpdate() {

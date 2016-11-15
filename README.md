@@ -168,7 +168,7 @@ use bheisig\idoitapi\API;
 use bheisig\idoitapi\Idoit;
 
 $api = new API([
-    'apiURL' => 'https://demo.i-doit.com/src/jsonrpc.php',
+    'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
     'key' => 'c1ia5q',
     'username' => 'admin',
     'password' => 'admin'

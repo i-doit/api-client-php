@@ -472,8 +472,10 @@ class API {
 
         if (isset($this->session)) {
             $options[CURLOPT_HTTPHEADER][] = 'X-RPC-Auth-Session: ' . $this->session;
-        } else if (is_string($this->config[self::USERNAME]) &&
+        } else if (array_key_exists(self::USERNAME, $this->config) &&
+            is_string($this->config[self::USERNAME]) &&
             !empty($this->config[self::USERNAME]) &&
+            array_key_exists(self::PASSWORD, $this->config) &&
             is_string($this->config[self::PASSWORD]) &&
             !empty($this->config[self::PASSWORD])) {
             $options[CURLOPT_HTTPHEADER][] = 'X-RPC-Auth-Username: ' . $this->config[self::USERNAME];

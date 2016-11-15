@@ -29,8 +29,34 @@ namespace bheisig\idoitapi;
  */
 class CMDBObjects extends Request {
 
-    public function create() {
-        // @todo Implement it.
+    /**
+     * Creates one or more objects
+     *
+     * @param array $objects Mandatory attributes ('type', 'title') and optional attributes ('category', 'purpose', 'cmdb_status', 'description')
+     *
+     * @return array List of object identifiers
+     *
+     * @throws \Exception on error
+     */
+    public function create(array $objects) {
+        $requests = [];
+
+        foreach ($objects as $object) {
+            $requests[] = [
+                'method' => 'cmdb.object.create',
+                'params' => $object
+            ];
+        } //foreach
+
+        $result = $this->api->batchRequest($requests);
+
+        $objectIDs = [];
+
+        foreach ($result as $object) {
+            $objectIDs[] = (int) $object['id'];
+        } //foreach
+
+        return $objectIDs;
     } //function
 
     /**
@@ -110,24 +136,114 @@ class CMDBObjects extends Request {
         );
     } //function
 
-    public function update() {
-        // @todo Implement it.
+    /**
+     * Updates one or more existing objects
+     *
+     * @param array $objects Indexed array of object attributes ('id' and 'title')
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function update(array $objects) {
+        $requests = [];
+
+        foreach ($objects as $object) {
+            $requests[] = [
+                'method' => 'cmdb.object.update',
+                'params' => $object
+            ];
+        } //foreach
+
+        $this->api->batchRequest($requests);
+
+        return $this;
     } //function
 
+    /**
+     * Archives one or more objects
+     *
+     * @param int[] $objectIDs List of object identifiers
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
     public function archive(array $objectIDs) {
-        // @todo Implement it.
+        $requests = [];
+
+        foreach ($objectIDs as $objectID) {
+            $requests[] = [
+                'method' => 'cmdb.object.delete',
+                'params' => [
+                    'id' => $objectID,
+                    'status' => 'C__RECORD_STATUS__ARCHIVED'
+                ]
+            ];
+        } //foreach
+
+        $this->api->batchRequest($requests);
+
+        return $this;
     } //function
 
+    /**
+     * Deletes one or more objects
+     *
+     * @param int[] $objectIDs List of object identifiers
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
     public function delete(array $objectIDs) {
-        // @todo Implement it.
+        $requests = [];
+
+        foreach ($objectIDs as $objectID) {
+            $requests[] = [
+                'method' => 'cmdb.object.delete',
+                'params' => [
+                    'id' => $objectID,
+                    'status' => 'C__RECORD_STATUS__DELETED'
+                ]
+            ];
+        } //foreach
+
+        $this->api->batchRequest($requests);
+
+        return $this;
     } //function
 
+    /**
+     * Purges one or more objects
+     *
+     * @param int[] $objectIDs List of object identifiers
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
     public function purge(array $objectIDs) {
-        // @todo Implement it.
+        $requests = [];
+
+        foreach ($objectIDs as $objectID) {
+            $requests[] = [
+                'method' => 'cmdb.object.delete',
+                'params' => [
+                    'id' => $objectID,
+                    'status' => 'C__RECORD_STATUS__PURGE'
+                ]
+            ];
+        } //foreach
+
+        $this->api->batchRequest($requests);
+
+        return $this;
     } //function
 
-    public function restore(array $objectIDs) {
-        // @todo Implement it.
-    } //function
+// @todo Does not work:
+//    public function restore(array $objectIDs) {
+//
+//    } //function
 
 } //class

@@ -176,7 +176,7 @@ class CMDBCategory extends Request {
      * @throws \Exception on error
      */
     public function delete($objectID, $categoryConst, $entryID = null, $isGlobal = true) {
-        $this
+        return $this
             ->archive($objectID, $categoryConst, $entryID, $isGlobal)
             ->archive($objectID, $categoryConst, $entryID, $isGlobal);
     }
@@ -195,7 +195,7 @@ class CMDBCategory extends Request {
      * @throws \Exception on error
      */
     public function purge($objectID, $categoryConst, $entryID = null, $isGlobal = true) {
-        $this
+        return $this
             ->archive($objectID, $categoryConst, $entryID, $isGlobal)
             ->archive($objectID, $categoryConst, $entryID, $isGlobal)
             ->archive($objectID, $categoryConst, $entryID, $isGlobal);
@@ -206,26 +206,28 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Reads one or more category entries for a specific object
+     * Reads one or more category entries for one or more objects
      *
      * @param int[] $objectIDs List of object identifiers
-     * @param string $categoryConst Category constant
+     * @param string[] $categoryConsts Category constants
      *
      * @return array Indexed array of result sets (for both single- and multi-valued categories)
      *
      * @throws \Exception on error
      */
-    public function batchRead($objectIDs, $categoryConst) {
+    public function batchRead($objectIDs, $categoryConsts) {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {
-            $requests[] = [
-                'method' => 'cmdb.category.read',
-                'params' => [
-                    'objID' => $objectID,
-                    'category' => $categoryConst
-                ]
-            ];
+            foreach ($categoryConsts as $categoryConst) {
+                $requests[] = [
+                    'method' => 'cmdb.category.read',
+                    'params' => [
+                        'objID' => $objectID,
+                        'category' => $categoryConst
+                    ]
+                ];
+            }
         }
 
         return $this->api->batchRequest($requests);

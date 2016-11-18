@@ -331,6 +331,146 @@ $object->purge($objectID);
 ~~~
 
 
+####    Create Category Entries with Attributes
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBCategory;
+
+$api = new API([/* … */]);
+
+$category = new CMDBCategory($api);
+$entryID = $this->category->create(
+    42,
+    'C__CATG__IP',
+    [
+        'net' => 123,
+        'active' => false,
+        'primary' => false,
+        'net_type' => 1,
+        'ipv4_assignment' => 2,
+        "ipv4_address" =>  '10.20.10.100',
+        'description' => 'API TEST'
+    ]
+);
+
+var_dump($entryID);
+~~~
+
+
+####    Read Categories and Attributes
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBCategory;
+
+$api = new API([/* … */]);
+
+$category = new CMDBCategory($api);
+$result = $category->read(42, 'C__CATG__IP');
+
+var_dump($result);
+~~~
+
+Same goes for multiple objects and categories at once:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBCategory;
+
+$api = new API([/* … */]);
+
+$category = new CMDBCategory($api);
+$result = $category->batchRead(
+    [23, 42],
+    ['C__CATG__IP', 'C__CATG__MODEL']
+);
+
+var_dump($result);
+~~~
+
+
+####    Update Categories and Attributes
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBCategory;
+
+$api = new API([/* … */]);
+
+$category = new CMDBCategory($api);
+$category->update(
+    42,
+    'C__CATG__GLOBAL',
+    [
+        'cmdb_status' => 10
+    ]
+);
+~~~
+
+
+####    Change Documentation Status of a Category and its Attributes
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBCategory;
+
+$api = new API([/* … */]);
+
+$category = new CMDBCategory($api);
+// Archive:
+$category->archive(42, 'C__CATG__CPU', 1);
+// Mark as deleted:
+$category->delete(42, 'C__CATG__CPU', 2);
+// Purge from database:
+$category->purge(42, 'C__CATG__CPU', 3);
+~~~
+
+
+####    Create Values in Drop-down Menus
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBDialog;
+
+$api = new API([/* … */]);
+
+$dialog = new CMDBDialog($api);
+
+$entryID = $dialog->create('C__CATG__MODEL', 'model', 'My model');
+var_dump($entryID);
+
+$entryIDs = $dialog->batchCreate([
+    'C__CATG__MODEL' => [
+        'model' => 'My model 1',
+        'model' => 'My model 2'
+    ]
+]);
+var_dump($entryIDs);
+~~~
+
+
+####    Fetch Values of Drop-down Menus
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBDialog;
+
+$api = new API([/* … */]);
+
+$dialog = new CMDBDialog($api);
+
+$models = $dialog->read('C__CATG__MODEL', 'model');
+var_dump($models);
+
+$modelsAndManufacturers = $dialog->batchRead([
+    'C__CATG__MODEL' => 'model',
+    'C__CATG__MODEL' => 'manufacturer'
+]);
+var_dump($modelsAndManufacturers);
+~~~
+
+
 ####    Build a Location Tree
 
 Read objects located directly under an object:
@@ -462,6 +602,51 @@ $result = $api->batchRequest([
 ]);
 
 var_dump($result);
+~~~
+
+
+### Read Information About Your CMDB Design
+
+Fetch information about object types, object types per group, categories assigned to object types, and attributes available in categories:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObjectTypes;
+use bheisig\idoitapi\CMDBObjectTypeGroups;
+use bheisig\idoitapi\CMDBObjectTypeCategories;
+use bheisig\idoitapi\CMDBCategoryInfo;
+
+$api = new API([/* … */]);
+
+// Object types:
+$objectTypes = new CMDBObjectTypes($api);
+$allObjectTypes = $objectTypes->read();
+var_dump($allObjectTypes);
+$server = $objectTypes->readOne('C__OBJTYPE__SERVER');
+var_dump($server);
+$someObjectTypes = $objectTypes->batchRead('C__OBJTYPE__SERVER', 'C__OBJTYPE__CLIENT');
+var_dump($someObjectTypes);
+$client = $objectTypes->readByTitle('Client');
+var_dump($client);
+
+// Object types per group:
+$objectTypesPerGroup = new CMDBObjectTypeGroups($api);
+$objectTypes = $objectTypesPerGroup->read();
+var_dump($objectTypes);
+
+// Categories assigned to object types:
+$assignedCategory = new CMDBObjectTypeCategories($api);
+$serverCategories = $assignedCategory->readByConst('C__OBJTYPE__SERVER');
+var_dump($serverCategories);
+
+// Attributes available in categories:
+$categoryInfo = new CMDBCategoryInfo($api);
+$modelCategory = $categoryInfo->read('C__CATG__MODEL');
+var_dump($modelCategory);
+$attributes = $categoryInfo->batchRead([
+    'C__CATG__MODEL', 'C__CATG__FORMFACTOR'
+]);
+var_dump($attributes);
 ~~~
 
 

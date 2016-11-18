@@ -32,7 +32,7 @@ class CMDBObjectTypeCategories extends Request {
     /**
      * Fetches assigned categories for a specific object type by its identifier
      *
-     * @param int $objectTypeID Object type idenfifier
+     * @param int $objectTypeID Object type identifier
      *
      * @return array
      *

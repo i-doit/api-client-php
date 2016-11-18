@@ -94,7 +94,7 @@ tar xvzf FIXME
 cd i-doit-api-client-php/
 ~~~
 
-### Using Git
+### Fetch Source Code
 
 Fetch the current (unstable) development branch:
 
@@ -210,18 +210,40 @@ $api->isLoggedIn(); // Returns true or false
 
 For almost every case there is a remote procedure you may call to read from or manipulate i-doit's database through its API. Each remote procedure is assigned to a namespace to keep the API clean and smoothly. Furtunately, you do not need to call these remote procedures on your own. The API client provides for each namespace a class and for each remote procedure a method. Here is a quick overview:
 
-| Namespace         | Remote Procedure      | API Client Class          | Method                                |
-| ----------------- | --------------------- | ------------------------- | ------------------------------------- |
-| `idoit`           | `idoit.version`       | `Idoit`                   | `readVersion()`                       |
-|                   | `idoit.search`        |                           | `search()`                            |
-|                   | `idoit.constants`     |                           | `readConstants()`                     |
-|                   | `idoit.login`         | `API`                     | `login()`                             |
-|                   | `idoit.logout`        |                           | `logout()`                            |
-| `cmdb.object`     | `cmdb.object.create`  | `CMDBObject`              | `create()`                            |
-|                   | `cmdb.object.read`    |                           | `read()`                              |
-|                   | `cmdb.object.update`  |                           | `udpate()`                            |
-|                   | `cmdb.object.delete`  |                           | `archive()`, `delete()`, `purge()`    |
-| `cmdb.objects`    | `cmdb.objects.read`   | `CMDBObjects`             | `read()`                              |
+| Namespace                     | Remote Procedure Call (RPC)           | API Client Class              | Method                                        |
+| ----------------------------- | ------------------------------------- | ----------------------------- | --------------------------------------------- |
+| `idoit`                       | `idoit.version`                       | `Idoit`                       | `readVersion()`                               |
+|                               | `idoit.search`                        |                               | `search()`                                    |
+|                               | `idoit.constants`                     |                               | `readConstants()`                             |
+|                               | `idoit.login`                         | `API`                         | `login()`                                     |
+|                               | `idoit.logout`                        |                               | `logout()`                                    |
+| `cmdb.object`                 | `cmdb.object.create`                  | `CMDBObject`                  | `create()`                                    |
+|                               | `cmdb.object.read`                    |                               | `read()`                                      |
+|                               | `cmdb.object.update`                  |                               | `udpate()`                                    |
+|                               | `cmdb.object.delete`                  |                               | `archive()`, `delete()`, `purge()`            |
+| `cmdb.objects`                | `cmdb.objects.read`                   | `CMDBObjects`                 | `read()`                                      |
+| `cmdb.category`               | `cmdb.category.create`                | `CMDBCategory`                | `create()`                                    |
+|                               | `cmdb.category.read`                  |                               | `read()`                                      |
+|                               | `cmdb.category.update`                |                               | `update()`                                    |
+|                               | `cmdb.category.delete`                |                               | `archive()`, `delete()`, `purge()`            |
+| `cmdb.category_info`          | `cmdb.category_info.read`             | `CMDBCategoryInfo`            | `read()`                                      |
+| `cmdb.dialog`                 | `cmdb.dialog.create`                  | `CMDBDialog`                  | `create()`                                    |
+|                               | `cmdb.dialog.read`                    |                               | `read()`                                      |
+| `cmdb.impact`                 | `cmdb.impact.read`                    | `CMDBImpact`                  | `readByID()`, `readByConst()`                 |
+| `cmdb.location_tree`          | `cmdb.location_tree.read`             | `CMDBLocationTree`            | `read()`, `readRecursively()`                 |
+| `cmdb.logbook`                | `cmdb.logbook.create`                 | `CMDBLogbook`                 | `create()`                                    |
+|                               | `cmdb.logbook.read`                   |                               | `read()`                                      |
+| `cmdb.objects_by_relation`    | `cmdb.objects_by_relation.read`       | `CMDBObjectsByRelation`       | `readByID()`, `readByConst()`                 |
+| `cmdb.object_type_categories` | `cmdb.object_type_categories.read`    | `CMDBObjectTypeCategories`    | `readByID()`, `readByConst()`                 |
+| `cmdb.object_type_groups`     | `cmdb.object_type_groups.read`        | `CMDBObjectTypeGroups`        | `read()`                                      |
+| `cmdb.object_types`           | `cmdb.object_types.read`              | `CMDBObjectTypes`             | `read()`, `readOne()`, `readByTitle()`        |
+| `cmdb.reports`                | `cmdb.reports.read`                   | `CMDBReports`                 | `read()`, `listReports()`                     |
+| `cmdb.workstation_components` | `cmdb.workstation_components.read`    | `CMDBWorkstationComponents`   | `read()`, `readByEMail()`, `readByEMails()`   |
+
+
+Additionally, this API client is shipped with methods as workarounds for remote procedure call you probably miss. The RPC `cmdb.objects.create` does not exist but you may use `CMDBObjects::create()`. It simulates the missing RPC and gives you an easier and faster way to manipulate your IT documentation/CMDB.
+
+When it makes sense for most RPCs there is method performing a batch request. For example: `CMDBCategory::batchRead()`.
 
 
 ####    Search in i-doit's database
@@ -730,7 +752,7 @@ $nextIP = "not available";
 if ($netInfo[0]['type']['const'] !== 'C__CATS_NET_TYPE__IPV4') {
     echo 'Only works for IPv4';
     die;
-} //if
+}
 
 for ($ipLong = $firstIP; $ipLong <= $lastIP; $ipLong++) {
     $found = false;
@@ -741,14 +763,14 @@ for ($ipLong = $firstIP; $ipLong <= $lastIP; $ipLong++) {
         if ($takenIPLong === $ipLong) {
             $found = true;
             break;
-        } //if
-    } //foreach
+        }
+    }
 
     if ($found === false) {
         $nextIP = long2ip($ipLong);
         break;
-    } //if
-} //for
+    }
+}
 
 echo 'Next IP address: ' . $nextIP . PHP_EOL;
 ~~~

@@ -520,6 +520,55 @@ var_dump($api->getLastResponseHeaders());
 ~~~
 
 
+### Enhanced Examples
+
+These are more sophisticated use cases.
+
+
+####    Give Me A Free IP Address
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBCategory;
+
+$api = new API([/* … */]);
+
+$category = new CMDBCategory($api);
+$netID = 632; // "Admin" object
+$netInfo = $category->read($netID, 'C__CATS__NET');
+$firstIP = ip2long($netInfo[0]['range_from']);
+$lastIP = ip2long($netInfo[0]['range_to']);
+$takenIPAddresses = $category->read($netID, 'C__CATS__NET_IP_ADDRESSES');
+$ipLong = $firstIP;
+$nextIP = "not available";
+
+if ($netInfo[0]['type']['const'] !== 'C__CATS_NET_TYPE__IPV4') {
+    echo 'Only works for IPv4';
+    die;
+} //if
+
+for ($ipLong = $firstIP; $ipLong <= $lastIP; $ipLong++) {
+    $found = false;
+
+    foreach ($takenIPAddresses as $takenIPAddress) {
+        $takenIPLong = ip2long($takenIPAddress['title']);
+
+        if ($takenIPLong === $ipLong) {
+            $found = true;
+            break;
+        } //if
+    } //foreach
+
+    if ($found === false) {
+        $nextIP = long2ip($ipLong);
+        break;
+    } //if
+} //for
+
+echo 'Next IP address: ' . $nextIP . PHP_EOL;
+~~~
+
+
 ##  Contribute
 
 Please, report any issues to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues). Pull requests are very welcomed.

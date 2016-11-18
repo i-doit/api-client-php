@@ -47,7 +47,7 @@ class CMDBObjectsByRelation extends Request {
                 'relation_type' => $relationType
             ]
         );
-    } //function
+    }
 
     /**
      * Reads object relations by their type constant
@@ -67,6 +67,6 @@ class CMDBObjectsByRelation extends Request {
                 'relation_type' => $relationType
             ]
         );
-    } //function
+    }
 
-} //class
+}

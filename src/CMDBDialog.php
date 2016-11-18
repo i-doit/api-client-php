@@ -53,10 +53,10 @@ class CMDBDialog extends Request {
         if (!array_key_exists('id', $result) ||
             !is_numeric($result['id'])) {
             throw new \Exception('Bad result');
-        } //if
+        }
 
         return (int) $result['id'];
-    } //function
+    }
 
     /**
      * Creates one or more entries for a drow-down menu
@@ -81,7 +81,7 @@ class CMDBDialog extends Request {
                     ]
                 ];
             }
-        } //foreach
+        }
 
         $entryIDs = [];
 
@@ -91,13 +91,13 @@ class CMDBDialog extends Request {
             if (!array_key_exists('id', $entry) ||
                 !is_numeric($entry['id'])) {
                 throw new \Exception('Bad result');
-            } //if
+            }
 
             $entryIDs[] = (int) $entry['id'];
-        } //foreach
+        }
 
         return $entryIDs;
-    } //function
+    }
 
     /**
      * Fetches values from a specific drop-down menu
@@ -117,7 +117,7 @@ class CMDBDialog extends Request {
                 'property' => $attribute
             ]
         );
-    } //function
+    }
 
     /**
      * Fetches values from one or more drop-down menus
@@ -139,9 +139,9 @@ class CMDBDialog extends Request {
                     'property' => $attribute
                 ]
             ];
-        } //foreach
+        }
 
         return $this->api->batchRequest($requests);
-    } //function
+    }
 
-} //class
+}

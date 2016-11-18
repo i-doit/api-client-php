@@ -53,20 +53,20 @@ class CMDBObjectTypeGroups extends Request {
 
         if (isset($orderBy)) {
             $params['order_by'] = $orderBy;
-        } //if
+        }
 
         if (isset($sortDirection)) {
             $params['sort'] = $sortDirection;
-        } //if
+        }
 
         if (isset($limit)) {
             $params['limit'] = $limit;
-        } //if
+        }
 
         return $this->api->request(
             'cmdb.object_type_groups.read',
             $params
         );
-    } //function
+    }
 
-} //class
+}

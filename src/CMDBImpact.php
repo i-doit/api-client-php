@@ -47,7 +47,7 @@ class CMDBImpact extends Request {
                 'relation_type' => $relationType
             ]
         );
-    } //function
+    }
 
     /**
      * Performs an impact analysis for a specific object by its relation type constant
@@ -67,6 +67,6 @@ class CMDBImpact extends Request {
                 'relation_type' => $relationType
             ]
         );
-    } //function
+    }
 
-} //class
+}

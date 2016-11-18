@@ -49,7 +49,7 @@ class Select extends Request {
 
         foreach ($objects as $object) {
             $objectIDs[] = (int) $object['id'];
-        } //foreach
+        }
 
         unset($objects);
 
@@ -66,22 +66,22 @@ class Select extends Request {
             foreach ($categoryEntries as $categoryEntry) {
                 if (!array_key_exists($attribute, $categoryEntry)) {
                     continue;
-                } //if
+                }
 
                 // @todo This is way more complicated:
                 if ($categoryEntry[$attribute] != $value) {
                     continue;
-                } //if
+                }
 
                 if (!array_key_exists('objID', $categoryEntry)) {
                     throw new \Exception('Found attribute for unknown object');
-                } //if
+                }
 
                 $objectIDs[] = (int) $categoryEntry['objID'];
-            } //foreach
-        } //foreach
+            }
+        }
 
         return $objectIDs;
-    } //function
+    }
 
-} //class
+}

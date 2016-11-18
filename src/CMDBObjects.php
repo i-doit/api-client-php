@@ -46,7 +46,7 @@ class CMDBObjects extends Request {
                 'method' => 'cmdb.object.create',
                 'params' => $object
             ];
-        } //foreach
+        }
 
         $result = $this->api->batchRequest($requests);
 
@@ -54,10 +54,10 @@ class CMDBObjects extends Request {
 
         foreach ($result as $object) {
             $objectIDs[] = (int) $object['id'];
-        } //foreach
+        }
 
         return $objectIDs;
-    } //function
+    }
 
     /**
      * Fetch objects
@@ -76,25 +76,25 @@ class CMDBObjects extends Request {
 
         if (isset($filter)) {
             $params['filter'] = $filter;
-        } //if
+        }
 
         if (isset($limit)) {
             $params['limit'] = $limit;
-        } //if
+        }
 
         if (isset($orderBy)) {
             $params['order_by'] = $orderBy;
-        } //if
+        }
 
         if (isset($sort)) {
             $params['sort'] = $sort;
-        } //if
+        }
 
         return $this->api->request(
             'cmdb.objects.read',
             $params
         );
-    } //function
+    }
 
     /**
      * Fetch objects by their identifiers
@@ -114,7 +114,7 @@ class CMDBObjects extends Request {
                 ]
             ]
         );
-    } //function
+    }
 
     /**
      * Fetch objects by their object type
@@ -134,7 +134,7 @@ class CMDBObjects extends Request {
                 ]
             ]
         );
-    } //function
+    }
 
     /**
      * Updates one or more existing objects
@@ -153,12 +153,12 @@ class CMDBObjects extends Request {
                 'method' => 'cmdb.object.update',
                 'params' => $object
             ];
-        } //foreach
+        }
 
         $this->api->batchRequest($requests);
 
         return $this;
-    } //function
+    }
 
     /**
      * Archives one or more objects
@@ -180,12 +180,12 @@ class CMDBObjects extends Request {
                     'status' => 'C__RECORD_STATUS__ARCHIVED'
                 ]
             ];
-        } //foreach
+        }
 
         $this->api->batchRequest($requests);
 
         return $this;
-    } //function
+    }
 
     /**
      * Deletes one or more objects
@@ -207,12 +207,12 @@ class CMDBObjects extends Request {
                     'status' => 'C__RECORD_STATUS__DELETED'
                 ]
             ];
-        } //foreach
+        }
 
         $this->api->batchRequest($requests);
 
         return $this;
-    } //function
+    }
 
     /**
      * Purges one or more objects
@@ -234,16 +234,16 @@ class CMDBObjects extends Request {
                     'status' => 'C__RECORD_STATUS__PURGE'
                 ]
             ];
-        } //foreach
+        }
 
         $this->api->batchRequest($requests);
 
         return $this;
-    } //function
+    }
 
 // @todo Does not work:
 //    public function restore(array $objectIDs) {
 //
-//    } //function
+//    }
 
-} //class
+}

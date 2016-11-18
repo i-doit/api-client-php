@@ -53,8 +53,8 @@ class CMDBObject extends Request {
             return (int) $result['id'];
         } else {
             throw new \Exception('Unable to create object');
-        } //if
-    } //function
+        }
+    }
 
     /**
      * Reads an object
@@ -69,7 +69,7 @@ class CMDBObject extends Request {
         return $this->api->request('cmdb.object.read', [
             'id' => $objectID
         ]);
-    } //function
+    }
 
     /**
      * Updates an existing object
@@ -93,8 +93,8 @@ class CMDBObject extends Request {
         foreach ($supportedAttributes as $supportedAttribute) {
             if (array_key_exists($supportedAttribute, $attributes)) {
                 $params[$supportedAttribute] = $attributes[$supportedAttribute];
-            } //if
-        } //foreach
+            }
+        }
 
         $result = $this->api->request(
             'cmdb.object.update',
@@ -108,10 +108,10 @@ class CMDBObject extends Request {
                 'Unable to archive object %s',
                 $objectID
             ));
-        } //if
+        }
 
         return $this;
-    } //function
+    }
 
     /**
      * Archives an object
@@ -138,10 +138,10 @@ class CMDBObject extends Request {
                 'Unable to archive object %s',
                 $objectID
             ));
-        } //if
+        }
 
         return $this;
-    } //function
+    }
 
     /**
      * Deletes an object
@@ -168,10 +168,10 @@ class CMDBObject extends Request {
                 'Unable to delete object %s',
                 $objectID
             ));
-        } //if
+        }
 
         return $this;
-    } //function
+    }
 
     /**
      * Purges an object
@@ -198,10 +198,10 @@ class CMDBObject extends Request {
                 'Unable to purge object %s',
                 $objectID
             ));
-        } //if
+        }
 
         return $this;
-    } //function
+    }
 
 // @todo Does not work:
 //    public function restore($objectID) {
@@ -224,7 +224,7 @@ class CMDBObject extends Request {
 //                'Unable to restore object %s',
 //                $objectID
 //            ));
-//        } //if
-//    } //function
+//        }
+//    }
 
-} //class
+}

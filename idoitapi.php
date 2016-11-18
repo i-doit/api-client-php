@@ -35,8 +35,8 @@ spl_autoload_register(
                 $class
             );
 
-            require_once 'src/' . $file . '.php';
-        } //if
+            require_once __DIR__ . '/src/' . $file . '.php';
+        }
     },
     true
 );

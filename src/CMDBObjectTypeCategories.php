@@ -45,7 +45,7 @@ class CMDBObjectTypeCategories extends Request {
                 'type' => $objectTypeID
             ]
         );
-    } //function
+    }
 
     /**
      * Fetches assigned categories for a specific object type by its constant
@@ -63,6 +63,6 @@ class CMDBObjectTypeCategories extends Request {
                 'type' => $objectTypeConst
             ]
         );
-    } //function
+    }
 
-} //class
+}

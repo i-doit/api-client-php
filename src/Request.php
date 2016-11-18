@@ -43,6 +43,6 @@ abstract class Request {
      */
     public function __construct(API $api) {
         $this->api = $api;
-    } //function
+    }
 
-} //class
+}

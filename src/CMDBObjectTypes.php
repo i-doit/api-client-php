@@ -43,7 +43,7 @@ class CMDBObjectTypes extends Request {
                 'countobjects' => true
             ]
         );
-    } //function
+    }
 
     /**
      * Fetches information about an object type by its constant
@@ -66,7 +66,7 @@ class CMDBObjectTypes extends Request {
         );
 
         return end($result);
-    } //function
+    }
 
     /**
      * Fetches information about one or more object types by their constants
@@ -87,7 +87,7 @@ class CMDBObjectTypes extends Request {
                 'countobjects' => true
             ]
         );
-    } //function
+    }
 
     /**
      * Fetches information about an object type by its title
@@ -110,6 +110,6 @@ class CMDBObjectTypes extends Request {
         );
 
         return end($result);
-    } //function
+    }
 
-} //class
+}

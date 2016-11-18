@@ -164,8 +164,8 @@ class API {
 
         if (is_readable('project.json')) {
             $this->project = json_decode(file_get_contents("project.json"), true);
-        } //if
-    } //function
+        }
+    }
 
     /**
      * Destructor automatically logouts and disconnects from API if necessary
@@ -174,15 +174,15 @@ class API {
         try {
             if ($this->isLoggedIn()) {
                 $this->logout();
-            } //if
+            }
 
             if ($this->isConnected()) {
                 $this->disconnect();
-            } //if
+            }
         } catch (\Exception $e) {
             // Do nothing because this is a destructor.
-        } //try/catch
-    } //function
+        }
+    }
 
     /**
      * Is client connected to API?
@@ -191,7 +191,7 @@ class API {
      */
     public function isConnected() {
         return is_resource($this->resource);
-    } //function
+    }
 
     /**
      * Is client logged-in to API?
@@ -200,7 +200,7 @@ class API {
      */
     public function isLoggedIn() {
         return isset($this->session);
-    } //function
+    }
 
     /**
      * Connects to API
@@ -238,14 +238,13 @@ class API {
             CURLOPT_CONNECTTIMEOUT => 10
         ];
 
-        if (is_array($this->project)) {
-            if (array_key_exists('title', $this->project) &&
-                array_key_exists('version', $this->project)) {
-                $this->options[CURLOPT_USERAGENT] =
-                    $this->project['title'] . ' ' .
-                    $this->project['version'];
-            } //if
-        } //if
+        if (is_array($this->project) &&
+            array_key_exists('title', $this->project) &&
+            array_key_exists('version', $this->project)) {
+            $this->options[CURLOPT_USERAGENT] =
+                $this->project['title'] . ' ' .
+                $this->project['version'];
+        }
 
         if (isset($this->config[self::PROXY]) &&
             $this->config[self::PROXY][self::PROXY_ACTIVE] === true) {
@@ -256,7 +255,7 @@ class API {
                 !empty($this->config[self::PROXY][self::PROXY_USERNAME])) {
                 $this->options[CURLOPT_PROXYUSERPWD] = $this->config[self::PROXY][self::PROXY_USERNAME] .
                     ':' . $this->config[self::PROXY][self::PROXY_PASSWORD];
-            } //if
+            }
 
             switch ($this->config[self::PROXY][self::PROXY_TYPE]) {
                 case 'HTTP':
@@ -267,11 +266,11 @@ class API {
                     break;
                 default:
                     throw new \Exception(sprintf('Unknown proxy type "%s"', $this->config[self::PROXY][self::PROXY_TYPE]));
-            } //switch
-        } //if
+            }
+        }
 
         return $this;
-    } //function
+    }
 
     /**
      * Disconnects from API
@@ -286,14 +285,14 @@ class API {
         // Auto-connect:
         if ($this->isConnected() === false) {
             throw new \Exception('There is no connection.');
-        } //if
+        }
 
         curl_close($this->resource);
 
         $this->resource = null;
 
         return $this;
-    } //function
+    }
 
     /**
      * Logins to API
@@ -305,12 +304,12 @@ class API {
     public function login() {
         if ($this->isLoggedIn()) {
             throw new \Exception('Client is already logged-in.');
-        } //if
+        }
 
         // Auto-connect:
         if ($this->isConnected() === false) {
             $this->connect();
-        } //if
+        }
 
         $response = $this->request(
             'idoit.login'
@@ -318,12 +317,12 @@ class API {
 
         if (!array_key_exists('session-id', $response)) {
             throw new \Exception('Failed to login because i-doit responded without a session ID.');
-        } //if
+        }
 
         $this->session = $response['session-id'];
 
         return $this;
-    } //function
+    }
 
     /**
      * Logouts from API
@@ -335,7 +334,7 @@ class API {
     public function logout() {
         if ($this->isLoggedIn() === false) {
             throw new \Exception('Client is not logged-in.');
-        } //if
+        }
 
         $this->request(
             'idoit.logout'
@@ -344,7 +343,7 @@ class API {
         $this->session = null;
 
         return $this;
-    } //function
+    }
 
     /**
      * Generates new JSON-RPC request identifier
@@ -355,7 +354,7 @@ class API {
         $this->id++;
 
         return $this->id;
-    } //function
+    }
 
     /**
      * How many requests were already send?
@@ -364,7 +363,7 @@ class API {
      */
     public function countRequests() {
         return $this->id;
-    } //function
+    }
 
     /**
      * Sends request to API
@@ -388,14 +387,14 @@ class API {
 
         if (array_key_exists(self::LANGUAGE, $this->config)) {
             $data['params'][self::LANGUAGE] = $this->config[self::LANGUAGE];
-        } //if
+        }
 
         $response = $this->execute($data);
 
         $this->evaluateResponse($response);
 
         return $response['result'];
-    } //function
+    }
 
     /**
      * Performs multiple requests to API at once
@@ -412,19 +411,19 @@ class API {
         foreach ($requests as $request) {
             if (!array_key_exists('method', $request)) {
                 throw new \Exception('Missing method in one of the sub-requests of this batch request');
-            } //if
+            }
 
             $params = [];
 
             if (array_key_exists('params', $request)) {
                 $params = $request['params'];
-            } //if
+            }
 
             $params['apikey'] = $this->config[self::KEY];
 
             if (array_key_exists(self::LANGUAGE, $this->config)) {
                 $params[self::LANGUAGE] = $this->config[self::LANGUAGE];
-            } //if
+            }
 
             $data[] = [
                 'version' => '2.0',
@@ -432,7 +431,7 @@ class API {
                 'params' => $params,
                 'id' => $this->genID()
             ];
-        } //foreach
+        }
 
         $responses = $this->execute($data);
 
@@ -442,10 +441,10 @@ class API {
             $this->evaluateResponse($response);
 
             $results[] = $response['result'];
-        } //foreach
+        }
 
         return $results;
-    } //function
+    }
 
     /**
      * Sends request to API with headers and receives response
@@ -460,7 +459,7 @@ class API {
         // Auto-connect:
         if ($this->isConnected() === false) {
             $this->connect();
-        } //if
+        }
 
         $this->lastRequestContent = $data;
 
@@ -480,7 +479,7 @@ class API {
             !empty($this->config[self::PASSWORD])) {
             $options[CURLOPT_HTTPHEADER][] = 'X-RPC-Auth-Username: ' . $this->config[self::USERNAME];
             $options[CURLOPT_HTTPHEADER][] = 'X-RPC-Auth-Password: ' . $this->config[self::PASSWORD];
-        } //if
+        }
 
         curl_setopt_array($this->resource, $options);
 
@@ -490,7 +489,7 @@ class API {
 
         if ($responseString === false) {
             throw new \Exception('Connection failed or i-doit responds with an HTTP status code which is not "200 OK".');
-        } //if
+        }
 
         $responseLines = explode(PHP_EOL, $responseString);
 
@@ -500,10 +499,10 @@ class API {
 
         if (!is_array($response)) {
             throw new \Exception('i-doit responded with an invalid JSON string.');
-        } //if
+        }
 
         return $response;
-    } //function
+    }
 
     /**
      * Evaluates server response
@@ -522,14 +521,14 @@ class API {
                 $response['error']['code'],
                 $response['error']['data']['error']
             ));
-        } //if
+        }
 
         if (!array_key_exists('result', $response)) {
             throw new \Exception('i-doit forgot to add a result to its response.');
-        } //if
+        }
 
         return $this;
-    } //function
+    }
 
     /**
      * Get information about last client request
@@ -540,7 +539,7 @@ class API {
      */
     public function getLastInfo() {
         return $this->lastInfo;
-    } //function
+    }
 
     /**
      * Get HTTP headers of last client request
@@ -552,10 +551,10 @@ class API {
     public function getLastRequestHeaders() {
         if (array_key_exists('request_header', $this->lastInfo)) {
             return $this->lastInfo['request_header'];
-        } //if
+        }
 
         return '';
-    } //function
+    }
 
     /**
      * Get HTTP headers of last server response
@@ -566,7 +565,7 @@ class API {
      */
     public function getLastResponseHeaders() {
         return $this->lastResponseHeaders;
-    } //function
+    }
 
     /**
      * Get last request content
@@ -577,7 +576,7 @@ class API {
      */
     public function getLastRequestContent() {
         return $this->lastRequestContent;
-    } //function
+    }
 
     /**
      * Tests configuration settings
@@ -602,8 +601,8 @@ class API {
                     'Configuration setting "%s" is mandatory.',
                     $mandatorySetting
                 ));
-            } //if
-        } //foreach
+            }
+        }
 
         /**
          * Pre-checks
@@ -623,15 +622,15 @@ class API {
                 $value = $config[$subKey][$key];
             } else {
                 $value = $config[$key];
-            } //if
+            }
 
             if (!is_string($value) || empty($value)) {
                 throw new \Exception(sprintf(
                     'Configuration setting "%s" is invalid.',
                     $key
                 ));
-            } //if
-        }; //function
+            }
+        };
 
         /**
          * @param string $key
@@ -645,15 +644,15 @@ class API {
                 $value = $config[$subKey][$key];
             } else {
                 $value = $config[$key];
-            } //if
+            }
 
             if (!is_int($value) || $value < 1 || $value > 65535) {
                 throw new \Exception(sprintf(
                     'Configuration setting "%s" is not a valid port number between 1 and 65535.',
                     $key
                 ));
-            } //if
-        }; //function
+            }
+        };
 
         /**
          * URL
@@ -667,7 +666,7 @@ class API {
                 'Unsupported protocol in API URL "%s"',
                 $this->config[self::URL]
             ));
-        } //if
+        }
 
         /**
          * Port
@@ -675,13 +674,11 @@ class API {
 
         if (array_key_exists(self::PORT, $this->config)) {
             $checkPort(self::PORT);
-        } else {
-            if (strpos($this->config[self::URL], 'https://') === 0) {
-                $this->config[self::PORT] = 443;
-            } else if (strpos($this->config[self::URL], 'http://') === 0) {
-                $this->config[self::PORT] = 80;
-            } //if
-        } //if
+        } else if (strpos($this->config[self::URL], 'https://') === 0) {
+            $this->config[self::PORT] = 443;
+        } else if (strpos($this->config[self::URL], 'http://') === 0) {
+            $this->config[self::PORT] = 80;
+        }
 
         /**
          * API key
@@ -698,12 +695,12 @@ class API {
 
             if (!array_key_exists(self::PASSWORD, $this->config)) {
                 throw new \Exception('Username has no password.');
-            } //if
+            }
 
             $checkString(self::PASSWORD);
         } else if (array_key_exists(self::PASSWORD, $this->config)) {
             throw new \Exception('There is no username.');
-        } //if
+        }
 
         /**
          * Language
@@ -713,7 +710,7 @@ class API {
             $checkString(self::LANGUAGE);
 
             // No further checks because i-doit can handle a wrong language setting itself.
-        } //if
+        }
 
         /**
          * Proxy
@@ -722,7 +719,7 @@ class API {
         if (array_key_exists(self::PROXY, $this->config)) {
             if (!is_array($this->config[self::PROXY])) {
                 throw new \Exception('Proxy settings are invalid.');
-            } //if
+            }
 
             $mandatorySettings = [
                 self::PROXY_ACTIVE,
@@ -737,15 +734,15 @@ class API {
                         'Proxy setting "%s" is mandatory.',
                         $mandatorySetting
                     ));
-                } //if
-            } //foreach
+                }
+            }
 
             if (!is_bool($this->config[self::PROXY][self::PROXY_ACTIVE])) {
                 throw new \Exception(sprintf(
                     'Proxy setting "%s" must be a boolean.',
                     self::PROXY_ACTIVE
                 ));
-            } //if
+            }
 
             $checkString(self::PROXY_TYPE, self::PROXY);
             $checkString(self::PROXY_HOST, self::PROXY);
@@ -756,15 +753,15 @@ class API {
 
                 if (!array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
                     throw new \Exception('Proxy username has no password.');
-                } //if
+                }
 
                 $checkString(self::PROXY_PASSWORD, self::PROXY);
             } else if (array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
                 throw new \Exception('There is no proxy username.');
-            } //if
-        } //if
+            }
+        }
 
         return true;
-    } //functions
+    }
 
-} //class
+}

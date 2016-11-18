@@ -47,7 +47,7 @@ class CMDBObjectTest extends TestCase {
         ]);
 
         $this->object = new CMDBObject($this->api);
-    } //function
+    }
 
     public function testCreate() {
         $objectID = $this->object->create(
@@ -71,21 +71,21 @@ class CMDBObjectTest extends TestCase {
 
         $this->assertInternalType('int', $objectID);
         $this->assertGreaterThanOrEqual(1, $objectID);
-    } //function
+    }
 
     public function testRead() {
         $result = $this->object->read(1);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
     public function testUpdate() {
         $this->assertInstanceOf(
             CMDBObject::class,
             $this->object->update(9, ['title' => 'Anne Admin'])
         );
-    } //function
+    }
 
     public function testArchive() {
         $objectID = $this->object->create(
@@ -97,7 +97,7 @@ class CMDBObjectTest extends TestCase {
             CMDBObject::class,
             $this->object->archive($objectID)
         );
-    } //function
+    }
 
     public function testDelete() {
         $objectID = $this->object->create(
@@ -109,7 +109,7 @@ class CMDBObjectTest extends TestCase {
             CMDBObject::class,
             $this->object->delete($objectID)
         );
-    } //function
+    }
 
     public function testPurge() {
         $objectID = $this->object->create(
@@ -121,6 +121,6 @@ class CMDBObjectTest extends TestCase {
             CMDBObject::class,
             $this->object->purge($objectID)
         );
-    } //function
+    }
 
-} //class
+}

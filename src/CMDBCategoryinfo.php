@@ -46,13 +46,13 @@ class CMDBCategoryInfo extends Request {
             $params['catgID'] = $categoryConst;
         } else {
             $params['catsID'] = $categoryConst;
-        } //if
+        }
 
         return $this->api->request(
             'cmdb.category_info',
             $params
         );
-    } //function
+    }
 
     /**
      * Fetches information about one or more categories
@@ -75,9 +75,9 @@ class CMDBCategoryInfo extends Request {
                     'catgID' => $category
                 ]
             ];
-        } //foreach
+        }
 
         return $this->api->batchRequest($requests);
-    } //function
+    }
 
-} //class
+}

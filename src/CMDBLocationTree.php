@@ -47,7 +47,7 @@ class CMDBLocationTree extends Request {
                 'id' => $objectID
             ]
         );
-    } //function
+    }
 
     /**
      * Reads recursively objects located under an object
@@ -66,7 +66,7 @@ class CMDBLocationTree extends Request {
         foreach ($children as $child) {
             if (!array_key_exists('id', $child)) {
                 throw new \Exception('Broken result');
-            } //if
+            }
 
             $node = $child;
 
@@ -74,12 +74,12 @@ class CMDBLocationTree extends Request {
 
             if (count($childChildren) > 0) {
                 $node['children'] = $childChildren;
-            } //if
+            }
 
             $tree[] = $node;
-        } //foreach
+        }
 
         return $tree;
-    } //function
+    }
 
-} //class
+}

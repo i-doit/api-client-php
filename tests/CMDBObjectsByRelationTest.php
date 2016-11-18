@@ -47,7 +47,7 @@ class CMDBObjectsByRelationTest extends TestCase {
         ]);
 
         $this->relation = new CMDBObjectsByRelation($this->api);
-    } //function
+    }
 
     public function testRead() {
         $result = $this->relation->read(
@@ -57,6 +57,6 @@ class CMDBObjectsByRelationTest extends TestCase {
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
-} //class
+}

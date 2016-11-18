@@ -48,7 +48,7 @@ class CMDBLogbook extends Request {
 
         if (isset($description)) {
             $params['description'] = $description;
-        } //if
+        }
 
         $result = $this->api->request(
             'cmdb.logbook.create',
@@ -58,10 +58,10 @@ class CMDBLogbook extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             throw new \Exception('Bad result');
-        } //if
+        }
 
         return $this;
-    } //function
+    }
 
     /**
      * Creates one or more logbook entries for a specific object
@@ -84,12 +84,12 @@ class CMDBLogbook extends Request {
                     'message' => $message
                 ]
             ];
-        } //foreach
+        }
 
         $this->api->batchRequest($requests);
 
         return $this;
-    } //function
+    }
 
     /**
      * Fetches all logbook entries
@@ -105,13 +105,13 @@ class CMDBLogbook extends Request {
 
         if (isset($since)) {
             $params['since'] = $since;
-        } //if
+        }
 
         return $this->api->request(
             'cmdb.logbook.read',
             $params
         );
-    } //function
+    }
 
     /**
      * Fetches all logbook entries for a specific object
@@ -130,12 +130,12 @@ class CMDBLogbook extends Request {
 
         if (isset($since)) {
             $params['since'] = $since;
-        } //if
+        }
 
         return $this->api->request(
             'cmdb.logbook.read',
             $params
         );
-    } //function
+    }
 
-} //class
+}

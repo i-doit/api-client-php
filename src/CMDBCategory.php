@@ -51,7 +51,7 @@ class CMDBCategory extends Request {
             $params['catgID'] = $categoryConst;
         } else {
             $params['catsID'] = $categoryConst;
-        } //if
+        }
 
         $result = $this->api->request(
             'cmdb.category.create',
@@ -63,10 +63,10 @@ class CMDBCategory extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             throw new \Exception('Bad result');
-        } //if
+        }
 
         return (int) $result['id'];
-    } //function
+    }
 
     /**
      * Reads one or more category entries for a specific object
@@ -87,7 +87,7 @@ class CMDBCategory extends Request {
 
             ]
         );
-    } //function
+    }
 
     /**
      * Updates a category entry for a specific object
@@ -104,7 +104,7 @@ class CMDBCategory extends Request {
     public function update($objectID, $categoryConst, array $attributes, $entryID = null) {
         if (isset($entryID)) {
             $attributes['category_id'] = $entryID;
-        } //if
+        }
 
         $result = $this->api->request(
             'cmdb.category.update',
@@ -118,10 +118,10 @@ class CMDBCategory extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             throw new \Exception('Bad result');
-        } //if
+        }
 
         return $this;
-    } //function
+    }
 
     /**
      * Archives a category entry for a specific object
@@ -144,11 +144,11 @@ class CMDBCategory extends Request {
             $params['catgID'] = $categoryConst;
         } else {
             $params['catsID'] = $categoryConst;
-        } //if
+        }
 
         if (isset($entryID)) {
             $params['cateID'] = $entryID;
-        } //if
+        }
 
         $result = $this->api->request(
             'cmdb.category.delete',
@@ -158,10 +158,10 @@ class CMDBCategory extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             throw new \Exception('Bad result');
-        } //if
+        }
 
         return $this;
-    } //function
+    }
 
     /**
      * Marks a category entry for a specific object as deleted
@@ -179,7 +179,7 @@ class CMDBCategory extends Request {
         $this
             ->archive($objectID, $categoryConst, $entryID, $isGlobal)
             ->archive($objectID, $categoryConst, $entryID, $isGlobal);
-    } //function
+    }
 
 
     /**
@@ -199,11 +199,11 @@ class CMDBCategory extends Request {
             ->archive($objectID, $categoryConst, $entryID, $isGlobal)
             ->archive($objectID, $categoryConst, $entryID, $isGlobal)
             ->archive($objectID, $categoryConst, $entryID, $isGlobal);
-    } //function
+    }
 
     public function batchCreate() {
         // @todo Implement it.
-    } //function
+    }
 
     /**
      * Reads one or more category entries for a specific object
@@ -226,25 +226,25 @@ class CMDBCategory extends Request {
                     'category' => $categoryConst
                 ]
             ];
-        } //foreach
+        }
 
         return $this->api->batchRequest($requests);
-    } //function
+    }
 
     public function batchUpdate() {
         // @todo Implement it.
-    } //function
+    }
 
     public function batchArchive() {
         // @todo Implement it.
-    } //function
+    }
 
     public function batchDelete() {
         // @todo Implement it.
-    } //function
+    }
 
     public function batchPurge() {
         // @todo Implement it.
-    } //function
+    }
 
-} //class
+}

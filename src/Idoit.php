@@ -38,7 +38,7 @@ class Idoit extends Request {
      */
     public function readVersion() {
         return $this->api->request('idoit.version');
-    } //function
+    }
 
     /**
      * Reads list of defined constants
@@ -49,7 +49,7 @@ class Idoit extends Request {
      */
     public function readConstants() {
         return $this->api->request('idoit.constants');
-    } //function
+    }
 
     /**
      * Searches i-doit's database
@@ -65,7 +65,7 @@ class Idoit extends Request {
             'idoit.search',
             ['q' => $query]
         );
-    } //function
+    }
 
     /**
      * Performs one or more searches at once
@@ -86,9 +86,9 @@ class Idoit extends Request {
                     'q' => $query
                 ]
             ];
-        } //foreach
+        }
 
         return $this->api->batchRequest($requests);
-    } //function
+    }
 
-} //class
+}

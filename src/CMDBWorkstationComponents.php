@@ -45,7 +45,7 @@ class CMDBWorkstationComponents extends Request {
                 'id' => $objectID
             ]
         );
-    } //function
+    }
 
     /**
      * Reads workplace components for one or more objects
@@ -63,7 +63,7 @@ class CMDBWorkstationComponents extends Request {
                 'ids' => $objectIDs
             ]
         );
-    } //function
+    }
 
     /**
      * Reads workplace components for a specific object by its email address
@@ -81,7 +81,7 @@ class CMDBWorkstationComponents extends Request {
                 'email' => $email
             ]
         );
-    } //function
+    }
 
     /**
      * Reads workplace components for one or more objects by their email addresses
@@ -99,6 +99,6 @@ class CMDBWorkstationComponents extends Request {
                 'emails' => $emails
             ]
         );
-    } //function
+    }
 
-} //class
+}

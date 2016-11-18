@@ -47,34 +47,34 @@ class IdoitTest extends TestCase {
         ]);
 
         $this->idoit = new Idoit($this->api);
-    } //function
+    }
 
     public function testReadVersion() {
         $result = $this->idoit->readVersion();
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
     public function testReadConstants() {
         $result = $this->idoit->readConstants();
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
     public function testSearch() {
         $result = $this->idoit->search('demo');
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
     public function testBatchSearch() {
         $result = $this->idoit->batchSearch(['demo', 'test', 'server']);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
-} //class
+}

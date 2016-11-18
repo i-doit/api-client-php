@@ -39,21 +39,21 @@ class APITest extends TestCase {
             'username' => 'admin',
             'password' => 'admin'
         ]);
-    } //function
+    }
 
     public function testTestConfig() {
         $this->assertTrue($this->api->testConfig());
-    } //function
+    }
 
     public function testConnect() {
         $this->assertInstanceOf(API::class, $this->api->connect());
-    } //function
+    }
 
     public function testDisconnect() {
         $this->api->connect();
 
         $this->assertInstanceOf(API::class, $this->api->disconnect());
-    } //function
+    }
 
     public function testIsConnected() {
         $this->assertFalse($this->api->isConnected());
@@ -65,17 +65,17 @@ class APITest extends TestCase {
         $this->api->disconnect();
 
         $this->assertFalse($this->api->isConnected());
-    } //function
+    }
 
     public function testLogin() {
         $this->assertInstanceOf(API::class, $this->api->login());
-    } //function
+    }
 
     public function testLogout() {
         $this->api->login();
 
         $this->assertInstanceOf(API::class, $this->api->logout());
-    } //function
+    }
 
     public function testIsLoggedIn() {
         $this->assertFalse($this->api->isLoggedIn());
@@ -87,7 +87,7 @@ class APITest extends TestCase {
         $this->api->logout();
 
         $this->assertFalse($this->api->isLoggedIn());
-    } //function
+    }
 
     public function testCountRequests() {
         $this->api->request('idoit.version');
@@ -103,14 +103,14 @@ class APITest extends TestCase {
 
         $this->assertInternalType('integer', $count);
         $this->assertEquals(2, $count);
-    } //function
+    }
 
     public function testRequest() {
         $result = $this->api->request('idoit.version');
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
     public function testBatchRequest() {
         $results = $this->api->batchRequest([
@@ -129,35 +129,35 @@ class APITest extends TestCase {
         foreach ($results as $result) {
             $this->assertInternalType('array', $result);
             $this->assertNotCount(0, $result);
-        } //foreach
-    } //function
+        }
+    }
 
     public function testGetLastInfo() {
         $this->api->request('idoit.version');
 
         $this->assertInternalType('array', $this->api->getLastInfo());
         $this->assertNotCount(0, $this->api->getLastInfo());
-    } //function
+    }
 
     public function testGetLastRequestContent() {
         $this->api->request('idoit.version');
 
         $this->assertInternalType('array', $this->api->getLastRequestContent());
         $this->assertNotCount(0, $this->api->getLastRequestContent());
-    } //function
+    }
 
     public function testGetLastResponseHeaders() {
         $this->api->request('idoit.version');
 
         $this->assertInternalType('string', $this->api->getLastResponseHeaders());
         $this->assertNotEmpty($this->api->getLastResponseHeaders());
-    } //function
+    }
 
     public function testGetLastRequestHeaders() {
         $this->api->request('idoit.version');
 
         $this->assertInternalType('string', $this->api->getLastRequestHeaders());
         $this->assertNotEmpty($this->api->getLastRequestHeaders());
-    } //function
+    }
 
-} //class
+}

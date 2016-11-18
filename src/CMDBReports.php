@@ -40,7 +40,7 @@ class CMDBReports extends Request {
         return $this->api->request(
             'cmdb.reports'
         );
-    } //function
+    }
 
     /**
      * Fetches the result of a report
@@ -58,7 +58,7 @@ class CMDBReports extends Request {
                 'id' => $reportID
             ]
         );
-    } //function
+    }
 
     /**
      * Fetches the result of one or more reports
@@ -79,9 +79,9 @@ class CMDBReports extends Request {
                     'id' => $reportID
                 ]
             ];
-        } //foreach
+        }
 
         return $this->api->batchRequest($requests);
-    } //function
+    }
 
-} //class
+}

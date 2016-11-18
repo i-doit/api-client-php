@@ -47,18 +47,18 @@ class CMDBLocationTreeTest extends TestCase {
         ]);
 
         $this->locationTree = new CMDBLocationTree($this->api);
-    } //function
+    }
 
     public function testRead() {
         $result = $this->locationTree->read(1);
 
         $this->assertInternalType('array', $result);
-    } //function
+    }
 
     public function testReadRecursively() {
         $result = $this->locationTree->readRecursively(1);
 
         $this->assertInternalType('array', $result);
-    } //function
+    }
 
-} //class
+}

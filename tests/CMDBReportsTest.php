@@ -47,27 +47,27 @@ class CMDBReportsRelationTest extends TestCase {
         ]);
 
         $this->reports = new CMDBReports($this->api);
-    } //function
+    }
 
     public function testListReports() {
         $result = $this->reports->listReports();
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
     public function testRead() {
         $result = $this->reports->read(1);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
     public function testBatchRead() {
         $result = $this->reports->batchRead([1, 2]);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
-    } //function
+    }
 
-} //class
+}

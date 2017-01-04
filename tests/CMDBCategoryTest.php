@@ -77,6 +77,48 @@ class CMDBCategoryTest extends TestCase {
         $this->assertNotCount(0, $result);
     }
 
+    public function testReadOneByID() {
+        $result = $this->category->readOneByID(
+            1005,
+            'C__CATG__MODEL',
+            75
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+        $this->assertArrayHasKey('id', $result);
+
+        $result = $this->category->readOneByID(
+            1005,
+            'C__CATG__IP',
+            37
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+        $this->assertArrayHasKey('id', $result);
+    }
+
+    public function testReadFirst() {
+        $result = $this->category->readFirst(
+            1005,
+            'C__CATG__MODEL'
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+        $this->assertArrayHasKey('id', $result);
+
+        $result = $this->category->readFirst(
+            1005,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+        $this->assertArrayHasKey('id', $result);
+    }
+
     public function testUpdate() {
         $itself = $this->category->update(
             1000,

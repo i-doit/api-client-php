@@ -69,12 +69,12 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Reads one or more category entries for a specific object
+     * Reads one or more category entries for a specific object (works with both single- and multi-valued categories)
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      *
-     * @return array Indexed array of result sets (for both single- and multi-valued categories)
+     * @return array[] Indexed array of result sets (for both single- and multi-valued categories)
      *
      * @throws \Exception on error
      */
@@ -87,6 +87,59 @@ class CMDBCategory extends Request {
 
             ]
         );
+    }
+
+    /**
+     * Reads one specific category entry for a specific object (works with both single- and multi-valued categories)
+     *
+     * @param int $objectID Object identifier
+     * @param string $categoryConst Category constant
+     * @param int $entryID Entry identifier
+     *
+     * @return array Associative array
+     *
+     * @throws \Exception on error
+     */
+    public function readOneByID($objectID, $categoryConst, $entryID) {
+        $entries = $this->read($objectID, $categoryConst);
+
+        foreach ($entries as $entry) {
+            if (!array_key_exists('id', $entry)) {
+                throw new \Exception(sprintf(
+                    'Entries for category "%s" contain no identifier',
+                    $categoryConst
+                ));
+            }
+
+            $currentID = (int) $entry['id'];
+
+            if ($currentID === $entryID) {
+                return $entry;
+            }
+        }
+
+        throw new \Exception(sprintf(
+            'No entry with identifier %s found in category "%s" for object $s',
+            $entryID,
+            $categoryConst,
+            $objectID
+        ));
+    }
+
+    /**
+     * Reads first category entry for a specific object (works with both single- and multi-valued categories)
+     *
+     * @param int $objectID Object identifier
+     * @param string $categoryConst Category constant
+     *
+     * @return array Associative array
+     *
+     * @throws \Exception on error
+     */
+    public function readFirst($objectID, $categoryConst) {
+        $entries = $this->read($objectID, $categoryConst);
+
+        return reset($entries);
     }
 
     /**

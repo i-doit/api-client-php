@@ -37,7 +37,9 @@ You have several options to download (and kinda install) the API client:
 *   Download any stable release manually
 *   Clone the Git repository to fetch the (unstable) development branch
 
+
 ### Using Composer
+
 
 ####    Locally
 
@@ -63,6 +65,7 @@ As an alternative to the steps mentioned above just run:
 composer require "bheisig/idoitapi=@DEV"
 ~~~
 
+
 ####    System-wide
 
 For a system-wide installation you may use:
@@ -82,6 +85,7 @@ Composer has the great advantage (besides many other) that you can simply update
 composer update
 ~~~
 
+
 ### Download Release
 
 You will find [all releases on this site](https://github.com/bheisig/i-doit-api-client-php/releases).
@@ -93,6 +97,7 @@ wget FIXME // No releases at the moment ;-)
 tar xvzf FIXME
 cd i-doit-api-client-php/
 ~~~
+
 
 ### Fetch Source Code
 
@@ -223,7 +228,7 @@ For almost every case there is a remote procedure you may call to read from or m
 |                               | `cmdb.object.delete`                  |                               | `archive()`, `delete()`, `purge()`            |
 | `cmdb.objects`                | `cmdb.objects.read`                   | `CMDBObjects`                 | `read()`                                      |
 | `cmdb.category`               | `cmdb.category.create`                | `CMDBCategory`                | `create()`                                    |
-|                               | `cmdb.category.read`                  |                               | `read()`                                      |
+|                               | `cmdb.category.read`                  |                               | `read()`, `readOneByID()`, `readFirst()`      |
 |                               | `cmdb.category.update`                |                               | `update()`                                    |
 |                               | `cmdb.category.delete`                |                               | `archive()`, `delete()`, `purge()`            |
 | `cmdb.category_info`          | `cmdb.category_info.read`             | `CMDBCategoryInfo`            | `read()`                                      |
@@ -382,6 +387,8 @@ var_dump($entryID);
 
 ####    Read Categories and Attributes
 
+Read one or more category entries for one specific object:
+
 ~~~ {.php}
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBCategory;
@@ -394,7 +401,35 @@ $result = $category->read(42, 'C__CATG__IP');
 var_dump($result);
 ~~~
 
-Same goes for multiple objects and categories at once:
+Read one specific categoy entry for one specific object:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBCategory;
+
+$api = new API([/* … */]);
+
+$category = new CMDBCategory($api);
+$result = $category->readOneByID(42, 'C__CATG__IP', 23);
+
+var_dump($result);
+~~~
+
+Read just one category entry (easier than `read()` when using single-valued categories):
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBCategory;
+
+$api = new API([/* … */]);
+
+$category = new CMDBCategory($api);
+$result = $category->readFirst(42, 'C__CATG__IP');
+
+var_dump($result);
+~~~
+
+Read data for multiple objects and categories at once:
 
 ~~~ {.php}
 use bheisig\idoitapi\API;

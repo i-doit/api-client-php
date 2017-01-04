@@ -49,8 +49,18 @@ class CMDBObjectsByRelationTest extends TestCase {
         $this->relation = new CMDBObjectsByRelation($this->api);
     }
 
-    public function testRead() {
-        $result = $this->relation->read(
+    public function testReadByID() {
+        $result = $this->relation->readByID(
+            10,
+            17
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+    }
+
+    public function testReadByConst() {
+        $result = $this->relation->readByConst(
             10,
             'C__RELATION_TYPE__PERSON_ASSIGNED_GROUPS'
         );

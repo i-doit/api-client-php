@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2016 Benjamin Heisig
+ * Copyright (C) 2016-17 Benjamin Heisig
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  * @author Benjamin Heisig <https://benjamin.heisig.name/>
- * @copyright Copyright (C) 2016 Benjamin Heisig
+ * @copyright Copyright (C) 2016-17 Benjamin Heisig
  * @license http://www.gnu.org/licenses/agpl-3.0 GNU Affero General Public License (AGPL)
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
@@ -121,6 +121,13 @@ class CMDBObjectTest extends TestCase {
             CMDBObject::class,
             $this->object->purge($objectID)
         );
+    }
+
+    public function testLoad() {
+        $result = $this->object->load(1000);
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
     }
 
 }

@@ -317,6 +317,25 @@ var_dump($objectInfo);
 ~~~
 
 
+####    Loads All Data of an Object
+
+This will fetch everything about an object: common data, assigned categories and category entries as well.
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObject;
+
+$api = new API([/* … */]);
+
+$object = new CMDBObject($api);
+$objectInfo = $object->load(42);
+
+var_dump($objectInfo);
+~~~
+
+This method call triggers round about 4 API calls. So be aware if it is heavily used.
+
+
 ####    Update an Existing Object
 
 Currently, you are able to update an object's title:
@@ -818,6 +837,6 @@ Please, report any issues to [our issue tracker](https://github.com/bheisig/i-do
 
 ##  Copyright & License
 
-Copyright (C) 2016 [Benjamin Heisig](https://benjamin.heisig.name/)
+Copyright (C) 2016-17 [Benjamin Heisig](https://benjamin.heisig.name/)
 
 Licensed under the [GNU Affero GPL version 3 or later (AGPLv3+)](https://gnu.org/licenses/agpl.html). This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.

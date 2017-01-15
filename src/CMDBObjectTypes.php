@@ -90,7 +90,7 @@ class CMDBObjectTypes extends Request {
     }
 
     /**
-     * Fetches information about an object type by its title
+     * Fetches information about an object type by its title (which could be a "language constant")
      *
      * @param $title
      *

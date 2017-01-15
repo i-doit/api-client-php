@@ -727,7 +727,7 @@ $server = $objectTypes->readOne('C__OBJTYPE__SERVER');
 var_dump($server);
 $someObjectTypes = $objectTypes->batchRead('C__OBJTYPE__SERVER', 'C__OBJTYPE__CLIENT');
 var_dump($someObjectTypes);
-$client = $objectTypes->readByTitle('Client');
+$client = $objectTypes->readByTitle('LC__CMDB__OBJTYPE__CLIENT');
 var_dump($client);
 
 // Object types per group:

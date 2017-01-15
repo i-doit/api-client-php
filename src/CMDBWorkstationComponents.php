@@ -30,7 +30,7 @@ namespace bheisig\idoitapi;
 class CMDBWorkstationComponents extends Request {
 
     /**
-     * Reads workplace components for a specific object
+     * Reads workplace components for a specific object, for example a person
      *
      * @param int $objectID Object identifier
      *
@@ -42,13 +42,15 @@ class CMDBWorkstationComponents extends Request {
         return $this->api->request(
             'cmdb.workstation_components',
             [
-                'id' => $objectID
+                'filter' => [
+                    'id' => $objectID
+                ]
             ]
         );
     }
 
     /**
-     * Reads workplace components for one or more objects
+     * Reads workplace components for one or more objects, for example persons
      *
      * @param int[] $objectIDs List of object identifiers
      *
@@ -60,13 +62,15 @@ class CMDBWorkstationComponents extends Request {
         return $this->api->request(
             'cmdb.workstation_components',
             [
-                'ids' => $objectIDs
+                'filter' => [
+                    'ids' => $objectIDs
+                ]
             ]
         );
     }
 
     /**
-     * Reads workplace components for a specific object by its email address
+     * Reads workplace components for a specific object by its email address, for example a person
      *
      * @param string $email Email address
      *
@@ -78,13 +82,15 @@ class CMDBWorkstationComponents extends Request {
         return $this->api->request(
             'cmdb.workstation_components',
             [
-                'email' => $email
+                'filter' => [
+                    'email' => $email
+                ]
             ]
         );
     }
 
     /**
-     * Reads workplace components for one or more objects by their email addresses
+     * Reads workplace components for one or more objects by their email addresses, for example persons
      *
      * @param string[] $emails List of email addresses
      *
@@ -96,7 +102,9 @@ class CMDBWorkstationComponents extends Request {
         return $this->api->request(
             'cmdb.workstation_components',
             [
-                'emails' => $emails
+                'filter' => [
+                    'emails' => $emails
+                ]
             ]
         );
     }

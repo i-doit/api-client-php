@@ -111,19 +111,19 @@ cd i-doit-api-client-php/
 
 ##  Usage
 
-To use the API client just include it into your PHP script:
+If you use Composer you should use its own autoloader:
+
+~~~ {.php}
+require_once 'vendor/autoload.php';
+~~~
+
+Without Composer just include this file into your PHP code:
 
 ~~~ {.php}
 require_once 'idoitapi.php';
 ~~~
 
 That's it. All other files will be auto-loaded if needed.
-
-If you use Composer you should use its own autoloader:
-
-~~~ {.php}
-require_once 'vendor/autoload.php';
-~~~
 
 
 ##  Configuration
@@ -317,7 +317,7 @@ var_dump($objectInfo);
 ~~~
 
 
-####    Loads All Data of an Object
+####    Load All Data of an Object
 
 This will fetch everything about an object: common data, assigned categories and category entries as well.
 
@@ -333,7 +333,7 @@ $objectInfo = $object->load(42);
 var_dump($objectInfo);
 ~~~
 
-This method call triggers round about 4 API calls. So be aware if it is heavily used.
+The method `load()` triggers round about 4 API calls. So be aware if it is heavily used.
 
 
 ####    Update an Existing Object
@@ -592,6 +592,31 @@ $result = $relation->read(
     'C__RELATION_TYPE__PERSON_ASSIGNED_GROUPS'
 );
 
+var_dump($result);
+~~~
+
+
+####    Fetch Workplace Components For a Person
+
+A Person may be assigned to a workplace with several components like a PC, a monitor and a telephone. These components can be fetched by the person. You either need the object ID or the email address. Even more than one workplaces are supported.
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBWorkstationComponents;
+
+$api = new API([/* … */]);
+$components = new CMDBWorkstationComponents($api);
+
+$result = $components->read(111); // Person object with ID 111
+var_dump($result);
+
+$result = $components->batchRead([111, 222]); // Person objects with IDs 111 and 222
+var_dump($result);
+
+$result = $components->readByEMail('alice@example.org'); // Person object with email address
+var_dump($result);
+
+$result = $components->readByEMails(['alice@example.org', 'bob@example.org']); // Person objects with email addresses
 var_dump($result);
 ~~~
 

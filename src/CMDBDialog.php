@@ -50,18 +50,18 @@ class CMDBDialog extends Request {
             ]
         );
 
-        if (!array_key_exists('id', $result) ||
-            !is_numeric($result['id'])) {
+        if (!array_key_exists('entry_id', $result) ||
+            !is_numeric($result['entry_id'])) {
             throw new \Exception('Bad result');
         }
 
-        return (int) $result['id'];
+        return (int) $result['entry_id'];
     }
 
     /**
      * Creates one or more entries for a drow-down menu
      *
-     * @param array $values Values: ['cat' => ['attr' => 'value', 'attr' => 'value'], 'cat' => ['attr' => 'value', 'attr' => 'value']]
+     * @param array $values Values: ['cat' => ['attr' => 'value', 'attr' => 'value'], 'cat' => ['attr' => ['value 1', 'value 2']]]
      *
      * @return array List of entry identifiers
      *
@@ -71,15 +71,25 @@ class CMDBDialog extends Request {
         $requests = [];
 
         foreach ($values as $category => $keyValuePair) {
-            foreach ($keyValuePair as $attribute => $value) {
-                $requests[] = [
-                    'method' => 'cmdb.dialog.create',
-                    'params' => [
-                        'category' => $category,
-                        'property' => $attribute,
-                        'value' => $value
-                    ]
-                ];
+            foreach ($keyValuePair as $attribute => $mixed) {
+                $values = [];
+
+                if (is_array($mixed)) {
+                    $values = $mixed;
+                } else {
+                    $values[] = $mixed;
+                }
+
+                foreach ($values as $value) {
+                    $requests[] = [
+                        'method' => 'cmdb.dialog.create',
+                        'params' => [
+                            'category' => $category,
+                            'property' => $attribute,
+                            'value' => $value
+                        ]
+                    ];
+                }
             }
         }
 
@@ -88,12 +98,12 @@ class CMDBDialog extends Request {
         $entries = $this->api->batchRequest($requests);
 
         foreach ($entries as $entry) {
-            if (!array_key_exists('id', $entry) ||
-                !is_numeric($entry['id'])) {
+            if (!array_key_exists('entry_id', $entry) ||
+                !is_numeric($entry['entry_id'])) {
                 throw new \Exception('Bad result');
             }
 
-            $entryIDs[] = (int) $entry['id'];
+            $entryIDs[] = (int) $entry['entry_id'];
         }
 
         return $entryIDs;
@@ -122,7 +132,7 @@ class CMDBDialog extends Request {
     /**
      * Fetches values from one or more drop-down menus
      *
-     * @param array $attributes Attributes: ['cat' => 'attr', 'cat' => 'attr']
+     * @param array $attributes Attributes: ['cat' => 'attr', 'cat' => ['attr 1', 'attr 2']]
      *
      * @return array Indexed array of associative arrays
      *
@@ -131,14 +141,24 @@ class CMDBDialog extends Request {
     public function batchRead($attributes) {
         $requests = [];
 
-        foreach ($attributes as $category => $attribute) {
-            $requests[] = [
-                'method' => 'cmdb.dialog.read',
-                'params' => [
-                    'category' => $category,
-                    'property' => $attribute
-                ]
-            ];
+        foreach ($attributes as $category => $mixed) {
+            $attributes = [];
+
+            if (is_array($mixed)) {
+                $attributes = $mixed;
+            } else {
+                $attributes[] = $mixed;
+            }
+
+            foreach ($attributes as $attribute) {
+                $requests[] = [
+                    'method' => 'cmdb.dialog.read',
+                    'params' => [
+                        'category' => $category,
+                        'property' => $attribute
+                    ]
+                ];
+            }
         }
 
         return $this->api->batchRequest($requests);

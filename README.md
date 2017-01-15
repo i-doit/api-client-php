@@ -518,8 +518,16 @@ var_dump($entryID);
 
 $entryIDs = $dialog->batchCreate([
     'C__CATG__MODEL' => [
-        'model' => 'My model 1',
-        'model' => 'My model 2'
+        'manufacturer' => 'My manufacturer',
+        'model' => 'My model'
+    ],
+    'C__CATG__GLOBAL' => [
+        'category' => [
+            'cat 1',
+            'cat 2',
+            'cat 3'
+        ],
+        'purpose' => 'API TEST'
     ]
 ]);
 var_dump($entryIDs);
@@ -527,6 +535,8 @@ var_dump($entryIDs);
 
 
 ####    Fetch Values of Drop-down Menus
+
+Drop-down menus in i-doit are called "dialog" (read-only) or "dialog+" (editable).
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -540,8 +550,10 @@ $models = $dialog->read('C__CATG__MODEL', 'model');
 var_dump($models);
 
 $modelsAndManufacturers = $dialog->batchRead([
-    'C__CATG__MODEL' => 'model',
-    'C__CATG__MODEL' => 'manufacturer'
+    'C__CATG__MODEL' => [
+        'manufacturer',
+        'model'
+    ]
 ]);
 var_dump($modelsAndManufacturers);
 ~~~

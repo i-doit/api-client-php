@@ -40,10 +40,10 @@ class CMDBCategoryTest extends TestCase {
 
     public function setUp() {
         $this->api = new API([
-            'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-            'key' => 'c1ia5q',
-            'username' => 'admin',
-            'password' => 'admin'
+            'url' => $GLOBALS['url'],
+            'key' => $GLOBALS['key'],
+            'username' => $GLOBALS['username'],
+            'password' => $GLOBALS['password']
         ]);
 
         $this->category = new CMDBCategory($this->api);

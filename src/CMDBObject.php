@@ -24,9 +24,6 @@
 
 namespace bheisig\idoitapi;
 
-use bheisig\idoitapi\CMDBObjectTypeCategories;
-use bheisig\idoitapi\CMDBCategory;
-
 /**
  * Requests for API namespace 'cmdb.object'
  */

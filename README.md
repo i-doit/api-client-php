@@ -377,6 +377,26 @@ $object->upsert(
 ~~~
 
 
+####    Fetch an Object Identifier
+
+Fetch an object identifier by object title and (optional) type:
+
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObjects;
+
+$api = new API([/* … */]);
+
+$object = new CMDBObjects($api);
+$objectID = $object->getID('My little server');
+$objectID = $object->getID('My little server', 'C__OBJTYPE__SERVER');
+~~~
+
+An exception error will be thrown if there is either no object or more than one. 
+
+
+
 ####    Change Documentation Status of an Object
 
 i-doit has the concept of archiving your IT documentation. Each object has an status (`normal`, `archived`, marked as `deleted`). And last but not least, an object may be purged from the database.
@@ -396,6 +416,109 @@ $object->delete($objectID);
 // Purge from database:
 $object->purge($objectID);
 ~~~
+
+
+####    Create Multiple Objects
+
+Create multiple objects at once:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObjects;
+
+$api = new API([/* … */]);
+
+$cmdbObjects = new CMDBObjects($api);
+
+$objectIDs = $cmdbObjects->create(
+    [
+        ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. One'],
+        ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Two'],
+        ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Three']
+    ]
+);
+
+var_dump($objectIDs);
+~~~
+
+
+####    Read Multiple Objects
+
+Reading multiple objects at once is provided by several methods. Let's see:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObjects;
+
+$api = new API([/* … */]);
+
+$cmdbObjects = new CMDBObjects($api);
+
+// Fetch every object:
+$objects = $cmdbObjects->read();
+var_dump($objects);
+
+// Fetch max. 10 servers and sort them descending by title:
+$objects = $cmdbObjects->read(['type' => 'C__OBJTYPE__SERVER'], 10, 'title', CMDBObjects::SORT_DESCENDING);
+var_dump($objects);
+
+// Get them by their identifiers:
+$objects = $cmdbObjects->readByIDs([1, 2, 3]);
+var_dump($objects);
+
+// Get all servers:
+$objects = $cmdbObjects->readByType('C__OBJTYPE__SERVER');
+var_dump($objects);
+
+// Get archived clients:
+$objects = $cmdbObjects->readArchived('C__OBJTYPE__CLIENT');
+var_dump($objects);
+
+// Get clients marked as deleted:
+$objects = $cmdbObjects->readDeleted('C__OBJTYPE__CLIENT');
+var_dump($objects);
+~~~
+
+
+####    Update Multiple Objects
+
+Update multiple objects at once:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObjects;
+
+$api = new API([/* … */]);
+
+$cmdbObjects = new CMDBObjects($api);
+
+// Rename objects 1, 2, 3:
+$cmdbObjects->update([
+  ['id' => 1, 'title' => 'New name'],
+  ['id' => 2, 'title' => 'Another name'],
+  ['id' => 3, 'title' => 'Just a name'],
+]);
+~~~
+
+
+####    Archive/Delete/Purge Multiple Objects
+
+Archive objects, mark them as deleted or even purge them from database:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObjects;
+
+$api = new API([/* … */]);
+
+$cmdbObjects = new CMDBObjects($api);
+
+$cmdbObjects
+    ->archive([1, 2, 3])
+    ->delete([1, 2, 3])
+    ->purge([1, 2, 3]);
+~~~
+
 
 
 ####    Create Category Entries with Attributes

@@ -30,6 +30,20 @@ namespace bheisig\idoitapi;
 class CMDBObjects extends Request {
 
     /**
+     * Sort ascending
+     *
+     * @var string
+     */
+    const SORT_ASCENDING = 'ASC';
+
+    /**
+     * Sort descending
+     *
+     * @var string
+     */
+    const SORT_DESCENDING = 'DESC';
+
+    /**
      * Creates one or more objects
      *
      * @param array $objects Mandatory attributes ('type', 'title') and optional attributes ('category', 'purpose', 'cmdb_status', 'description')
@@ -60,12 +74,12 @@ class CMDBObjects extends Request {
     }
 
     /**
-     * Fetch objects
+     * Fetches objects
      *
-     * @param array $filter (optional) Filter; use any combination of 'ids' (array of object identifiers), 'type' (object type identifier), 'title' (object title), 'type_title' (l10n object type)
+     * @param array $filter (optional) Filter; use any combination of 'ids' (array of object identifiers), 'type' (object type identifier), 'type_group', 'status', 'title' (object title), 'type_title' (l10n object type), 'location', 'sysid', 'first_name', 'last_name', 'email'
      * @param int $limit Limit result set
      * @param string $orderBy Order result set by 'isys_obj_type__id', 'isys_obj__isys_obj_type__id', 'type', 'isys_obj__title', 'title', 'isys_obj_type__title', 'type_title', 'isys_obj__sysid', 'sysid', 'isys_cats_person_list__first_name', 'first_name', 'isys_cats_person_list__last_name', 'last_name', 'isys_cats_person_list__mail_address', 'email', 'isys_obj__id', 'id'
-     * @param int $sort Sort ascending or descending
+     * @param string $sort Sort ascending ('ASC') or descending ('DESC')
      *
      * @return array Indexed array of associative arrays
      *
@@ -97,7 +111,7 @@ class CMDBObjects extends Request {
     }
 
     /**
-     * Fetch objects by their identifiers
+     * Fetches objects by their identifiers
      *
      * @param int[] $objectIDs List of object identifiers
      *
@@ -117,7 +131,7 @@ class CMDBObjects extends Request {
     }
 
     /**
-     * Fetch objects by their object type
+     * Fetches objects by their object type
      *
      * @param string $objectType Object type constant
      *
@@ -134,6 +148,93 @@ class CMDBObjects extends Request {
                 ]
             ]
         );
+    }
+
+    /**
+     * Fetches archived objects filtered by (optional) type
+     *
+     * @param string $type (Optional) object type constant
+     *
+     * @return array Indexed array of associative arrays
+     *
+     * @throws \Exception on error
+     */
+    public function readArchived($type = null) {
+        $filter = [
+            'status' => 'C__RECORD_STATUS__ARCHIVED'
+        ];
+
+        if (isset($type)) {
+            $filter['type'] = $type;
+        }
+
+        return $this->api->request(
+            'cmdb.objects.read',
+            [
+                'filter' => $filter
+            ]
+        );
+    }
+
+    /**
+     * Fetches deleted objects filtered by (optional) type
+     *
+     * @param string $type (Optional) object type constant
+     *
+     * @return array Indexed array of associative arrays
+     *
+     * @throws \Exception on error
+     */
+    public function readDeleted($type = null) {
+        $filter = [
+            'status' => 'C__RECORD_STATUS__DELETED'
+        ];
+
+        if (isset($type)) {
+            $filter['type'] = $type;
+        }
+
+        return $this->api->request(
+            'cmdb.objects.read',
+            [
+                'filter' => $filter
+            ]
+        );
+    }
+
+    /**
+     * Fetches an object identifier by object title and (optional) type
+     *
+     * @param string $title Object title
+     * @param string $type (Optional) type constant
+     *
+     * @return int Object identifier
+     *
+     * @throws \Exception on error
+     */
+    public function getID($title, $type = null) {
+        $filter = [
+            'title' => $title
+        ];
+
+        if (isset($type)) {
+            $filter['type'] = $type;
+        }
+
+        $result = $this->read($filter);
+
+        switch (count($result)) {
+            case 0:
+                throw new \Exception('Object not found');
+            case 1:
+                if (!array_key_exists('id', $result[0])) {
+                    throw new \Exception('Bad result');
+                }
+
+                return (int) $result[0]['id'];
+            default:
+                throw new \Exception('Found %s objects', count($result));
+        }
     }
 
     /**

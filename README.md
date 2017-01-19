@@ -356,6 +356,27 @@ $object->update(
 ~~~
 
 
+####    Create or Update an Object ("Upsert")
+
+You you like to get an identifier of an object but you are unsure whether or not it exists, try an upsert. This is an "update" and an "insert" at the same time. This means, if the object exists you will get its identifier directly. If not the object will be created and then you will get its identifier. Objects must match against type and title. Additional attributes will be stored.
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\CMDBObject;
+
+$api = new API([/* … */]);
+
+$object = new CMDBObject($api);
+$object->upsert(
+    'C__OBJTYPE__SERVER',
+    'My little server',
+    [
+        'purpose' => 'Private stuff'
+    ]
+);
+~~~
+
+
 ####    Change Documentation Status of an Object
 
 i-doit has the concept of archiving your IT documentation. Each object has an status (`normal`, `archived`, marked as `deleted`). And last but not least, an object may be purged from the database.
@@ -534,7 +555,7 @@ var_dump($entryIDs);
 ~~~
 
 
-####    Fetch Values of Drop-down Menus
+####    Fetch Values from Drop-down Menus
 
 Drop-down menus in i-doit are called "dialog" (read-only) or "dialog+" (editable).
 

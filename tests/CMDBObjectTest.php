@@ -130,4 +130,19 @@ class CMDBObjectTest extends TestCase {
         $this->assertNotCount(0, $result);
     }
 
+    public function testUpsert() {
+        // Exists:
+        $objectID = $this->object->create('C__OBJTYPE__SERVER', 'My little server');
+        $result = $this->object->upsert('C__OBJTYPE__SERVER', 'My little server', ['purpose' => 'Private stuff']);
+
+        $this->assertInternalType('int', $result);
+        $this->assertEquals($objectID, $result);
+
+        // Does not exist:
+        $result = $this->object->upsert('C__OBJTYPE__SERVER', 'API TEST ' . time());
+
+        $this->assertInternalType('int', $result);
+        $this->assertGreaterThan(0, $result);
+    }
+
 }

@@ -291,4 +291,39 @@ class CMDBObject extends Request {
         return $object;
     }
 
+    /**
+     * Creates a new object or fetch an existing one based on its title and type
+     *
+     * @param int|string $type Object type identifier or its constant
+     * @param string $title Object title
+     * @param array $attributes (Optional) additional common attributes ('category', 'purpose', 'cmdb_status', 'description')
+     *
+     * @return int Object identifier
+     *
+     * @throws \Exception on error
+     */
+    public function upsert($type, $title, $attributes = []) {
+        $cmdbObjects = new CMDBObjects($this->api);
+
+        $filter = [
+            'title' => $title,
+            'type' => $type
+        ];
+
+        $result = $cmdbObjects->read($filter);
+
+        switch (count($result)) {
+            case 0:
+                return $this->create($type, $title, $attributes);
+            case 1:
+                if (!array_key_exists('id', $result[0])) {
+                    throw new \Exception('Bad result');
+                }
+
+                return (int) $result[0]['id'];
+            default:
+                throw new \Exception('Found %s objects', count($result));
+        }
+    }
+
 }

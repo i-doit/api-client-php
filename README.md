@@ -18,6 +18,7 @@ Why should you use this client? There are some good reasons:
 *   There is a PHP function for each API method
 *   Supports batch requests
 *   Sends user-defined requests
+*   Upload files and images
 *   Supports login and logout to save sessions
 *   Follows redirects (HTTP 301/302)
 *   Uses optional HTTP or SOCKS5 proxy

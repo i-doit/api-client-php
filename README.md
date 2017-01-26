@@ -520,7 +520,6 @@ $cmdbObjects
 ~~~
 
 
-
 ####    Create Category Entries with Attributes
 
 ~~~ {.php}
@@ -900,10 +899,14 @@ var_dump($serverCategories);
 $categoryInfo = new CMDBCategoryInfo($api);
 $modelCategory = $categoryInfo->read('C__CATG__MODEL');
 var_dump($modelCategory);
-$attributes = $categoryInfo->batchRead([
-    'C__CATG__MODEL', 'C__CATG__FORMFACTOR'
+$personCategory = $categoryInfo->read('C__CATS__PERSON_MASTER', false);
+var_dump($personCategory);
+$categories = $categoryInfo->batchRead([
+    'C__CATG__MODEL' => true,
+    'C__CATG__FORMFACTOR' => true,
+    'C__CATS__PERSON_MASTER' => false
 ]);
-var_dump($attributes);
+var_dump($categories);
 ~~~
 
 

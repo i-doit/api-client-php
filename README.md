@@ -894,6 +894,7 @@ var_dump($objectTypes);
 $assignedCategory = new CMDBObjectTypeCategories($api);
 $serverCategories = $assignedCategory->readByConst('C__OBJTYPE__SERVER');
 var_dump($serverCategories);
+// Read by identifiers is also possible. And there are methods for batch requests.
 
 // Attributes available in categories:
 $categoryInfo = new CMDBCategoryInfo($api);

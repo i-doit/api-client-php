@@ -65,4 +65,52 @@ class CMDBObjectTypeCategories extends Request {
         );
     }
 
+    /**
+     * Fetches assigned categories for one or more objects types at once identified by their identifiers
+     *
+     * @param int[] $objectTypeIDs List of object types identifiers
+     *
+     * @return array
+     *
+     * @throws \Exception on error
+     */
+    public function batchReadByID($objectTypeIDs) {
+        $requests = [];
+
+        foreach ($objectTypeIDs as $objectTypeID) {
+            $requests[] = [
+                'method' => 'cmdb.object_type_categories.read',
+                'params' => [
+                    'type' => $objectTypeID
+                ]
+            ];
+        }
+
+        return $this->api->batchRequest($requests);
+    }
+
+    /**
+     * Fetches assigned categories for one or more objects types at once identified by their constants
+     *
+     * @param string[] $objectTypeConsts List of object types constants
+     *
+     * @return array
+     *
+     * @throws \Exception on error
+     */
+    public function batchReadByConst($objectTypeConsts) {
+        $requests = [];
+
+        foreach ($objectTypeConsts as $objectTypeConst) {
+            $requests[] = [
+                'method' => 'cmdb.object_type_categories.read',
+                'params' => [
+                    'type' => $objectTypeConst
+                ]
+            ];
+        }
+
+        return $this->api->batchRequest($requests);
+    }
+
 }

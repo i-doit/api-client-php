@@ -41,10 +41,6 @@ class APITest extends TestCase {
         ]);
     }
 
-    public function testTestConfig() {
-        $this->assertTrue($this->api->testConfig());
-    }
-
     public function testConnect() {
         $this->assertInstanceOf(API::class, $this->api->connect());
     }

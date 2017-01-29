@@ -585,7 +585,7 @@ class API {
      *
      * @throws \Exception on any misconfigured setting
      */
-    public function testConfig() {
+    protected function testConfig() {
         /**
          * Mandatory settings
          */

@@ -254,8 +254,57 @@ class CMDBCategory extends Request {
             ->archive($objectID, $categoryConst, $entryID, $isGlobal);
     }
 
-    public function batchCreate() {
-        // @todo Implement it.
+    /**
+     * Creates multiple entries for a specific category and one or more objects
+     *
+     * @param int[] $objectIDs List of object identifiers
+     * @param string $categoryConst Category constant
+     * @param array[] $attributes Indexed array of attributes
+     * @param bool $isGlobal (optional) Is category global, otherwise specific?
+     *
+     * @return int[] Entry identifiers
+     *
+     * @throws \Exception on error
+     */
+    public function batchCreate(array $objectIDs, $categoryConst, array $attributes, $isGlobal = true) {
+        $entryIDs = [];
+
+        $requests = [];
+
+        foreach ($objectIDs as $objectID) {
+            foreach ($attributes as $data) {
+                $params = [
+                    'objID' => $objectID,
+                    'data' => $data
+                ];
+
+                if ($isGlobal === true) {
+                    $params['catgID'] = $categoryConst;
+                } else {
+                    $params['catsID'] = $categoryConst;
+                }
+
+                $requests[] = [
+                    'method' => 'cmdb.category.create',
+                    'params' => $params
+                ];
+            }
+        }
+
+        $result = $this->api->batchRequest($requests);
+
+        foreach ($result as $entry) {
+            if (!array_key_exists('id', $entry) ||
+                !is_numeric($entry['id']) ||
+                !array_key_exists('success', $entry) ||
+                $entry['success'] !== true) {
+                throw new \Exception('Bad result');
+            }
+
+            $entryIDs[] = (int) $entry['id'];
+        }
+
+        return $entryIDs;
     }
 
     /**

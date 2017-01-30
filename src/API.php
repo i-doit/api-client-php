@@ -150,6 +150,11 @@ class API {
      */
     protected $id = 0;
 
+    /**
+     * Information about this project
+     *
+     * @var array
+     */
     protected $project = [];
 
     /**
@@ -162,8 +167,10 @@ class API {
 
         $this->testConfig();
 
-        if (is_readable('project.json')) {
-            $this->project = json_decode(file_get_contents("project.json"), true);
+        $projectFile = __DIR__ . '/../project.json';
+
+        if (is_readable($projectFile)) {
+            $this->project = json_decode(file_get_contents($projectFile), true);
         }
     }
 
@@ -228,7 +235,7 @@ class API {
             CURLOPT_REDIR_PROTOCOLS => (CURLPROTO_HTTP | CURLPROTO_HTTPS),
             CURLOPT_ENCODING => 'application/json',
             CURLOPT_URL => $this->config[self::URL],
-            CURLOPT_USERAGENT => 'i-doit-api-client-php 0.0',
+            CURLOPT_USERAGENT => $this->project['tag'] . ' ' . $this->project['version'],
             CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_SSL_VERIFYHOST => 2,
@@ -237,14 +244,6 @@ class API {
             // In seconds:
             CURLOPT_CONNECTTIMEOUT => 10
         ];
-
-        if (is_array($this->project) &&
-            array_key_exists('title', $this->project) &&
-            array_key_exists('version', $this->project)) {
-            $this->options[CURLOPT_USERAGENT] =
-                $this->project['title'] . ' ' .
-                $this->project['version'];
-        }
 
         if (isset($this->config[self::PROXY]) &&
             $this->config[self::PROXY][self::PROXY_ACTIVE] === true) {

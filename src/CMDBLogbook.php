@@ -57,7 +57,11 @@ class CMDBLogbook extends Request {
 
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
-            throw new \Exception('Bad result');
+            if (array_key_exists('message', $result)) {
+                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+            } else {
+                throw new \Exception('Bad result');
+            }
         }
 
         return $this;

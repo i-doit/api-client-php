@@ -394,7 +394,7 @@ $objectID = $object->getID('My little server');
 $objectID = $object->getID('My little server', 'C__OBJTYPE__SERVER');
 ~~~
 
-An exception error will be thrown if there is either no object or more than one. 
+An exception error will be thrown if there is either no object or more than one.
 
 
 
@@ -822,6 +822,22 @@ var_dump($result);
 ~~~
 
 
+### Fetch Next Free IP Address From Subnet
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\Subnet;
+
+$api = new API([/* … */]);
+
+$subnet = new Subnet($api);
+// Load subnet object by its identifier:
+$nextIP = $subnet->load(123)->next();
+
+echo 'Next IP address: ' . $nextIP . PHP_EOL;
+~~~
+
+
 ### Self-defined Request
 
 Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this client. Here is the way to perform a self-defined request:
@@ -964,55 +980,6 @@ var_dump($api->getLastInfo());
 var_dump($api->getLastRequestContent());
 var_dump($api->getLastRequestHeaders());
 var_dump($api->getLastResponseHeaders());
-~~~
-
-
-### Enhanced Examples
-
-These are more sophisticated use cases.
-
-
-####    Give Me A Free IP Address
-
-~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBCategory;
-
-$api = new API([/* … */]);
-
-$category = new CMDBCategory($api);
-$netID = 632; // "Admin" object
-$netInfo = $category->read($netID, 'C__CATS__NET');
-$firstIP = ip2long($netInfo[0]['range_from']);
-$lastIP = ip2long($netInfo[0]['range_to']);
-$takenIPAddresses = $category->read($netID, 'C__CATS__NET_IP_ADDRESSES');
-$ipLong = $firstIP;
-$nextIP = "not available";
-
-if ($netInfo[0]['type']['const'] !== 'C__CATS_NET_TYPE__IPV4') {
-    echo 'Only works for IPv4';
-    die;
-}
-
-for ($ipLong = $firstIP; $ipLong <= $lastIP; $ipLong++) {
-    $found = false;
-
-    foreach ($takenIPAddresses as $takenIPAddress) {
-        $takenIPLong = ip2long($takenIPAddress['title']);
-
-        if ($takenIPLong === $ipLong) {
-            $found = true;
-            break;
-        }
-    }
-
-    if ($found === false) {
-        $nextIP = long2ip($ipLong);
-        break;
-    }
-}
-
-echo 'Next IP address: ' . $nextIP . PHP_EOL;
 ~~~
 
 

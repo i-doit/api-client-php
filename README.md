@@ -460,7 +460,7 @@ $objects = $cmdbObjects->read();
 var_dump($objects);
 
 // Fetch max. 10 servers and sort them descending by title:
-$objects = $cmdbObjects->read(['type' => 'C__OBJTYPE__SERVER'], 10, 'title', CMDBObjects::SORT_DESCENDING);
+$objects = $cmdbObjects->read(['type' => 'C__OBJTYPE__SERVER'], 10, 0, 'title', CMDBObjects::SORT_DESCENDING);
 var_dump($objects);
 
 // Get them by their identifiers:

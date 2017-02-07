@@ -73,7 +73,7 @@ class CMDBObjectsTest extends TestCase {
         $this->assertInternalType('array', $objects);
         $this->assertNotCount(0, $objects);
 
-        $objects = $this->instance->read([], 10, 'title', CMDBObjects::SORT_DESCENDING);
+        $objects = $this->instance->read([], 10, 0, 'title', CMDBObjects::SORT_DESCENDING);
 
         $this->assertInternalType('array', $objects);
         $this->assertCount(10, $objects);

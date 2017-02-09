@@ -1018,6 +1018,11 @@ var_dump($api->getLastResponseHeaders());
 Please, report any issues to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues). Pull requests are very welcomed.
 
 
+##  Projects Using This Client
+
+*   [i-doit CLI Tool](https://github.com/bheisig/i-doit-cli) – "Access your CMDB on the command line interface"
+
+
 ##  Copyright & License
 
 Copyright (C) 2016-17 [Benjamin Heisig](https://benjamin.heisig.name/)

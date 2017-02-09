@@ -57,10 +57,11 @@ class File extends Request {
             'C__CMDB__SUBCAT__FILE_VERSIONS',
             [
                 'file_content' => $fileAsString,
-                'file_physical' => $filePath,
+                'file_physical' => basename($filePath),
                 'file_title' => $description,
                 'version_description' => $description
-            ]
+            ],
+            false
         );
 
         $cmdbCategory->create(
@@ -117,10 +118,10 @@ class File extends Request {
                 'method' => 'cmdb.category.create',
                 'params' => [
                     'objID' => $fileObjectIDs[$counter],
+                    'catsID' => 'C__CMDB__SUBCAT__FILE_VERSIONS',
                     'data' => [
-                        'catgID' => 'C__CMDB__SUBCAT__FILE_VERSIONS',
                         'file_content' => $fileAsString,
-                        'file_physical' => $filePath,
+                        'file_physical' => basename($filePath),
                         'file_title' => $description,
                         'version_description' => $description
                     ]
@@ -131,8 +132,8 @@ class File extends Request {
                 'method' => 'cmdb.category.create',
                 'params' => [
                     'objID' => $objectID,
+                    'catgID' => 'C__CATG__FILE',
                     'data' => [
-                        'catgID' => 'C__CATG__FILE',
                         'file' => $fileObjectIDs[$counter]
                     ]
                 ]

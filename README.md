@@ -838,6 +838,33 @@ echo 'Next IP address: ' . $nextIP . PHP_EOL;
 ~~~
 
 
+### Upload Files
+
+This API client is able to upload a file, create a new "File" object an assigned it to an existing object identified by its ID:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\File;
+
+$api = new API([/* … */]);
+
+$file = new File($api);
+
+// Assign one file to object with identifier 100:
+$file->add(100, '/path/to/file', 'my file');
+
+// Assign many files to this object:
+$file->batchAdd(
+    100,
+    [
+        'file1.txt' => 'File 1',
+        'file2.txt' => 'File 2',
+        'file3.txt' => 'File 3'
+    ]
+);
+~~~
+
+
 ### Self-defined Request
 
 Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this client. Here is the way to perform a self-defined request:

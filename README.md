@@ -115,7 +115,7 @@ git pull
 
 ##  Usage
 
-If you use Composer you should use its own autoloader:
+If you use Composer you should use its own autoloader, too:
 
 ~~~ {.php}
 require_once 'vendor/autoload.php';
@@ -127,7 +127,7 @@ Without Composer just include this file into your PHP code:
 require_once 'idoitapi.php';
 ~~~
 
-That's it. All other files will be auto-loaded if needed.
+This is it. All other files will be auto-loaded on-the-fly if needed.
 
 
 ##  Configuration
@@ -189,7 +189,7 @@ $info = $request->readVersion();
 var_dump($info);
 ~~~
 
-It's simple like that. For more examples take a look at the next sub sections.
+It is simple like that. For more examples take a look at the next sub sections.
 
 
 ### Login and Logout
@@ -250,9 +250,9 @@ For almost every case there is a remote procedure you may call to read from or m
 | `cmdb.workstation_components` | `cmdb.workstation_components.read`    | `CMDBWorkstationComponents`   | `read()`, `readByEMail()`, `readByEMails()`   |
 
 
-Additionally, this API client is shipped with methods as workarounds for remote procedure call you probably miss. The RPC `cmdb.objects.create` does not exist but you may use `CMDBObjects::create()`. It simulates the missing RPC and gives you an easier and faster way to manipulate your IT documentation/CMDB.
+Additionally, this API client is shipped with methods as workarounds for remote procedure calls you probably miss. The RPC `cmdb.objects.create` does not exist but you may use `CMDBObjects::create()`. It simulates the missing RPC and gives you an easier and faster way to manipulate your CMDB.
 
-When it makes sense for most RPCs there is method performing a batch request. For example: `CMDBCategory::batchRead()`.
+If it makes sense there are methods to perform batch requests for most RPCs. For example, `CMDBCategory::batchRead()` fetches multiple category entries at once.
 
 
 ####    Search in i-doit's database

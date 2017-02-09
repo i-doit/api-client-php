@@ -162,6 +162,10 @@ class CMDBCategoryTest extends TestCase {
     }
 
     public function testBatchCreate() {
+        // @todo Implement me!
+    }
+
+    public function testBatchRead() {
         $batchResult = $this->category->batchRead(
             [1000, 1005],
             ['C__CATG__FORMFACTOR', 'C__CATG__ACCOUNTING']
@@ -176,10 +180,6 @@ class CMDBCategoryTest extends TestCase {
                 $this->assertNotCount(0, $result);
             }
         }
-    }
-
-    public function testBatchRead() {
-        // @todo Implement me!
     }
 
     public function testBatchUpdate() {

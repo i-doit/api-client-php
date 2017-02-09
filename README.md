@@ -34,53 +34,52 @@ Why should you use this client? There are some good reasons:
 
 You have several options to download (and kinda install) the API client:
 
-*   Install any version via [Composer](https://getcomposer.org/)
+*   Install any version via [Composer](https://getcomposer.org/) (**recommended**)
 *   Download any stable release manually
-*   Clone the Git repository to fetch the (unstable) development branch
+*   Clone the Git repository to fetch the (maybe unstable) development branch
 
 
 ### Using Composer
 
+Change to your project's root directory and type the following command:
 
-####    Locally
+~~~ {.bash}
+composer require "bheisig/idoitapi=>=0.1"
+~~~
 
-Add a new dependency on `bheisig/idoitapi` to your project's `composer.json` file. Here is a minimal example to install the current development branch locally:
+For a system-wide installation add `global` as an option:
+
+~~~ {.bash}
+composer global require "bheisig/idoitapi=>=0.1"
+~~~
+
+As an alternative add a new dependency on `bheisig/idoitapi` to your project's `composer.json` file. Here is a minimal example to install the current development branch locally:
 
 ~~~ {.json}
 {
     "require": {
-        "bheisig/idoitapi": "@DEV"
+        "bheisig/idoitapi": ">=0.1"
     }
 }
 ~~~
 
-After that you need to call composer to install the API client (under `vendor/bheisig/idoitapi` by default):
+After that you need to call composer to install the API client (under `vendor/bheisig/idoitapi/` by default):
 
 ~~~ {.bash}
 composer install
 ~~~
 
-As an alternative to the steps mentioned above just run:
+This installs version `0.1` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
 
 ~~~ {.bash}
 composer require "bheisig/idoitapi=@DEV"
+composer install
 ~~~
-
-
-####    System-wide
-
-For a system-wide installation you may use:
-
-~~~ {.bash}
-composer global require "bheisig/idoitapi=@DEV"
-~~~
-
-Make sure you have `~/.composer/vendor/bin/` in your path.
 
 
 ####    Updates
 
-Composer has the great advantage (besides many other) that you can simply update the API client by running this command:
+Composer has the great advantage (besides many others) that you can simply update the API client by running:
 
 ~~~ {.bash}
 composer update
@@ -89,24 +88,28 @@ composer update
 
 ### Download Release
 
-You will find [all releases on this site](https://github.com/bheisig/i-doit-api-client-php/releases).
-
-To fetch the latest stable release:
+You find [all releases on the project site](https://github.com/bheisig/i-doit-api-client-php/releases). Fetch the latest stable release:
 
 ~~~ {.bash}
-wget FIXME // No releases at the moment ;-)
-tar xvzf FIXME
+wget https://github.com/bheisig/i-doit-api-client-php/releases/download/0.1/i-doit-api-client-php-0.1.tar.gz
+tar xvzf i-doit-api-client-php-0.1.tar.gz
 cd i-doit-api-client-php/
 ~~~
 
 
 ### Fetch Source Code
 
-Fetch the current (unstable) development branch:
+Fetch the current (maybe unstable) development branch:
 
 ~~~ {.bash}
 git clone https://github.com/bheisig/i-doit-api-client-php.git
 cd i-doit-api-client-php/
+~~~
+
+To fetch updates run:
+
+~~~ {.bash}
+git pull
 ~~~
 
 

@@ -868,6 +868,34 @@ $file->batchAdd(
 ~~~
 
 
+### Upload Images to a Gallery
+
+Each object may have an image gallery provided by assigned category "images". This is the way to upload image files and assign them to an existing object:
+
+~~~ {.php}
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\Image;
+
+$api = new API([/* … */]);
+
+$image = new Image($api);
+
+// Assign one image with a caption to object's gallery with identifier 100:
+$image->add(100, '/path/to/flowers.jpg', 'nice picture of flowers');
+
+// Assign many images to this object:
+$file->batchAdd(
+    100,
+    [
+        'file1.jpg' => 'JPEG file',
+        'file2.png' => 'PNG file',
+        'file3.bmp' => 'BMP file',
+        'file3.gif' => 'Animated GIF file'
+    ]
+);
+~~~
+
+
 ### Self-defined Request
 
 Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this API client library. Here is the way to perform a self-defined request:

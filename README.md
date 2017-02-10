@@ -1,18 +1,18 @@
-#   i-doit API client
+#   i-doit API Client Library
 
-Simple PHP client for i-doit's JSON-RPC API
+Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
 
 ##  About
 
 [i-doit](https://i-doit.com) is a software application for IT documentation and a CMDB (Configuration Management Database). This application is very useful to collect all your knowledge about the IT infrastructure you are dealing with. i-doit is a Web application and [has an exhausting API](https://kb.i-doit.com/pages/viewpage.action?pageId=37355644) which is very useful to automate your infrastructure.
 
-This client provides a simple, but powerful abstraction layer to send requests to i-doit's API. It is written in PHP so you may use it in your own project.
+This API client library provides a simple, but powerful abstraction layer to send requests to i-doit's API. It is written in pure PHP.
 
 
 ##  Features
 
-Why should you use this client? There are some good reasons:
+Why should you use this API client library? There are some good reasons:
 
 *   Easy to use
 *   There is a PHP function for each API method
@@ -32,7 +32,7 @@ Why should you use this client? There are some good reasons:
 
 ##  Download
 
-You have several options to download (and kinda install) the API client:
+You have several options to download (and kinda install) the API client library:
 
 *   Install any version via [Composer](https://getcomposer.org/) (**recommended**)
 *   Download any stable release manually
@@ -63,7 +63,7 @@ As an alternative add a new dependency on `bheisig/idoitapi` to your project's `
 }
 ~~~
 
-After that you need to call composer to install the API client (under `vendor/bheisig/idoitapi/` by default):
+After that you need to call composer to install the API client library (under `vendor/bheisig/idoitapi/` by default):
 
 ~~~ {.bash}
 composer install
@@ -79,7 +79,7 @@ composer install
 
 ####    Updates
 
-Composer has the great advantage (besides many others) that you can simply update the API client by running:
+Composer has the great advantage (besides many others) that you can simply update the API client library by running:
 
 ~~~ {.bash}
 composer update
@@ -132,7 +132,7 @@ This is it. All other files will be auto-loaded on-the-fly if needed.
 
 ##  Configuration
 
-The API client class requires a configuration:
+The API client library class requires a configuration:
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -196,7 +196,7 @@ It is simple like that. For more examples take a look at the next sub sections.
 
 One sweet thing about i-doit's API you can (and should) use one user session for your stuff. This saves resources on the server side and allows you to perform a lot more calls in a short time.
 
-The session handling is done by the API client. You just need to login. And if you are nice you want to logout after your work is done.
+The session handling is done by the API client library. You just need to login. And if you are nice you want to logout after your work is done.
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -217,9 +217,9 @@ $api->isLoggedIn(); // Returns true or false
 
 ### Pre-defined Methods
 
-For almost every case there is a remote procedure you may call to read from or manipulate i-doit's database through its API. Each remote procedure is assigned to a namespace to keep the API clean and smoothly. Furtunately, you do not need to call these remote procedures on your own. The API client provides for each namespace a class and for each remote procedure a method. Here is a quick overview:
+For almost every case there is a remote procedure you may call to read from or manipulate i-doit's database through its API. Each remote procedure is assigned to a namespace to keep the API clean and smoothly. Furtunately, you do not need to call these remote procedures on your own. The API client library provides for each namespace a class and for each remote procedure a method. Here is a quick overview:
 
-| Namespace                     | Remote Procedure Call (RPC)           | API Client Class              | Method                                        |
+| Namespace                     | Remote Procedure Call (RPC)           | Class in API Client Library   | Method                                        |
 | ----------------------------- | ------------------------------------- | ----------------------------- | --------------------------------------------- |
 | `idoit`                       | `idoit.version`                       | `Idoit`                       | `readVersion()`                               |
 |                               | `idoit.search`                        |                               | `search()`                                    |
@@ -250,7 +250,7 @@ For almost every case there is a remote procedure you may call to read from or m
 | `cmdb.workstation_components` | `cmdb.workstation_components.read`    | `CMDBWorkstationComponents`   | `read()`, `readByEMail()`, `readByEMails()`   |
 
 
-Additionally, this API client is shipped with methods as workarounds for remote procedure calls you probably miss. The RPC `cmdb.objects.create` does not exist but you may use `CMDBObjects::create()`. It simulates the missing RPC and gives you an easier and faster way to manipulate your CMDB.
+Additionally, this API client library is shipped with methods as workarounds for remote procedure calls you probably miss. The RPC `cmdb.objects.create` does not exist but you may use `CMDBObjects::create()`. It simulates the missing RPC and gives you an easier and faster way to manipulate your CMDB.
 
 If it makes sense there are methods to perform batch requests for most RPCs. For example, `CMDBCategory::batchRead()` fetches multiple category entries at once.
 
@@ -843,7 +843,7 @@ echo 'Next IP address: ' . $nextIP . PHP_EOL;
 
 ### Upload Files
 
-This API client is able to upload a file, create a new "File" object an assigned it to an existing object identified by its ID:
+This API client library is able to upload a file, create a new "File" object an assigned it to an existing object identified by its ID:
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -870,7 +870,7 @@ $file->batchAdd(
 
 ### Self-defined Request
 
-Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this client. Here is the way to perform a self-defined request:
+Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this API client library. Here is the way to perform a self-defined request:
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -1015,10 +1015,10 @@ var_dump($api->getLastResponseHeaders());
 
 ##  Contribute
 
-Please, report any issues to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues). Pull requests are very welcomed.
+Please, report any issues to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues). Pull requests are very welcomed. If you like to get involved see file [`Contribute.md`](Contribute.md) for details.
 
 
-##  Projects Using This Client
+##  Projects Using This API Client Library
 
 *   [i-doit CLI Tool](https://github.com/bheisig/i-doit-cli) – "Access your CMDB on the command line interface"
 

@@ -1,6 +1,6 @@
 {
     "name": "bheisig/idoitapi",
-    "description": "Simple PHP client for i-doit's JSON-RPC API",
+    "description": "Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API",
     "type": "library",
     "keywords": ["i-doit", "cmdb", "it documentation", "api", "json-rpc"],
     "homepage": "https://github.com/bheisig/i-doit-api-client-php",

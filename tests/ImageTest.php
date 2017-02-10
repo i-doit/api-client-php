@@ -24,9 +24,9 @@
 
 use PHPUnit\Framework\TestCase;
 use bheisig\idoitapi\API;
-use bheisig\idoitapi\File;
+use bheisig\idoitapi\Image;
 
-class FileTest extends TestCase {
+class ImageTest extends TestCase {
 
     /**
      * @var \bheisig\idoitapi\API
@@ -34,7 +34,7 @@ class FileTest extends TestCase {
     protected $api;
 
     /**
-     * @var \bheisig\idoitapi\File
+     * @var \bheisig\idoitapi\Image
      */
     protected $instance;
 
@@ -51,52 +51,32 @@ class FileTest extends TestCase {
             'password' => $GLOBALS['password']
         ]);
 
-        $this->instance = new File($this->api);
+        $this->instance = new Image($this->api);
 
-        for ($i = 1; $i <= 3; $i++) {
-            $filePath = sprintf(
-                '/tmp/file%s.txt',
-                $i
-            );
-            $description = sprintf(
-                'API Test %s @ %s',
-                $i,
-                microtime(true)
-            );
-            $this->files[$filePath] = $description;
+        foreach (['bmp', 'gif', 'jpg', 'png', 'svg', 'tif'] as $format) {
+            $path = __DIR__ . '/data/test.' . $format;
+            $this->files[$path] = strtoupper($format);
         }
     }
 
     public function testAdd() {
-        foreach ($this->files as $filePath => $description) {
-            $status = file_put_contents($filePath, $description);
-
-            if ($status === false) {
-                throw new \Exception('Unable to create test file');
-            }
-
+        foreach ($this->files as $filePath => $caption) {
             $this->assertInstanceOf(
-                File::class,
-                $this->instance->add(9, $filePath, $description)
+                Image::class,
+                $this->instance->add(9, $filePath, $caption)
             );
         }
     }
 
     public function testBatchAdd() {
         $this->assertInstanceOf(
-            File::class,
+            Image::class,
             $this->instance->batchAdd(10, $this->files)
         );
     }
 
     public function testEncode() {
         foreach ($this->files as $filePath => $description) {
-            $status = file_put_contents($filePath, $description);
-
-            if ($status === false) {
-                throw new \Exception('Unable to create test file');
-            }
-
             $fileAsString = $this->instance->encode($filePath);
 
             $this->assertInternalType('string', $fileAsString);

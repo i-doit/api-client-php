@@ -30,7 +30,7 @@ namespace bheisig\idoitapi;
 class Image extends Request {
 
     /**
-     * Adds a new file to the image gallery. At the moment, JPEG files are supported.
+     * Adds a new file to the image gallery.
      *
      * @param int $objectID Object identifier
      * @param string $filePath Path to image file
@@ -58,7 +58,7 @@ class Image extends Request {
     }
 
     /**
-     * Adds new files to the image gallery. At the moment, JPEG files are supported.
+     * Adds new files to the image gallery.
      *
      * @param int $objectID Object identifier
      * @param array $images Associative array (key: path to image file; value: caption)
@@ -69,7 +69,7 @@ class Image extends Request {
      */
     public function batchAdd($objectID, array $images) {
         $objectIDs = [$objectID];
-        $categoryConsts = ['C__CATG__IMAGES'];
+        $categoryConst = 'C__CATG__IMAGES';
         $attributes = [];
 
         foreach ($images as $filePath => $caption) {
@@ -83,7 +83,7 @@ class Image extends Request {
 
         $cmdbCategory = new CMDBCategory($this->api);
 
-        $cmdbCategory->batchCreate($objectIDs, $categoryConsts, $attributes);
+        $cmdbCategory->batchCreate($objectIDs, $categoryConst, $attributes);
 
         return $this;
     }
@@ -103,17 +103,6 @@ class Image extends Request {
             throw new \Exception(sprintf(
                 'Image "%s" not found or not readable',
                 $filePath
-            ));
-        }
-
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $filePath);
-
-        if ($mimeType !== 'image/jpeg') {
-            throw new \Exception(sprintf(
-                'File "%s" is not a JPEG image. MIME type is: %s',
-                $filePath,
-                $mimeType
             ));
         }
 

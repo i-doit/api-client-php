@@ -306,9 +306,8 @@ class CMDBCategory extends Request {
         $result = $this->api->batchRequest($requests);
 
         foreach ($result as $entry) {
-            if (!array_key_exists('id', $entry) ||
-                !is_numeric($entry['id']) ||
-                !array_key_exists('success', $entry) ||
+            // Do not check 'id' because in a batch request it is always NULL:
+            if (!array_key_exists('success', $entry) ||
                 $entry['success'] !== true) {
                 if (array_key_exists('message', $entry)) {
                     throw new \Exception(sprintf('Bad result: %s', $entry['message']));

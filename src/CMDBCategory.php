@@ -310,8 +310,8 @@ class CMDBCategory extends Request {
                 !is_numeric($entry['id']) ||
                 !array_key_exists('success', $entry) ||
                 $entry['success'] !== true) {
-                if (array_key_exists('message', $result)) {
-                    throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                if (array_key_exists('message', $entry)) {
+                    throw new \Exception(sprintf('Bad result: %s', $entry['message']));
                 } else {
                     throw new \Exception('Bad result');
                 }

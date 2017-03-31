@@ -19,7 +19,7 @@ dist : readme
 	rm -r $(DISTDIR)/
 
 tag :
-	git tag -s -m "Tagging version $(VERSION)" $(VERSION)
+	git tag -s -m "Release version $(VERSION)" $(VERSION)
 
 
 ## Clean up

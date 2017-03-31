@@ -123,6 +123,13 @@ class API {
     protected $lastResponseHeaders;
 
     /**
+     * Response for last request
+     *
+     * @var array Associative array
+     */
+    protected $lastResponse;
+
+    /**
      * Last request content
      *
      * @var array Multi-dimensional associative array
@@ -494,13 +501,13 @@ class API {
 
         $this->lastResponseHeaders = implode(PHP_EOL, array_slice($responseLines, 0, -1));
 
-        $response = json_decode(end($responseLines), true);
+        $this->lastResponse = json_decode(end($responseLines), true);
 
-        if (!is_array($response)) {
+        if (!is_array($this->lastResponse)) {
             throw new \Exception('i-doit responded with an invalid JSON string.');
         }
 
-        return $response;
+        return $this->lastResponse;
     }
 
     /**
@@ -564,6 +571,15 @@ class API {
      */
     public function getLastResponseHeaders() {
         return $this->lastResponseHeaders;
+    }
+
+    /**
+     * Response for last request
+     *
+     * @return array Associative array
+     */
+    public function getLastResponse() {
+        return $this->lastResponse;
     }
 
     /**

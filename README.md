@@ -1021,23 +1021,53 @@ $api->isConnected(); // Returns true
 
 ### Debugging API Calls
 
-For debugging purposes it is great to fetch some details about your API calls. These methods may help you:
+For debugging purposes it is great to fetch some details about your API calls. This script uses some useful methods:
 
 ~~~ {.php}
+#!/usr/bin/env php
+<?php
+
 use bheisig\idoitapi\API;
+use bheisig\idoitapi\Idoit;
+
+$start = time();
+
+require_once 'vendor/autoload.php';
 
 $api = new API([/* … */]);
 
-// Just a simple API call:
+// @todo Insert your code here, for example:
 $request = new Idoit($api);
 $request->readVersion();
 
-// Debugging methods:
-var_dump($api->countRequests());
-var_dump($api->getLastInfo());
-var_dump($api->getLastRequestContent());
-var_dump($api->getLastRequestHeaders());
-var_dump($api->getLastResponseHeaders());
+fwrite(STDERR, 'Last request:' . PHP_EOL);
+fwrite(STDERR, '=============' . PHP_EOL);
+fwrite(STDERR, $api->getLastRequestHeaders() . PHP_EOL);
+fwrite(STDERR, json_encode($api->getLastRequestContent(), JSON_PRETTY_PRINT) . PHP_EOL);
+fwrite(STDERR, PHP_EOL);
+fwrite(STDERR, '--------------------------------------------------------------------------------' . PHP_EOL);
+fwrite(STDERR, 'Last response:' . PHP_EOL);
+fwrite(STDERR, '==============' . PHP_EOL);
+fwrite(STDERR, $api->getLastResponseHeaders() . PHP_EOL);
+fwrite(STDERR, json_encode($api->getLastResponse(), JSON_PRETTY_PRINT) . PHP_EOL);
+fwrite(STDERR, PHP_EOL);
+fwrite(STDERR, '--------------------------------------------------------------------------------' . PHP_EOL);
+fwrite(STDERR, 'Last connection:' . PHP_EOL);
+fwrite(STDERR, '================' . PHP_EOL);
+$info = $api->getLastInfo();
+unset($info['request_header']);
+foreach ($info as $key => $value) {
+    if (is_array($value)) {
+        $value = '…';
+    }
+    fwrite(STDERR, $key . ': ' . $value . PHP_EOL);
+}
+fwrite(STDERR, '--------------------------------------------------------------------------------' . PHP_EOL);
+fwrite(STDERR, 'Amount of requests: ' . $api->countRequests() . PHP_EOL);
+$memoryUsage = memory_get_peak_usage(true);
+fwrite(STDERR, sprintf('Memory usage: %s bytes', $memoryUsage) . PHP_EOL);
+$duration = time() - $start;
+fwrite(STDERR, sprintf('Duration: %s seconds', $duration) . PHP_EOL);
 ~~~
 
 

@@ -25,24 +25,15 @@
 namespace bheisig\idoitapi;
 
 /**
- * Request
+ * Interface for API request classes
  */
-abstract class Request implements Calls {
-
-    /**
-     * API client
-     *
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+interface Calls {
 
     /**
      * Constructor
      *
      * @param \bheisig\idoitapi\API $api API client
      */
-    public function __construct(API $api) {
-        $this->api = $api;
-    }
+    public function __construct(API $api);
 
 }

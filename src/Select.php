@@ -43,6 +43,7 @@ class Select extends Request {
     public function find($category, $attribute, $value) {
         $cmdbObjects = new CMDBObjects($this->api);
 
+        // @todo Limit requests!
         $objects = $cmdbObjects->read();
 
         $objectIDs = [];
@@ -55,9 +56,10 @@ class Select extends Request {
 
         $cmdbCategory = new CMDBCategory($this->api);
 
+        // @todo Limit requests!
         $result = $cmdbCategory->batchRead(
             $objectIDs,
-            $category
+            [$category]
         );
 
         $objectIDs = [];
@@ -68,8 +70,27 @@ class Select extends Request {
                     continue;
                 }
 
-                // @todo This is way more complicated:
-                if ($categoryEntry[$attribute] != $value) {
+                $found = false;
+
+                if (is_array($categoryEntry[$attribute]) &&
+                    array_key_exists('ref_title', $categoryEntry[$attribute]) &&
+                    $categoryEntry[$attribute]['ref_title'] === $value) {
+                    $found = true;
+                } else if (is_array($categoryEntry[$attribute]) &&
+                    array_key_exists('title', $categoryEntry[$attribute]) &&
+                    $categoryEntry[$attribute]['title'] === $value) {
+                    $found = true;
+                } else if (is_numeric($categoryEntry[$attribute]) &&
+                    is_int($value) &&
+                    (int) $categoryEntry[$attribute] === $value) {
+                    $found = true;
+                } else if (is_string($categoryEntry[$attribute]) &&
+                    is_string($value) &&
+                    $categoryEntry[$attribute] === $value) {
+                    $found = true;
+                }
+
+                if ($found === false) {
                     continue;
                 }
 

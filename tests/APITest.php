@@ -135,6 +135,13 @@ class APITest extends TestCase {
         $this->assertNotCount(0, $this->api->getLastInfo());
     }
 
+    public function testLastResponse() {
+        $this->api->request('idoit.version');
+
+        $this->assertInternalType('array', $this->api->getLastResponse());
+        $this->assertNotCount(0, $this->api->getLastResponse());
+    }
+
     public function testGetLastRequestContent() {
         $this->api->request('idoit.version');
 

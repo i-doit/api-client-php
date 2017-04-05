@@ -58,7 +58,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @throws \Exception on error
      */
-    public function batchRead($objectIDs) {
+    public function batchRead(array $objectIDs) {
         return $this->api->request(
             'cmdb.workstation_components',
             [
@@ -98,7 +98,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @throws \Exception on error
      */
-    public function readByEMails($emails) {
+    public function readByEMails(array $emails) {
         return $this->api->request(
             'cmdb.workstation_components',
             [

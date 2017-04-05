@@ -332,7 +332,7 @@ class CMDBCategory extends Request {
      *
      * @throws \Exception on error
      */
-    public function batchRead($objectIDs, $categoryConsts) {
+    public function batchRead(array $objectIDs, array $categoryConsts) {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {

@@ -74,7 +74,7 @@ class CMDBObjectTypeCategories extends Request {
      *
      * @throws \Exception on error
      */
-    public function batchReadByID($objectTypeIDs) {
+    public function batchReadByID(array $objectTypeIDs) {
         $requests = [];
 
         foreach ($objectTypeIDs as $objectTypeID) {
@@ -98,7 +98,7 @@ class CMDBObjectTypeCategories extends Request {
      *
      * @throws \Exception on error
      */
-    public function batchReadByConst($objectTypeConsts) {
+    public function batchReadByConst(array $objectTypeConsts) {
         $requests = [];
 
         foreach ($objectTypeConsts as $objectTypeConst) {

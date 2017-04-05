@@ -65,7 +65,7 @@ class CMDBCategoryInfo extends Request {
      *
      * @throws \Exception on error
      */
-    public function batchRead($categories) {
+    public function batchRead(array $categories) {
         $requests = [];
 
         foreach ($categories as $const => $isGlobal) {

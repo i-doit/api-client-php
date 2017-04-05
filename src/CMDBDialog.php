@@ -67,7 +67,7 @@ class CMDBDialog extends Request {
      *
      * @throws \Exception on error
      */
-    public function batchCreate($values) {
+    public function batchCreate(array $values) {
         $requests = [];
 
         foreach ($values as $category => $keyValuePair) {
@@ -138,7 +138,7 @@ class CMDBDialog extends Request {
      *
      * @throws \Exception on error
      */
-    public function batchRead($attributes) {
+    public function batchRead(array $attributes) {
         $requests = [];
 
         foreach ($attributes as $category => $mixed) {

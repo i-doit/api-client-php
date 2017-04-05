@@ -40,7 +40,7 @@ class CMDBObject extends Request {
      *
      * @throws \Exception on error
      */
-    public function create($type, $title, $attributes = []) {
+    public function create($type, $title, array $attributes = []) {
         $attributes['type'] = $type;
         $attributes['title'] = $title;
 
@@ -81,7 +81,7 @@ class CMDBObject extends Request {
      *
      * @throws \Exception on error
      */
-    public function update($objectID, $attributes = []) {
+    public function update($objectID, array $attributes = []) {
         $params = [
             'id' => $objectID
         ];
@@ -302,7 +302,7 @@ class CMDBObject extends Request {
      *
      * @throws \Exception on error
      */
-    public function upsert($type, $title, $attributes = []) {
+    public function upsert($type, $title, array $attributes = []) {
         $cmdbObjects = new CMDBObjects($this->api);
 
         $filter = [
@@ -322,7 +322,10 @@ class CMDBObject extends Request {
 
                 return (int) $result[0]['id'];
             default:
-                throw new \Exception('Found %s objects', count($result));
+                throw new \Exception(sprintf(
+                    'Found %s objects',
+                    count($result)
+                ));
         }
     }
 

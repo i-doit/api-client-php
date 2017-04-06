@@ -494,7 +494,19 @@ class API {
         $this->lastInfo = curl_getinfo($this->resource);
 
         if ($responseString === false) {
-            throw new \Exception('Connection failed or i-doit responds with an HTTP status code which is not "200 OK".');
+            switch($this->lastInfo['http_code']) {
+                case 0:
+                    throw new \Exception(
+                        'i-doit host is not available'
+                    );
+                    break;
+                default:
+                    throw new \Exception(sprintf(
+                        'i-doit responds with HTTP status code "%s"',
+                        $this->lastInfo['http_code']
+                    ));
+                    break;
+            }
         }
 
         $responseLines = explode(PHP_EOL, $responseString);

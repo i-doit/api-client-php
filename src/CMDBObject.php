@@ -239,6 +239,10 @@ class CMDBObject extends Request {
     public function load($objectID) {
         $object = $this->read($objectID);
 
+        if (count($object) === 0) {
+            throw new \Exception('Object not found');
+        }
+
         if (!array_key_exists('objecttype', $object)) {
             throw new \Exception(sprintf(
                 'Object %s has no type',

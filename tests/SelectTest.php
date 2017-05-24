@@ -49,8 +49,8 @@ class SelectTest extends TestCase {
         $this->instance = new Select($this->api);
     }
 
-    public function testFile() {
-        $result = $this->instance->find('C__CATG__GLOBAL', 'title', 'ESX1');
+    public function testFind() {
+        $result = $this->instance->find('C__CATG__GLOBAL', 'title', 'ESXi1');
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
@@ -64,6 +64,13 @@ class SelectTest extends TestCase {
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
+
+        $result = $this->instance->find(
+            'C__CATG__GLOBAL', 'title', 'This is not the object you are looking for'
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(0, $result);
     }
 
 }

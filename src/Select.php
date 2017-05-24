@@ -43,63 +43,82 @@ class Select extends Request {
     public function find($category, $attribute, $value) {
         $cmdbObjects = new CMDBObjects($this->api);
 
-        // @todo Limit requests!
-        $objects = $cmdbObjects->read();
+        $limit = 100;
+        $offset = 0;
 
         $objectIDs = [];
 
-        foreach ($objects as $object) {
-            $objectIDs[] = (int) $object['id'];
-        }
+        while (true) {
+            $objects = $cmdbObjects->read([], $limit, $offset);
 
-        unset($objects);
+            $count = count($objects);
 
-        $cmdbCategory = new CMDBCategory($this->api);
-
-        // @todo Limit requests!
-        $result = $cmdbCategory->batchRead(
-            $objectIDs,
-            [$category]
-        );
-
-        $objectIDs = [];
-
-        foreach ($result as $categoryEntries) {
-            foreach ($categoryEntries as $categoryEntry) {
-                if (!array_key_exists($attribute, $categoryEntry)) {
-                    continue;
-                }
-
-                $found = false;
-
-                if (is_array($categoryEntry[$attribute]) &&
-                    array_key_exists('ref_title', $categoryEntry[$attribute]) &&
-                    $categoryEntry[$attribute]['ref_title'] === $value) {
-                    $found = true;
-                } else if (is_array($categoryEntry[$attribute]) &&
-                    array_key_exists('title', $categoryEntry[$attribute]) &&
-                    $categoryEntry[$attribute]['title'] === $value) {
-                    $found = true;
-                } else if (is_numeric($categoryEntry[$attribute]) &&
-                    is_int($value) &&
-                    (int) $categoryEntry[$attribute] === $value) {
-                    $found = true;
-                } else if (is_string($categoryEntry[$attribute]) &&
-                    is_string($value) &&
-                    $categoryEntry[$attribute] === $value) {
-                    $found = true;
-                }
-
-                if ($found === false) {
-                    continue;
-                }
-
-                if (!array_key_exists('objID', $categoryEntry)) {
-                    throw new \Exception('Found attribute for unknown object');
-                }
-
-                $objectIDs[] = (int) $categoryEntry['objID'];
+            if ($count === 0) {
+                break;
             }
+
+            foreach ($objects as $object) {
+                $objectIDs[] = (int)$object['id'];
+            }
+
+            unset($objects);
+
+            $cmdbCategory = new CMDBCategory($this->api);
+
+            $result = $cmdbCategory->batchRead(
+                $objectIDs,
+                [$category]
+            );
+
+            $objectIDs = [];
+
+            foreach ($result as $categoryEntries) {
+                foreach ($categoryEntries as $categoryEntry) {
+                    if (!array_key_exists($attribute, $categoryEntry)) {
+                        continue;
+                    }
+
+                    $found = false;
+
+                    if (is_array($categoryEntry[$attribute]) &&
+                        array_key_exists('ref_title', $categoryEntry[$attribute]) &&
+                        $categoryEntry[$attribute]['ref_title'] === $value
+                    ) {
+                        $found = true;
+                    } else if (is_array($categoryEntry[$attribute]) &&
+                        array_key_exists('title', $categoryEntry[$attribute]) &&
+                        $categoryEntry[$attribute]['title'] === $value
+                    ) {
+                        $found = true;
+                    } else if (is_numeric($categoryEntry[$attribute]) &&
+                        is_int($value) &&
+                        (int)$categoryEntry[$attribute] === $value
+                    ) {
+                        $found = true;
+                    } else if (is_string($categoryEntry[$attribute]) &&
+                        is_string($value) &&
+                        $categoryEntry[$attribute] === $value
+                    ) {
+                        $found = true;
+                    }
+
+                    if ($found === false) {
+                        continue;
+                    }
+
+                    if (!array_key_exists('objID', $categoryEntry)) {
+                        throw new \Exception('Found attribute for unknown object');
+                    }
+
+                    $objectIDs[] = (int)$categoryEntry['objID'];
+                }
+            }
+
+            if ($count < $limit) {
+                break;
+            }
+
+            $offset += $limit;
         }
 
         return $objectIDs;

@@ -496,16 +496,18 @@ class API {
         if ($responseString === false) {
             switch($this->lastInfo['http_code']) {
                 case 0:
-                    throw new \Exception(
-                        'i-doit host is not available'
-                    );
-                    break;
+                    $message = curl_error($this->resource);
+
+                    if (strlen($message) === 0) {
+                        $message = 'Connection to Web server failed';
+                    }
+
+                    throw new \Exception($message);
                 default:
                     throw new \Exception(sprintf(
-                        'i-doit responds with HTTP status code "%s"',
+                        'Web server responded with HTTP status code "%s"',
                         $this->lastInfo['http_code']
                     ));
-                    break;
             }
         }
 

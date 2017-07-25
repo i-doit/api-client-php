@@ -44,13 +44,13 @@ You have several options to download (and kinda install) the API client library:
 Change to your project's root directory and type the following command:
 
 ~~~ {.bash}
-composer require "bheisig/idoitapi=>=0.2"
+composer require "bheisig/idoitapi=>=0.3"
 ~~~
 
 For a system-wide installation add `global` as an option:
 
 ~~~ {.bash}
-composer global require "bheisig/idoitapi=>=0.2"
+composer global require "bheisig/idoitapi=>=0.3"
 ~~~
 
 As an alternative add a new dependency on `bheisig/idoitapi` to your project's `composer.json` file. Here is a minimal example to install the current development branch locally:
@@ -58,7 +58,7 @@ As an alternative add a new dependency on `bheisig/idoitapi` to your project's `
 ~~~ {.json}
 {
     "require": {
-        "bheisig/idoitapi": ">=0.2"
+        "bheisig/idoitapi": ">=0.3"
     }
 }
 ~~~
@@ -69,7 +69,7 @@ After that you need to call composer to install the API client library (under `v
 composer install
 ~~~
 
-This installs version `0.2` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
+This installs version `0.3` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
 
 ~~~ {.bash}
 composer require "bheisig/idoitapi=@DEV"
@@ -91,8 +91,8 @@ composer update
 You find [all releases on the project site](https://github.com/bheisig/i-doit-api-client-php/releases). Fetch the latest stable release:
 
 ~~~ {.bash}
-wget https://github.com/bheisig/i-doit-api-client-php/releases/download/0.2/i-doit-api-client-php-0.2.tar.gz
-tar xvzf i-doit-api-client-php-0.2.tar.gz
+wget https://github.com/bheisig/i-doit-api-client-php/releases/download/0.3/i-doit-api-client-php-0.3.tar.gz
+tar xvzf i-doit-api-client-php-0.3.tar.gz
 cd i-doit-api-client-php/
 ~~~
 

@@ -11,8 +11,8 @@ php:
   - nightly
 
 install:
-  - composer self-update
-  - composer install --no-interaction
+  - travis_retry composer self-update
+  - travis_retry composer install --prefer-source --no-interaction --dev
 
 script: phpunit --configuration ./tests/phpunit.xml
 

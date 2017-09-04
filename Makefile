@@ -1,7 +1,7 @@
 TITLE = $(shell make -s get-setting-title)
 VERSION = $(shell make -s get-setting-version)
 TAG = $(shell make -s get-setting-tag)
-DISTFILES = src/ COPYING idoitapi.php project.json README
+DISTFILES = src/ LICENSE idoitapi.php project.json README
 DISTDIR = $(TAG)
 DISTTARBALL = $(TAG)-$(VERSION).tar.gz
 

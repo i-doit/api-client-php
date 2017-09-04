@@ -3,6 +3,11 @@
 Thank you very much for your interest in this project! There are plenty of ways you can support us. :-)
 
 
+##  Code of Conduct
+
+We like you to read and follow our [code of conduct](CODE_OF_CONDUCT.md) before contributing. Thank you.
+
+
 ##  Use it
 
 The best and (probably) easiest way is to use the API client library for your own projects. It would be very nice to share your thoughts with us. We love to hear from you.
@@ -38,7 +43,7 @@ composer install
 
 Now it is the time to do your stuff. Do not forget to commit your changes. When you are done consider to make a pull requests.
 
-Notice, that any of your contributions merged into this repository will be [licensed under the AGPLv3](COPYING).
+Notice, that any of your contributions merged into this repository will be [licensed under the AGPLv3](LICENSE).
 
 
 ##  Requirements

@@ -27,11 +27,5 @@
         "psr-4": {
             "bheisig\\idoitapi\\": "src/"
         }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/bheisig/i-doit-api-client-php"
-        }
-    ]
+    }
 }

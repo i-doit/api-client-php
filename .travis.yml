@@ -1,6 +1,7 @@
 os:
   - linux
-  - osx
+
+sudo: required
 
 language: php
 
@@ -10,17 +11,22 @@ php:
   - 7.1
   - nightly
 
+services:
+  - docker
+
 install:
   - travis_retry composer self-update
   - travis_retry composer install --prefer-source --no-interaction
+  - docker pull phpunit/phpunit
 
-script: phpunit --configuration ./tests/phpunit.xml
+script:
+  - docker run -v $(pwd):/app phpunit/phpunit:5.7.12 --configuration ./tests/phpunit.xml
 
 matrix:
   allow_failures:
     - php: nightly
 
-  notifications:
-    email:
-      on_success: never
-      on_failure: always
+notifications:
+  email:
+    on_success: never
+    on_failure: always

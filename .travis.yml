@@ -12,10 +12,15 @@ php:
 
 install:
   - travis_retry composer self-update
-  - travis_retry composer install --prefer-source --no-interaction --dev
+  - travis_retry composer install --prefer-source --no-interaction
 
 script: phpunit --configuration ./tests/phpunit.xml
 
 matrix:
   allow_failures:
     - php: nightly
+
+  notifications:
+    email:
+      on_success: never
+      on_failure: always

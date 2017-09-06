@@ -18,8 +18,8 @@ install:
   - docker pull epcallan/php7-testing-phpunit:7.1-phpunit5
 
 script:
-  - docker run -v $(pwd):/app epcallan/php7-testing-phpunit:7.0-phpunit5 --configuration /app/tests/phpunit.xml
-  - docker run -v $(pwd):/app epcallan/php7-testing-phpunit:7.1-phpunit5 --configuration /app/tests/phpunit.xml
+  - docker run -v $(pwd):/app epcallan/php7-testing-phpunit:7.0-phpunit5 phpunit --configuration /app/tests/phpunit.xml
+  - docker run -v $(pwd):/app epcallan/php7-testing-phpunit:7.1-phpunit5 phpunit --configuration /app/tests/phpunit.xml
 
 notifications:
   email:

@@ -22,4 +22,4 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-require_once 'idoitapi.php';
+require_once __DIR__ . '/../idoitapi.php';

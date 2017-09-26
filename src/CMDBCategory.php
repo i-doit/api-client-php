@@ -35,23 +35,17 @@ class CMDBCategory extends Request {
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      * @param array $attributes Attributes
-     * @param bool $isGlobal (optional) Is category global, otherwise specific?
      *
      * @return int Entry identifier
      *
      * @throws \Exception on error
      */
-    public function create($objectID, $categoryConst, array $attributes, $isGlobal = true) {
+    public function create($objectID, $categoryConst, array $attributes) {
         $params = [
             'objID' => $objectID,
-            'data' => $attributes
+            'data' => $attributes,
+            'category' => $categoryConst
         ];
-
-        if ($isGlobal === true) {
-            $params['catgID'] = $categoryConst;
-        } else {
-            $params['catsID'] = $categoryConst;
-        }
 
         $result = $this->api->request(
             'cmdb.category.create',
@@ -190,22 +184,16 @@ class CMDBCategory extends Request {
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      * @param int $entryID Entry identifier (only needed for multi-valued categories)
-     * @param bool $isGlobal (optional) Is category global, otherwise specific?
      *
      * @return self Returns itself
      *
      * @throws \Exception on error
      */
-    public function archive($objectID, $categoryConst, $entryID = null, $isGlobal = true) {
+    public function archive($objectID, $categoryConst, $entryID = null) {
         $params = [
-            'objID' => $objectID
+            'objID' => $objectID,
+            'category' => $categoryConst
         ];
-
-        if ($isGlobal === true) {
-            $params['catgID'] = $categoryConst;
-        } else {
-            $params['catsID'] = $categoryConst;
-        }
 
         if (isset($entryID)) {
             $params['cateID'] = $entryID;
@@ -234,16 +222,15 @@ class CMDBCategory extends Request {
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      * @param int $entryID Entry identifier (only needed for multi-valued categories)
-     * @param bool $isGlobal (optional) Is category global, otherwise specific?
      *
      * @return self Returns itself
      *
      * @throws \Exception on error
      */
-    public function delete($objectID, $categoryConst, $entryID = null, $isGlobal = true) {
+    public function delete($objectID, $categoryConst, $entryID = null) {
         return $this
-            ->archive($objectID, $categoryConst, $entryID, $isGlobal)
-            ->archive($objectID, $categoryConst, $entryID, $isGlobal);
+            ->archive($objectID, $categoryConst, $entryID)
+            ->archive($objectID, $categoryConst, $entryID);
     }
 
 
@@ -253,17 +240,16 @@ class CMDBCategory extends Request {
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      * @param int $entryID Entry identifier (only needed for multi-valued categories)
-     * @param bool $isGlobal (optional) Is category global, otherwise specific?
      *
      * @return self Returns itself
      *
      * @throws \Exception on error
      */
-    public function purge($objectID, $categoryConst, $entryID = null, $isGlobal = true) {
+    public function purge($objectID, $categoryConst, $entryID = null) {
         return $this
-            ->archive($objectID, $categoryConst, $entryID, $isGlobal)
-            ->archive($objectID, $categoryConst, $entryID, $isGlobal)
-            ->archive($objectID, $categoryConst, $entryID, $isGlobal);
+            ->archive($objectID, $categoryConst, $entryID)
+            ->archive($objectID, $categoryConst, $entryID)
+            ->archive($objectID, $categoryConst, $entryID);
     }
 
     /**
@@ -272,13 +258,12 @@ class CMDBCategory extends Request {
      * @param int[] $objectIDs List of object identifiers
      * @param string $categoryConst Category constant
      * @param array[] $attributes Indexed array of attributes
-     * @param bool $isGlobal (optional) Is category global, otherwise specific?
      *
      * @return int[] Entry identifiers
      *
      * @throws \Exception on error
      */
-    public function batchCreate(array $objectIDs, $categoryConst, array $attributes, $isGlobal = true) {
+    public function batchCreate(array $objectIDs, $categoryConst, array $attributes) {
         $entryIDs = [];
 
         $requests = [];
@@ -287,14 +272,9 @@ class CMDBCategory extends Request {
             foreach ($attributes as $data) {
                 $params = [
                     'objID' => $objectID,
-                    'data' => $data
+                    'data' => $data,
+                    'category' => $categoryConst
                 ];
-
-                if ($isGlobal === true) {
-                    $params['catgID'] = $categoryConst;
-                } else {
-                    $params['catsID'] = $categoryConst;
-                }
 
                 $requests[] = [
                     'method' => 'cmdb.category.create',

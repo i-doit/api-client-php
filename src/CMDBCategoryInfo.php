@@ -33,24 +33,18 @@ class CMDBCategoryInfo extends Request {
      * Fetches information about a category
      *
      * @param string $categoryConst Category constant
-     * @param bool $isGlobal (optional) Is category global, otherwise specific?
      *
      * @return array Result set
      *
      * @throws \Exception on error
      */
-    public function read($categoryConst, $isGlobal = true) {
-        $params = [];
-
-        if ($isGlobal === true) {
-            $params['catgID'] = $categoryConst;
-        } else {
-            $params['catsID'] = $categoryConst;
-        }
+    public function read($categoryConst) {
 
         return $this->api->request(
             'cmdb.category_info',
-            $params
+            array(
+                'category' => $categoryConst
+            )
         );
     }
 
@@ -80,6 +74,26 @@ class CMDBCategoryInfo extends Request {
             $requests[] = [
                 'method' => 'cmdb.category_info',
                 'params' => $params
+            ];
+        }
+    }
+
+    /**
+     * Fetches information about one or more categories
+     * @param array $categories
+     * @throws \Exception on error
+     * @return array Indexed array of associative arrays
+     */
+    public function batchReadByConst(array $categories) {
+        $requests = [];
+
+        foreach ($categories as $category) {
+
+            $requests[] = [
+                'method' => 'cmdb.category_info',
+                'params' => array(
+                    'category' => $category
+                )
             ];
         }
 

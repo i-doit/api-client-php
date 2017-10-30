@@ -2,6 +2,8 @@
 
 Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
+[![Build Status](https://travis-ci.org/bheisig/i-doit-api-client-php.svg?branch=master)](https://travis-ci.org/bheisig/i-doit-api-client-php)
+
 
 ##  About
 
@@ -16,18 +18,20 @@ Why should you use this API client library? There are some good reasons:
 
 *   Easy to use
 *   There is a PHP function for each API method
-*   Supports batch requests
+*   Supports batch requests (much faster)
 *   Sends user-defined requests
-*   Upload files and images
-*   Supports login and logout to save sessions
-*   Follows redirects (HTTP 301/302)
+*   Uploads files and images
+*   Supports login and logout methods to save sessions
+*   Follows redirects (HTTP 301/302) automatically
 *   Uses optional HTTP or SOCKS5 proxy
 *   Verifies TLS certificate chains
 *   Throws exception on error
 *   Many examples
 *   Well-documented
 *   Easy to install via Composer
-*   Unit tests!!!11
+*   Well-tested with dozens of unit tests
+
+What's new? Take a look at the [changelog](CHANGELOG.md).
 
 
 ##  Download
@@ -660,13 +664,13 @@ $api = new API([/* … */]);
 
 $dialog = new CMDBDialog($api);
 
-$entryID = $dialog->create('C__CATG__MODEL', 'model', 'My model');
+$entryID = $dialog->create('C__CATG__MODEL', 'title', 'My model');
 var_dump($entryID);
 
 $entryIDs = $dialog->batchCreate([
     'C__CATG__MODEL' => [
         'manufacturer' => 'My manufacturer',
-        'model' => 'My model'
+        'title' => 'My model'
     ],
     'C__CATG__GLOBAL' => [
         'category' => [
@@ -693,13 +697,13 @@ $api = new API([/* … */]);
 
 $dialog = new CMDBDialog($api);
 
-$models = $dialog->read('C__CATG__MODEL', 'model');
+$models = $dialog->read('C__CATG__MODEL', 'title');
 var_dump($models);
 
 $modelsAndManufacturers = $dialog->batchRead([
     'C__CATG__MODEL' => [
         'manufacturer',
-        'model'
+        'title'
     ]
 ]);
 var_dump($modelsAndManufacturers);
@@ -975,12 +979,10 @@ var_dump($serverCategories);
 $categoryInfo = new CMDBCategoryInfo($api);
 $modelCategory = $categoryInfo->read('C__CATG__MODEL');
 var_dump($modelCategory);
-$personCategory = $categoryInfo->read('C__CATS__PERSON_MASTER', false);
-var_dump($personCategory);
 $categories = $categoryInfo->batchRead([
-    'C__CATG__MODEL' => true,
-    'C__CATG__FORMFACTOR' => true,
-    'C__CATS__PERSON_MASTER' => false
+    'C__CATG__MODEL',
+    'C__CATG__FORMFACTOR',
+    'C__CATS__PERSON_MASTER'
 ]);
 var_dump($categories);
 ~~~
@@ -1079,6 +1081,8 @@ Please, report any issues to [our issue tracker](https://github.com/bheisig/i-do
 ##  Projects Using This API Client Library
 
 *   [i-doit CLI Tool](https://github.com/bheisig/i-doit-cli) – "Access your CMDB on the command line interface"
+
+Send pull requests to add yours.
 
 
 ##  Copyright & License

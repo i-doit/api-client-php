@@ -52,12 +52,18 @@ class CMDBReports extends Request {
      * @throws \Exception on error
      */
     public function read($reportID) {
-        return $this->api->request(
+        $result = $this->api->request(
             'cmdb.reports',
             [
                 'id' => $reportID
             ]
         );
+
+        if (!is_array($result)) {
+            return [];
+        }
+
+        return $result;
     }
 
     /**
@@ -81,7 +87,18 @@ class CMDBReports extends Request {
             ];
         }
 
-        return $this->api->batchRequest($requests);
+        $batchResults = $this->api->batchRequest($requests);
+        $results = [];
+
+        foreach ($batchResults as $result) {
+            if (is_array($result)) {
+                $results[] = $result;
+            } else {
+                $results[] = [];
+            }
+        }
+
+        return $results;
     }
 
 }

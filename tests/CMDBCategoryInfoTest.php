@@ -51,15 +51,15 @@ class CMDBCategoryInfoTest extends TestCase {
         $this->instance = new CMDBCategoryInfo($this->api);
 
         $this->categories = [
-            'C__CATG__GLOBAL' => true,
-            'C__CATG__IP' => true,
-            'C__CATS__PERSON_MASTER' => false
+            'C__CATG__GLOBAL',
+            'C__CATG__IP',
+            'C__CATS__PERSON_MASTER'
         ];
     }
 
     public function testRead() {
-        foreach ($this->categories as $categoryConst => $isGlobal) {
-            $result = $this->instance->read($categoryConst, $isGlobal);
+        foreach ($this->categories as $categoryConst) {
+            $result = $this->instance->read($categoryConst);
 
             $this->assertInternalType('array', $result);
             $this->assertNotCount(0, $result);

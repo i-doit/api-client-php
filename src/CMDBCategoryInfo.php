@@ -51,42 +51,13 @@ class CMDBCategoryInfo extends Request {
     /**
      * Fetches information about one or more categories
      *
-     * This only works with "global" categories.
-     *
-     * @param array $categories List of category constants as keys and whether they are global (boolean) as values
+     * @param string[] $categories List of category constants
      *
      * @return array Indexed array of associative arrays
      *
      * @throws \Exception on error
      */
     public function batchRead(array $categories) {
-        $requests = [];
-
-        foreach ($categories as $const => $isGlobal) {
-            $params = [];
-
-            if ($isGlobal) {
-                $params['catgID'] = $const;
-            } else {
-                $params['catsID'] = $const;
-            }
-
-            $requests[] = [
-                'method' => 'cmdb.category_info',
-                'params' => $params
-            ];
-        }
-
-        return $this->api->batchRequest($requests);
-    }
-
-    /**
-     * Fetches information about one or more categories
-     * @param array $categories
-     * @throws \Exception on error
-     * @return array Indexed array of associative arrays
-     */
-    public function batchReadByConst(array $categories) {
         $requests = [];
 
         foreach ($categories as $category) {

@@ -76,6 +76,8 @@ class CMDBCategoryInfo extends Request {
                 'params' => $params
             ];
         }
+
+        return $this->api->batchRequest($requests);
     }
 
     /**

@@ -257,7 +257,8 @@ class API {
             $this->options[CURLOPT_PROXY] = $this->config[self::PROXY][self::PROXY_HOST];
             $this->options[CURLOPT_PROXYPORT] = $this->config[self::PROXY][self::PROXY_PORT];
 
-            if (is_string($this->config[self::PROXY][self::PROXY_USERNAME]) &&
+            if (isset($this->config[self::PROXY][self::PROXY_USERNAME]) &&
+                is_string($this->config[self::PROXY][self::PROXY_USERNAME]) &&
                 !empty($this->config[self::PROXY][self::PROXY_USERNAME])) {
                 $this->options[CURLOPT_PROXYUSERPWD] = $this->config[self::PROXY][self::PROXY_USERNAME] .
                     ':' . $this->config[self::PROXY][self::PROXY_PASSWORD];
@@ -265,10 +266,10 @@ class API {
 
             switch ($this->config[self::PROXY][self::PROXY_TYPE]) {
                 case 'HTTP':
-                    $this->options[CURLOPT_PROXYPORT] = CURLPROXY_HTTP;
+                    $this->options[CURLOPT_PROXYTYPE] = CURLPROXY_HTTP;
                     break;
                 case 'SOCKS5':
-                    $this->options[CURLOPT_PROXYPORT] = CURLPROXY_SOCKS5;
+                    $this->options[CURLOPT_PROXYTYPE] = CURLPROXY_SOCKS5;
                     break;
                 default:
                     throw new \Exception(sprintf('Unknown proxy type "%s"', $this->config[self::PROXY][self::PROXY_TYPE]));

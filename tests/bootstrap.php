@@ -23,3 +23,4 @@
  */
 
 require_once __DIR__ . '/../idoitapi.php';
+require_once __DIR__ . '/BaseTest.php';

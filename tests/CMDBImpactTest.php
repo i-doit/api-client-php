@@ -22,16 +22,9 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBImpact;
 
-class CMDBImpactTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class CMDBImpactTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\CMDBImpact
@@ -39,12 +32,7 @@ class CMDBImpactTest extends TestCase {
     protected $instance;
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->instance = new CMDBImpact($this->api);
     }

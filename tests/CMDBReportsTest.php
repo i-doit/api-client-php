@@ -22,16 +22,9 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBReports;
 
-class CMDBReportsRelationTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class CMDBReportsRelationTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\CMDBReports
@@ -39,12 +32,7 @@ class CMDBReportsRelationTest extends TestCase {
     protected $reports;
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->reports = new CMDBReports($this->api);
     }
@@ -57,17 +45,34 @@ class CMDBReportsRelationTest extends TestCase {
     }
 
     public function testRead() {
-        $result = $this->reports->read(1);
+        $reports = $this->reports->listReports();
 
-        $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        foreach ($reports as $report) {
+            $this->assertArrayHasKey('id', $report);
+
+            $reportID = (int) $report['id'];
+
+            $result = $this->reports->read($reportID);
+
+            $this->assertInternalType('array', $result);
+        }
     }
 
     public function testBatchRead() {
-        $result = $this->reports->batchRead([1, 2]);
+        $reports = $this->reports->listReports();
+        $reportIDs = [];
 
-        $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        foreach ($reports as $report) {
+            $this->assertArrayHasKey('id', $report);
+
+            $reportIDs[] = (int) $report['id'];
+        }
+
+        if (count($reportIDs) > 0) {
+            $result = $this->reports->batchRead($reportIDs);
+
+            $this->assertInternalType('array', $result);
+        }
     }
 
 }

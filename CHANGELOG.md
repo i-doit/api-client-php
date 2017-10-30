@@ -16,7 +16,9 @@ _tbd_
 
 ### Changed
 
-*   Method `cmdb.category.create`, `cmdb.category_info.read` (and others, too) do not need parameters `catg` or `cats`. Parameter `category` seems to be sufficient.
+-   Method `cmdb.category.create`, `cmdb.category_info.read` (and others, too) do not need parameters `catg` or `cats`. Parameter `category` seems to be sufficient.
+-   Return empty array for reports with no results (class `CMDBReports`)
+-   Remove many dependencies from unit tests
 
 
 ### Fixed

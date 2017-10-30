@@ -22,16 +22,9 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObjectTypeGroups;
 
-class CMDBObjectTypeGroupsTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class CMDBObjectTypeGroupsTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\CMDBObjectTypeGroups
@@ -39,12 +32,7 @@ class CMDBObjectTypeGroupsTest extends TestCase {
     protected $instance;
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->instance = new CMDBObjectTypeGroups($this->api);
     }

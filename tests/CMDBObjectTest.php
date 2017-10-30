@@ -22,16 +22,9 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObject;
 
-class CMDBObjectTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class CMDBObjectTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\CMDBObject
@@ -39,12 +32,7 @@ class CMDBObjectTest extends TestCase {
     protected $object;
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->object = new CMDBObject($this->api);
     }
@@ -74,24 +62,25 @@ class CMDBObjectTest extends TestCase {
     }
 
     public function testRead() {
-        $result = $this->object->read(1);
+        $objectID = $this->createObject();
+
+        $result = $this->object->read($objectID);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
     }
 
     public function testUpdate() {
+        $objectID = $this->createObject();
+
         $this->assertInstanceOf(
             CMDBObject::class,
-            $this->object->update(9, ['title' => 'Anne Admin'])
+            $this->object->update($objectID, ['title' => 'Anne Admin'])
         );
     }
 
     public function testArchive() {
-        $objectID = $this->object->create(
-            'C__OBJTYPE__SERVER',
-            'Archive Me'
-        );
+        $objectID = $this->createObject();
 
         $this->assertInstanceOf(
             CMDBObject::class,
@@ -100,10 +89,7 @@ class CMDBObjectTest extends TestCase {
     }
 
     public function testDelete() {
-        $objectID = $this->object->create(
-            'C__OBJTYPE__SERVER',
-            'Delete Me'
-        );
+        $objectID = $this->createObject();
 
         $this->assertInstanceOf(
             CMDBObject::class,
@@ -112,10 +98,7 @@ class CMDBObjectTest extends TestCase {
     }
 
     public function testPurge() {
-        $objectID = $this->object->create(
-            'C__OBJTYPE__SERVER',
-            'Purge Me'
-        );
+        $objectID = $this->createObject();
 
         $this->assertInstanceOf(
             CMDBObject::class,
@@ -124,22 +107,26 @@ class CMDBObjectTest extends TestCase {
     }
 
     public function testLoad() {
-        $result = $this->object->load(1000);
+        $objectID = $this->createObject();
+
+        $result = $this->object->load($objectID);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
     }
 
     public function testUpsert() {
+        $title = $this->createRandomString();
+
         // Exists:
-        $objectID = $this->object->create('C__OBJTYPE__SERVER', 'My little server');
-        $result = $this->object->upsert('C__OBJTYPE__SERVER', 'My little server', ['purpose' => 'Private stuff']);
+        $objectID = $this->object->create('C__OBJTYPE__SERVER', $title);
+        $result = $this->object->upsert('C__OBJTYPE__SERVER', $title, ['purpose' => 'Private stuff']);
 
         $this->assertInternalType('int', $result);
         $this->assertEquals($objectID, $result);
 
         // Does not exist:
-        $result = $this->object->upsert('C__OBJTYPE__SERVER', 'API TEST ' . time());
+        $result = $this->object->upsert('C__OBJTYPE__SERVER', $this->createRandomString());
 
         $this->assertInternalType('int', $result);
         $this->assertGreaterThan(0, $result);

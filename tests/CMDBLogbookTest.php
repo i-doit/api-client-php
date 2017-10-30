@@ -22,16 +22,9 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBLogbook;
 
-class CMDBLogbookTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class CMDBLogbookTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\CMDBLogbook
@@ -39,19 +32,16 @@ class CMDBLogbookTest extends TestCase {
     protected $instance;
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->instance = new CMDBLogbook($this->api);
     }
 
     public function testCreate() {
+        $objectID = $this->createObject();
+
         $result = $this->instance->create(
-            9,
+            $objectID,
             'Performed unit test',
             'This is just a unit test.'
         );
@@ -60,8 +50,10 @@ class CMDBLogbookTest extends TestCase {
     }
 
     public function testBatchCreate() {
+        $objectID = $this->createObject();
+
         $result = $this->instance->batchCreate(
-            9,
+            $objectID,
             [
                 'Performed unit test 1',
                 'Performed unit test 2',
@@ -90,17 +82,19 @@ class CMDBLogbookTest extends TestCase {
     }
 
     public function testReadByObject() {
-        $result = $this->instance->readByObject(9);
+        $objectID = $this->createObject();
+
+        $result = $this->instance->readByObject($objectID);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
-        $result = $this->instance->readByObject(9, 'today');
+        $result = $this->instance->readByObject($objectID, 'today');
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
-        $result = $this->instance->readByObject(9, date('Y-m-d'));
+        $result = $this->instance->readByObject($objectID, date('Y-m-d'));
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);

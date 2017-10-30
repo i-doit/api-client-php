@@ -22,16 +22,11 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\Select;
+use bheisig\idoitapi\CMDBObject;
+use bheisig\idoitapi\CMDBCategory;
 
-class SelectTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class SelectTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\Select
@@ -39,34 +34,60 @@ class SelectTest extends TestCase {
     protected $instance;
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->instance = new Select($this->api);
     }
 
     public function testFind() {
-        $result = $this->instance->find('C__CATG__GLOBAL', 'title', 'ESXi1');
+        $title = $this->createRandomString();
+        $serial = $this->createRandomString();
+        $ip = $this->generateIPv4Address();
+
+        $cmdbObject = new CMDBObject($this->api);
+        $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $title);
+
+        $cmdbCategory = new CMDBCategory($this->api);
+
+        $result = $this->instance->find('C__CATG__GLOBAL', 'title', $title);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
-        $result = $this->instance->find('C__CATG__MODEL', 'title', 'T-450s');
+        $cmdbCategory->create(
+            $objectID,
+            'C__CATG__MODEL',
+            [
+                'serial' => $serial
+            ]
+        );
+
+        $result = $this->instance->find('C__CATG__MODEL', 'serial', $serial);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
-        $result = $this->instance->find('C__CATG__IP', 'hostaddress', '8.8.8.8');
+        $cmdbCategory->create(
+            $objectID,
+            'C__CATG__IP',
+            [
+                'net' => $this->getIPv4Net(),
+                'active' => false,
+                'primary' => false,
+                'net_type' => 1,
+                'ipv4_assignment' => 2,
+                "ipv4_address" =>  $ip,
+                'description' => 'API TEST'
+            ]
+        );
+
+        $result = $this->instance->find('C__CATG__IP', 'hostaddress', $ip);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->find(
-            'C__CATG__GLOBAL', 'title', 'This is not the object you are looking for'
+            'C__CATG__GLOBAL', 'title', $this->createRandomString()
         );
 
         $this->assertInternalType('array', $result);

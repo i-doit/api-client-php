@@ -22,16 +22,9 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBLocationTree;
 
-class CMDBLocationTreeTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class CMDBLocationTreeTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\CMDBLocationTree
@@ -39,24 +32,19 @@ class CMDBLocationTreeTest extends TestCase {
     protected $locationTree;
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->locationTree = new CMDBLocationTree($this->api);
     }
 
     public function testRead() {
-        $result = $this->locationTree->read(1);
+        $result = $this->locationTree->read($this->getRootLocation());
 
         $this->assertInternalType('array', $result);
     }
 
     public function testReadRecursively() {
-        $result = $this->locationTree->readRecursively(1);
+        $result = $this->locationTree->readRecursively($this->getRootLocation());
 
         $this->assertInternalType('array', $result);
     }

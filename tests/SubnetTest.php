@@ -22,16 +22,9 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\Subnet;
 
-class SubnetTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class SubnetTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\Subnet
@@ -39,42 +32,37 @@ class SubnetTest extends TestCase {
     protected $instance;
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->instance = new Subnet($this->api);
     }
 
     public function testLoad() {
         // "Global v4"
-        $result = $this->instance->load(20);
+        $result = $this->instance->load($this->getIPv4Net());
 
         $this->assertInstanceOf(Subnet::class, $result);
     }
 
     public function testHasNext() {
         // "Global v4"
-        $result = $this->instance->load(20)->hasNext();
+        $result = $this->instance->load($this->getIPv4Net())->hasNext();
 
         $this->assertTrue($result);
     }
 
     public function testNext() {
         // "Global v4"
-        $result = $this->instance->load(20)->next();
+        $result = $this->instance->load($this->getIPv4Net())->next();
 
         $this->assertInternalType('string', $result);
     }
 
     public function testIsFree() {
         // "Global v4"
-        $result = $this->instance->load(20)->isFree('123.234.111.222');
+        $result = $this->instance->load($this->getIPv4Net())->isFree($this->generateIPv4Address());
 
-        $this->assertTrue($result);
+        $this->assertInternalType('boolean', $result);
     }
 
 }

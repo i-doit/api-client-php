@@ -22,16 +22,9 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBCategory;
 
-class CMDBCategoryTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class CMDBCategoryTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\CMDBCategory
@@ -39,22 +32,19 @@ class CMDBCategoryTest extends TestCase {
     protected $category;
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->category = new CMDBCategory($this->api);
     }
 
     public function testCreate() {
+        $objectID = $this->createObject();
+
         $entryID = $this->category->create(
-            1000,
+            $objectID,
             'C__CATG__IP',
             [
-                'net' => 632,
+                'net' => $this->getIPv4Net(),
                 'active' => false,
                 'primary' => false,
                 'net_type' => 1,
@@ -68,8 +58,11 @@ class CMDBCategoryTest extends TestCase {
     }
 
     public function testRead() {
+        $objectID = $this->createObject();
+        $this->createModel($objectID);
+
         $result = $this->category->read(
-            1000,
+            $objectID,
             'C__CATG__MODEL'
         );
 
@@ -78,20 +71,27 @@ class CMDBCategoryTest extends TestCase {
     }
 
     public function testReadOneByID() {
+        $objectID = $this->createObject();
+        $entryID = $this->createModel($objectID);
+
+        // Test single-value category:
         $result = $this->category->readOneByID(
-            1005,
+            $objectID,
             'C__CATG__MODEL',
-            75
+            $entryID
         );
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
         $this->assertArrayHasKey('id', $result);
 
+        $entryID = $this->createIP($objectID);
+
+        // Test multi-value category:
         $result = $this->category->readOneByID(
-            1005,
+            $objectID,
             'C__CATG__IP',
-            37
+            $entryID
         );
 
         $this->assertInternalType('array', $result);
@@ -100,8 +100,12 @@ class CMDBCategoryTest extends TestCase {
     }
 
     public function testReadFirst() {
+        $objectID = $this->createObject();
+        $this->createModel($objectID);
+
+        // Test single-value category:
         $result = $this->category->readFirst(
-            1005,
+            $objectID,
             'C__CATG__MODEL'
         );
 
@@ -109,8 +113,11 @@ class CMDBCategoryTest extends TestCase {
         $this->assertNotCount(0, $result);
         $this->assertArrayHasKey('id', $result);
 
+        $this->createIP($objectID);
+
+        // Test multi-value category:
         $result = $this->category->readFirst(
-            1005,
+            $objectID,
             'C__CATG__IP'
         );
 
@@ -120,8 +127,10 @@ class CMDBCategoryTest extends TestCase {
     }
 
     public function testUpdate() {
+        $objectID = $this->createObject();
+
         $itself = $this->category->update(
-            1000,
+            $objectID,
             'C__CATG__GLOBAL',
             [
                 'cmdb_status' => 10
@@ -132,30 +141,39 @@ class CMDBCategoryTest extends TestCase {
     }
 
     public function testArchive() {
+        $objectID = $this->createObject();
+        $entryID = $this->createIP($objectID);
+
         $itself = $this->category->archive(
-            1000,
-            'C__CATG__CPU',
-            3
+            $objectID,
+            'C__CATG__IP',
+            $entryID
         );
 
         $this->assertInstanceOf(CMDBCategory::class, $itself);
     }
 
     public function testDelete() {
+        $objectID = $this->createObject();
+        $entryID = $this->createIP($objectID);
+
         $itself = $this->category->delete(
-            1000,
-            'C__CATG__CPU',
-            4
+            $objectID,
+            'C__CATG__IP',
+            $entryID
         );
 
         $this->assertInstanceOf(CMDBCategory::class, $itself);
     }
 
     public function testPurge() {
+        $objectID = $this->createObject();
+        $entryID = $this->createIP($objectID);
+
         $itself = $this->category->purge(
-            1000,
-            'C__CATG__ACCESS',
-            3
+            $objectID,
+            'C__CATG__IP',
+            $entryID
         );
 
         $this->assertInstanceOf(CMDBCategory::class, $itself);
@@ -166,9 +184,16 @@ class CMDBCategoryTest extends TestCase {
     }
 
     public function testBatchRead() {
+        $objectID1 = $this->createObject();
+        $objectID2 = $this->createObject();
+        $this->createIP($objectID1);
+        $this->createIP($objectID2);
+        $this->createModel($objectID1);
+        $this->createModel($objectID2);
+
         $batchResult = $this->category->batchRead(
-            [1000, 1005],
-            ['C__CATG__FORMFACTOR', 'C__CATG__ACCOUNTING']
+            [$objectID1, $objectID2],
+            ['C__CATG__IP', 'C__CATG__MODEL']
         );
 
         $this->assertInternalType('array', $batchResult);

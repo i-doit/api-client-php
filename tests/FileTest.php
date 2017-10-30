@@ -22,16 +22,9 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
-use PHPUnit\Framework\TestCase;
-use bheisig\idoitapi\API;
 use bheisig\idoitapi\File;
 
-class FileTest extends TestCase {
-
-    /**
-     * @var \bheisig\idoitapi\API
-     */
-    protected $api;
+class FileTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\File
@@ -44,12 +37,7 @@ class FileTest extends TestCase {
     protected $files = [];
 
     public function setUp() {
-        $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
-        ]);
+        parent::setUp();
 
         $this->instance = new File($this->api);
 
@@ -68,6 +56,8 @@ class FileTest extends TestCase {
     }
 
     public function testAdd() {
+        $objectID = $this->createObject();
+
         foreach ($this->files as $filePath => $description) {
             $status = file_put_contents($filePath, $description);
 
@@ -77,15 +67,17 @@ class FileTest extends TestCase {
 
             $this->assertInstanceOf(
                 File::class,
-                $this->instance->add(9, $filePath, $description)
+                $this->instance->add($objectID, $filePath, $description)
             );
         }
     }
 
     public function testBatchAdd() {
+        $objectID = $this->createObject();
+
         $this->assertInstanceOf(
             File::class,
-            $this->instance->batchAdd(10, $this->files)
+            $this->instance->batchAdd($objectID, $this->files)
         );
     }
 

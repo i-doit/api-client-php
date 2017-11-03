@@ -38,7 +38,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     public function testCreate() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $result = $this->instance->create(
             $objectID,
@@ -50,7 +50,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     public function testBatchCreate() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $result = $this->instance->batchCreate(
             $objectID,
@@ -82,7 +82,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     public function testReadByObject() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $result = $this->instance->readByObject($objectID);
 

@@ -38,7 +38,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     public function testCreate() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $entryID = $this->category->create(
             $objectID,
@@ -58,8 +58,8 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     public function testRead() {
-        $objectID = $this->createObject();
-        $this->createModel($objectID);
+        $objectID = $this->createServer();
+        $this->defineModel($objectID);
 
         $result = $this->category->read(
             $objectID,
@@ -71,8 +71,8 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     public function testReadOneByID() {
-        $objectID = $this->createObject();
-        $entryID = $this->createModel($objectID);
+        $objectID = $this->createServer();
+        $entryID = $this->defineModel($objectID);
 
         // Test single-value category:
         $result = $this->category->readOneByID(
@@ -85,7 +85,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertNotCount(0, $result);
         $this->assertArrayHasKey('id', $result);
 
-        $entryID = $this->createIP($objectID);
+        $entryID = $this->addIPv4($objectID);
 
         // Test multi-value category:
         $result = $this->category->readOneByID(
@@ -100,8 +100,8 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     public function testReadFirst() {
-        $objectID = $this->createObject();
-        $this->createModel($objectID);
+        $objectID = $this->createServer();
+        $this->defineModel($objectID);
 
         // Test single-value category:
         $result = $this->category->readFirst(
@@ -113,7 +113,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertNotCount(0, $result);
         $this->assertArrayHasKey('id', $result);
 
-        $this->createIP($objectID);
+        $this->addIPv4($objectID);
 
         // Test multi-value category:
         $result = $this->category->readFirst(
@@ -127,7 +127,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     public function testUpdate() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $itself = $this->category->update(
             $objectID,
@@ -141,8 +141,8 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     public function testArchive() {
-        $objectID = $this->createObject();
-        $entryID = $this->createIP($objectID);
+        $objectID = $this->createServer();
+        $entryID = $this->addIPv4($objectID);
 
         $itself = $this->category->archive(
             $objectID,
@@ -154,8 +154,8 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     public function testDelete() {
-        $objectID = $this->createObject();
-        $entryID = $this->createIP($objectID);
+        $objectID = $this->createServer();
+        $entryID = $this->addIPv4($objectID);
 
         $itself = $this->category->delete(
             $objectID,
@@ -167,8 +167,8 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     public function testPurge() {
-        $objectID = $this->createObject();
-        $entryID = $this->createIP($objectID);
+        $objectID = $this->createServer();
+        $entryID = $this->addIPv4($objectID);
 
         $itself = $this->category->purge(
             $objectID,
@@ -184,12 +184,12 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     public function testBatchRead() {
-        $objectID1 = $this->createObject();
-        $objectID2 = $this->createObject();
-        $this->createIP($objectID1);
-        $this->createIP($objectID2);
-        $this->createModel($objectID1);
-        $this->createModel($objectID2);
+        $objectID1 = $this->createServer();
+        $objectID2 = $this->createServer();
+        $this->addIPv4($objectID1);
+        $this->addIPv4($objectID2);
+        $this->defineModel($objectID1);
+        $this->defineModel($objectID2);
 
         $batchResult = $this->category->batchRead(
             [$objectID1, $objectID2],

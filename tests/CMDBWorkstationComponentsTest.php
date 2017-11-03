@@ -38,31 +38,102 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     public function testRead() {
-        $result = $this->instance->read(167);
+        $person = $this->createPerson();
+        $workstationID = $this->createWorkstation();
+        $this->addPersonToWorkstation($person['id'], $workstationID);
+
+        $result = $this->instance->read($person['id']);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount(1, $result);
+
+        $this->checkResult($result);
     }
 
     public function testBatchRead() {
-        $result = $this->instance->batchRead([167, 166]);
+        $person1 = $this->createPerson();
+        $workstation1ID = $this->createWorkstation();
+        $this->addPersonToWorkstation($person1['id'], $workstation1ID);
+
+        $person2 = $this->createPerson();
+        $workstation2ID = $this->createWorkstation();
+        $this->addPersonToWorkstation($person2['id'], $workstation2ID);
+
+        $result = $this->instance->batchRead([$person1['id'], $person2['id']]);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount(2, $result);
+
+        $this->checkResult($result);
     }
 
     public function testReadByEMail() {
-        $result = $this->instance->readByEMail('h.olo@acme-it.example');
+        $person = $this->createPerson();
+        $workstationID = $this->createWorkstation();
+        $this->addPersonToWorkstation($person['id'], $workstationID);
+
+        $result = $this->instance->readByEMail($person['email']);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount(1, $result);
+
+        $this->checkResult($result);
     }
 
     public function testReadByEMails() {
-        $result = $this->instance->readByEMails(['h.inbrunst@acme-it.example', 'h.olo@acme-it.example']);
+        $person1 = $this->createPerson();
+        $workstation1ID = $this->createWorkstation();
+        $this->addPersonToWorkstation($person1['id'], $workstation1ID);
+
+        $person2 = $this->createPerson();
+        $workstation2ID = $this->createWorkstation();
+        $this->addPersonToWorkstation($person2['id'], $workstation2ID);
+
+        $result = $this->instance->readByEMails([$person1['email'], $person2['email']]);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount(2, $result);
+
+        $this->checkResult($result);
+    }
+
+    protected function checkResult($result) {
+        foreach ($result as $person) {
+            $this->assertInternalType('array', $person);
+
+            $this->assertArrayHasKey('data', $person);
+            $this->assertInternalType('array', $person['data']);
+            $this->assertNotCount(0, $person['data']);
+
+            $this->assertArrayHasKey('children', $person);
+            $this->assertInternalType('array', $person['children']);
+            $this->assertCount(1, $person['children']);
+
+            foreach ($person['children'] as $workstation) {
+                $this->assertArrayHasKey('data', $workstation);
+                $this->assertInternalType('array', $workstation['data']);
+                $this->assertNotCount(0, $workstation['data']);
+
+                $this->assertArrayHasKey('children', $workstation);
+                $this->assertInternalType('array', $workstation['children']);
+                $this->assertCount(4, $workstation['children']);
+
+                foreach ($workstation['children'] as $id => $component) {
+                    $this->assertInternalType('integer', $id);
+                    $this->assertGreaterThan(0, $id);
+
+                    $this->assertInternalType('array', $component);
+
+                    $this->assertArrayHasKey('data', $component);
+                    $this->assertInternalType('array', $component['data']);
+                    $this->assertNotCount(0, $component['data']);
+
+                    $this->assertArrayHasKey('children', $component);
+                    $this->assertInternalType('boolean', $component['children']);
+                    $this->assertFalse($component['children']);
+                }
+            }
+        }
     }
 
 }

@@ -40,8 +40,8 @@ class SelectTest extends BaseTest {
     }
 
     public function testFind() {
-        $title = $this->createRandomString();
-        $serial = $this->createRandomString();
+        $title = $this->generateRandomString();
+        $serial = $this->generateRandomString();
         $ip = $this->generateIPv4Address();
 
         $cmdbObject = new CMDBObject($this->api);
@@ -87,7 +87,7 @@ class SelectTest extends BaseTest {
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->find(
-            'C__CATG__GLOBAL', 'title', $this->createRandomString()
+            'C__CATG__GLOBAL', 'title', $this->generateRandomString()
         );
 
         $this->assertInternalType('array', $result);

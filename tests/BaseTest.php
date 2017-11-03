@@ -35,6 +35,9 @@ abstract class BaseTest extends TestCase {
      */
     protected $api;
 
+    /**
+     * Makes API available
+     */
     public function setUp() {
         $this->api = new API([
             'url' => $GLOBALS['url'],
@@ -44,22 +47,159 @@ abstract class BaseTest extends TestCase {
         ]);
     }
 
-    protected function createObject() {
+    /**
+     * Creates a new server object with random title
+     *
+     * @return int Object identifier
+     */
+    protected function createServer() {
         $cmdbObject = new CMDBObject($this->api);
 
         return $cmdbObject->create(
             'C__OBJTYPE__SERVER',
-            $this->createRandomString()
+            $this->generateRandomString()
         );
     }
 
+    /**
+     * Creates a new person object with random name and an email address
+     *
+     * @return array Associative array with keys 'id', 'firstName', 'lastName' and 'email'
+     */
+    protected function createPerson() {
+        $cmdbObject = new CMDBObject($this->api);
+        $cmdbCategory = new CMDBCategory($this->api);
+
+        $firstName = substr($this->generateRandomString(), 0, 10);
+        $lastName = substr($this->generateRandomString(), 0, 10);
+        $email = sprintf(
+            '%s.%s@example.org',
+            $firstName,
+            $lastName
+        );
+
+        $personID = $cmdbObject->create(
+            'C__OBJTYPE__PERSON',
+            $firstName . ' ' . $lastName
+        );
+
+        $cmdbCategory->create(
+            $personID,
+            'C__CATG__MAIL_ADDRESSES',
+            [
+                'title' => $email,
+                'primary' => true,
+                'description' => 'API TEST'
+            ]
+        );
+
+        return [
+            'id' => $personID,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'email' => $email
+        ];
+    }
+
+    /**
+     * Creates a new workstation object with 4 assigned components
+     *
+     * @return int Object identifier
+     */
+    protected function createWorkstation() {
+        $cmdbObject = new CMDBObject($this->api);
+
+        $workstationID = $cmdbObject->create(
+            'C__OBJTYPE__WORKSTATION',
+            $this->generateRandomString()
+        );
+
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__CLIENT');
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__VOIP_PHONE');
+
+        return $workstationID;
+    }
+
+    /**
+     * Adds person object to workstation object
+     *
+     * @param int $personID Object identifier
+     * @param int $workstationID Object identifier
+     *
+     * @return int Category entry identifier
+     */
+    protected function addPersonToWorkstation($personID, $workstationID) {
+        $cmdbCategory = new CMDBCategory($this->api);
+
+        return $cmdbCategory->create(
+            $workstationID,
+            'C__CATG__LOGICAL_UNIT',
+            [
+                'parent' => $personID,
+                'description' => 'API TEST'
+            ]
+        );
+    }
+
+    /**
+     * Adds component object to workstation object
+     *
+     * @param int $workstationID Object identifier
+     * @param int $objectTypeConst Object type constant
+     *
+     * @return int Category entry identifier
+     */
+    protected function addWorkstationComponent($workstationID, $objectTypeConst) {
+        $cmdbObject = new CMDBObject($this->api);
+        $cmdbCategory = new CMDBCategory($this->api);
+
+        $componentID = $cmdbObject->create(
+            $objectTypeConst,
+            $this->generateRandomString()
+        );
+
+        return $cmdbCategory->create(
+            $componentID,
+            'C__CATG__ASSIGNED_WORKSTATION',
+            [
+                'parent' => $workstationID,
+                'description' => 'API TEST'
+            ]
+        );
+    }
+
+    /**
+     * Finds object "Global v4"
+     *
+     * @return int Object identifier
+     */
     protected function getIPv4Net() {
         $cmdbObjects = new CMDBObjects($this->api);
 
         return $cmdbObjects->getID('Global v4', 'C__OBJTYPE__LAYER3_NET');
     }
 
-    protected function createIP($objectID) {
+    /**
+     * Finds object "Root location"
+     *
+     * @return int Object identifier
+     */
+    protected function getRootLocation() {
+        $cmdbObjects = new CMDBObjects($this->api);
+
+        return $cmdbObjects->getID('Root location', 'C__OBJTYPE__LOCATION_GENERIC');
+    }
+
+    /**
+     * Adds random IPv4 address to object
+     *
+     * @param int $objectID Object identifier
+     *
+     * @return int Category entry identifier
+     */
+    protected function addIPv4($objectID) {
         $cmdbCategory = new CMDBCategory($this->api);
 
         return $cmdbCategory->create(
@@ -77,25 +217,63 @@ abstract class BaseTest extends TestCase {
         );
     }
 
-    protected function createModel($objectID) {
+    /**
+     * Adds information about manufacturer, model and serial number to object
+     *
+     * @param int $objectID Object identifier
+     *
+     * @return int Category entry identifier
+     */
+    protected function defineModel($objectID) {
         $cmdbCategory = new CMDBCategory($this->api);
 
         return $cmdbCategory->create(
             $objectID,
             'C__CATG__MODEL',
             [
-                'manufacturer' => $this->createRandomString(),
-                'title' => $this->createRandomString(),
-                'serial' => $this->createRandomString(),
+                'manufacturer' => $this->generateRandomString(),
+                'title' => $this->generateRandomString(),
+                'serial' => $this->generateRandomString(),
                 'description' => 'API TEST'
             ]
         );
     }
 
-    protected function createRandomString() {
+    /**
+     * Adds object to location
+     *
+     * @param int $objectID Object idenifier
+     * @param int $locationID Object identifier
+     *
+     * @return int Category entry identifier
+     */
+    protected function addObjectToLocation($objectID, $locationID) {
+        $cmdbCategory = new CMDBCategory($this->api);
+
+        return $cmdbCategory->create(
+            $objectID,
+            'C__CATG__LOCATION',
+            [
+                'parent' => $locationID,
+                'description' => 'API TEST'
+            ]
+        );
+    }
+
+    /**
+     * Generates random string
+     *
+     * @return string
+     */
+    protected function generateRandomString() {
         return hash('sha256', microtime(true));
     }
 
+    /**
+     * Generates random IPv4 address
+     *
+     * @return string
+     */
     protected function generateIPv4Address() {
         return sprintf(
             '10.%s.%s.%s',
@@ -103,12 +281,6 @@ abstract class BaseTest extends TestCase {
             mt_rand(2, 254),
             mt_rand(2, 254)
         );
-    }
-
-    protected function getRootLocation() {
-        $cmdbObjects = new CMDBObjects($this->api);
-
-        return $cmdbObjects->getID('Root location', 'C__OBJTYPE__LOCATION_GENERIC');
     }
 
 }

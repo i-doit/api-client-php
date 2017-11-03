@@ -48,7 +48,7 @@ class ImageTest extends BaseTest {
     }
 
     public function testAdd() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         foreach ($this->files as $filePath => $caption) {
             $this->assertInstanceOf(
@@ -59,7 +59,7 @@ class ImageTest extends BaseTest {
     }
 
     public function testBatchAdd() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $this->assertInstanceOf(
             Image::class,

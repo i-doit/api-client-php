@@ -56,7 +56,7 @@ class FileTest extends BaseTest {
     }
 
     public function testAdd() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         foreach ($this->files as $filePath => $description) {
             $status = file_put_contents($filePath, $description);
@@ -73,7 +73,7 @@ class FileTest extends BaseTest {
     }
 
     public function testBatchAdd() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $this->assertInstanceOf(
             File::class,

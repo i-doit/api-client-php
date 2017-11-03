@@ -38,23 +38,49 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     public function testReadByID() {
+        $relationType = 10; // Location
+
+        $objectID = $this->createServer();
+        $locationID = $this->getRootLocation();
+        $this->addObjectToLocation($objectID, $locationID);
+
         $result = $this->relation->readByID(
-            10,
-            17
+            $objectID,
+            $relationType
         );
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount(1, $result);
+
+        $first = end($result);
+
+        $this->assertArrayHasKey('data', $first);
+        $this->assertInternalType('array', $first['data']);
+        $this->assertArrayHasKey('children', $first);
+        $this->assertInternalType('boolean', $first['children']);
     }
 
     public function testReadByConst() {
+        $relationType = 'C__RELATION_TYPE__LOCATION';
+
+        $objectID = $this->createServer();
+        $locationID = $this->getRootLocation();
+        $this->addObjectToLocation($objectID, $locationID);
+
         $result = $this->relation->readByConst(
-            10,
-            'C__RELATION_TYPE__PERSON_ASSIGNED_GROUPS'
+            $objectID,
+            $relationType
         );
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount(1, $result);
+
+        $first = end($result);
+
+        $this->assertArrayHasKey('data', $first);
+        $this->assertInternalType('array', $first['data']);
+        $this->assertArrayHasKey('children', $first);
+        $this->assertInternalType('boolean', $first['children']);
     }
 
 }

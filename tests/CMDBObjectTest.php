@@ -62,7 +62,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     public function testRead() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $result = $this->object->read($objectID);
 
@@ -71,7 +71,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     public function testUpdate() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $this->assertInstanceOf(
             CMDBObject::class,
@@ -80,7 +80,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     public function testArchive() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $this->assertInstanceOf(
             CMDBObject::class,
@@ -89,7 +89,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     public function testDelete() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $this->assertInstanceOf(
             CMDBObject::class,
@@ -98,7 +98,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     public function testPurge() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $this->assertInstanceOf(
             CMDBObject::class,
@@ -107,7 +107,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     public function testLoad() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $result = $this->object->load($objectID);
 
@@ -116,7 +116,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     public function testUpsert() {
-        $title = $this->createRandomString();
+        $title = $this->generateRandomString();
 
         // Exists:
         $objectID = $this->object->create('C__OBJTYPE__SERVER', $title);
@@ -126,7 +126,7 @@ class CMDBObjectTest extends BaseTest {
         $this->assertEquals($objectID, $result);
 
         // Does not exist:
-        $result = $this->object->upsert('C__OBJTYPE__SERVER', $this->createRandomString());
+        $result = $this->object->upsert('C__OBJTYPE__SERVER', $this->generateRandomString());
 
         $this->assertInternalType('int', $result);
         $this->assertGreaterThan(0, $result);

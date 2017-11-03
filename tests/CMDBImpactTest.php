@@ -38,9 +38,15 @@ class CMDBImpactTest extends BaseTest {
     }
 
     public function testReadByID() {
+        $relationType = 10; // Location
+
+        $objectID = $this->createServer();
+        $locationID = $this->getRootLocation();
+        $this->addObjectToLocation($objectID, $locationID);
+
         $result = $this->instance->readByID(
-            14,
-            17
+            $locationID,
+            $relationType
         );
 
         $this->assertInternalType('array', $result);
@@ -48,9 +54,15 @@ class CMDBImpactTest extends BaseTest {
     }
 
     public function testBatchByConst() {
+        $relationType = 'C__RELATION_TYPE__LOCATION';
+
+        $objectID = $this->createServer();
+        $locationID = $this->getRootLocation();
+        $this->addObjectToLocation($objectID, $locationID);
+
         $result = $this->instance->readByConst(
-            14,
-            'C__RELATION_TYPE__PERSON_ASSIGNED_GROUPS'
+            $locationID,
+            $relationType
         );
 
         $this->assertInternalType('array', $result);

@@ -94,7 +94,7 @@ class APITest extends BaseTest {
     }
 
     public function testBatchRequest() {
-        $objectID = $this->createObject();
+        $objectID = $this->createServer();
 
         $results = $this->api->batchRequest([
             [

@@ -50,13 +50,13 @@ abstract class Request implements Calls {
      *
      * @var \bheisig\idoitapi\CMDBObjects
      */
-    private $cmdbObjects;
+    private static $cmdbObjects;
 
     /**
      *
      * @var \bheisig\idoitapi\CMDBCategory
      */
-    private $cmdbCategory;
+    private static $cmdbCategory;
 
     /**
      * Lasy Init Singleton Category
@@ -65,10 +65,10 @@ abstract class Request implements Calls {
      */
     public function getCMDBCategory()
     {
-        if (! $this->cmdbCategory) {
-            $this->cmdbCategory = new CMDBCategory($this->api);
+        if (! self::$cmdbCategory) {
+            self::$cmdbCategory = new CMDBCategory($this->api);
         }
-        return $this->cmdbCategory;
+        return self::$cmdbCategory;
     }
 
     /**
@@ -78,9 +78,9 @@ abstract class Request implements Calls {
      */
     public function getCMDBObjects()
     {
-        if (! $this->cmdbObjects) {
-            $this->cmdbObjects = new CMDBObjects($this->api);
+        if (! self::$cmdbObjects) {
+            self::$cmdbObjects = new CMDBObjects($this->api);
         }
-        return $this->cmdbObjects;
+        return self::$cmdbObjects;
     }
 }

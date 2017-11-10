@@ -30,6 +30,43 @@ namespace bheisig\idoitapi;
 class Select extends Request {
 
     /**
+     *
+     * @var \bheisig\idoitapi\CMDBObjects
+     */
+    private $cmdbObjects;
+
+    /**
+     *
+     * @var \bheisig\idoitapi\CMDBCategory
+     */
+    private $cmdbCategory;
+
+    /**
+     * Lasy Init Singleton Category
+     *
+     * @return \bheisig\idoitapi\CMDBCategory
+     */
+    public function getCMDBCategory()
+    {
+        if (! $this->cmdbCategory) {
+            $this->cmdbCategory = new CMDBCategory($this->api);
+        }
+        return $this->cmdbCategory;
+    }
+
+    /**
+     * Lasy Init Singleton Object
+     *
+     * @return \bheisig\idoitapi\CMDBObjects
+     */
+    public function getCMDBObjects()
+    {
+        if (! $this->cmdbObjects) {
+            $this->cmdbObjects = new CMDBObjects($this->api);
+        }
+        return $this->cmdbObjects;
+    }
+    /**
      * Find objects by attribute
      *
      * @param string $category
@@ -42,15 +79,13 @@ class Select extends Request {
      * @throws \Exception on error
      */
     public function find($category, $attribute, $value, $filter = []) {
-        $cmdbObjects = new CMDBObjects($this->api);
-
         $limit = 100;
         $offset = 0;
 
         $objectIDs = [];
 
         while (true) {
-            $objects = $cmdbObjects->read($filter, $limit, $offset);
+            $objects = $this->getCMDBObjects()->read($filter, $limit, $offset);
 
             $count = count($objects);
 
@@ -64,9 +99,7 @@ class Select extends Request {
 
             unset($objects);
 
-            $cmdbCategory = new CMDBCategory($this->api);
-
-            $result = $cmdbCategory->batchRead(
+            $result = $this->getCMDBCategory()->batchRead(
                 $objectIDs,
                 [$category]
             );

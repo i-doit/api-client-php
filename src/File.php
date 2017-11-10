@@ -43,16 +43,12 @@ class File extends Request {
     public function add($objectID, $filePath, $description = '') {
         $fileAsString = $this->encode($filePath);
 
-        $cmdbObject = new CMDBObject($this->api);
-
-        $fileObjectID = $cmdbObject->create(
+        $fileObjectID = $this->getCMDBObject()->create(
             'C__OBJTYPE__FILE',
             $description
         );
 
-        $cmdbCategory = new CMDBCategory($this->api);
-
-        $cmdbCategory->create(
+        $this->getCMDBCategory()->create(
             $fileObjectID,
             'C__CMDB__SUBCAT__FILE_VERSIONS',
             [
@@ -64,7 +60,7 @@ class File extends Request {
             false
         );
 
-        $cmdbCategory->create(
+        $this->getCMDBCategory()->create(
             $objectID,
             'C__CATG__FILE',
             [
@@ -95,9 +91,7 @@ class File extends Request {
             ];
         }
 
-        $cmdbObjects = new CMDBObjects($this->api);
-
-        $fileObjectIDs = $cmdbObjects->create($objects);
+        $fileObjectIDs = $this->getCMDBObjects()->create($objects);
 
         if (count($fileObjectIDs) !== count($files)) {
             throw new \Exception(sprintf(
@@ -166,13 +160,6 @@ class File extends Request {
         }
 
         $fileAsString = base64_encode(file_get_contents($filePath));
-
-        if ($fileAsString === false) {
-            throw new \Exception(sprintf(
-                'Cannot convert file "%s" to base64 string',
-                $filePath
-            ));
-        }
 
         if ($fileAsString === false) {
             throw new \Exception(sprintf(

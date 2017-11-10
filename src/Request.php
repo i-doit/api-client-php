@@ -51,6 +51,11 @@ abstract class Request implements Calls {
      * @var \bheisig\idoitapi\CMDBObjects
      */
     private static $cmdbObjects;
+    /**
+     *
+     * @var \bheisig\idoitapi\CMDBObjects
+     */
+    private static $cmdbObject;
 
     /**
      *
@@ -82,5 +87,18 @@ abstract class Request implements Calls {
             self::$cmdbObjects = new CMDBObjects($this->api);
         }
         return self::$cmdbObjects;
+    }
+
+    /**
+     * Lasy Init Singleton Object
+     *
+     * @return \bheisig\idoitapi\CMDBObject
+     */
+    public function getCMDBObject()
+    {
+        if (! self::$cmdbObject) {
+            self::$cmdbObject = new CMDBObject($this->api);
+        }
+        return self::$cmdbObject;
     }
 }

@@ -36,6 +36,13 @@ abstract class BaseTest extends TestCase {
     protected $api;
 
     /**
+     * Information about this project
+     *
+     * @var array
+     */
+    protected $project = [];
+
+    /**
      * Makes API available
      */
     public function setUp() {
@@ -45,6 +52,12 @@ abstract class BaseTest extends TestCase {
             'username' => $GLOBALS['username'],
             'password' => $GLOBALS['password']
         ]);
+
+        $projectFile = __DIR__ . '/../project.json';
+
+        if (is_readable($projectFile)) {
+            $this->project = json_decode(file_get_contents($projectFile), true);
+        }
     }
 
     /**
@@ -89,7 +102,7 @@ abstract class BaseTest extends TestCase {
             [
                 'title' => $email,
                 'primary' => true,
-                'description' => 'API TEST'
+                'description' => $this->generateDescription()
             ]
         );
 
@@ -138,7 +151,7 @@ abstract class BaseTest extends TestCase {
             'C__CATG__LOGICAL_UNIT',
             [
                 'parent' => $personID,
-                'description' => 'API TEST'
+                'description' => $this->generateDescription()
             ]
         );
     }
@@ -165,7 +178,7 @@ abstract class BaseTest extends TestCase {
             'C__CATG__ASSIGNED_WORKSTATION',
             [
                 'parent' => $workstationID,
-                'description' => 'API TEST'
+                'description' => $this->generateDescription()
             ]
         );
     }
@@ -212,7 +225,7 @@ abstract class BaseTest extends TestCase {
                 'net_type' => 1,
                 'ipv4_assignment' => 2,
                 "ipv4_address" =>  $this->generateIPv4Address(),
-                'description' => 'API TEST'
+                'description' => $this->generateDescription()
             ]
         );
     }
@@ -234,7 +247,7 @@ abstract class BaseTest extends TestCase {
                 'manufacturer' => $this->generateRandomString(),
                 'title' => $this->generateRandomString(),
                 'serial' => $this->generateRandomString(),
-                'description' => 'API TEST'
+                'description' => $this->generateDescription()
             ]
         );
     }
@@ -255,7 +268,7 @@ abstract class BaseTest extends TestCase {
             'C__CATG__LOCATION',
             [
                 'parent' => $locationID,
-                'description' => 'API TEST'
+                'description' => $this->generateDescription()
             ]
         );
     }
@@ -280,6 +293,15 @@ abstract class BaseTest extends TestCase {
             mt_rand(2, 254),
             mt_rand(2, 254),
             mt_rand(2, 254)
+        );
+    }
+
+    protected function generateDescription() {
+        return sprintf(
+            'This data is auto-generated at %s by a unit test for %s, version %s',
+            date('c'),
+            $this->project['title'],
+            $this->project['description']
         );
     }
 

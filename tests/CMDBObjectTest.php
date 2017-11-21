@@ -40,7 +40,7 @@ class CMDBObjectTest extends BaseTest {
     public function testCreate() {
         $objectID = $this->object->create(
             'C__OBJTYPE__SERVER',
-            'API TEST'
+            $this->generateRandomString()
         );
 
         $this->assertInternalType('int', $objectID);
@@ -48,12 +48,12 @@ class CMDBObjectTest extends BaseTest {
 
         $objectID = $this->object->create(
             'C__OBJTYPE__SERVER',
-            'API TEST',
+            $this->generateRandomString(),
             [
                 'category' => 'Test',
-                'purpose' => 'Test',
+                'purpose' => 'for reasons',
                 'cmdb_status' => 9,
-                'description' => 'Test'
+                'description' => $this->generateDescription()
             ]
         );
 

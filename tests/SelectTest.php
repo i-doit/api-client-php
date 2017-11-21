@@ -77,7 +77,7 @@ class SelectTest extends BaseTest {
                 'net_type' => 1,
                 'ipv4_assignment' => 2,
                 "ipv4_address" =>  $ip,
-                'description' => 'API TEST'
+                'description' => $this->generateDescription()
             ]
         );
 

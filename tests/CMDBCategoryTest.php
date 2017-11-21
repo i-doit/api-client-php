@@ -50,7 +50,7 @@ class CMDBCategoryTest extends BaseTest {
                 'net_type' => 1,
                 'ipv4_assignment' => 2,
                 "ipv4_address" =>  '10.20.10.100',
-                'description' => 'API TEST'
+                'description' => $this->generateDescription()
             ]
         );
 

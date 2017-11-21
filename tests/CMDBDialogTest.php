@@ -59,7 +59,7 @@ class CMDBDialogTest extends BaseTest {
                     'cat 2',
                     'cat 3'
                 ],
-                'purpose' => 'API TEST'
+                'purpose' => 'for reasons'
             ]
         ]);
 

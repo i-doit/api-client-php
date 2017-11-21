@@ -40,7 +40,7 @@ phpdox :
 	phpdox
 
 phploc :
-	phploc --exclude=lib --exclude=tests .
+	phploc --exclude=vendor --exclude=tests .
 
 phpunit :
 	phpunit --configuration tests/phpunit.xml

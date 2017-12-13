@@ -36,6 +36,14 @@ Why should you use this API client library? There are some good reasons:
 What's new? Take a look at the [changelog](CHANGELOG.md).
 
 
+##  Dependencies
+
+Before using this API client library your system must meet the following requirements:
+
+*   PHP >= 5.6 (7.x is recommended)
+*   PHP extensions `cURL`, `json` and `cli`
+
+
 ##  Download
 
 You have several options to download (and kinda install) the API client library:

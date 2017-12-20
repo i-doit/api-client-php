@@ -37,6 +37,9 @@ class IdoitTest extends BaseTest {
         $this->idoit = new Idoit($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadVersion() {
         $result = $this->idoit->readVersion();
 
@@ -44,6 +47,9 @@ class IdoitTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadConstants() {
         $result = $this->idoit->readConstants();
 
@@ -51,6 +57,9 @@ class IdoitTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testSearch() {
         $result = $this->idoit->search('demo');
 
@@ -58,6 +67,9 @@ class IdoitTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchSearch() {
         $result = $this->idoit->batchSearch(['demo', 'test', 'server']);
 

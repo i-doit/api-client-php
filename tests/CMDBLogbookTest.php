@@ -37,6 +37,9 @@ class CMDBLogbookTest extends BaseTest {
         $this->instance = new CMDBLogbook($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testCreate() {
         $objectID = $this->createServer();
 
@@ -49,6 +52,9 @@ class CMDBLogbookTest extends BaseTest {
         $this->assertInstanceOf(CMDBLogbook::class, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchCreate() {
         $objectID = $this->createServer();
 
@@ -64,6 +70,9 @@ class CMDBLogbookTest extends BaseTest {
         $this->assertInstanceOf(CMDBLogbook::class, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $result = $this->instance->read();
 
@@ -81,6 +90,9 @@ class CMDBLogbookTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByObject() {
         $objectID = $this->createServer();
 

@@ -37,6 +37,9 @@ class CMDBObjectTypesTest extends BaseTest {
         $this->instance = new CMDBObjectTypes($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $result = $this->instance->read();
 
@@ -44,6 +47,9 @@ class CMDBObjectTypesTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadOne() {
         $result = $this->instance->readOne('C__OBJTYPE__SERVER');
 
@@ -51,6 +57,9 @@ class CMDBObjectTypesTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchRead() {
         $result = $this->instance->batchRead([
             'C__OBJTYPE__SERVER',
@@ -61,6 +70,9 @@ class CMDBObjectTypesTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByTitle() {
         $result = $this->instance->readByTitle('LC__CMDB__OBJTYPE__SERVER');
 

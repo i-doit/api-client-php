@@ -37,6 +37,9 @@ class CMDBObjectsTest extends BaseTest {
         $this->instance = new CMDBObjects($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testCreate() {
         $objectIDs = $this->instance->create(
             [
@@ -55,6 +58,9 @@ class CMDBObjectsTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $objects = $this->instance->read();
 
@@ -67,6 +73,9 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertCount(10, $objects);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByIDs() {
         $objectIDs = $this->instance->create(
             [
@@ -82,6 +91,9 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertCount(3, $objects);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByType() {
         $objects = $this->instance->readByType('C__OBJTYPE__PERSON');
 
@@ -89,6 +101,9 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertNotCount(0, $objects);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadArchived() {
         $objects = $this->instance->readArchived();
 
@@ -99,6 +114,9 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertInternalType('array', $objects);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadDeleted() {
         $objects = $this->instance->readDeleted();
 
@@ -109,6 +127,9 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertInternalType('array', $objects);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testUpdate() {
         $objectIDs = $this->instance->create(
             [
@@ -130,6 +151,9 @@ class CMDBObjectsTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testArchive() {
         $objectIDs = $this->instance->create(
             [
@@ -145,6 +169,9 @@ class CMDBObjectsTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testDelete() {
         $objectIDs = $this->instance->create(
             [
@@ -160,6 +187,9 @@ class CMDBObjectsTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testPurge() {
         $objectIDs = $this->instance->create(
             [
@@ -175,6 +205,9 @@ class CMDBObjectsTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetID() {
         $uniqueTitle = 'Server No. ' . microtime(true);
 

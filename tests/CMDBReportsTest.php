@@ -37,6 +37,9 @@ class CMDBReportsRelationTest extends BaseTest {
         $this->reports = new CMDBReports($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testListReports() {
         $result = $this->reports->listReports();
 
@@ -44,6 +47,9 @@ class CMDBReportsRelationTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $reports = $this->reports->listReports();
 
@@ -58,6 +64,9 @@ class CMDBReportsRelationTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchRead() {
         $reports = $this->reports->listReports();
         $reportIDs = [];

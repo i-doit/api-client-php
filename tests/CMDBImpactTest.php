@@ -37,6 +37,9 @@ class CMDBImpactTest extends BaseTest {
         $this->instance = new CMDBImpact($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByID() {
         $relationType = 10; // Location
 
@@ -53,6 +56,9 @@ class CMDBImpactTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchByConst() {
         $relationType = 'C__RELATION_TYPE__LOCATION';
 

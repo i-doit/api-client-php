@@ -37,6 +37,9 @@ class CMDBObjectsByRelationTest extends BaseTest {
         $this->relation = new CMDBObjectsByRelation($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByID() {
         $relationType = 10; // Location
 
@@ -60,6 +63,9 @@ class CMDBObjectsByRelationTest extends BaseTest {
         $this->assertInternalType('boolean', $first['children']);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByConst() {
         $relationType = 'C__RELATION_TYPE__LOCATION';
 

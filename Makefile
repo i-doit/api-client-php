@@ -43,4 +43,4 @@ phploc :
 	phploc --exclude=vendor --exclude=tests .
 
 phpunit :
-	phpunit --configuration tests/phpunit.xml
+	./vendor/bin/phpunit --configuration tests/phpunit.xml

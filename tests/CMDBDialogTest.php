@@ -37,6 +37,9 @@ class CMDBDialogTest extends BaseTest {
         $this->instance = new CMDBDialog($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testCreate() {
         $result = $this->instance->create(
             'C__CATG__CPU',
@@ -48,6 +51,9 @@ class CMDBDialogTest extends BaseTest {
         $this->assertGreaterThanOrEqual(1, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchCreate() {
         $result = $this->instance->batchCreate([
             'C__CATG__CPU' => [
@@ -72,6 +78,9 @@ class CMDBDialogTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $result = $this->instance->read(
             'C__CATG__MODEL',
@@ -82,6 +91,9 @@ class CMDBDialogTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchRead() {
         $result = $this->instance->batchRead([
             'C__CATG__GLOBAL' => 'purpose',

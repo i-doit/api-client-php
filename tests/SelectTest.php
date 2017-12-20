@@ -39,6 +39,9 @@ class SelectTest extends BaseTest {
         $this->instance = new Select($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testFind() {
         $title = $this->generateRandomString();
         $serial = $this->generateRandomString();

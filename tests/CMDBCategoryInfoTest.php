@@ -45,6 +45,9 @@ class CMDBCategoryInfoTest extends BaseTest {
         ];
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         foreach ($this->categories as $categoryConst) {
             $result = $this->instance->read($categoryConst);
@@ -54,6 +57,9 @@ class CMDBCategoryInfoTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchRead() {
         $result = $this->instance->batchRead($this->categories);
 

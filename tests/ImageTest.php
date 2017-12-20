@@ -47,6 +47,9 @@ class ImageTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testAdd() {
         $objectID = $this->createServer();
 
@@ -58,6 +61,9 @@ class ImageTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchAdd() {
         $objectID = $this->createServer();
 
@@ -67,6 +73,9 @@ class ImageTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testEncode() {
         foreach ($this->files as $filePath => $description) {
             $fileAsString = $this->instance->encode($filePath);

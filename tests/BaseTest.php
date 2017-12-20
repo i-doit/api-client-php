@@ -64,6 +64,8 @@ abstract class BaseTest extends TestCase {
      * Creates a new server object with random title
      *
      * @return int Object identifier
+     *
+     * @throws \Exception
      */
     protected function createServer() {
         $cmdbObject = new CMDBObject($this->api);
@@ -78,6 +80,8 @@ abstract class BaseTest extends TestCase {
      * Creates a new person object with random name and an email address
      *
      * @return array Associative array with keys 'id', 'firstName', 'lastName' and 'email'
+     *
+     * @throws \Exception
      */
     protected function createPerson() {
         $cmdbObject = new CMDBObject($this->api);
@@ -118,6 +122,8 @@ abstract class BaseTest extends TestCase {
      * Creates a new workstation object with 4 assigned components
      *
      * @return int Object identifier
+     *
+     * @throws \Exception
      */
     protected function createWorkstation() {
         $cmdbObject = new CMDBObject($this->api);
@@ -142,6 +148,8 @@ abstract class BaseTest extends TestCase {
      * @param int $workstationID Object identifier
      *
      * @return int Category entry identifier
+     *
+     * @throws \Exception
      */
     protected function addPersonToWorkstation($personID, $workstationID) {
         $cmdbCategory = new CMDBCategory($this->api);
@@ -163,6 +171,8 @@ abstract class BaseTest extends TestCase {
      * @param int $objectTypeConst Object type constant
      *
      * @return int Category entry identifier
+     *
+     * @throws \Exception
      */
     protected function addWorkstationComponent($workstationID, $objectTypeConst) {
         $cmdbObject = new CMDBObject($this->api);
@@ -187,6 +197,8 @@ abstract class BaseTest extends TestCase {
      * Finds object "Global v4"
      *
      * @return int Object identifier
+     *
+     * @throws \Exception
      */
     protected function getIPv4Net() {
         $cmdbObjects = new CMDBObjects($this->api);
@@ -198,6 +210,8 @@ abstract class BaseTest extends TestCase {
      * Finds object "Root location"
      *
      * @return int Object identifier
+     *
+     * @throws \Exception
      */
     protected function getRootLocation() {
         $cmdbObjects = new CMDBObjects($this->api);
@@ -211,6 +225,8 @@ abstract class BaseTest extends TestCase {
      * @param int $objectID Object identifier
      *
      * @return int Category entry identifier
+     *
+     * @throws \Exception
      */
     protected function addIPv4($objectID) {
         $cmdbCategory = new CMDBCategory($this->api);
@@ -236,6 +252,8 @@ abstract class BaseTest extends TestCase {
      * @param int $objectID Object identifier
      *
      * @return int Category entry identifier
+     *
+     * @throws \Exception
      */
     protected function defineModel($objectID) {
         $cmdbCategory = new CMDBCategory($this->api);
@@ -259,6 +277,8 @@ abstract class BaseTest extends TestCase {
      * @param int $locationID Object identifier
      *
      * @return int Category entry identifier
+     *
+     * @throws \Exception
      */
     protected function addObjectToLocation($objectID, $locationID) {
         $cmdbCategory = new CMDBCategory($this->api);
@@ -300,8 +320,8 @@ abstract class BaseTest extends TestCase {
         return sprintf(
             'This data is auto-generated at %s by a unit test for %s, version %s',
             date('c'),
-            $this->project['title'],
-            $this->project['description']
+            $this->project['tag'],
+            $this->project['version']
         );
     }
 

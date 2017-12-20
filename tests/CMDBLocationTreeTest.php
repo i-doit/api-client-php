@@ -37,12 +37,18 @@ class CMDBLocationTreeTest extends BaseTest {
         $this->locationTree = new CMDBLocationTree($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $result = $this->locationTree->read($this->getRootLocation());
 
         $this->assertInternalType('array', $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadRecursively() {
         $result = $this->locationTree->readRecursively($this->getRootLocation());
 

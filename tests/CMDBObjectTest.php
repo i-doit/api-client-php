@@ -37,6 +37,9 @@ class CMDBObjectTest extends BaseTest {
         $this->object = new CMDBObject($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testCreate() {
         $objectID = $this->object->create(
             'C__OBJTYPE__SERVER',
@@ -61,6 +64,9 @@ class CMDBObjectTest extends BaseTest {
         $this->assertGreaterThanOrEqual(1, $objectID);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $objectID = $this->createServer();
 
@@ -70,6 +76,9 @@ class CMDBObjectTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testUpdate() {
         $objectID = $this->createServer();
 
@@ -79,6 +88,9 @@ class CMDBObjectTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testArchive() {
         $objectID = $this->createServer();
 
@@ -88,6 +100,9 @@ class CMDBObjectTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testDelete() {
         $objectID = $this->createServer();
 
@@ -97,6 +112,9 @@ class CMDBObjectTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testPurge() {
         $objectID = $this->createServer();
 
@@ -106,6 +124,9 @@ class CMDBObjectTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testLoad() {
         $objectID = $this->createServer();
 
@@ -115,6 +136,9 @@ class CMDBObjectTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testUpsert() {
         $title = $this->generateRandomString();
 

@@ -36,6 +36,9 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
 
     protected $objectTypeConsts = [];
 
+    /**
+     * @throws \Exception
+     */
     public function setUp() {
         parent::setUp();
 
@@ -50,6 +53,9 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByID() {
         $categories = [];
 
@@ -60,6 +66,9 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
         $this->checkAssignedCategories($categories);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByConst() {
         $categories = [];
 
@@ -70,6 +79,9 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
         $this->checkAssignedCategories($categories);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchReadByID() {
         $batchResult = $this->instance->batchReadByID($this->objectTypeIDs);
 
@@ -81,6 +93,9 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchReadByConst() {
         $batchResult = $this->instance->batchReadByID($this->objectTypeConsts);
 

@@ -37,6 +37,9 @@ class SubnetTest extends BaseTest {
         $this->instance = new Subnet($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testLoad() {
         // "Global v4"
         $result = $this->instance->load($this->getIPv4Net());
@@ -44,6 +47,9 @@ class SubnetTest extends BaseTest {
         $this->assertInstanceOf(Subnet::class, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testHasNext() {
         // "Global v4"
         $result = $this->instance->load($this->getIPv4Net())->hasNext();
@@ -51,6 +57,9 @@ class SubnetTest extends BaseTest {
         $this->assertTrue($result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testNext() {
         // "Global v4"
         $result = $this->instance->load($this->getIPv4Net())->next();
@@ -58,6 +67,9 @@ class SubnetTest extends BaseTest {
         $this->assertInternalType('string', $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testIsFree() {
         // "Global v4"
         $result = $this->instance->load($this->getIPv4Net())->isFree($this->generateIPv4Address());

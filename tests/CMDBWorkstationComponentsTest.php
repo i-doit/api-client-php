@@ -37,6 +37,9 @@ class CMDBWorkstationComponentsTest extends BaseTest {
         $this->instance = new CMDBWorkstationComponents($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $person = $this->createPerson();
         $workstationID = $this->createWorkstation();
@@ -50,6 +53,9 @@ class CMDBWorkstationComponentsTest extends BaseTest {
         $this->checkResult($result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchRead() {
         $person1 = $this->createPerson();
         $workstation1ID = $this->createWorkstation();
@@ -67,6 +73,9 @@ class CMDBWorkstationComponentsTest extends BaseTest {
         $this->checkResult($result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByEMail() {
         $person = $this->createPerson();
         $workstationID = $this->createWorkstation();
@@ -80,6 +89,9 @@ class CMDBWorkstationComponentsTest extends BaseTest {
         $this->checkResult($result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadByEMails() {
         $person1 = $this->createPerson();
         $workstation1ID = $this->createWorkstation();

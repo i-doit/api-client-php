@@ -26,16 +26,25 @@ use bheisig\idoitapi\API;
 
 class APITest extends BaseTest {
 
+    /**
+     * @throws \Exception
+     */
     public function testConnect() {
         $this->assertInstanceOf(API::class, $this->api->connect());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testDisconnect() {
         $this->api->connect();
 
         $this->assertInstanceOf(API::class, $this->api->disconnect());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testIsConnected() {
         $this->assertFalse($this->api->isConnected());
 
@@ -48,16 +57,25 @@ class APITest extends BaseTest {
         $this->assertFalse($this->api->isConnected());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testLogin() {
         $this->assertInstanceOf(API::class, $this->api->login());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testLogout() {
         $this->api->login();
 
         $this->assertInstanceOf(API::class, $this->api->logout());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testIsLoggedIn() {
         $this->assertFalse($this->api->isLoggedIn());
 
@@ -70,6 +88,9 @@ class APITest extends BaseTest {
         $this->assertFalse($this->api->isLoggedIn());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testCountRequests() {
         $this->api->request('idoit.version');
 
@@ -86,6 +107,9 @@ class APITest extends BaseTest {
         $this->assertEquals(2, $count);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRequest() {
         $result = $this->api->request('idoit.version');
 
@@ -93,6 +117,9 @@ class APITest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchRequest() {
         $objectID = $this->createServer();
 
@@ -115,6 +142,9 @@ class APITest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetLastInfo() {
         $this->api->request('idoit.version');
 
@@ -122,6 +152,9 @@ class APITest extends BaseTest {
         $this->assertNotCount(0, $this->api->getLastInfo());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testLastResponse() {
         $this->api->request('idoit.version');
 
@@ -129,6 +162,9 @@ class APITest extends BaseTest {
         $this->assertNotCount(0, $this->api->getLastResponse());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetLastRequestContent() {
         $this->api->request('idoit.version');
 
@@ -136,6 +172,9 @@ class APITest extends BaseTest {
         $this->assertNotCount(0, $this->api->getLastRequestContent());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetLastResponseHeaders() {
         $this->api->request('idoit.version');
 
@@ -143,6 +182,9 @@ class APITest extends BaseTest {
         $this->assertNotEmpty($this->api->getLastResponseHeaders());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetLastRequestHeaders() {
         $this->api->request('idoit.version');
 

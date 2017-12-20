@@ -43,7 +43,7 @@ class FileTest extends BaseTest {
 
         for ($i = 1; $i <= 3; $i++) {
             $filePath = sprintf(
-                '/tmp/file%s.txt',
+                'file%s.txt',
                 $i
             );
             $description = sprintf(
@@ -55,6 +55,9 @@ class FileTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testAdd() {
         $objectID = $this->createServer();
 
@@ -72,6 +75,9 @@ class FileTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchAdd() {
         $objectID = $this->createServer();
 
@@ -81,6 +87,9 @@ class FileTest extends BaseTest {
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testEncode() {
         foreach ($this->files as $filePath => $description) {
             $status = file_put_contents($filePath, $description);

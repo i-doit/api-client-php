@@ -37,6 +37,9 @@ class CMDBObjectTypeGroupsTest extends BaseTest {
         $this->instance = new CMDBObjectTypeGroups($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $result = $this->instance->read();
 

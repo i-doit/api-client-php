@@ -168,6 +168,8 @@ class API {
      * Constructor
      *
      * @param array $config Associative multi-dimensional array
+     *
+     * @throws \Exception on error
      */
     public function __construct($config) {
         $this->config = $config;

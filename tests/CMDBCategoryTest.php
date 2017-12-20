@@ -37,6 +37,9 @@ class CMDBCategoryTest extends BaseTest {
         $this->category = new CMDBCategory($this->api);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testCreate() {
         $objectID = $this->createServer();
 
@@ -49,7 +52,7 @@ class CMDBCategoryTest extends BaseTest {
                 'primary' => false,
                 'net_type' => 1,
                 'ipv4_assignment' => 2,
-                "ipv4_address" =>  '10.20.10.100',
+                'ipv4_address' => $this->generateIPv4Address(),
                 'description' => $this->generateDescription()
             ]
         );
@@ -57,6 +60,9 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertGreaterThanOrEqual(1, $entryID);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testRead() {
         $objectID = $this->createServer();
         $this->defineModel($objectID);
@@ -70,6 +76,9 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertNotCount(0, $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadOneByID() {
         $objectID = $this->createServer();
         $entryID = $this->defineModel($objectID);
@@ -99,6 +108,9 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertArrayHasKey('id', $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testReadFirst() {
         $objectID = $this->createServer();
         $this->defineModel($objectID);
@@ -126,6 +138,9 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertArrayHasKey('id', $result);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testUpdate() {
         $objectID = $this->createServer();
 
@@ -140,6 +155,9 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertInstanceOf(CMDBCategory::class, $itself);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testArchive() {
         $objectID = $this->createServer();
         $entryID = $this->addIPv4($objectID);
@@ -153,6 +171,9 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertInstanceOf(CMDBCategory::class, $itself);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testDelete() {
         $objectID = $this->createServer();
         $entryID = $this->addIPv4($objectID);
@@ -166,6 +187,9 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertInstanceOf(CMDBCategory::class, $itself);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testPurge() {
         $objectID = $this->createServer();
         $entryID = $this->addIPv4($objectID);
@@ -179,10 +203,73 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertInstanceOf(CMDBCategory::class, $itself);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchCreate() {
-        // @todo Implement me!
+        $objectID1 = $this->createServer();
+        $objectID2 = $this->createServer();
+
+        // Single-valued category:
+        $result = $this->category->batchCreate(
+            [$objectID1, $objectID2],
+            'C__CATG__MODEL',
+            [
+                [
+                    'manufacturer' => $this->generateRandomString(),
+                    'title' => $this->generateRandomString(),
+                    'serial' => $this->generateRandomString(),
+                    'description' => $this->generateDescription()
+                ]
+            ]
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(2, $result);
+
+        foreach ($result as $entryID) {
+            $this->assertInternalType('int', $entryID);
+            $this->assertGreaterThan(0, $entryID);
+        }
+
+        // Multi-valued category:
+        $result = $this->category->batchCreate(
+            [$objectID1, $objectID2],
+            'C__CATG__IP',
+            [
+                [
+                    'net' => $this->getIPv4Net(),
+                    'active' => true,
+                    'primary' => true,
+                    'net_type' => 1,
+                    'ipv4_assignment' => 2,
+                    "ipv4_address" =>  $this->generateIPv4Address(),
+                    'description' => $this->generateDescription()
+                ],
+                [
+                    'net' => $this->getIPv4Net(),
+                    'active' => true,
+                    'primary' => false,
+                    'net_type' => 1,
+                    'ipv4_assignment' => 2,
+                    "ipv4_address" =>  $this->generateIPv4Address(),
+                    'description' => $this->generateDescription()
+                ]
+            ]
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(4, $result);
+
+        foreach ($result as $entryID) {
+            $this->assertInternalType('int', $entryID);
+            $this->assertGreaterThan(0, $entryID);
+        }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchRead() {
         $objectID1 = $this->createServer();
         $objectID2 = $this->createServer();
@@ -207,18 +294,30 @@ class CMDBCategoryTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchUpdate() {
         // @todo Implement me!
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchArchive() {
         // @todo Implement me!
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchDelete() {
         // @todo Implement me!
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBatchPurge() {
         // @todo Implement me!
     }

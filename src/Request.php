@@ -45,4 +45,60 @@ abstract class Request implements Calls {
         $this->api = $api;
     }
 
+
+    /**
+     *
+     * @var \bheisig\idoitapi\CMDBObjects
+     */
+    private static $cmdbObjects;
+    /**
+     *
+     * @var \bheisig\idoitapi\CMDBObjects
+     */
+    private static $cmdbObject;
+
+    /**
+     *
+     * @var \bheisig\idoitapi\CMDBCategory
+     */
+    private static $cmdbCategory;
+
+    /**
+     * Lasy Init Singleton Category
+     *
+     * @return \bheisig\idoitapi\CMDBCategory
+     */
+    public function getCMDBCategory()
+    {
+        if (! self::$cmdbCategory) {
+            self::$cmdbCategory = new CMDBCategory($this->api);
+        }
+        return self::$cmdbCategory;
+    }
+
+    /**
+     * Lasy Init Singleton Object
+     *
+     * @return \bheisig\idoitapi\CMDBObjects
+     */
+    public function getCMDBObjects()
+    {
+        if (! self::$cmdbObjects) {
+            self::$cmdbObjects = new CMDBObjects($this->api);
+        }
+        return self::$cmdbObjects;
+    }
+
+    /**
+     * Lasy Init Singleton Object
+     *
+     * @return \bheisig\idoitapi\CMDBObject
+     */
+    public function getCMDBObject()
+    {
+        if (! self::$cmdbObject) {
+            self::$cmdbObject = new CMDBObject($this->api);
+        }
+        return self::$cmdbObject;
+    }
 }

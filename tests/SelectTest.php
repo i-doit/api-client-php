@@ -33,6 +33,52 @@ class SelectTest extends BaseTest {
      */
     protected $instance;
 
+    private $mock;
+
+    private function getMockSelect()
+    {
+        if (! $this->mock) {
+            $cat = 'C__CATG__GLOBAL';
+            $filter = ['type' => 'C__OBJTYPE__SERVER'];
+            $data = [
+                ['id' => 123,'title' => 'Obj One'],
+                ['id' => 124,'title' => 'Obj Two']
+            ];
+            $cats = [
+                [['id' => 125,'objID' => 123,'title' => 'Cat One']],
+                [['id' => 126,'objID' => 124,'title' => 'Cat Two']]
+            ];
+
+            $mObjects = $this->createMock(\bheisig\idoitapi\CMDBObjects::class);
+            $mObjects->expects($this->atLeastOnce())
+                ->method('read')
+                ->with($filter, $this->greaterThanOrEqual(1), $this->greaterThanOrEqual(0))
+                ->willReturn($data);
+
+            $mCategory = $this->createMock(\bheisig\idoitapi\CMDBCategory::class);
+            $mCategory->expects($this->atLeastOnce())
+                ->method('batchRead')
+                ->with([123,124], [$cat])
+                ->willReturn($cats);
+
+            $mSelect = $this->getMockBuilder(\bheisig\idoitapi\Select::class)
+                ->setMethods([
+                'getCMDBObjects',
+                'getCMDBCategory'
+            ])
+                ->disableOriginalConstructor()
+                ->getMock();
+            $mSelect->expects($this->once())
+                ->method('getCMDBObjects')
+                ->willReturn($mObjects);
+            $mSelect->expects($this->atLeastOnce())
+                ->method('getCMDBCategory')
+                ->willReturn($mCategory);
+            $this->mock = $mSelect;
+        }
+        return $this->mock;
+    }
+
     public function setUp() {
         parent::setUp();
 
@@ -94,4 +140,16 @@ class SelectTest extends BaseTest {
         $this->assertCount(0, $result);
     }
 
+    public function testFindwithFilter()
+    {
+        $result = $this->getMockSelect()->find(
+            'C__CATG__GLOBAL',
+            'title',
+            'Cat Two',
+            ['type' => 'C__OBJTYPE__SERVER']
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertEquals([124], $result);
+    }
 }

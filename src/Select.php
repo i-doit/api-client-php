@@ -35,21 +35,20 @@ class Select extends Request {
      * @param string $category
      * @param string $attribute
      * @param mixed $value
+     * @param array $filter - see \bheisig\idoitapi\CMDBObjects::read()
      *
      * @return int[] List of object identifiers
      *
      * @throws \Exception on error
      */
-    public function find($category, $attribute, $value) {
-        $cmdbObjects = new CMDBObjects($this->api);
-
+    public function find($category, $attribute, $value, $filter = []) {
         $limit = 100;
         $offset = 0;
 
         $objectIDs = [];
 
         while (true) {
-            $objects = $cmdbObjects->read([], $limit, $offset);
+            $objects = $this->getCMDBObjects()->read($filter, $limit, $offset);
 
             $count = count($objects);
 
@@ -63,9 +62,7 @@ class Select extends Request {
 
             unset($objects);
 
-            $cmdbCategory = new CMDBCategory($this->api);
-
-            $result = $cmdbCategory->batchRead(
+            $result = $this->getCMDBCategory()->batchRead(
                 $objectIDs,
                 [$category]
             );

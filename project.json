@@ -1,6 +1,0 @@
-{
-    "title": "i-doit API client in PHP",
-    "description": "Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API",
-    "version": "0.3",
-    "tag": "i-doit-api-client-php"
-}

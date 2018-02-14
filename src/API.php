@@ -162,7 +162,7 @@ class API {
      *
      * @var array
      */
-    protected $project = [];
+    protected $composer = [];
 
     /**
      * Constructor
@@ -176,10 +176,10 @@ class API {
 
         $this->testConfig();
 
-        $projectFile = __DIR__ . '/../project.json';
+        $composerFile = __DIR__ . '/../composer.json';
 
-        if (is_readable($projectFile)) {
-            $this->project = json_decode(file_get_contents($projectFile), true);
+        if (is_readable($composerFile)) {
+            $this->composer = json_decode(file_get_contents($composerFile), true);
         }
     }
 
@@ -244,7 +244,6 @@ class API {
             CURLOPT_REDIR_PROTOCOLS => (CURLPROTO_HTTP | CURLPROTO_HTTPS),
             CURLOPT_ENCODING => 'application/json',
             CURLOPT_URL => $this->config[self::URL],
-            CURLOPT_USERAGENT => $this->project['tag'] . ' ' . $this->project['version'],
             CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_SSL_VERIFYHOST => 2,
@@ -253,6 +252,11 @@ class API {
             // In seconds:
             CURLOPT_CONNECTTIMEOUT => 10
         ];
+
+        if (array_key_exists('name', $this->composer) &&
+            array_key_exists('version', $this->composer)) {
+            $this->options[CURLOPT_USERAGENT] = $this->composer['name'] . ' ' . $this->composer['version'];
+        }
 
         if (isset($this->config[self::PROXY]) &&
             $this->config[self::PROXY][self::PROXY_ACTIVE] === true) {

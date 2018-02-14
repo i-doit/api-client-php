@@ -69,7 +69,7 @@ Unit tests are located under `tests/`. Just call `make phpunit` to execute all o
 
 … and publish it to [packagist.org](https://packagist.org/packages/bheisig/idoitapi):
 
-*   Bump version in `project.json`
+*   Bump version in `composer.json`
 *   Update `README.md` and `CHANGELOG.md`
 *   Create a tag with
 
@@ -78,6 +78,21 @@ Unit tests are located under `tests/`. Just call `make phpunit` to execute all o
     `git push --tags`
 
 There is already a webhook enabled to push the code from GitHub to packagist. This needs commit rights for this repository.
+
+
+##  Make rules
+
+This project comes with some [rules](Makefile) which will be used by `make`:
+
+| Make rule     | Description                                                           |
+| ------------- | --------------------------------------------------------------------- |
+| `gitstats`    | Create a little website with Git statistics located under `gitstats`  |
+| `gource`      | Visualize git commits                                                 |
+| `phpdox`      | Create a source code documentation                                    |
+| `phploc`      | Print source code statistics                                          |
+| `phpunit`     | Run unit tests                                                        |
+
+For example, execute `make gource`.
 
 
 ##  Donate

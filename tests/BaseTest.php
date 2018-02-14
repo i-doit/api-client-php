@@ -40,10 +40,12 @@ abstract class BaseTest extends TestCase {
      *
      * @var array
      */
-    protected $project = [];
+    protected $composer = [];
 
     /**
      * Makes API available
+     *
+     * @throws \Exception on error
      */
     public function setUp() {
         $this->api = new API([
@@ -53,10 +55,10 @@ abstract class BaseTest extends TestCase {
             'password' => $GLOBALS['password']
         ]);
 
-        $projectFile = __DIR__ . '/../project.json';
+        $composerFile = __DIR__ . '/../composer.json';
 
-        if (is_readable($projectFile)) {
-            $this->project = json_decode(file_get_contents($projectFile), true);
+        if (is_readable($composerFile)) {
+            $this->composer = json_decode(file_get_contents($composerFile), true);
         }
     }
 
@@ -320,8 +322,8 @@ abstract class BaseTest extends TestCase {
         return sprintf(
             'This data is auto-generated at %s by a unit test for %s, version %s',
             date('c'),
-            $this->project['tag'],
-            $this->project['version']
+            $this->composer['name'],
+            $this->composer['version']
         );
     }
 

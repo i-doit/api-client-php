@@ -1,17 +1,13 @@
-TITLE = $(shell make -s get-setting-title)
-VERSION = $(shell make -s get-setting-version)
+NAME = $(shell make -s get-setting-name)
 
 get-setting-% :
-	php -r '$$project = json_decode(trim(file_get_contents("project.json")), true); echo $$project["$*"];'
-
-tag :
-	git tag -s -m "Release version $(VERSION)" $(VERSION)
+	php -r '$$composer = json_decode(trim(file_get_contents("composer.json")), true); echo $$composer["$*"];'
 
 gource :
-	gource -1280x720 --seconds-per-day 3 --auto-skip-seconds 1 --title "$(TITLE)"
+	gource -1280x720 --seconds-per-day 3 --auto-skip-seconds 1 --title "$(NAME)"
 
 gitstats :
-	gitstats -c project_name="$(TITLE)" . gitstats
+	gitstats -c project_name="$(NAME)" . gitstats
 
 phpdox :
 	phpdox

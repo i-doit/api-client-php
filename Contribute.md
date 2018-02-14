@@ -57,7 +57,6 @@ This projects has some dependencies:
 Developers must meet some more requirements:
 
 *   [Git](https://git-scm.com/)
-*   [Pandoc](https://pandoc.org/)
 *   make
 
 
@@ -66,13 +65,19 @@ Developers must meet some more requirements:
 Unit tests are located under `tests/`. Just call `make phpunit` to execute all of them.
 
 
-##  Create a distribution tarball
+##  Release new version
 
-*   Bump version in file `project.json`
-*   Call `make`
-*   Call `make dist`
+… and publish it to [packagist.org](https://packagist.org/packages/bheisig/idoitapi):
 
-The last call creates a file caleld `i-doit-api-client-php-<VERSION>.tar.gz`.
+*   Bump version in `project.json`
+*   Update `README.md` and `CHANGELOG.md`
+*   Create a tag with
+
+    `git tag -s -m "Release version <VERSION>" <VERSION>`
+
+    `git push --tags`
+
+There is already a webhook enabled to push the code from GitHub to packagist. This needs commit rights for this repository.
 
 
 ##  Donate

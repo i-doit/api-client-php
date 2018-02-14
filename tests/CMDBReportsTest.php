@@ -31,6 +31,9 @@ class CMDBReportsRelationTest extends BaseTest {
      */
     protected $reports;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBReportsRelationTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testListReports() {
         $result = $this->reports->listReports();
@@ -48,7 +51,7 @@ class CMDBReportsRelationTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testRead() {
         $reports = $this->reports->listReports();
@@ -65,7 +68,7 @@ class CMDBReportsRelationTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchRead() {
         $reports = $this->reports->listReports();

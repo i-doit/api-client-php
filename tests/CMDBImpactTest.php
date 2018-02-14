@@ -31,6 +31,9 @@ class CMDBImpactTest extends BaseTest {
      */
     protected $instance;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadByID() {
         $relationType = 10; // Location
@@ -57,7 +60,7 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchByConst() {
         $relationType = 'C__RELATION_TYPE__LOCATION';

@@ -31,6 +31,9 @@ class CMDBWorkstationComponentsTest extends BaseTest {
      */
     protected $instance;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testRead() {
         $person = $this->createPerson();
@@ -54,7 +57,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchRead() {
         $person1 = $this->createPerson();
@@ -74,7 +77,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadByEMail() {
         $person = $this->createPerson();
@@ -90,7 +93,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadByEMails() {
         $person1 = $this->createPerson();

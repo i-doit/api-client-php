@@ -31,6 +31,9 @@ class CMDBLocationTreeTest extends BaseTest {
      */
     protected $locationTree;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBLocationTreeTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testRead() {
         $result = $this->locationTree->read($this->getRootLocation());
@@ -47,7 +50,7 @@ class CMDBLocationTreeTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadRecursively() {
         $result = $this->locationTree->readRecursively($this->getRootLocation());

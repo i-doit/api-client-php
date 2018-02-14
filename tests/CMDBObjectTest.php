@@ -31,6 +31,9 @@ class CMDBObjectTest extends BaseTest {
      */
     protected $object;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testCreate() {
         $objectID = $this->object->create(
@@ -65,7 +68,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testRead() {
         $objectID = $this->createServer();
@@ -77,7 +80,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testUpdate() {
         $objectID = $this->createServer();
@@ -89,7 +92,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testArchive() {
         $objectID = $this->createServer();
@@ -101,7 +104,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testDelete() {
         $objectID = $this->createServer();
@@ -113,7 +116,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testPurge() {
         $objectID = $this->createServer();
@@ -125,7 +128,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testLoad() {
         $objectID = $this->createServer();
@@ -137,7 +140,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testUpsert() {
         $title = $this->generateRandomString();

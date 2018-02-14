@@ -31,6 +31,9 @@ class CMDBObjectTypesTest extends BaseTest {
      */
     protected $instance;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBObjectTypesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testRead() {
         $result = $this->instance->read();
@@ -48,7 +51,7 @@ class CMDBObjectTypesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadOne() {
         $result = $this->instance->readOne('C__OBJTYPE__SERVER');
@@ -58,7 +61,7 @@ class CMDBObjectTypesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchRead() {
         $result = $this->instance->batchRead([
@@ -71,7 +74,7 @@ class CMDBObjectTypesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadByTitle() {
         $result = $this->instance->readByTitle('LC__CMDB__OBJTYPE__SERVER');

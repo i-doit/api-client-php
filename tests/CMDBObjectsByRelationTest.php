@@ -31,6 +31,9 @@ class CMDBObjectsByRelationTest extends BaseTest {
      */
     protected $relation;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadByID() {
         $relationType = 10; // Location
@@ -64,7 +67,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadByConst() {
         $relationType = 'C__RELATION_TYPE__LOCATION';

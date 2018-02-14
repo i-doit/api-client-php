@@ -31,6 +31,9 @@ class CMDBLogbookTest extends BaseTest {
      */
     protected $instance;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testCreate() {
         $objectID = $this->createServer();
@@ -53,7 +56,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchCreate() {
         $objectID = $this->createServer();
@@ -71,7 +74,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testRead() {
         $result = $this->instance->read();
@@ -91,7 +94,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadByObject() {
         $objectID = $this->createServer();

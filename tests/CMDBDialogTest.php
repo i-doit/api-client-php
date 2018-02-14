@@ -31,6 +31,9 @@ class CMDBDialogTest extends BaseTest {
      */
     protected $instance;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testCreate() {
         $result = $this->instance->create(
@@ -52,7 +55,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchCreate() {
         $result = $this->instance->batchCreate([
@@ -79,7 +82,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testRead() {
         $result = $this->instance->read(
@@ -92,7 +95,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchRead() {
         $result = $this->instance->batchRead([

@@ -36,6 +36,9 @@ class ImageTest extends BaseTest {
      */
     protected $files = [];
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -48,7 +51,7 @@ class ImageTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testAdd() {
         $objectID = $this->createServer();
@@ -62,7 +65,7 @@ class ImageTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchAdd() {
         $objectID = $this->createServer();
@@ -74,7 +77,7 @@ class ImageTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testEncode() {
         foreach ($this->files as $filePath => $description) {

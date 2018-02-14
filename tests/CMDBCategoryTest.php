@@ -31,6 +31,9 @@ class CMDBCategoryTest extends BaseTest {
      */
     protected $category;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testCreate() {
         $objectID = $this->createServer();
@@ -61,7 +64,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testRead() {
         $objectID = $this->createServer();
@@ -77,7 +80,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadOneByID() {
         $objectID = $this->createServer();
@@ -109,7 +112,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadFirst() {
         $objectID = $this->createServer();
@@ -139,7 +142,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testUpdate() {
         $objectID = $this->createServer();
@@ -156,7 +159,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testArchive() {
         $objectID = $this->createServer();
@@ -186,7 +189,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testDelete() {
         $objectID = $this->createServer();
@@ -202,7 +205,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testPurge() {
         $objectID = $this->createServer();
@@ -218,7 +221,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchCreate() {
         $objectID1 = $this->createServer();
@@ -282,7 +285,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchRead() {
         $objectID1 = $this->createServer();
@@ -309,7 +312,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchUpdate() {
         $objectID1 = $this->createServer();

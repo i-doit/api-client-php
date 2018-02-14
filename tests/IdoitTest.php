@@ -31,6 +31,9 @@ class IdoitTest extends BaseTest {
      */
     protected $idoit;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadVersion() {
         $result = $this->idoit->readVersion();
@@ -48,7 +51,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testReadConstants() {
         $result = $this->idoit->readConstants();
@@ -58,7 +61,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testSearch() {
         $result = $this->idoit->search('demo');
@@ -68,7 +71,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchSearch() {
         $result = $this->idoit->batchSearch(['demo', 'test', 'server']);

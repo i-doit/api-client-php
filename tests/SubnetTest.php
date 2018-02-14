@@ -31,6 +31,9 @@ class SubnetTest extends BaseTest {
      */
     protected $instance;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -38,7 +41,7 @@ class SubnetTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testLoad() {
         // "Global v4"
@@ -48,7 +51,7 @@ class SubnetTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testHasNext() {
         // "Global v4"
@@ -58,7 +61,7 @@ class SubnetTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testNext() {
         // "Global v4"
@@ -68,7 +71,7 @@ class SubnetTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testIsFree() {
         // "Global v4"

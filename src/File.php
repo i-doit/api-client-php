@@ -60,8 +60,7 @@ class File extends Request {
                 'file_physical' => basename($filePath),
                 'file_title' => $description,
                 'version_description' => $description
-            ],
-            false
+            ]
         );
 
         $cmdbCategory->create(

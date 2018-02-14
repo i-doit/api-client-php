@@ -33,6 +33,9 @@ class SelectTest extends BaseTest {
      */
     protected $instance;
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -40,7 +43,7 @@ class SelectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testFind() {
         $title = $this->generateRandomString();

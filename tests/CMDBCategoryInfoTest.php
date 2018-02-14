@@ -33,6 +33,9 @@ class CMDBCategoryInfoTest extends BaseTest {
 
     protected $categories = [];
 
+    /**
+     * @throws \Exception on error
+     */
     public function setUp() {
         parent::setUp();
 
@@ -46,7 +49,7 @@ class CMDBCategoryInfoTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testRead() {
         foreach ($this->categories as $categoryConst) {
@@ -58,7 +61,7 @@ class CMDBCategoryInfoTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception
+     * @throws \Exception on error
      */
     public function testBatchRead() {
         $result = $this->instance->batchRead($this->categories);

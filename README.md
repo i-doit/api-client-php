@@ -36,26 +36,19 @@ Why should you use this API client library? There are some good reasons:
 What's new? Take a look at the [changelog](CHANGELOG.md).
 
 
-##  Dependencies
+##  Requirements
 
-Before using this API client library your system must meet the following requirements:
+Meet these simple requirements before using the client:
 
-*   PHP >= 5.6 (7.x is recommended)
-*   PHP extensions `cURL`, `json` and `cli`
+*   A running instance of i-doit, version 1.10 or higher
+*   i-doit add-on API, version 1.9 or higher
+*   PHP, version 5.6 or higher (7.1 is recommended)
+*   PHP modules `curl` and `json`
 
 
 ##  Download
 
-You have several options to download (and kinda install) the API client library:
-
-*   Install any version via [Composer](https://getcomposer.org/) (**recommended**)
-*   Download any stable release manually
-*   Clone the Git repository to fetch the (maybe unstable) development branch
-
-
-### Using Composer
-
-Change to your project's root directory and type the following command:
+It is recommended to install this client via [Composer](https://getcomposer.org/). Change to your project's root directory and fetch the latest stable version:
 
 ~~~ {.bash}
 composer require "bheisig/idoitapi=>=0.3"
@@ -100,45 +93,12 @@ composer update
 ~~~
 
 
-### Download Release
-
-You find [all releases on the project site](https://github.com/bheisig/i-doit-api-client-php/releases). Fetch the latest stable release:
-
-~~~ {.bash}
-wget https://github.com/bheisig/i-doit-api-client-php/releases/download/0.3/i-doit-api-client-php-0.3.tar.gz
-tar xvzf i-doit-api-client-php-0.3.tar.gz
-cd i-doit-api-client-php/
-~~~
-
-
-### Fetch Source Code
-
-Fetch the current (maybe unstable) development branch:
-
-~~~ {.bash}
-git clone https://github.com/bheisig/i-doit-api-client-php.git
-cd i-doit-api-client-php/
-~~~
-
-To fetch updates run:
-
-~~~ {.bash}
-git pull
-~~~
-
-
 ##  Usage
 
 If you use Composer you should use its own autoloader, too:
 
 ~~~ {.php}
 require_once 'vendor/autoload.php';
-~~~
-
-Without Composer just include this file into your PHP code:
-
-~~~ {.php}
-require_once 'idoitapi.php';
 ~~~
 
 This is it. All other files will be auto-loaded on-the-fly if needed.
@@ -189,6 +149,8 @@ A basic example:
 ~~~ {.php}
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\Idoit;
+
+require_once 'vendor/autoload.php';
 
 $api = new API([
     'url' => 'https://demo.i-doit.com/src/jsonrpc.php',

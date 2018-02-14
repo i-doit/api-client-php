@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+-   Bump required versions of i-doit (>= 1.10) and its API add-on (>= 1.9)
+-   Remove `idoitapi.php` because Composer is the prefered way to use
 -   Require entry identifier in methods `CMDBCategory::archive()`, `delete()` and `purge()`
 -   Methods `cmdb.category.create`, `cmdb.category_info.read` (and others, too) do not need parameters `catg` or `cats`. Parameter `category` seems to be sufficient.
 -   Return empty array for reports with no results (class `CMDBReports`)

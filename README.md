@@ -564,6 +564,8 @@ $entryID = $this->category->create(
 var_dump($entryID);
 ~~~
 
+Alternatively, use method `CMDBCategory::batchCreate()` for batch requests.
+
 
 ####    Read Categories and Attributes
 
@@ -644,6 +646,8 @@ $category->update(
     ]
 );
 ~~~
+
+Alternatively, use method `CMDBCategory::batchUpdate()` for batch requests.
 
 
 ####    Change Documentation Status of a Category and its Attributes

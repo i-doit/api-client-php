@@ -160,6 +160,20 @@ class CMDBCategoryTest extends BaseTest {
      */
     public function testArchive() {
         $objectID = $this->createServer();
+
+        // Single-valued category:
+        // @todo Not supported by i-doit!
+//        $entryID = $this->defineModel($objectID);
+//
+//        $itself = $this->category->archive(
+//            $objectID,
+//            'C__CATG__MODEL',
+//            $entryID
+//        );
+//
+//        $this->assertInstanceOf(CMDBCategory::class, $itself);
+
+        // Multi-valued category:
         $entryID = $this->addIPv4($objectID);
 
         $itself = $this->category->archive(
@@ -298,28 +312,38 @@ class CMDBCategoryTest extends BaseTest {
      * @throws \Exception
      */
     public function testBatchUpdate() {
-        // @todo Implement me!
-    }
+        $objectID1 = $this->createServer();
+        $objectID2 = $this->createServer();
 
-    /**
-     * @throws \Exception
-     */
-    public function testBatchArchive() {
-        // @todo Implement me!
-    }
+        $entryIDs = [];
 
-    /**
-     * @throws \Exception
-     */
-    public function testBatchDelete() {
-        // @todo Implement me!
-    }
+        $entryIDs[] = $this->defineModel($objectID1);
+        $entryIDs[] = $this->defineModel($objectID2);
 
-    /**
-     * @throws \Exception
-     */
-    public function testBatchPurge() {
-        // @todo Implement me!
+        $result = $this->category->batchUpdate(
+            [$objectID1, $objectID2],
+            'C__CATG__MODEL',
+            [
+                'manufacturer' => $this->generateRandomString(),
+                'title' => $this->generateRandomString(),
+                'serial' => $this->generateRandomString(),
+                'description' => $this->generateDescription()
+            ]
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(2, $result);
+
+        $counter = 0;
+
+        foreach ($result as $entryID) {
+            $this->assertInternalType('int', $entryID);
+            $this->assertGreaterThan(0, $entryID);
+
+            $this->assertEquals($entryIDs[$counter], $entryID);
+
+            $counter++;
+        }
     }
 
 }

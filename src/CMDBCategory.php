@@ -183,25 +183,20 @@ class CMDBCategory extends Request {
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
-     * @param int $entryID Entry identifier (only needed for multi-valued categories)
+     * @param int $entryID Entry identifier
      *
      * @return self Returns itself
      *
      * @throws \Exception on error
      */
-    public function archive($objectID, $categoryConst, $entryID = null) {
-        $params = [
-            'objID' => $objectID,
-            'category' => $categoryConst
-        ];
-
-        if (isset($entryID)) {
-            $params['cateID'] = $entryID;
-        }
-
+    public function archive($objectID, $categoryConst, $entryID) {
         $result = $this->api->request(
             'cmdb.category.delete',
-            $params
+            [
+                'objID' => $objectID,
+                'category' => $categoryConst,
+                'cateID' => $entryID
+            ]
         );
 
         if (!array_key_exists('success', $result) ||
@@ -221,13 +216,13 @@ class CMDBCategory extends Request {
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
-     * @param int $entryID Entry identifier (only needed for multi-valued categories)
+     * @param int $entryID Entry identifier
      *
      * @return self Returns itself
      *
      * @throws \Exception on error
      */
-    public function delete($objectID, $categoryConst, $entryID = null) {
+    public function delete($objectID, $categoryConst, $entryID) {
         return $this
             ->archive($objectID, $categoryConst, $entryID)
             ->archive($objectID, $categoryConst, $entryID);
@@ -239,13 +234,13 @@ class CMDBCategory extends Request {
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
-     * @param int $entryID Entry identifier (only needed for multi-valued categories)
+     * @param int $entryID Entry identifier
      *
      * @return self Returns itself
      *
      * @throws \Exception on error
      */
-    public function purge($objectID, $categoryConst, $entryID = null) {
+    public function purge($objectID, $categoryConst, $entryID) {
         return $this
             ->archive($objectID, $categoryConst, $entryID)
             ->archive($objectID, $categoryConst, $entryID)
@@ -306,7 +301,7 @@ class CMDBCategory extends Request {
      * Reads one or more category entries for one or more objects
      *
      * @param int[] $objectIDs List of object identifiers
-     * @param string[] $categoryConsts Category constants
+     * @param string[] $categoryConsts List of category constants
      *
      * @return array Indexed array of result sets (for both single- and multi-valued categories)
      *
@@ -330,20 +325,45 @@ class CMDBCategory extends Request {
         return $this->api->batchRequest($requests);
     }
 
-    public function batchUpdate() {
-        // @todo Implement it.
-    }
+    /**
+     * Updates a single-valued category for one or more objects
+     *
+     * @param int[] $objectIDs List of object identifiers
+     * @param string $categoryConst Category constant
+     * @param array $attributes List of attributes with keys and values
+     *
+     * @return int[] List of category entry identifiers
+     *
+     * @throws \Exception on error
+     */
+    public function batchUpdate(array $objectIDs, $categoryConst, array $attributes) {
+        $requests = [];
 
-    public function batchArchive() {
-        // @todo Implement it.
-    }
+        foreach ($objectIDs as $objectID) {
+            $requests[] = [
+                'method' => 'cmdb.category.update',
+                'params' => [
+                    'objID' => $objectID,
+                    'category' => $categoryConst,
+                    'data' => $attributes
+                ]
+            ];
+        }
 
-    public function batchDelete() {
-        // @todo Implement it.
-    }
+        $results = $this->api->batchRequest($requests);
 
-    public function batchPurge() {
-        // @todo Implement it.
+        foreach ($results as $result) {
+            if (!array_key_exists('success', $result) ||
+                $result['success'] !== true) {
+                if (array_key_exists('message', $result)) {
+                    throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                } else {
+                    throw new \Exception('Bad result');
+                }
+            }
+        }
+
+        return $results;
     }
 
 }

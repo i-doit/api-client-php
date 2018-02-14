@@ -11,12 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+-   Method `CMDBCategory::batchUpdate()`
 -   List requirements in [documentation](README.md)
 -   More assertions in unit tests
 
 
 ### Changed
 
+-   Require entry identifier in methods `CMDBCategory::archive()`, `delete()` and `purge()`
 -   Methods `cmdb.category.create`, `cmdb.category_info.read` (and others, too) do not need parameters `catg` or `cats`. Parameter `category` seems to be sufficient.
 -   Return empty array for reports with no results (class `CMDBReports`)
 -   Remove many dependencies from unit tests

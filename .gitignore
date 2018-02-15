@@ -1,6 +1,4 @@
 .idea/
+build/
 vendor/
-ChangeLog
-README
-*.tar.gz
 composer.lock

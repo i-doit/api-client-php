@@ -9,11 +9,11 @@ gource :
 gitstats :
 	gitstats -c project_name="$(NAME)" . gitstats
 
-phpdox :
-	phpdox
+phpdox : phploc
+	./vendor/bin/phpdox
 
 phploc :
-	phploc --exclude=vendor --exclude=tests .
+	./vendor/bin/phploc --exclude=vendor --exclude=tests --log-xml=build/phploc.xml .
 
 phpunit :
 	./vendor/bin/phpunit --configuration tests/phpunit.xml

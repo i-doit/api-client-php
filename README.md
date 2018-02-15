@@ -1,4 +1,4 @@
-#   i-doit API Client Library
+#   i-doit API client library
 
 Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
@@ -46,7 +46,7 @@ Meet these simple requirements before using the client:
 *   PHP modules `curl` and `json`
 
 
-##  Download
+##  Installation
 
 It is recommended to install this client via [Composer](https://getcomposer.org/). Change to your project's root directory and fetch the latest stable version:
 
@@ -80,11 +80,10 @@ This installs version `0.3` or higher if available. Instead of sticking to a spe
 
 ~~~ {.bash}
 composer require "bheisig/idoitapi=@DEV"
-composer install
 ~~~
 
 
-####    Updates
+##  Updates
 
 Composer has the great advantage (besides many others) that you can simply update the API client library by running:
 
@@ -144,7 +143,7 @@ $api = new API([
 
 ##  Examples
 
-A basic example:
+A basic "Hello, World!" example is to fetch some basic information about your i-doit instance:
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -168,7 +167,7 @@ var_dump($info);
 It is simple like that. For more examples take a look at the next sub sections.
 
 
-### Login and Logout
+### Login and logout
 
 One sweet thing about i-doit's API you can (and should) use one user session for your stuff. This saves resources on the server side and allows you to perform a lot more calls in a short time.
 
@@ -191,7 +190,7 @@ $api->isLoggedIn(); // Returns true or false
 ~~~
 
 
-### Pre-defined Methods
+### Pre-defined methods
 
 For almost every case there is a remote procedure you may call to read from or manipulate i-doit's database through its API. Each remote procedure is assigned to a namespace to keep the API clean and smoothly. Furtunately, you do not need to call these remote procedures on your own. The API client library provides for each namespace a class and for each remote procedure a method. Here is a quick overview:
 
@@ -239,6 +238,9 @@ Additionally, this API client library is shipped with methods as workarounds for
 If it makes sense there are methods to perform batch requests for most RPCs. For example, `CMDBCategory::batchRead()` fetches multiple category entries at once.
 
 
+### Examples
+
+
 ####    Search in i-doit's database
 
 ~~~ {.php}
@@ -272,7 +274,7 @@ var_dump($result);
 ~~~
 
 
-####    Create a New Object
+####    Create a new object
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -290,7 +292,7 @@ var_dump($objectID);
 ~~~
 
 
-####    Read Common Information About an Object
+####    Read common information about an object
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -305,7 +307,7 @@ var_dump($objectInfo);
 ~~~
 
 
-####    Load All Data of an Object
+####    Load all data of an object
 
 This will fetch everything about an object: common data, assigned categories and category entries as well.
 
@@ -324,7 +326,7 @@ var_dump($objectInfo);
 The method `load()` triggers round about 4 API calls. So be aware if it is heavily used.
 
 
-####    Update an Existing Object
+####    Update an existing object
 
 Currently, you are able to update an object's title:
 
@@ -344,7 +346,7 @@ $object->update(
 ~~~
 
 
-####    Create or Update an Object ("Upsert")
+####    Create or update an object ("upsert")
 
 You you like to get an identifier of an object but you are unsure whether or not it exists, try an upsert. This is an "update" and an "insert" at the same time. This means, if the object exists you will get its identifier directly. If not the object will be created and then you will get its identifier. Objects must match against type and title. Additional attributes will be stored.
 
@@ -365,7 +367,7 @@ $object->upsert(
 ~~~
 
 
-####    Fetch an Object Identifier
+####    Fetch an object identifier
 
 Fetch an object identifier by object title and (optional) type:
 
@@ -385,7 +387,7 @@ An exception error will be thrown if there is either no object or more than one.
 
 
 
-####    Change Documentation Status of an Object
+####    Change documentation status of an object
 
 i-doit has the concept of archiving your IT documentation. Each object has an status (`normal`, `archived`, marked as `deleted`). And last but not least, an object may be purged from the database.
 
@@ -406,7 +408,7 @@ $object->purge($objectID);
 ~~~
 
 
-####    Create Multiple Objects
+####    Create multiple objects
 
 Create multiple objects at once:
 
@@ -430,7 +432,7 @@ var_dump($objectIDs);
 ~~~
 
 
-####    Read Multiple Objects
+####    Read multiple objects
 
 Reading multiple objects at once is provided by several methods. Let's see:
 
@@ -468,7 +470,7 @@ var_dump($objects);
 ~~~
 
 
-####    Update Multiple Objects
+####    Update multiple objects
 
 Update multiple objects at once:
 
@@ -489,7 +491,7 @@ $cmdbObjects->update([
 ~~~
 
 
-####    Archive/Delete/Purge Multiple Objects
+####    Archive/delete/purge multiple objects
 
 Archive objects, mark them as deleted or even purge them from database:
 
@@ -508,7 +510,7 @@ $cmdbObjects
 ~~~
 
 
-####    Create Category Entries with Attributes
+####    Create category entries with attributes
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -537,7 +539,7 @@ var_dump($entryID);
 Alternatively, use method `CMDBCategory::batchCreate()` for batch requests.
 
 
-####    Read Categories and Attributes
+####    Read categories and attributes
 
 Read one or more category entries for one specific object:
 
@@ -599,7 +601,7 @@ var_dump($result);
 ~~~
 
 
-####    Update Categories and Attributes
+####    Update categories and attributes
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -620,7 +622,7 @@ $category->update(
 Alternatively, use method `CMDBCategory::batchUpdate()` for batch requests.
 
 
-####    Change Documentation Status of a Category and its Attributes
+####    Change documentation status of a category and its attributes
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -638,7 +640,7 @@ $category->purge(42, 'C__CATG__CPU', 3);
 ~~~
 
 
-####    Create Values in Drop-down Menus
+####    Create values in drop-down menus
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -669,7 +671,7 @@ var_dump($entryIDs);
 ~~~
 
 
-####    Fetch Values from Drop-down Menus
+####    Fetch values from drop-down menus
 
 Drop-down menus in i-doit are called "dialog" (read-only) or "dialog+" (editable).
 
@@ -694,7 +696,7 @@ var_dump($modelsAndManufacturers);
 ~~~
 
 
-####    Build a Location Tree
+####    Build a location tree
 
 Read objects located directly under an object:
 
@@ -725,7 +727,7 @@ var_dump($result);
 ~~~
 
 
-####    Fetch Relations Between Objects
+####    Fetch relations between objects
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -743,7 +745,7 @@ var_dump($result);
 ~~~
 
 
-####    Fetch Workplace Components For a Person
+####    Fetch workplace components for a person
 
 A Person may be assigned to a workplace with several components like a PC, a monitor and a telephone. These components can be fetched by the person. You either need the object ID or the email address. Even more than one workplaces are supported.
 
@@ -813,7 +815,7 @@ var_dump($result);
 ~~~
 
 
-### Fetch Next Free IP Address From Subnet
+### Fetch next free IP address from subnet
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -829,7 +831,7 @@ echo 'Next IP address: ' . $nextIP . PHP_EOL;
 ~~~
 
 
-### Upload Files
+### Upload files
 
 This API client library is able to upload a file, create a new "File" object an assigned it to an existing object identified by its ID:
 
@@ -856,7 +858,7 @@ $file->batchAdd(
 ~~~
 
 
-### Upload Images to a Gallery
+### Upload images to a gallery
 
 Each object may have an image gallery provided by assigned category "images". This is the way to upload image files and assign them to an existing object:
 
@@ -884,7 +886,7 @@ $file->batchAdd(
 ~~~
 
 
-### Self-defined Request
+### Self-defined request
 
 Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this API client library. Here is the way to perform a self-defined request:
 
@@ -901,7 +903,7 @@ var_dump($result);
 `request()` takes the method and optional parameters.
 
 
-### Self-defined Batch Request
+### Self-defined batch request
 
 Similar to a simple requests you may perform a batch requests with many sub-requests as you need:
 
@@ -924,7 +926,7 @@ var_dump($result);
 ~~~
 
 
-### Read Information About Your CMDB Design
+### Read information about your CMDB design
 
 Fetch information about object types, object types per group, categories assigned to object types, and attributes available in categories:
 
@@ -972,7 +974,7 @@ var_dump($categories);
 ~~~
 
 
-### Read Information About i-doit Itself
+### Read information about i-doit itself
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -988,7 +990,7 @@ var_dump($constants);
 ~~~
 
 
-### Re-connect to Server
+### Re-connect to server
 
 Sometimes you need a fresh connection. You may explicitly disconnect from the i-doit server and re-connect to it:
 
@@ -1005,7 +1007,7 @@ $api->isConnected(); // Returns true
 ~~~
 
 
-### Debugging API Calls
+### Debug API calls
 
 For debugging purposes it is great to fetch some details about your API calls. This script uses some useful methods:
 
@@ -1062,7 +1064,7 @@ fwrite(STDERR, sprintf('Duration: %s seconds', $duration) . PHP_EOL);
 Please, report any issues to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues). Pull requests are very welcomed. If you like to get involved see file [`Contribute.md`](Contribute.md) for details.
 
 
-##  Projects Using This API Client Library
+##  Projects using this API client library
 
 *   [i-doit CLI Tool](https://github.com/bheisig/i-doit-cli) – "Access your CMDB on the command line interface"
 

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+-   Create, read, update and delete monitoring instances (monitoring add-on)
 -   Create, read, update and delete static host tags (Check_MK add-on)
 -   Update several category entries with `CMDBCategory::batchUpdate()`
 -   List requirements in [documentation](README.md)

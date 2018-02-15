@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
--   Method `CMDBCategory::batchUpdate()`
+-   Create, read, update and delete static host tags (Check_MK add-on)
+-   Update several category entries with `CMDBCategory::batchUpdate()`
 -   List requirements in [documentation](README.md)
 -   More assertions in unit tests
 

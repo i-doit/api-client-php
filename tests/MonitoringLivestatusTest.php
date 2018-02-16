@@ -121,8 +121,8 @@ class MonitoringLivestatusTest extends BaseTest {
 
         foreach ($result as $instance) {
             $this->assertArrayHasKey('id', $instance);
-            $this->assertInternalType('int', $instance['int']);
-            $this->assertGreaterThan(0, $instance['int']);
+            $this->assertInternalType('int', $instance['id']);
+            $this->assertGreaterThan(0, $instance['id']);
 
             $this->assertArrayHasKey('title', $instance);
             $this->assertInternalType('string', $instance['title']);
@@ -133,7 +133,7 @@ class MonitoringLivestatusTest extends BaseTest {
             $this->assertArrayHasKey('connection', $instance);
             $this->assertInternalType('string', $instance['connection']);
 
-            $this->assertContains($instance['connection'], ['tcp', 'unix socket']);
+            $this->assertContains($instance['connection'], ['tcp', 'unix']);
 
             switch ($instance['connection']) {
                 case 'tcp':
@@ -145,7 +145,7 @@ class MonitoringLivestatusTest extends BaseTest {
                     $this->assertGreaterThan(0, $instance['port']);
                     $this->assertLessThanOrEqual(65535, $instance['port']);
                     break;
-                case 'unix socket':
+                case 'unix':
                     $this->assertArrayHasKey('path', $instance);
                     $this->assertInternalType('string', $instance['path']);
                     break;
@@ -312,6 +312,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
+     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testUpdateNonExisting() {
@@ -325,10 +326,8 @@ class MonitoringLivestatusTest extends BaseTest {
             'active' => true
         ];
 
-        // API says everything is okay :-(
-        $result = $this->instance->update($id, $attributes);
-
-        $this->assertInstanceOf(MonitoringLivestatus::class, $result);
+        // Bad:
+        $this->instance->update($id, $attributes);
     }
 
     /**
@@ -345,13 +344,14 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testDeleteByNonExistingID() {
         // It is unlikely to produce such high IDs but this *could* fail:
         $id = 99999999;
 
+        // Bad:
+        // i-doit API says this is a valid operation :-(
         $this->instance->deleteByID($id);
     }
 
@@ -370,17 +370,17 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
-    public function testByNonExistingTitle() {
+    public function testDeleteByNonExistingTitle() {
         $title = $this->generateRandomString();
 
+        // Bad:
+        // i-doit API says this is a valid operation :-(
         $this->instance->deleteByTitle($title);
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testDeleteDeletedOne() {
@@ -392,6 +392,7 @@ class MonitoringLivestatusTest extends BaseTest {
         $this->instance->deleteByID($id);
 
         // Bad:
+        // i-doit API says this is a valid operation :-(
         $this->instance->deleteByID($id);
     }
 
@@ -414,7 +415,6 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testBatchDeleteDeletedOnes() {
@@ -431,6 +431,7 @@ class MonitoringLivestatusTest extends BaseTest {
         $this->instance->batchDelete($ids);
 
         // Bad:
+        // i-doit API says this is a valid operation :-(
         $this->instance->batchDelete($ids);
     }
 
@@ -452,7 +453,6 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testDeleteAllNonExisting() {
@@ -468,6 +468,7 @@ class MonitoringLivestatusTest extends BaseTest {
         $this->instance->deleteAll();
 
         // Bad:
+        // i-doit API says this is a valid operation :-(
         $this->instance->deleteAll();
     }
 

@@ -85,7 +85,7 @@ class MonitoringLivestatus extends Request {
             'monitoring.livestatus.create',
             [
                 'data' => [
-                    'connection' => 'unix socket',
+                    'connection' => 'unix',
                     'title' => $title,
                     'path' => $path,
                     'active' => $active
@@ -319,7 +319,7 @@ class MonitoringLivestatus extends Request {
         }
 
         if (count($ids) > 0) {
-            $this->batchDelete([$ids]);
+            $this->batchDelete($ids);
         }
 
         return $this;

@@ -347,6 +347,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
+     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testUpdateNonExisting() {
@@ -361,10 +362,8 @@ class CheckMKStaticTagTest extends BaseTest {
             'description' => $this->generateDescription()
         ];
 
-        // API says everything is okay :-(
-        $result = $this->instance->update($id, $tag);
-
-        $this->assertInstanceOf(CheckMKStaticTag::class, $result);
+        // Bad:
+        $this->instance->update($id, $tag);
     }
 
     /**
@@ -382,7 +381,6 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testDeleteDeletedOne() {
@@ -395,17 +393,18 @@ class CheckMKStaticTagTest extends BaseTest {
         $this->instance->delete($id);
 
         // Bad:
+        // i-doit API says this is a valid operation :-(
         $this->instance->delete($id);
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testDeleteNonExisting() {
         // It is unlikely to produce such high IDs but this *could* fail:
         $id = 99999999;
 
+        // i-doit API says this is a valid operation :-(
         $this->instance->delete($id);
     }
 
@@ -434,7 +433,6 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testBatchDeleteDeletedOnes() {
@@ -454,11 +452,12 @@ class CheckMKStaticTagTest extends BaseTest {
         ]);
 
         $this->instance->batchDelete($ids);
+
+        // i-doit API says this is a valid operation :-(
         $this->instance->batchDelete($ids);
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testBatchDeleteNonExisting() {
@@ -469,6 +468,7 @@ class CheckMKStaticTagTest extends BaseTest {
             99999997
         ];
 
+        // i-doit API says this is a valid operation :-(
         $this->instance->batchDelete($ids);
     }
 

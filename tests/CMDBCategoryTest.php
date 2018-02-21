@@ -29,7 +29,7 @@ class CMDBCategoryTest extends BaseTest {
     /**
      * @var \bheisig\idoitapi\CMDBCategory
      */
-    protected $category;
+    protected $instance;
 
     /**
      * @throws \Exception on error
@@ -37,7 +37,7 @@ class CMDBCategoryTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->category = new CMDBCategory($this->api);
+        $this->instance = new CMDBCategory($this->api);
     }
 
     /**
@@ -46,7 +46,7 @@ class CMDBCategoryTest extends BaseTest {
     public function testCreate() {
         $objectID = $this->createServer();
 
-        $entryID = $this->category->create(
+        $entryID = $this->instance->create(
             $objectID,
             'C__CATG__IP',
             [
@@ -70,7 +70,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
         $this->defineModel($objectID);
 
-        $result = $this->category->read(
+        $result = $this->instance->read(
             $objectID,
             'C__CATG__MODEL'
         );
@@ -87,7 +87,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryID = $this->defineModel($objectID);
 
         // Test single-value category:
-        $result = $this->category->readOneByID(
+        $result = $this->instance->readOneByID(
             $objectID,
             'C__CATG__MODEL',
             $entryID
@@ -100,7 +100,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryID = $this->addIPv4($objectID);
 
         // Test multi-value category:
-        $result = $this->category->readOneByID(
+        $result = $this->instance->readOneByID(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -119,7 +119,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->defineModel($objectID);
 
         // Test single-value category:
-        $result = $this->category->readFirst(
+        $result = $this->instance->readFirst(
             $objectID,
             'C__CATG__MODEL'
         );
@@ -131,7 +131,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->addIPv4($objectID);
 
         // Test multi-value category:
-        $result = $this->category->readFirst(
+        $result = $this->instance->readFirst(
             $objectID,
             'C__CATG__IP'
         );
@@ -147,7 +147,7 @@ class CMDBCategoryTest extends BaseTest {
     public function testUpdate() {
         $objectID = $this->createServer();
 
-        $itself = $this->category->update(
+        $itself = $this->instance->update(
             $objectID,
             'C__CATG__GLOBAL',
             [
@@ -168,7 +168,7 @@ class CMDBCategoryTest extends BaseTest {
         // @todo Not supported by i-doit!
 //        $entryID = $this->defineModel($objectID);
 //
-//        $itself = $this->category->archive(
+//        $itself = $this->instance->archive(
 //            $objectID,
 //            'C__CATG__MODEL',
 //            $entryID
@@ -179,7 +179,7 @@ class CMDBCategoryTest extends BaseTest {
         // Multi-valued category:
         $entryID = $this->addIPv4($objectID);
 
-        $itself = $this->category->archive(
+        $itself = $this->instance->archive(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -195,7 +195,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
         $entryID = $this->addIPv4($objectID);
 
-        $itself = $this->category->delete(
+        $itself = $this->instance->delete(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -211,7 +211,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
         $entryID = $this->addIPv4($objectID);
 
-        $itself = $this->category->purge(
+        $itself = $this->instance->purge(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -228,7 +228,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID2 = $this->createServer();
 
         // Single-valued category:
-        $result = $this->category->batchCreate(
+        $result = $this->instance->batchCreate(
             [$objectID1, $objectID2],
             'C__CATG__MODEL',
             [
@@ -250,7 +250,7 @@ class CMDBCategoryTest extends BaseTest {
         }
 
         // Multi-valued category:
-        $result = $this->category->batchCreate(
+        $result = $this->instance->batchCreate(
             [$objectID1, $objectID2],
             'C__CATG__IP',
             [
@@ -295,7 +295,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->defineModel($objectID1);
         $this->defineModel($objectID2);
 
-        $batchResult = $this->category->batchRead(
+        $batchResult = $this->instance->batchRead(
             [$objectID1, $objectID2],
             ['C__CATG__IP', 'C__CATG__MODEL']
         );
@@ -323,7 +323,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryIDs[] = $this->defineModel($objectID1);
         $entryIDs[] = $this->defineModel($objectID2);
 
-        $result = $this->category->batchUpdate(
+        $result = $this->instance->batchUpdate(
             [$objectID1, $objectID2],
             'C__CATG__MODEL',
             [
@@ -347,6 +347,24 @@ class CMDBCategoryTest extends BaseTest {
 
             $counter++;
         }
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testClear() {
+        $objectID = $this->createServer();
+        $this->addIPv4($objectID);
+        $this->addIPv4($objectID);
+        $this->addContact($objectID, 9, 1);
+
+        $result = $this->instance->clear($objectID, [
+            'C__CATG__IP',
+            'C__CATG__CONTACT'
+        ]);
+
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(3, $result);
     }
 
 }

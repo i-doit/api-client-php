@@ -280,7 +280,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Category entry identifier
      *
-     * @throws \Exception
+     * @throws \Exception on error
      */
     protected function addObjectToLocation($objectID, $locationID) {
         $cmdbCategory = new CMDBCategory($this->api);
@@ -290,6 +290,31 @@ abstract class BaseTest extends TestCase {
             'C__CATG__LOCATION',
             [
                 'parent' => $locationID,
+                'description' => $this->generateDescription()
+            ]
+        );
+    }
+
+    /**
+     * Add contact to object
+     *
+     * @param int $objectID Object identifier
+     * @param int $contactID Contact object identifier
+     * @param int $roleID Role identifier; defaults to 1 ('administrator')
+     *
+     * @return int Category entry identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function addContact($objectID, $contactID, $roleID = 1) {
+        $cmdbCategory = new CMDBCategory($this->api);
+
+        return $cmdbCategory->create(
+            $objectID,
+            'C__CATG__CONTACT',
+            [
+                'contact' => $contactID,
+                'role' => $roleID,
                 'description' => $this->generateDescription()
             ]
         );

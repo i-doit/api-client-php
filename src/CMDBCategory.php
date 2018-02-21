@@ -366,4 +366,56 @@ class CMDBCategory extends Request {
         return $results;
     }
 
+    /**
+     * Archive category entries for a specific object
+     *
+     * @param int $objectID Object identifier
+     * @param string[] $categoryConsts List of category constants
+     *
+     * @return int Number of purged category entries
+     *
+     * @throws \Exception on error
+     */
+    public function clear($objectID, array $categoryConsts) {
+        $batch = $this->batchRead([$objectID], $categoryConsts);
+
+        $requests = [];
+        $counter = 0;
+        $index = 0;
+
+        foreach ($batch as $entries) {
+            $categoryConst = $categoryConsts[$index];
+
+            foreach ($entries as $entry) {
+                $requests[] = [
+                    'method' => 'cmdb.category.delete',
+                    'params' => [
+                        'objID' => $objectID,
+                        'category' => $categoryConst,
+                        'cateID' => (int) $entry['id']
+                    ]
+                ];
+
+                $counter++;
+            }
+
+            $index++;
+        }
+
+        $results = $this->api->batchRequest($requests);
+
+        foreach ($results as $result) {
+            if (!array_key_exists('success', $result) ||
+                $result['success'] !== true) {
+                if (array_key_exists('message', $result)) {
+                    throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                } else {
+                    throw new \Exception('Bad result');
+                }
+            }
+        }
+
+        return $counter;
+    }
+
 }

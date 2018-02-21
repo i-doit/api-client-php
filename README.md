@@ -51,13 +51,13 @@ Meet these simple requirements before using the client:
 It is recommended to install this client via [Composer](https://getcomposer.org/). Change to your project's root directory and fetch the latest stable version:
 
 ~~~ {.bash}
-composer require "bheisig/idoitapi=>=0.3"
+composer require "bheisig/idoitapi=>=0.4"
 ~~~
 
 For a system-wide installation add `global` as an option:
 
 ~~~ {.bash}
-composer global require "bheisig/idoitapi=>=0.3"
+composer global require "bheisig/idoitapi=>=0.4"
 ~~~
 
 As an alternative add a new dependency on `bheisig/idoitapi` to your project's `composer.json` file. Here is a minimal example to install the current development branch locally:
@@ -65,7 +65,7 @@ As an alternative add a new dependency on `bheisig/idoitapi` to your project's `
 ~~~ {.json}
 {
     "require": {
-        "bheisig/idoitapi": ">=0.3"
+        "bheisig/idoitapi": ">=0.4"
     }
 }
 ~~~
@@ -76,7 +76,7 @@ After that you need to call composer to install the API client library (under `v
 composer install
 ~~~
 
-This installs version `0.3` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
+This installs version `0.4` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
 
 ~~~ {.bash}
 composer require "bheisig/idoitapi=@DEV"

@@ -12,7 +12,7 @@ We like you to read and follow our [code of conduct](CODE_OF_CONDUCT.md) before 
 
 The best and (probably) easiest way is to use the API client library for your own projects. It would be very nice to share your thoughts with us. We love to hear from you.
 
-If you have questions how to use it properly read the [documentation](Readme.md) carefully.
+If you have questions how to use it properly read the [documentation](README.md) carefully.
 
 
 ##  Report bugs
@@ -71,6 +71,9 @@ Unit tests are located under `tests/`. Just call `make phpunit` to execute all o
 
 *   Bump version in `composer.json`
 *   Update `README.md` and `CHANGELOG.md`
+*   Commit changes
+
+    `git commit CHANGELOG.md composer.json README.md -m "Prepare release of version <VERSION>"`
 *   Create a tag with
 
     `git tag -s -m "Release version <VERSION>" <VERSION>`

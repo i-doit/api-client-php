@@ -241,10 +241,25 @@ class CMDBCategory extends Request {
      * @throws \Exception on error
      */
     public function purge($objectID, $categoryConst, $entryID) {
-        return $this
-            ->archive($objectID, $categoryConst, $entryID)
-            ->archive($objectID, $categoryConst, $entryID)
-            ->archive($objectID, $categoryConst, $entryID);
+        $result = $this->api->request(
+            'cmdb.category.quickpurge',
+            [
+                'objID' => $objectID,
+                'category' => $categoryConst,
+                'cateID' => $entryID
+            ]
+        );
+
+        if (!array_key_exists('success', $result) ||
+            $result['success'] !== true) {
+            if (array_key_exists('message', $result)) {
+                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+            } else {
+                throw new \Exception('Bad result');
+            }
+        }
+
+        return $this;
     }
 
     /**

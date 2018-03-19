@@ -398,7 +398,8 @@ class API {
 
         $data['params']['apikey'] = $this->config[self::KEY];
 
-        if (array_key_exists(self::LANGUAGE, $this->config)) {
+        if (array_key_exists(self::LANGUAGE, $this->config) &&
+            !array_key_exists(self::LANGUAGE, $params)) {
             $data['params'][self::LANGUAGE] = $this->config[self::LANGUAGE];
         }
 

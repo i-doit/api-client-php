@@ -323,7 +323,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryIDs[] = $this->defineModel($objectID1);
         $entryIDs[] = $this->defineModel($objectID2);
 
-        $result = $this->instance->batchUpdate(
+        $batchResult = $this->instance->batchUpdate(
             [$objectID1, $objectID2],
             'C__CATG__MODEL',
             [
@@ -334,18 +334,18 @@ class CMDBCategoryTest extends BaseTest {
             ]
         );
 
-        $this->assertInternalType('array', $result);
-        $this->assertCount(2, $result);
+        $this->assertInternalType('array', $batchResult);
+        $this->assertCount(2, $batchResult);
 
-        $counter = 0;
+        foreach ($batchResult as $result) {
+            $this->assertInternalType('array', $result);
 
-        foreach ($result as $entryID) {
-            $this->assertInternalType('int', $entryID);
-            $this->assertGreaterThan(0, $entryID);
+            $this->assertArrayHasKey('success', $result);
+            $this->assertInternalType('bool', $result['success']);
+            $this->assertTrue($result['success']);
 
-            $this->assertEquals($entryIDs[$counter], $entryID);
-
-            $counter++;
+            $this->assertArrayHasKey('message', $result);
+            $this->assertInternalType('string', $result['message']);
         }
     }
 

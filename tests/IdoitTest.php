@@ -23,13 +23,14 @@
  */
 
 use bheisig\idoitapi\Idoit;
+use bheisig\idoitapi\CMDBObject;
 
 class IdoitTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\Idoit
      */
-    protected $idoit;
+    protected $instance;
 
     /**
      * @throws \Exception on error
@@ -37,14 +38,14 @@ class IdoitTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->idoit = new Idoit($this->api);
+        $this->instance = new Idoit($this->api);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testReadVersion() {
-        $result = $this->idoit->readVersion();
+        $result = $this->instance->readVersion();
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
@@ -54,7 +55,7 @@ class IdoitTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testReadConstants() {
-        $result = $this->idoit->readConstants();
+        $result = $this->instance->readConstants();
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
@@ -64,20 +65,72 @@ class IdoitTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testSearch() {
-        $result = $this->idoit->search('demo');
+        // We need something to look for:
+        $objectTitle = 'demo';
+        $cmdbObject = new CMDBObject($this->api);
+        $cmdbObject->create('C__OBJTYPE__SERVER', $objectTitle);
 
-        $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $results = $this->instance->search('demo');
+
+        $this->assertInternalType('array', $results);
+        $this->assertNotCount(0, $results);
+
+        foreach ($results as $result) {
+            $this->assertInternalType('array', $result);
+
+            $this->assertArrayHasKey('documentId', $result);
+            $this->assertInternalType('string', $result['documentId']);
+            // "documentId" is a numeric string:
+            $documentId = (int) $result['documentId'];
+            $this->assertGreaterThan(0, $documentId);
+
+            $this->assertArrayHasKey('key', $result);
+            $this->assertInternalType('string', $result['key']);
+
+            $this->assertArrayHasKey('value', $result);
+            $this->assertInternalType('string', $result['value']);
+
+            $this->assertArrayHasKey('type', $result);
+            $this->assertInternalType('string', $result['type']);
+
+            $this->assertArrayHasKey('link', $result);
+            $this->assertInternalType('string', $result['link']);
+
+            $this->assertArrayHasKey('score', $result);
+            $this->assertInternalType('string', $result['score']);
+        }
     }
 
     /**
      * @throws \Exception on error
      */
     public function testBatchSearch() {
-        $result = $this->idoit->batchSearch(['demo', 'test', 'server']);
+        $batchResult = $this->instance->batchSearch(['demo', 'test', 'server']);
+
+        $this->assertInternalType('array', $batchResult);
+        $this->assertNotCount(0, $batchResult);
+
+        foreach ($batchResult as $result) {
+            $this->assertInternalType('array', $result);
+        }
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testSearchForNewObject() {
+        $objectTitle = $this->generateRandomString();
+        $cmdbObject = new CMDBObject($this->api);
+        $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $objectTitle);
+        $result = $this->instance->search($objectTitle);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey(0, $result);
+        $this->assertInternalType('array', $result[0]);
+        $this->assertArrayHasKey('documentId', $result[0]);
+        $documentId = (int) $result[0]['documentId'];
+        $this->assertEquals($objectID, $documentId);
     }
 
 }

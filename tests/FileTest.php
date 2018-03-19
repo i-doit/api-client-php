@@ -50,11 +50,17 @@ class FileTest extends BaseTest {
                 $i
             );
             $description = sprintf(
-                'API Test %s @ %s',
+                $this->generateDescription(),
                 $i,
                 microtime(true)
             );
             $this->files[$filePath] = $description;
+
+            $status = file_put_contents($filePath, $description);
+
+            if ($status === false) {
+                throw new \Exception(sprintf('Unable to create test file "%s"', $filePath));
+            }
         }
     }
 
@@ -65,12 +71,6 @@ class FileTest extends BaseTest {
         $objectID = $this->createServer();
 
         foreach ($this->files as $filePath => $description) {
-            $status = file_put_contents($filePath, $description);
-
-            if ($status === false) {
-                throw new \Exception('Unable to create test file');
-            }
-
             $this->assertInstanceOf(
                 File::class,
                 $this->instance->add($objectID, $filePath, $description)
@@ -95,16 +95,26 @@ class FileTest extends BaseTest {
      */
     public function testEncode() {
         foreach ($this->files as $filePath => $description) {
-            $status = file_put_contents($filePath, $description);
-
-            if ($status === false) {
-                throw new \Exception('Unable to create test file');
-            }
-
             $fileAsString = $this->instance->encode($filePath);
 
             $this->assertInternalType('string', $fileAsString);
             $this->assertNotEmpty($fileAsString);
+        }
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function tearDown () {
+        foreach (array_keys($this->files) as $filePath) {
+            $status = unlink($filePath);
+
+            if ($status === false) {
+                throw new \Exception(sprintf(
+                    'Unable to remove file "%s"',
+                    $filePath
+                ));
+            }
         }
     }
 

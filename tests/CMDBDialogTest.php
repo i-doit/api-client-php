@@ -56,6 +56,58 @@ class CMDBDialogTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @todo At the moment this only works the demo.i-doit.com.
+     * There must exist a custom category before the tests are running
+     * because it's not possible to create custom categories via API.
+     */
+    public function testCreateCustomMultiDialog() {
+        // Category "Firewall Rules":
+        $customCategoryConst = 'C__CATG__CUSTOM_FIELDS__FIREWALL_RULES';
+        // Attribute "IP Protocol":
+        $customAttributeKey = 'f_popup_c_1504172658823';
+        // Random transport protocol:
+        $customAttributeValue = $this->generateRandomString();
+
+        $result = $this->instance->create(
+            $customCategoryConst,
+            $customAttributeKey,
+            $customAttributeValue
+        );
+
+        $this->assertInternalType('int', $result);
+        $this->assertGreaterThanOrEqual(1, $result);
+
+        $values = $this->instance->read(
+            $customCategoryConst,
+            $customAttributeKey
+        );
+
+        $this->assertInternalType('array', $values);
+        $this->assertNotCount(0, $values);
+
+        // Look for new value:
+        $found = false;
+
+        foreach ($values as $value) {
+            $this->assertInternalType('array', $value);
+            $this->assertArrayHasKey('id', $value);
+            $this->assertInternalType('string', $value['id']);
+            $this->assertArrayHasKey('title', $value);
+            $this->assertInternalType('string', $value['title']);
+
+            if ($value['title'] === $customAttributeValue) {
+                $found = true;
+                $id = (int) $value['id'];
+                $this->assertEquals($result, $id);
+                break;
+            }
+        }
+
+        $this->assertTrue($found);
+    }
+
+    /**
+     * @throws \Exception on error
      */
     public function testBatchCreate() {
         $result = $this->instance->batchCreate([

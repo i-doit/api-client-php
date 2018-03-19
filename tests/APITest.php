@@ -192,4 +192,56 @@ class APITest extends BaseTest {
         $this->assertNotEmpty($this->api->getLastRequestHeaders());
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function testLanguageParameter() {
+        // Test object type "printer":
+        $objectTypeTitles = [
+            'en' => 'Printer',
+            'de' => 'Drucker'
+        ];
+
+        foreach ($objectTypeTitles as $language => $translation) {
+            $result = $this->api->request(
+                'cmdb.object_types.read',
+                [
+                    'filter' => [
+                        'id' => 'C__OBJTYPE__PRINTER'
+                    ],
+                    API::LANGUAGE => $language
+                ]
+            );
+
+            $this->assertInternalType('array', $result);
+            $this->assertCount(1, $result);
+            $this->assertArrayHasKey(0, $result);
+            $this->assertInternalType('array', $result[0]);
+            $this->assertArrayHasKey('title', $result[0]);
+            $this->assertEquals($translation, $result[0]['title']);
+        }
+
+        // Test attribute "serial number" in category "model":
+        $attributeTitles = [
+            'en' => 'Serial number',
+            'de' => 'Seriennummer'
+        ];
+
+        foreach ($attributeTitles as $language => $translation) {
+            $result = $this->api->request(
+                'cmdb.category_info.read',
+                [
+                    'category' => 'C__CATG__MODEL',
+                    API::LANGUAGE => $language
+                ]
+            );
+
+            $this->assertInternalType('array', $result);
+            $this->assertArrayHasKey('serial', $result);
+            $this->assertInternalType('array', $result['serial']);
+            $this->assertArrayHasKey('title', $result['serial']);
+            $this->assertEquals($translation, $result['serial']['title']);
+        }
+    }
+
 }

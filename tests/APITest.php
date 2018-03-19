@@ -261,12 +261,10 @@ class APITest extends BaseTest {
 
         $this->api->logout();
         $sessionIDLogoutRequest = $this->getHeader($sessionHeader, $this->api->getLastRequestHeaders());
-        $sessionIDLogoutResponse = $this->getHeader($sessionHeader, $this->api->getLastResponseHeaders());
 
         $this->assertEquals($sessionIDLogin, $sessionIDRequest);
         $this->assertEquals($sessionIDResponse, $sessionIDRequest);
-        $this->assertEquals($sessionIDLogoutRequest, $sessionIDLogoutResponse);
-        $this->assertEquals($sessionIDLogin, $sessionIDLogoutResponse);
+        $this->assertEquals($sessionIDLogin, $sessionIDLogoutRequest);
     }
 
     /**

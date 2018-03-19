@@ -23,6 +23,7 @@
  */
 
 use bheisig\idoitapi\API;
+use bheisig\idoitapi\Idoit;
 
 class APITest extends BaseTest {
 
@@ -242,6 +243,57 @@ class APITest extends BaseTest {
             $this->assertArrayHasKey('title', $result['serial']);
             $this->assertEquals($translation, $result['serial']['title']);
         }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testSessionID() {
+        $sessionHeader = 'X-RPC-Auth-Session';
+        $this->api->login();
+        $sessionIDLogin = $this->getHeader($sessionHeader, $this->api->getLastResponseHeaders());
+
+        // Random request:
+        $idoit = new Idoit($this->api);
+        $idoit->readVersion();
+        $sessionIDRequest = $this->getHeader($sessionHeader, $this->api->getLastRequestHeaders());
+        $sessionIDResponse = $this->getHeader($sessionHeader, $this->api->getLastResponseHeaders());
+
+        $this->api->logout();
+        $sessionIDLogoutRequest = $this->getHeader($sessionHeader, $this->api->getLastRequestHeaders());
+        $sessionIDLogoutResponse = $this->getHeader($sessionHeader, $this->api->getLastResponseHeaders());
+
+        $this->assertEquals($sessionIDLogin, $sessionIDRequest);
+        $this->assertEquals($sessionIDResponse, $sessionIDRequest);
+        $this->assertEquals($sessionIDLogoutRequest, $sessionIDLogoutResponse);
+        $this->assertEquals($sessionIDLogin, $sessionIDLogoutResponse);
+    }
+
+    /**
+     * @param string $header Needle
+     * @param string $headers Haystack
+     *
+     * @return string Header's value
+     *
+     * @throws \Exception on error
+     */
+    protected function getHeader($header, $headers) {
+        $lines = explode(PHP_EOL, $headers);
+
+        foreach ($lines as $line) {
+            if (strpos($line, $header) === 0) {
+                return substr(
+                    $line,
+                    // "<HEADER>: "
+                    strlen($header) + 2
+                );
+            }
+        }
+
+        throw new \Exception(sprintf(
+            'HTTP header "%s" not found',
+            $header
+        ));
     }
 
 }

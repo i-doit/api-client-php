@@ -73,4 +73,49 @@ class CMDBCategoryInfo extends Request {
         return $this->api->batchRequest($requests);
     }
 
+    /**
+     * Try to fetch information about all available categories
+     *
+     * Ignored:
+     * * Custom categories
+     * * Categories which are not assigned to any object types
+     *
+     * Notice: This method causes 3 API calls.
+     *
+     * @return array Indexed array of associative arrays
+     *
+     * @throws \Exception on error
+     */
+    public function readAll() {
+        $cmdbObjectTypes = new CMDBObjectTypes($this->api);
+        $cmdbObjectTypeCategories = new CMDBObjectTypeCategories($this->api);
+        $categoryConsts = [];
+        $objectTypes = $cmdbObjectTypes->read();
+        $objectTypeIDs = array_map(function ($objectType) {
+            return (int) $objectType['id'];
+        }, $objectTypes);
+        $objectTypeCategoriesBatch = $cmdbObjectTypeCategories->batchReadByID($objectTypeIDs);
+        $catTypes = ['catg', 'cats'];
+
+        foreach ($objectTypeCategoriesBatch as $objectTypeCategories) {
+            foreach ($catTypes as $catType) {
+                if (!array_key_exists($catType, $objectTypeCategories)) {
+                    continue;
+                }
+
+                $more = array_map(function ($category) {
+                    return $category['const'];
+                }, $objectTypeCategories[$catType]);
+
+                $categoryConsts = array_merge($categoryConsts, $more);
+            }
+        }
+
+        $categoryConsts = array_unique($categoryConsts);
+
+        $categories = $this->batchRead($categoryConsts);
+
+        return array_combine($categoryConsts, $categories);
+    }
+
 }

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+-   Try to fetch information about all available categories
 -   Allow to overwrite `language` parameter in method `API::request()`
 -   Enhance unit tests, mostly for testing fixed bugs in i-doit API add-on 1.9.1
 

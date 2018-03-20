@@ -75,4 +75,24 @@ class CMDBCategoryInfoTest extends BaseTest {
         }
     }
 
+    /**
+     * @throws \Exception on error
+     */
+    public function testReadAll() {
+        $result = $this->instance->readAll();
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+
+        foreach ($result as $categoryConst => $categoryInfo) {
+            $this->assertInternalType('string', $categoryConst);
+            $this->assertInternalType('array', $categoryInfo);
+
+            foreach ($categoryInfo as $attribute => $properties) {
+                $this->assertInternalType('string', $attribute);
+                $this->assertInternalType('array', $properties);
+            }
+        }
+    }
+
 }

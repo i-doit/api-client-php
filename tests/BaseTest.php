@@ -43,7 +43,7 @@ abstract class BaseTest extends TestCase {
     protected $composer = [];
 
     /**
-     * Makes API available
+     * Make API available
      *
      * @throws \Exception on error
      */
@@ -63,7 +63,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Creates a new server object with random title
+     * Create a new server object with random title
      *
      * @return int Object identifier
      *
@@ -79,7 +79,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Creates a new person object with random name and an email address
+     * Create a new person object with random name and an email address
      *
      * @return array Associative array with keys 'id', 'firstName', 'lastName' and 'email'
      *
@@ -121,7 +121,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Creates a new workstation object with 4 assigned components
+     * Create a new workstation object with 4 assigned components
      *
      * @return int Object identifier
      *
@@ -144,7 +144,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Adds person object to workstation object
+     * Add person object to workstation object
      *
      * @param int $personID Object identifier
      * @param int $workstationID Object identifier
@@ -167,7 +167,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Adds component object to workstation object
+     * Add component object to workstation object
      *
      * @param int $workstationID Object identifier
      * @param int $objectTypeConst Object type constant
@@ -196,7 +196,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Finds object "Global v4"
+     * Find object "Global v4"
      *
      * @return int Object identifier
      *
@@ -209,7 +209,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Finds object "Root location"
+     * Find object "Root location"
      *
      * @return int Object identifier
      *
@@ -222,7 +222,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Adds random IPv4 address to object
+     * Add random IPv4 address to object
      *
      * @param int $objectID Object identifier
      *
@@ -249,7 +249,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Adds information about manufacturer, model and serial number to object
+     * Add information about manufacturer, model and serial number to object
      *
      * @param int $objectID Object identifier
      *
@@ -273,7 +273,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Adds object to location
+     * Add object to location
      *
      * @param int $objectID Object idenifier
      * @param int $locationID Object identifier
@@ -321,7 +321,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Generates random string
+     * Generate random string
      *
      * @return string
      */
@@ -330,7 +330,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Generates random IPv4 address
+     * Generate random IPv4 address
      *
      * @return string
      */
@@ -343,6 +343,11 @@ abstract class BaseTest extends TestCase {
         );
     }
 
+    /**
+     * Generate longer description text
+     *
+     * @return string
+     */
     protected function generateDescription() {
         return sprintf(
             'This data is auto-generated at %s by a unit test for %s, version %s',
@@ -350,6 +355,15 @@ abstract class BaseTest extends TestCase {
             $this->composer['name'],
             $this->composer['version']
         );
+    }
+
+    /**
+     * Generate date
+     *
+     * @return string Y-m-d
+     */
+    protected function generateDate() {
+        return date('Y-m-d');
     }
 
 }

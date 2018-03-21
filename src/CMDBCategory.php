@@ -130,12 +130,16 @@ class CMDBCategory extends Request {
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      *
-     * @return array Associative array
+     * @return array Associative array, otherwise empty array when there is no entry
      *
      * @throws \Exception on error
      */
     public function readFirst($objectID, $categoryConst) {
         $entries = $this->read($objectID, $categoryConst);
+
+        if (count($entries) === 0) {
+            return [];
+        }
 
         return reset($entries);
     }

@@ -139,6 +139,15 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
         $this->assertArrayHasKey('id', $result);
+
+        // Test empty category (no entry for object):
+        $result = $this->instance->readFirst(
+            $objectID,
+            'C__CATG__ACCESS'
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(0, $result);
     }
 
     /**

@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -   Enhance unit tests, mostly for testing fixed bugs in i-doit API add-on 1.9.1
 
 
+### Fixed
+
+-   `CMDBCategory::readFirst()` now returns an empty array `[]` instead of `false` (boolean) 
+
+
 ##  [0.4] – 2018-02-21
 
 

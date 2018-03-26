@@ -20,3 +20,6 @@ phpunit :
 
 phpstan :
 	./vendor/bin/phpstan analyze -l max src tests
+
+phpcpd :
+	./vendor/bin/phpcpd src/ tests/

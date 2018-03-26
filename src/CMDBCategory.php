@@ -117,7 +117,7 @@ class CMDBCategory extends Request {
         }
 
         throw new \Exception(sprintf(
-            'No entry with identifier %s found in category "%s" for object $s',
+            'No entry with identifier %s found in category "%s" for object %s',
             $entryID,
             $categoryConst,
             $objectID
@@ -351,7 +351,7 @@ class CMDBCategory extends Request {
      * @param string $categoryConst Category constant
      * @param array $attributes List of attributes with keys and values
      *
-     * @return int[] List of category entry identifiers
+     * @return self Returns itself
      *
      * @throws \Exception on error
      */
@@ -382,7 +382,7 @@ class CMDBCategory extends Request {
             }
         }
 
-        return $results;
+        return $this;
     }
 
     /**

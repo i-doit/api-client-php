@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+namespace bheisig\idoitapi\tests;
+
 use bheisig\idoitapi\Select;
 use bheisig\idoitapi\CMDBObject;
 use bheisig\idoitapi\CMDBCategory;

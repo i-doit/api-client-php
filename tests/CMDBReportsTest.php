@@ -22,9 +22,11 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+namespace bheisig\idoitapi\tests;
+
 use bheisig\idoitapi\CMDBReports;
 
-class CMDBReportsRelationTest extends BaseTest {
+class CMDBReportsTest extends BaseTest {
 
     /**
      * @var \bheisig\idoitapi\CMDBReports

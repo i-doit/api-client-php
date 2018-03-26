@@ -89,7 +89,7 @@ class CMDBObjects extends Request {
     public function read(array $filter = [], $limit = null, $offset = null, $orderBy = null, $sort = null) {
         $params = [];
 
-        if (isset($filter)) {
+        if (count($filter) > 0) {
             $params['filter'] = $filter;
         }
 

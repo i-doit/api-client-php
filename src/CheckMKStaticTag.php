@@ -75,7 +75,7 @@ class CheckMKStaticTag extends Request {
             }
         }
 
-        return $result['id'];
+        return (int) $result['id'];
     }
 
     /**

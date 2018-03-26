@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+namespace bheisig\idoitapi\tests;
+
 use bheisig\idoitapi\CMDBCategory;
 
 class CMDBCategoryTest extends BaseTest {
@@ -332,7 +334,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryIDs[] = $this->defineModel($objectID1);
         $entryIDs[] = $this->defineModel($objectID2);
 
-        $batchResult = $this->instance->batchUpdate(
+        $itself = $this->instance->batchUpdate(
             [$objectID1, $objectID2],
             'C__CATG__MODEL',
             [
@@ -343,19 +345,7 @@ class CMDBCategoryTest extends BaseTest {
             ]
         );
 
-        $this->assertInternalType('array', $batchResult);
-        $this->assertCount(2, $batchResult);
-
-        foreach ($batchResult as $result) {
-            $this->assertInternalType('array', $result);
-
-            $this->assertArrayHasKey('success', $result);
-            $this->assertInternalType('bool', $result['success']);
-            $this->assertTrue($result['success']);
-
-            $this->assertArrayHasKey('message', $result);
-            $this->assertInternalType('string', $result['message']);
-        }
+        $this->assertInstanceOf(CMDBCategory::class, $itself);
     }
 
     /**

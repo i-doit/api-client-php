@@ -104,7 +104,7 @@ class API {
     /**
      * cURL resource
      *
-     * @var resource
+     * @var resource|null
      */
     protected $resource;
 
@@ -139,7 +139,7 @@ class API {
     /**
      * Current session identifier
      *
-     * @var string
+     * @var string|null
      */
     protected $session;
 

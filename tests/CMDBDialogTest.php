@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+namespace bheisig\idoitapi\tests;
+
 use bheisig\idoitapi\CMDBDialog;
 
 class CMDBDialogTest extends BaseTest {

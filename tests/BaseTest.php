@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+namespace bheisig\idoitapi\tests;
+
 use PHPUnit\Framework\TestCase;
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObject;
@@ -170,7 +172,7 @@ abstract class BaseTest extends TestCase {
      * Add component object to workstation object
      *
      * @param int $workstationID Object identifier
-     * @param int $objectTypeConst Object type constant
+     * @param string $objectTypeConst Object type constant
      *
      * @return int Category entry identifier
      *

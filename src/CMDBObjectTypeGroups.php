@@ -40,9 +40,9 @@ class CMDBObjectTypeGroups extends Request {
     /**
      * Fetches object type groups
      *
-     * @param [string] $orderBy Order by 'title', 'status', 'constant', 'id'; use class constants ORDER_*
-     * @param [string] $sortDirection Sort ascending or descending; use class constants SORT_*
-     * @param [int] $limit Limit result set
+     * @param string $orderBy Order by 'title', 'status', 'constant' or 'id' optionally; use class constants ORDER_*
+     * @param string $sortDirection Sort ascending or descending optionally; use class constants SORT_*
+     * @param int $limit Limit result set optionally
      *
      * @return array
      *

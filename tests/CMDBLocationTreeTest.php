@@ -31,7 +31,7 @@ class CMDBLocationTreeTest extends BaseTest {
     /**
      * @var \bheisig\idoitapi\CMDBLocationTree
      */
-    protected $locationTree;
+    protected $instance;
 
     /**
      * @throws \Exception on error
@@ -39,14 +39,14 @@ class CMDBLocationTreeTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->locationTree = new CMDBLocationTree($this->api);
+        $this->instance = new CMDBLocationTree($this->api);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testRead() {
-        $result = $this->locationTree->read($this->getRootLocation());
+        $result = $this->instance->read($this->getRootLocation());
 
         $this->assertInternalType('array', $result);
     }
@@ -55,7 +55,7 @@ class CMDBLocationTreeTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testReadRecursively() {
-        $result = $this->locationTree->readRecursively($this->getRootLocation());
+        $result = $this->instance->readRecursively($this->getRootLocation());
 
         $this->assertInternalType('array', $result);
     }

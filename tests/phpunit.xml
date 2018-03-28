@@ -1,28 +1,15 @@
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd"
-    backupGlobals="true"
-    backupStaticAttributes="false"
     bootstrap="bootstrap.php"
     cacheTokens="false"
     colors="true"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
-    forceCoversAnnotation="false"
-    mapTestClassNameToCoveredClassName="false"
-    printerClass="PHPUnit_TextUI_ResultPrinter"
-    processIsolation="false"
-    stopOnError="false"
-    stopOnFailure="false"
-    stopOnIncomplete="false"
-    stopOnSkipped="false"
-    stopOnRisky="false"
-    testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
     timeoutForSmallTests="10"
     timeoutForMediumTests="30"
-    timeoutForLargeTests="60"
-    verbose="false">
+    timeoutForLargeTests="120"
+    verbose="true"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+    beStrictAboutCoversAnnotation="true">
     <testsuites>
         <testsuite name="Unit Tests">
             <directory>../tests/</directory>

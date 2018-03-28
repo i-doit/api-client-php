@@ -354,7 +354,8 @@ class MonitoringLivestatusTest extends BaseTest {
 
         // Bad:
         // i-doit API says this is a valid operation :-(
-        $this->instance->deleteByID($id);
+        $result = $this->instance->deleteByID($id);
+        $this->assertInstanceOf(MonitoringLivestatus::class, $result);
     }
 
     /**
@@ -379,7 +380,8 @@ class MonitoringLivestatusTest extends BaseTest {
 
         // Bad:
         // i-doit API says this is a valid operation :-(
-        $this->instance->deleteByTitle($title);
+        $result = $this->instance->deleteByTitle($title);
+        $this->assertInstanceOf(MonitoringLivestatus::class, $result);
     }
 
     /**
@@ -391,11 +393,13 @@ class MonitoringLivestatusTest extends BaseTest {
         );
 
         // Good:
-        $this->instance->deleteByID($id);
+        $result = $this->instance->deleteByID($id);
+        $this->assertInstanceOf(MonitoringLivestatus::class, $result);
 
         // Bad:
         // i-doit API says this is a valid operation :-(
-        $this->instance->deleteByID($id);
+        $result = $this->instance->deleteByID($id);
+        $this->assertInstanceOf(MonitoringLivestatus::class, $result);
     }
 
     /**
@@ -430,11 +434,13 @@ class MonitoringLivestatusTest extends BaseTest {
         }
 
         // Good:
-        $this->instance->batchDelete($ids);
+        $result = $this->instance->batchDelete($ids);
+        $this->assertInstanceOf(MonitoringLivestatus::class, $result);
 
         // Bad:
         // i-doit API says this is a valid operation :-(
-        $this->instance->batchDelete($ids);
+        $result = $this->instance->batchDelete($ids);
+        $this->assertInstanceOf(MonitoringLivestatus::class, $result);
     }
 
     /**
@@ -467,11 +473,13 @@ class MonitoringLivestatusTest extends BaseTest {
         }
 
         // Good:
-        $this->instance->deleteAll();
+        $result = $this->instance->deleteAll();
+        $this->assertInstanceOf(MonitoringLivestatus::class, $result);
 
         // Bad:
         // i-doit API says this is a valid operation :-(
-        $this->instance->deleteAll();
+        $result = $this->instance->deleteAll();
+        $this->assertInstanceOf(MonitoringLivestatus::class, $result);
     }
 
 }

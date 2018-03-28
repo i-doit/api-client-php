@@ -392,11 +392,13 @@ class CheckMKStaticTagTest extends BaseTest {
         );
 
         // Good:
-        $this->instance->delete($id);
+        $result = $this->instance->delete($id);
+        $this->assertInstanceOf(CheckMKStaticTag::class, $result);
 
         // Bad:
         // i-doit API says this is a valid operation :-(
-        $this->instance->delete($id);
+        $result = $this->instance->delete($id);
+        $this->assertInstanceOf(CheckMKStaticTag::class, $result);
     }
 
     /**
@@ -407,7 +409,8 @@ class CheckMKStaticTagTest extends BaseTest {
         $id = 99999999;
 
         // i-doit API says this is a valid operation :-(
-        $this->instance->delete($id);
+        $result = $this->instance->delete($id);
+        $this->assertInstanceOf(CheckMKStaticTag::class, $result);
     }
 
     /**
@@ -453,10 +456,12 @@ class CheckMKStaticTagTest extends BaseTest {
             ]
         ]);
 
-        $this->instance->batchDelete($ids);
+        $result = $this->instance->batchDelete($ids);
+        $this->assertInstanceOf(CheckMKStaticTag::class, $result);
 
         // i-doit API says this is a valid operation :-(
-        $this->instance->batchDelete($ids);
+        $result = $this->instance->batchDelete($ids);
+        $this->assertInstanceOf(CheckMKStaticTag::class, $result);
     }
 
     /**

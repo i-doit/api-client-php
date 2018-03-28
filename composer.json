@@ -39,30 +39,32 @@
             "bheisig\\idoitapi\\tests\\": "tests/"
         }
     },
+    "config": {
+        "process-timeout": 600
+    },
     "scripts": {
-        "gitstats": [
-            "gitstats -c project_name='bheisig/idoitapi' . gitstats"
-        ],
-        "gource": [
-            "gource -1280x720 --seconds-per-day 3 --auto-skip-seconds 1 --title 'bheisig/idoitapi'"
-        ],
-        "phpunit": [
-            "./vendor/bin/phpunit --configuration tests/phpunit.xml"
-        ],
-        "phpcpd": [
-            "./vendor/bin/phpcpd src/"
-        ],
-        "phpdox": [
-            "./vendor/bin/phpdox"
-        ],
-        "phploc": [
-            "./vendor/bin/phploc --exclude=vendor --exclude=docs --exclude=build ."
-        ],
-        "phpmd": [
-            "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode"
-        ],
-        "phpstan": [
-            "./vendor/bin/phpstan analyze -l max src"
+        "gitstats": "gitstats -c project_name='bheisig/idoitapi' . gitstats",
+        "gource": "gource -1280x720 --seconds-per-day 3 --auto-skip-seconds 1 --title 'bheisig/idoitapi'",
+        "phpcpd": "./vendor/bin/phpcpd src/",
+        "phpdox": "./vendor/bin/phpdox",
+        "phploc": "./vendor/bin/phploc --exclude=vendor --exclude=docs --exclude=build .",
+        "phpmd": "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
+        "phpstan": "./vendor/bin/phpstan analyze -l max src",
+        "phpunit": "./vendor/bin/phpunit --configuration tests/phpunit.xml",
+        "syntax-check": [
+            "php -l src/",
+            "php -l tests/"
         ]
+    },
+    "scripts-descriptions": {
+        "gitstats": "Create Git statistics",
+        "gource": "Visualize Git history",
+        "phpcpd": "Detect copy/paste in source code",
+        "phpdox": "Create source code documentation",
+        "phploc": "Print source code statistics",
+        "phpmd": "Detect mess in source code",
+        "phpstan": "Analyze source code",
+        "phpunit": "Perform unit tests",
+        "syntax-check": "Check syntax of source code"
     }
 }

@@ -51,9 +51,10 @@ Notice, that any of your contributions merged into this repository will be [lice
 Developers must meet some more requirements:
 
 *   [PHP](https://php.net/), version 5.6+ (7.1 recommended)
+*   [Xdebug](https://xdebug.org/)
 *   [Composer](https://getcomposer.org/)
-*   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)
 *   [Git](https://git-scm.com/)
+*   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)
 
 
 ##  Run unit tests
@@ -83,16 +84,17 @@ There is already a webhook enabled to push the code from GitHub to packagist.
 
 This project comes with some useful composer scripts:
 
-| Command               | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| `composer gitstats`   | Create a little website with Git statistics located under `gitstats`  |
-| `composer gource`     | Visualize git history                                                 |
-| `composer phpcpd`     | Copy/paste detector                                                   |
-| `composer phpdox`     | Create a source code documentation                                    |
-| `composer phploc`     | Print source code statistics                                          |
-| `composer phpmd`      | Mess detector                                                         |
-| `composer phpstan`    | Static source code analyzer                                           |
-| `composer phpunit`    | Run unit tests                                                        |
+| Command                   | Description                       |
+| ------------------------- | --------------------------------- |
+| `composer gitstats`       | Create Git statistics             |
+| `composer gource`         | Visualize Git history             |
+| `composer phpcpd`         | Detect copy/paste in source code  |
+| `composer phpdox`         | Create source code documentation  |
+| `composer phploc`         | Print source code statistics      |
+| `composer phpmd`          | Detect mess in source code        |
+| `composer phpstan`        | Analyze source code               |
+| `composer phpunit`        | Perform unit tests                |
+| `composer syntax-check`   | Check syntax of source code       |
 
 For example, execute `composer phpstan`.
 

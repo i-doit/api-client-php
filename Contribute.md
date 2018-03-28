@@ -48,29 +48,25 @@ Notice, that any of your contributions merged into this repository will be [lice
 
 ##  Requirements
 
-This projects has some dependencies:
-
-*   [PHP](https://php.net/), version 5.6+
-*   [Composer](https://getcomposer.org/)
-*   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)
-
 Developers must meet some more requirements:
 
+*   [PHP](https://php.net/), version 5.6+ (7.1 recommended)
+*   [Composer](https://getcomposer.org/)
+*   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)
 *   [Git](https://git-scm.com/)
-*   make
 
 
 ##  Run unit tests
 
-Unit tests are located under `tests/`. Just call `make phpunit` to execute all of them.
+Unit tests are located under `tests/`. Just call `composer phpunit` to execute all of them.
 
 
 ##  Release new version
 
-… and publish it to [packagist.org](https://packagist.org/packages/bheisig/idoitapi):
+… and publish it to [packagist.org](https://packagist.org/packages/bheisig/idoitapi). You need commit rights for this repository.
 
-*   Bump version in `composer.json`
-*   Update `README.md` and `CHANGELOG.md`
+*   Bump version in [`composer.json`](composer.json)
+*   Update [`README.md`](README.md) and [`CHANGELOG.md`](CHANGELOG.md)
 *   Commit changes
 
     `git commit CHANGELOG.md composer.json README.md -m "Prepare release of version <VERSION>"`
@@ -80,22 +76,25 @@ Unit tests are located under `tests/`. Just call `make phpunit` to execute all o
 
     `git push --tags`
 
-There is already a webhook enabled to push the code from GitHub to packagist. This needs commit rights for this repository.
+There is already a webhook enabled to push the code from GitHub to packagist.
 
 
-##  Make rules
+##  Composer scripts
 
-This project comes with some [rules](Makefile) which will be used by `make`:
+This project comes with some useful composer scripts:
 
-| Make rule     | Description                                                           |
-| ------------- | --------------------------------------------------------------------- |
-| `gitstats`    | Create a little website with Git statistics located under `gitstats`  |
-| `gource`      | Visualize git commits                                                 |
-| `phpdox`      | Create a source code documentation                                    |
-| `phploc`      | Print source code statistics                                          |
-| `phpunit`     | Run unit tests                                                        |
+| Command               | Description                                                           |
+| --------------------- | --------------------------------------------------------------------- |
+| `composer gitstats`   | Create a little website with Git statistics located under `gitstats`  |
+| `composer gource`     | Visualize git history                                                 |
+| `composer phpcpd`     | Copy/paste detector                                                   |
+| `composer phpdox`     | Create a source code documentation                                    |
+| `composer phploc`     | Print source code statistics                                          |
+| `composer phpmd`      | Mess detector                                                         |
+| `composer phpstan`    | Static source code analyzer                                           |
+| `composer phpunit`    | Run unit tests                                                        |
 
-For example, execute `make gource`.
+For example, execute `composer phpstan`.
 
 
 ##  Donate

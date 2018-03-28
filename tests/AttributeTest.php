@@ -179,6 +179,7 @@ class AttributeTest extends BaseTest {
                     break;
                 case 'text':
                     if (array_key_exists('format', $properties) &&
+                        !is_null($properties['format']) &&
                         array_key_exists('callback', $properties['format'])) {
                         if ($properties['format']['callback'][1] === 'exportIpReference') {
                             // IP address:
@@ -186,6 +187,12 @@ class AttributeTest extends BaseTest {
                         } else if ($properties['format']['callback'][1] === 'exportHostname') {
                             // Hostname:
                             $value = substr($this->generateRandomString(), 0, 10);
+                        } else if ($properties['format']['callback'][1] === 'access_property_formatted_url') {
+                            // URL:
+                            $value = 'https://test.example.net/user/42/settings';
+                        } else if ($properties['format']['callback'][1] === 'get_guarantee_status') {
+                            // Category "accounting":
+                            $value = $this->generateRandomString();
                         } else {
                             throw new \Exception(sprintf(
                                 'Unknown text format "%s" for attribute "%s" (%s)',

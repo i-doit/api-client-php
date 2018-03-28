@@ -158,6 +158,7 @@ class CMDBCategoryTest extends BaseTest {
     public function testUpdate() {
         $objectID = $this->createServer();
 
+        // Test single-value category:
         $itself = $this->instance->update(
             $objectID,
             'C__CATG__GLOBAL',
@@ -167,6 +168,22 @@ class CMDBCategoryTest extends BaseTest {
         );
 
         $this->assertInstanceOf(CMDBCategory::class, $itself);
+
+        // Test multi-valie category:
+        $amount = 3;
+        $entryIDs = [];
+
+        for ($i = 0; $i < $amount; $i++) {
+            $entryIDs[] = $this->addIPv4($objectID);
+        }
+
+        for ($i = 0; $i < $amount; $i++) {
+            $itself = $this->instance->update($objectID, 'C__CATG__IP', [
+                'ipv4_address' => $this->generateIPv4Address()
+            ], $entryIDs[$i]);
+
+            $this->assertInstanceOf(CMDBCategory::class, $itself);
+        }
     }
 
     /**

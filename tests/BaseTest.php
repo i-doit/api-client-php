@@ -244,7 +244,7 @@ abstract class BaseTest extends TestCase {
                 'primary' => false,
                 'net_type' => 1,
                 'ipv4_assignment' => 2,
-                "ipv4_address" =>  $this->generateIPv4Address(),
+                'ipv4_address' => $this->generateIPv4Address(),
                 'description' => $this->generateDescription()
             ]
         );

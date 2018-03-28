@@ -1061,7 +1061,7 @@ fwrite(STDERR, sprintf('Duration: %s seconds', $duration) . PHP_EOL);
 
 ##  Contribute
 
-Please, report any issues to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues). Pull requests are very welcomed. If you like to get involved see file [`Contribute.md`](Contribute.md) for details.
+Please, report any issues to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues). Pull requests are very welcomed. If you like to get involved see file [`CONTRIBUTING.md`](CONTRIBUTING.md) for details.
 
 
 ##  Projects using this API client library

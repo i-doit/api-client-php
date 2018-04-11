@@ -50,7 +50,7 @@ Notice, that any of your contributions merged into this repository will be [lice
 
 Developers must meet some more requirements:
 
-*   [PHP](https://php.net/), version 5.6+ (7.1 recommended)
+*   See requirements mentioned in the [documentation](README.md)
 *   [Xdebug](https://xdebug.org/)
 *   [Composer](https://getcomposer.org/)
 *   [Git](https://git-scm.com/)

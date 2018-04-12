@@ -11,13 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
--   Try to fetch information about all available categories
--   Allow to overwrite `language` parameter in method `API::request()`
--   Enhance unit tests, mostly for testing fixed bugs in i-doit API add-on 1.9.1
+-   `CMDBCategoryInfo::readAll()`: Try to fetch information about all available categories
+-   `API::request()`: Allow to overwrite `language` parameter
+-   Enhance unit tests, mostly for testing fixed bugs in i-doit 1.10.2 and API add-on 1.9.1
 
 
 ### Changed
 
+-   HTTP body message from server response will be added to thrown exception if request fails with unknown error
 -   `CMDBCategory::batchUpdate` returns itself (neither the result nor the entry identifiers)
 
 

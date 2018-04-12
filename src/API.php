@@ -519,15 +519,25 @@ class API {
             }
         }
 
-        $responseLines = explode(PHP_EOL, $responseString);
+        $headerLength = curl_getinfo($this->resource, CURLINFO_HEADER_SIZE);
+        $this->lastResponseHeaders = substr($responseString, 0, $headerLength);
 
-        $this->lastResponseHeaders = implode(PHP_EOL, array_slice($responseLines, 0, -1));
+        $body = substr($responseString, $headerLength);
 
-        $this->lastResponse = json_decode(end($responseLines), true);
+        $lastResponse = json_decode(trim($body), true);
 
-        if (!is_array($this->lastResponse)) {
-            throw new \Exception('i-doit responded with an invalid JSON string.');
+        if (!is_array($lastResponse)) {
+            if (is_string($body) && strlen($body) > 0) {
+                throw new \Exception(sprintf(
+                    'i-doit responded with an unknown message: %s',
+                    $body
+                ));
+            } else {
+                throw new \Exception('i-doit responded with an invalid JSON string.');
+            }
         }
+
+        $this->lastResponse = $lastResponse;
 
         return $this->lastResponse;
     }

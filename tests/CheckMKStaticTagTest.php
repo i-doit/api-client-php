@@ -476,7 +476,8 @@ class CheckMKStaticTagTest extends BaseTest {
         ];
 
         // i-doit API says this is a valid operation :-(
-        $this->instance->batchDelete($ids);
+        $result = $this->instance->batchDelete($ids);
+        $this->assertInstanceOf(CheckMKStaticTag::class, $result);
     }
 
     /**

@@ -1,29 +1,24 @@
 os:
   - linux
 
-sudo: required
-
 language: php
 
 php:
+  - 7.0
+  - 7.1
   - 7.2
-
-services:
-  - docker
+  - nightly
 
 install:
   - travis_retry composer self-update
   - travis_retry composer install --prefer-source --no-interaction
-  - docker pull epcallan/php7-testing-phpunit:7.0-phpunit5
-  - docker pull epcallan/php7-testing-phpunit:7.1-phpunit5
-  - docker pull epcallan/php7-testing-phpunit:7.2-phpunit5
 
 script:
-  - composer syntax-check
-  - composer phpcpd
-  - docker run -v $(pwd):/app epcallan/php7-testing-phpunit:7.0-phpunit5 phpunit --configuration /app/tests/phpunit.xml
-  - docker run -v $(pwd):/app epcallan/php7-testing-phpunit:7.1-phpunit5 phpunit --configuration /app/tests/phpunit.xml
-  - docker run -v $(pwd):/app epcallan/php7-testing-phpunit:7.2-phpunit5 phpunit --configuration /app/tests/phpunit.xml
+  - composer ci
+
+matrix:
+  allow_failures:
+    - php: nightly
 
 notifications:
   email:

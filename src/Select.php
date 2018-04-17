@@ -85,17 +85,17 @@ class Select extends Request {
                         $categoryEntry[$attribute]['ref_title'] === $value
                     ) {
                         $found = true;
-                    } else if (is_array($categoryEntry[$attribute]) &&
+                    } elseif (is_array($categoryEntry[$attribute]) &&
                         array_key_exists('title', $categoryEntry[$attribute]) &&
                         $categoryEntry[$attribute]['title'] === $value
                     ) {
                         $found = true;
-                    } else if (is_numeric($categoryEntry[$attribute]) &&
+                    } elseif (is_numeric($categoryEntry[$attribute]) &&
                         is_int($value) &&
                         (int)$categoryEntry[$attribute] === $value
                     ) {
                         $found = true;
-                    } else if (is_string($categoryEntry[$attribute]) &&
+                    } elseif (is_string($categoryEntry[$attribute]) &&
                         is_string($value) &&
                         $categoryEntry[$attribute] === $value
                     ) {

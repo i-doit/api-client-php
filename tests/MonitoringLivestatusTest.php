@@ -36,7 +36,7 @@ class MonitoringLivestatusTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function setUp () {
+    public function setUp() {
         parent::setUp();
 
         $this->instance = new MonitoringLivestatus($this->api);

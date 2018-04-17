@@ -107,7 +107,7 @@ class FileTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function tearDown () {
+    public function tearDown() {
         foreach (array_keys($this->files) as $filePath) {
             $status = unlink($filePath);
 

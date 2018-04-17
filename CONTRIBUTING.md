@@ -84,17 +84,18 @@ There is already a webhook enabled to push the code from GitHub to packagist.
 
 This project comes with some useful composer scripts:
 
-| Command                   | Description                       |
-| ------------------------- | --------------------------------- |
-| `composer gitstats`       | Create Git statistics             |
-| `composer gource`         | Visualize Git history             |
-| `composer phpcpd`         | Detect copy/paste in source code  |
-| `composer phpdox`         | Create source code documentation  |
-| `composer phploc`         | Print source code statistics      |
-| `composer phpmd`          | Detect mess in source code        |
-| `composer phpstan`        | Analyze source code               |
-| `composer phpunit`        | Perform unit tests                |
-| `composer syntax-check`   | Check syntax of source code       |
+| Command                   | Description                                   |
+| ------------------------- | --------------------------------------------- |
+| `composer gitstats`       | Create Git statistics                         |
+| `composer gource`         | Visualize Git history                         |
+| `composer phpcpd`         | Detect copy/paste in source code              |
+| `composer phpcs`          | Detect violations of defined coding standards |
+| `composer phpdox`         | Create source code documentation              |
+| `composer phploc`         | Print source code statistics                  |
+| `composer phpmd`          | Detect mess in source code                    |
+| `composer phpstan`        | Analyze source code                           |
+| `composer phpunit`        | Perform unit tests                            |
+| `composer syntax-check`   | Check syntax of source code                   |
 
 For example, execute `composer phpstan`.
 

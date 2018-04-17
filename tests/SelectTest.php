@@ -95,7 +95,9 @@ class SelectTest extends BaseTest {
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->find(
-            'C__CATG__GLOBAL', 'title', $this->generateRandomString()
+            'C__CATG__GLOBAL',
+            'title',
+            $this->generateRandomString()
         );
 
         $this->assertInternalType('array', $result);

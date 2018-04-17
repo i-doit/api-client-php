@@ -30,7 +30,7 @@ namespace bheisig\idoitapi;
 class File extends Request {
 
     /**
-     * Adds a new file to a specific object. A new file object will be created and assigned to the specific object.
+     * Add a new file to a specific object. A new file object will be created and assigned to the specific object.
      *
      * @param int $objectID Object identifier
      * @param string $filePath Path to file
@@ -75,7 +75,8 @@ class File extends Request {
     }
 
     /**
-     * Adds multiple new files to a specific object. New file objects will be created and assigned to the specific object.
+     * Add multiple new files to a specific object.
+     * New file objects will be created and assigned to the specific object.
      *
      * @param int $objectID Object identifier
      * @param array $files Associative array (key: path to file; value: description)
@@ -147,7 +148,7 @@ class File extends Request {
     }
 
     /**
-     * Encodes an file to base64
+     * Encode an file to base64
      *
      * @param string $filePath Path to file
      *

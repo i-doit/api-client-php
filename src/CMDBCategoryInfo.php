@@ -61,7 +61,6 @@ class CMDBCategoryInfo extends Request {
         $requests = [];
 
         foreach ($categories as $category) {
-
             $requests[] = [
                 'method' => 'cmdb.category_info',
                 'params' => array(

@@ -278,7 +278,10 @@ class API {
                     $this->options[CURLOPT_PROXYTYPE] = CURLPROXY_SOCKS5;
                     break;
                 default:
-                    throw new \Exception(sprintf('Unknown proxy type "%s"', $this->config[self::PROXY][self::PROXY_TYPE]));
+                    throw new \Exception(sprintf(
+                        'Unknown proxy type "%s"',
+                        $this->config[self::PROXY][self::PROXY_TYPE]
+                    ));
             }
         }
 
@@ -485,7 +488,7 @@ class API {
 
         if (isset($this->session)) {
             $options[CURLOPT_HTTPHEADER][] = 'X-RPC-Auth-Session: ' . $this->session;
-        } else if (array_key_exists(self::USERNAME, $this->config) &&
+        } elseif (array_key_exists(self::USERNAME, $this->config) &&
             is_string($this->config[self::USERNAME]) &&
             !empty($this->config[self::USERNAME]) &&
             array_key_exists(self::PASSWORD, $this->config) &&
@@ -502,7 +505,7 @@ class API {
         $this->lastInfo = curl_getinfo($this->resource);
 
         if ($responseString === false) {
-            switch($this->lastInfo['http_code']) {
+            switch ($this->lastInfo['http_code']) {
                 case 0:
                     $message = curl_error($this->resource);
 
@@ -721,9 +724,9 @@ class API {
 
         if (array_key_exists(self::PORT, $this->config)) {
             $checkPort(self::PORT);
-        } else if (strpos($this->config[self::URL], 'https://') === 0) {
+        } elseif (strpos($this->config[self::URL], 'https://') === 0) {
             $this->config[self::PORT] = 443;
-        } else if (strpos($this->config[self::URL], 'http://') === 0) {
+        } elseif (strpos($this->config[self::URL], 'http://') === 0) {
             $this->config[self::PORT] = 80;
         }
 
@@ -745,7 +748,7 @@ class API {
             }
 
             $checkString(self::PASSWORD);
-        } else if (array_key_exists(self::PASSWORD, $this->config)) {
+        } elseif (array_key_exists(self::PASSWORD, $this->config)) {
             throw new \Exception('There is no username.');
         }
 
@@ -803,7 +806,7 @@ class API {
                 }
 
                 $checkString(self::PROXY_PASSWORD, self::PROXY);
-            } else if (array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
+            } elseif (array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
                 throw new \Exception('There is no proxy username.');
             }
         }

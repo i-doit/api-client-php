@@ -46,7 +46,8 @@ class CMDBObjects extends Request {
     /**
      * Creates one or more objects
      *
-     * @param array $objects Mandatory attributes ('type', 'title') and optional attributes ('category', 'purpose', 'cmdb_status', 'description')
+     * @param array $objects Mandatory attributes ('type', 'title') and optional attributes
+     * ('category', 'purpose', 'cmdb_status', 'description')
      *
      * @return array List of object identifiers
      *
@@ -76,10 +77,15 @@ class CMDBObjects extends Request {
     /**
      * Fetches objects
      *
-     * @param array $filter (optional) Filter; use any combination of 'ids' (array of object identifiers), 'type' (object type identifier), 'type_group', 'status', 'title' (object title), 'type_title' (l10n object type), 'location', 'sysid', 'first_name', 'last_name', 'email'
+     * @param array $filter (optional) Filter; use any combination of 'ids' (array of object identifiers),
+     * 'type' (object type identifier), 'type_group', 'status', 'title' (object title), 'type_title' (l10n object type),
+     * 'location', 'sysid', 'first_name', 'last_name', 'email'
      * @param int $limit Limit result set
      * @param int $offset Offset
-     * @param string $orderBy Order result set by 'isys_obj_type__id', 'isys_obj__isys_obj_type__id', 'type', 'isys_obj__title', 'title', 'isys_obj_type__title', 'type_title', 'isys_obj__sysid', 'sysid', 'isys_cats_person_list__first_name', 'first_name', 'isys_cats_person_list__last_name', 'last_name', 'isys_cats_person_list__mail_address', 'email', 'isys_obj__id', 'id'
+     * @param string $orderBy Order result set by 'isys_obj_type__id', 'isys_obj__isys_obj_type__id', 'type',
+     * 'isys_obj__title', 'title', 'isys_obj_type__title', 'type_title', 'isys_obj__sysid', 'sysid',
+     * 'isys_cats_person_list__first_name', 'first_name', 'isys_cats_person_list__last_name', 'last_name',
+     * 'isys_cats_person_list__mail_address', 'email', 'isys_obj__id', 'id'
      * @param string $sort Sort ascending ('ASC') or descending ('DESC')
      *
      * @return array Indexed array of associative arrays

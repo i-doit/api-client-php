@@ -61,7 +61,15 @@ class CMDBDialog extends Request {
     /**
      * Creates one or more entries for a drow-down menu
      *
-     * @param array $values Values: ['cat' => ['attr' => 'value', 'attr' => 'value'], 'cat' => ['attr' => ['value 1', 'value 2']]]
+     * @param array $values Values:
+     *  [
+     *      'cat' => [
+     *          'attr' => 'value', 'attr' => 'value'
+     *      ],
+     *      'cat' => [
+     *         'attr' => ['value 1', 'value 2']
+     *      ]
+     * ]
      *
      * @return array List of entry identifiers
      *

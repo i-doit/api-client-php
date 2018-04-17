@@ -30,7 +30,7 @@ namespace bheisig\idoitapi;
 class CMDBLogbook extends Request {
 
     /**
-     * Creates a new logbook entry
+     * Create a new logbook entry
      *
      * @param int $objectID Object identifier
      * @param string $message Message
@@ -68,7 +68,7 @@ class CMDBLogbook extends Request {
     }
 
     /**
-     * Creates one or more logbook entries for a specific object
+     * Create one or more logbook entries for a specific object
      *
      * @param int $objectID Object identifier
      * @param string[] $messages List of messages
@@ -96,9 +96,10 @@ class CMDBLogbook extends Request {
     }
 
     /**
-     * Fetches all logbook entries
+     * Fetch all logbook entries
      *
-     * @param string $since (optional) List only entries since a specific date; supports everything which can be parsed by strtotime()
+     * @param string $since Optional list only entries since a specific date; supports everything which can be parsed
+     * by strtotime()
      *
      * @return array Indexed array of associative arrays
      *
@@ -118,10 +119,11 @@ class CMDBLogbook extends Request {
     }
 
     /**
-     * Fetches all logbook entries for a specific object
+     * Fetch all logbook entries for a specific object
      *
      * @param int $objectID Object identifier
-     * @param string $since (optional) List only entries since a specific date; supports everything which can be parsed by strtotime()
+     * @param string $since Optional list only entries since a specific date; supports everything which can be parsed by
+     * strtotime()
      *
      * @return array Indexed array of associative arrays
      *

@@ -34,7 +34,8 @@ class CMDBObject extends Request {
      *
      * @param int|string $type Object type identifier or its constant
      * @param string $title Object title
-     * @param array $attributes (Optional) additional common attributes ('category', 'purpose', 'cmdb_status', 'description')
+     * @param array $attributes (Optional) additional common attributes
+     * ('category', 'purpose', 'cmdb_status', 'description')
      *
      * @return int Object identifier
      *
@@ -300,7 +301,8 @@ class CMDBObject extends Request {
      *
      * @param int|string $type Object type identifier or its constant
      * @param string $title Object title
-     * @param array $attributes (Optional) additional common attributes ('category', 'purpose', 'cmdb_status', 'description')
+     * @param array $attributes (Optional) additional common attributes
+     * ('category', 'purpose', 'cmdb_status', 'description')
      *
      * @return int Object identifier
      *

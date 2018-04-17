@@ -58,7 +58,7 @@ class AttributeTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function setUp () {
+    public function setUp() {
         parent::setUp();
 
         $this->cmdbCategory = new CMDBCategory($this->api);
@@ -184,13 +184,13 @@ class AttributeTest extends BaseTest {
                         if ($properties['format']['callback'][1] === 'exportIpReference') {
                             // IP address:
                             $value = $this->generateIPv4Address();
-                        } else if ($properties['format']['callback'][1] === 'exportHostname') {
+                        } elseif ($properties['format']['callback'][1] === 'exportHostname') {
                             // Hostname:
                             $value = substr($this->generateRandomString(), 0, 10);
-                        } else if ($properties['format']['callback'][1] === 'access_property_formatted_url') {
+                        } elseif ($properties['format']['callback'][1] === 'access_property_formatted_url') {
                             // URL:
                             $value = 'https://test.example.net/user/42/settings';
-                        } else if ($properties['format']['callback'][1] === 'get_guarantee_status') {
+                        } elseif ($properties['format']['callback'][1] === 'get_guarantee_status') {
                             // Category "accounting":
                             $value = $this->generateRandomString();
                         } else {
@@ -254,7 +254,7 @@ class AttributeTest extends BaseTest {
                 0, // No
                 1 // Yes
             ];
-        } else if (array_key_exists('p_strTable', $properties['ui']['params']) &&
+        } elseif (array_key_exists('p_strTable', $properties['ui']['params']) &&
             $properties['ui']['params']['p_strTable'] === 'isys_interval') {
             // Time interval:
             $options = [
@@ -263,7 +263,7 @@ class AttributeTest extends BaseTest {
                 3, // Per month
                 4, // Per year
             ];
-        } else if (array_key_exists('p_strTable', $properties['ui']['params']) &&
+        } elseif (array_key_exists('p_strTable', $properties['ui']['params']) &&
             $properties['ui']['params']['p_strTable'] === 'isys_guarantee_period_unit') {
             // Period:
             $options = [
@@ -272,14 +272,14 @@ class AttributeTest extends BaseTest {
                 3, // Weeks
                 4, // Years
             ];
-        }  else if (array_key_exists('p_strTable', $properties['ui']['params']) &&
+        } elseif (array_key_exists('p_strTable', $properties['ui']['params']) &&
             $properties['ui']['params']['p_strTable'] === 'isys_net_type') {
             // IPv4/IPv6:
             $options = [
                 1 // IPv4
                 //2 @todo Support IPv6!
             ];
-        } else if (array_key_exists('p_arData', $properties['ui']['params']) &&
+        } elseif (array_key_exists('p_arData', $properties['ui']['params']) &&
             is_array($properties['ui']['params']['p_arData']) &&
             count($properties['ui']['params']['p_arData']) > 0) {
             $options = array_keys($properties['ui']['params']['p_arData']);

@@ -30,7 +30,7 @@ namespace bheisig\idoitapi;
 class Image extends Request {
 
     /**
-     * Adds a new file to the image gallery.
+     * Add a new file to the image gallery.
      *
      * @param int $objectID Object identifier
      * @param string $filePath Path to image file
@@ -58,7 +58,7 @@ class Image extends Request {
     }
 
     /**
-     * Adds new files to the image gallery.
+     * Add new files to the image gallery.
      *
      * @param int $objectID Object identifier
      * @param array $images Associative array (key: path to image file; value: caption)
@@ -89,7 +89,7 @@ class Image extends Request {
     }
 
     /**
-     * Encodes an image file to base64
+     * Encode an image file to base64
      *
      * @param string $filePath Path to image file
      *

@@ -66,7 +66,7 @@
         "phpdox": "./vendor/bin/phpdox",
         "phploc": "./vendor/bin/phploc --exclude=vendor --exclude=docs --exclude=build .",
         "phpmd": "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
-        "phpstan": "./vendor/bin/phpstan analyze -l max src",
+        "phpstan": "./vendor/bin/phpstan analyze -l max src tests",
         "phpunit": "./vendor/bin/phpunit --configuration tests/phpunit.xml",
         "syntax-check": [
             "php -l src/",

@@ -281,10 +281,10 @@ class MonitoringLivestatusTest extends BaseTest {
         ];
 
         $id = $this->instance->createTCPConnection(
-            $orig['title'],
-            $orig['address'],
-            $orig['port'],
-            $orig['active']
+            (string) $orig['title'],
+            (string) $orig['address'],
+            (int) $orig['port'],
+            (bool) $orig['active']
         );
 
         $altered = [

@@ -315,11 +315,11 @@ class CheckMKStaticTagTest extends BaseTest {
         ];
 
         $id = $this->instance->create(
-            $orig['tag'],
-            $orig['title'],
-            $orig['group'],
-            $orig['export'],
-            $orig['description']
+            (string) $orig['tag'],
+            (string) $orig['title'],
+            (string) $orig['group'],
+            (bool) $orig['export'],
+            (string) $orig['description']
         );
 
         $altered = [

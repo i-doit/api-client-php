@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ##  [Unreleased]
 
+_tbd_
+
+
+##  [0.5] – 2018-04-25
+
 
 ### Added
 
@@ -94,7 +99,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 Initial release
 
 
-[Unreleased]: https://github.com/bheisig/i-doit-api-client-php/compare/0.4...HEAD
+[Unreleased]: https://github.com/bheisig/i-doit-api-client-php/compare/0.5...HEAD
+[0.5]: https://github.com/bheisig/i-doit-api-client-php/compare/0.4...0.5
 [0.4]: https://github.com/bheisig/i-doit-api-client-php/compare/0.3...0.4
 [0.3]: https://github.com/bheisig/i-doit-api-client-php/compare/0.2...0.3
 [0.2]: https://github.com/bheisig/i-doit-api-client-php/compare/0.1...0.2

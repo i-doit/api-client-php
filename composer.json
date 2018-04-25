@@ -1,6 +1,6 @@
 {
     "name": "bheisig/idoitapi",
-    "version": "0.5-dev",
+    "version": "0.5",
     "description": "Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API",
     "type": "library",
     "keywords": ["i-doit", "cmdb", "it documentation", "api", "json-rpc"],

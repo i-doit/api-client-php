@@ -383,4 +383,19 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertEquals(3, $result);
     }
 
+    /**
+     * @throws \Exception on error
+     */
+    public function testClearEmptyCategory() {
+        $objectID = $this->createServer();
+
+        $result = $this->instance->clear($objectID, [
+            'C__CATG__IP',
+            'C__CATG__CONTACT'
+        ]);
+
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(0, $result);
+    }
+
 }

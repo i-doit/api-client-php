@@ -29,8 +29,8 @@
     "require-dev": {
         "phploc/phploc": "^4.0",
         "phpmd/phpmd" : "@stable",
-        "phpunit/phpunit": "5.7.*",
         "phpstan/phpstan": "^0.9.2",
+        "phpunit/phpunit": "5.7.*",
         "sebastian/phpcpd": ">=3.0.1",
         "sensiolabs/security-checker": "^4.1",
         "squizlabs/php_codesniffer": "*",

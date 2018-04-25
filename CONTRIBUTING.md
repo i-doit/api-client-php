@@ -22,7 +22,7 @@ If you find something strange please report it to [our issue tracker](https://gi
 
 ##  Make a wish
 
-Of course, there are some features in the pipeline. However, if you have good ideas how to improve the API client library please let us know! Write a feature request [in our issue tracker](https://github.com/bheisig/i-doit-cli/issues).
+Of course, there are some features in the pipeline. However, if you have good ideas how to improve the API client library please let us know! Write a feature request [in our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues).
 
 
 ##  Setup a development environment

@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ##  [Unreleased]
 
-_tbd_
+
+### Fixed
+
+-   `CMDBCategory::clear`: Archiving zero category entries results in a broken API request
 
 
 ##  [0.5] – 2018-04-25

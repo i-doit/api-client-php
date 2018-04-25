@@ -421,6 +421,10 @@ class CMDBCategory extends Request {
             $index++;
         }
 
+        if ($counter === 0) {
+            return 0;
+        }
+
         $results = $this->api->batchRequest($requests);
 
         foreach ($results as $result) {

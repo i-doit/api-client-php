@@ -24,7 +24,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
--   `CMDBCategory::readFirst()` now returns an empty array `[]` instead of `false` (boolean) 
+-   `CMDBCategory::readFirst()` now returns an empty array `[]` instead of `false` (boolean)
+-   Validation error for missing proxy settings while proxy is disabled by `proxy.active=false`
 
 
 ##  [0.4] – 2018-02-21

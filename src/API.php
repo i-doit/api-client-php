@@ -772,10 +772,7 @@ class API {
             }
 
             $mandatorySettings = [
-                self::PROXY_ACTIVE,
-                self::PROXY_TYPE,
-                self::PROXY_HOST,
-                self::PROXY_PORT
+                self::PROXY_ACTIVE
             ];
 
             foreach ($mandatorySettings as $mandatorySetting) {
@@ -794,20 +791,37 @@ class API {
                 ));
             }
 
-            $checkString(self::PROXY_TYPE, self::PROXY);
-            $checkString(self::PROXY_HOST, self::PROXY);
-            $checkPort(self::PROXY_PORT, self::PROXY);
+            if ($this->config[self::PROXY][self::PROXY_ACTIVE]) {
+                $mandatorySettings = [
+                    self::PROXY_TYPE,
+                    self::PROXY_HOST,
+                    self::PROXY_PORT
+                ];
 
-            if (array_key_exists(self::PROXY_USERNAME, $this->config[self::PROXY])) {
-                $checkString(self::PROXY_USERNAME, self::PROXY);
-
-                if (!array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
-                    throw new \Exception('Proxy username has no password.');
+                foreach ($mandatorySettings as $mandatorySetting) {
+                    if (!array_key_exists($mandatorySetting, $this->config[self::PROXY])) {
+                        throw new \Exception(sprintf(
+                            'Proxy setting "%s" is mandatory.',
+                            $mandatorySetting
+                        ));
+                    }
                 }
 
-                $checkString(self::PROXY_PASSWORD, self::PROXY);
-            } elseif (array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
-                throw new \Exception('There is no proxy username.');
+                $checkString(self::PROXY_TYPE, self::PROXY);
+                $checkString(self::PROXY_HOST, self::PROXY);
+                $checkPort(self::PROXY_PORT, self::PROXY);
+
+                if (array_key_exists(self::PROXY_USERNAME, $this->config[self::PROXY])) {
+                    $checkString(self::PROXY_USERNAME, self::PROXY);
+
+                    if (!array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
+                        throw new \Exception('Proxy username has no password.');
+                    }
+
+                    $checkString(self::PROXY_PASSWORD, self::PROXY);
+                } elseif (array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
+                    throw new \Exception('There is no proxy username.');
+                }
             }
         }
 

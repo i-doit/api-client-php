@@ -40,10 +40,10 @@ What's new? Take a look at the [changelog](CHANGELOG.md).
 
 Meet these simple requirements before using the client:
 
-*   A running instance of i-doit, version 1.10 or higher
-*   i-doit add-on API, version 1.9 or higher
-*   PHP, version 5.6 or higher (7.1 is recommended)
-*   PHP modules `curl` and `json`
+*   A running instance of i-doit, version 1.10.2 or higher
+*   i-doit API add-on, version 1.9.1 or higher
+*   PHP, version 5.6 or higher (7.2 is recommended)
+*   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
 
 
 ##  Installation
@@ -52,28 +52,6 @@ It is recommended to install this client via [Composer](https://getcomposer.org/
 
 ~~~ {.bash}
 composer require "bheisig/idoitapi=>=0.4"
-~~~
-
-For a system-wide installation add `global` as an option:
-
-~~~ {.bash}
-composer global require "bheisig/idoitapi=>=0.4"
-~~~
-
-As an alternative add a new dependency on `bheisig/idoitapi` to your project's `composer.json` file. Here is a minimal example to install the current development branch locally:
-
-~~~ {.json}
-{
-    "require": {
-        "bheisig/idoitapi": ">=0.4"
-    }
-}
-~~~
-
-After that you need to call composer to install the API client library (under `vendor/bheisig/idoitapi/` by default):
-
-~~~ {.bash}
-composer install
 ~~~
 
 This installs version `0.4` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:

@@ -68,6 +68,7 @@
         "phpmd": "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
         "phpstan": "./vendor/bin/phpstan analyze -l max src tests",
         "phpunit": "./vendor/bin/phpunit --configuration tests/phpunit.xml",
+        "security-checker": "./vendor/bin/security-checker security:check ./composer.lock",
         "syntax-check": [
             "php -l src/",
             "php -l tests/"
@@ -84,6 +85,7 @@
         "phpmd": "Detect mess in source code",
         "phpstan": "Analyze source code",
         "phpunit": "Perform unit tests",
+        "security-checker": "Look for dependencies with known security vulnerabilities",
         "syntax-check": "Check syntax of source code"
     }
 }

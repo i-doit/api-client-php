@@ -57,45 +57,40 @@ Developers must meet some more requirements:
 *   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)
 
 
-##  Run unit tests
-
-Unit tests are located under `tests/`. Just call `composer phpunit` to execute all of them.
-
-
 ##  Release new version
 
 … and publish it to [packagist.org](https://packagist.org/packages/bheisig/idoitapi). You need commit rights for this repository.
 
-*   Bump version in [`composer.json`](composer.json)
-*   Update [`README.md`](README.md) and [`CHANGELOG.md`](CHANGELOG.md)
-*   Commit changes
+1.  Bump `version` in file [`composer.json`](composer.json)
+2.  Update composer: `composer update`
+3.  Keep [`README.md`](README.md) and [`CHANGELOG.md`](CHANGELOG.md) up-to-date
+4.  Commit changes: `git commit -a -m "Bump version to $(composer config version)"`
+5.  Perform some tests, for example `composer ci`
+6.  Run unit tests: `composer phpunit`
+7.  Create Git tag: `git tag -s -m "Release version $(composer config version)" $(composer config version)`
+8.  Push changes: `git push && git push --tags`
 
-    `git commit CHANGELOG.md composer.json README.md -m "Prepare release of version <VERSION>"`
-*   Create a tag with
-
-    `git tag -s -m "Release version <VERSION>" <VERSION>`
-
-    `git push --tags`
-
-There is already a webhook enabled to push the code from GitHub to packagist.
+There is already a webhook enabled to push the code from GitHub to Packagist.
 
 
 ##  Composer scripts
 
 This project comes with some useful composer scripts:
 
-| Command                   | Description                                   |
-| ------------------------- | --------------------------------------------- |
-| `composer gitstats`       | Create Git statistics                         |
-| `composer gource`         | Visualize Git history                         |
-| `composer phpcpd`         | Detect copy/paste in source code              |
-| `composer phpcs`          | Detect violations of defined coding standards |
-| `composer phpdox`         | Create source code documentation              |
-| `composer phploc`         | Print source code statistics                  |
-| `composer phpmd`          | Detect mess in source code                    |
-| `composer phpstan`        | Analyze source code                           |
-| `composer phpunit`        | Perform unit tests                            |
-| `composer syntax-check`   | Check syntax of source code                   |
+| Command                       | Description                                               |
+| ----------------------------- | --------------------------------------------------------- |
+| `composer ci`                 | Perform continuous integration tasks                      |
+| `composer gitstats`           | Create Git statistics                                     |
+| `composer gource`             | Visualize Git history                                     |
+| `composer phpcpd`             | Detect copy/paste in source code                          |
+| `composer phpcs`              | Detect violations of defined coding standards             |
+| `composer phpdox`             | Create source code documentation                          |
+| `composer phploc`             | Print source code statistics                              |
+| `composer phpmd`              | Detect mess in source code                                |
+| `composer phpstan`            | Analyze source code                                       |
+| `composer phpunit`            | Perform unit tests                                        |
+| `composer security-checker`   | Look for dependencies with known security vulnerabilities |
+| `composer syntax-check`       | Check syntax of source code                               |
 
 For example, execute `composer phpstan`.
 

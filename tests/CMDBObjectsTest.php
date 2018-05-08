@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBObjects;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBObjects
+ */
 class CMDBObjectsTest extends BaseTest {
 
     /**

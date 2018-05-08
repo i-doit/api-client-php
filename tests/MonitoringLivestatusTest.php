@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\MonitoringLivestatus;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\MonitoringLivestatus
+ */
 class MonitoringLivestatusTest extends BaseTest {
 
     /**

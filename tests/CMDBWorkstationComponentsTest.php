@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBWorkstationComponents;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBWorkstationComponents
+ */
 class CMDBWorkstationComponentsTest extends BaseTest {
 
     /**

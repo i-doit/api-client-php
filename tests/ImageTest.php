@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\Image;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\Image
+ */
 class ImageTest extends BaseTest {
 
     /**

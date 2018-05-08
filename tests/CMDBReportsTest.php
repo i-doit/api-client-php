@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBReports;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBReports
+ */
 class CMDBReportsTest extends BaseTest {
 
     /**

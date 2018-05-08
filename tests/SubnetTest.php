@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\Subnet;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\Subnet
+ */
 class SubnetTest extends BaseTest {
 
     /**

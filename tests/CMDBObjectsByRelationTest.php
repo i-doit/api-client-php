@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBObjectsByRelation;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBObjectsByRelation
+ */
 class CMDBObjectsByRelationTest extends BaseTest {
 
     /**

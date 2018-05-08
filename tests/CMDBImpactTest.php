@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBImpact;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBImpact
+ */
 class CMDBImpactTest extends BaseTest {
 
     /**

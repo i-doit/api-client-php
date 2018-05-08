@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBDialog;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBDialog
+ */
 class CMDBDialogTest extends BaseTest {
 
     /**

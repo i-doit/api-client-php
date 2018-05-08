@@ -27,9 +27,13 @@ namespace bheisig\idoitapi\tests;
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\Idoit;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\API
+ */
 class APITest extends BaseTest {
 
     /**
+     * @covers ::connect
      * @throws \Exception
      */
     public function testConnect() {
@@ -37,6 +41,8 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::connect
+     * @covers ::disconnect
      * @throws \Exception
      */
     public function testDisconnect() {
@@ -46,6 +52,9 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::isConnected
+     * @covers ::connect
+     * @covers ::disconnect
      * @throws \Exception
      */
     public function testIsConnected() {
@@ -61,6 +70,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::login
      * @throws \Exception
      */
     public function testLogin() {
@@ -68,6 +78,8 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::login
+     * @covers ::logout
      * @throws \Exception
      */
     public function testLogout() {
@@ -77,6 +89,9 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::isLoggedIn
+     * @covers ::login
+     * @covers ::logout
      * @throws \Exception
      */
     public function testIsLoggedIn() {
@@ -92,6 +107,8 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::request
+     * @covers ::countRequests
      * @throws \Exception
      */
     public function testCountRequests() {
@@ -111,6 +128,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::request
      * @throws \Exception
      */
     public function testRequest() {
@@ -121,6 +139,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::batchRequest
      * @throws \Exception
      */
     public function testBatchRequest() {
@@ -146,6 +165,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::getLastInfo
      * @throws \Exception
      */
     public function testGetLastInfo() {
@@ -156,9 +176,10 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::getLastResponse
      * @throws \Exception
      */
-    public function testLastResponse() {
+    public function testGetLastResponse() {
         $this->api->request('idoit.version');
 
         $this->assertInternalType('array', $this->api->getLastResponse());
@@ -166,6 +187,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::getLastRequestContent
      * @throws \Exception
      */
     public function testGetLastRequestContent() {
@@ -176,6 +198,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::getLastResponseHeaders
      * @throws \Exception
      */
     public function testGetLastResponseHeaders() {
@@ -186,6 +209,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::getLastRequestHeaders
      * @throws \Exception
      */
     public function testGetLastRequestHeaders() {
@@ -196,6 +220,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::request
      * @throws \Exception
      */
     public function testLanguageParameter() {
@@ -248,6 +273,10 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers ::login
+     * @covers ::getLastResponseHeaders
+     * @covers ::getLastRequestHeaders
+     * @covers ::logout
      * @throws \Exception
      */
     public function testSessionID() {

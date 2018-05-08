@@ -28,6 +28,9 @@ use bheisig\idoitapi\Select;
 use bheisig\idoitapi\CMDBObject;
 use bheisig\idoitapi\CMDBCategory;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\Select
+ */
 class SelectTest extends BaseTest {
 
     /**

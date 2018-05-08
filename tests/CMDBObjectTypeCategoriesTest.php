@@ -27,6 +27,9 @@ namespace bheisig\idoitapi\tests;
 use bheisig\idoitapi\CMDBObjectTypeCategories;
 use bheisig\idoitapi\CMDBObjectTypes;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBObjectTypeCategories
+ */
 class CMDBObjectTypeCategoriesTest extends BaseTest {
 
     /**

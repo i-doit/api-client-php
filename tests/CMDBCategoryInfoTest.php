@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBCategoryInfo;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBCategoryInfo
+ */
 class CMDBCategoryInfoTest extends BaseTest {
 
     /**

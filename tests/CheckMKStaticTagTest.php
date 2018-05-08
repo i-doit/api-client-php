@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CheckMKStaticTag;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CheckMKStaticTag
+ */
 class CheckMKStaticTagTest extends BaseTest {
 
     /**

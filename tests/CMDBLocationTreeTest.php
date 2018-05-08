@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBLocationTree;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBLocationTree
+ */
 class CMDBLocationTreeTest extends BaseTest {
 
     /**

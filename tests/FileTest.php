@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\File;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\File
+ */
 class FileTest extends BaseTest {
 
     /**

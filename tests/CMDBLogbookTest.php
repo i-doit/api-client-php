@@ -26,6 +26,9 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBLogbook;
 
+/**
+ * @coversDefaultClass \bheisig\idoitapi\CMDBLogbook
+ */
 class CMDBLogbookTest extends BaseTest {
 
     /**

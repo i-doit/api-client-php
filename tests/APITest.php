@@ -100,14 +100,14 @@ class APITest extends BaseTest {
         $count = $this->api->countRequests();
 
         $this->assertInternalType('integer', $count);
-        $this->assertEquals(1, $count);
+        $this->assertSame(1, $count);
 
         $this->api->request('idoit.version');
 
         $count = $this->api->countRequests();
 
         $this->assertInternalType('integer', $count);
-        $this->assertEquals(2, $count);
+        $this->assertSame(2, $count);
     }
 
     /**
@@ -221,7 +221,7 @@ class APITest extends BaseTest {
             $this->assertArrayHasKey(0, $result);
             $this->assertInternalType('array', $result[0]);
             $this->assertArrayHasKey('title', $result[0]);
-            $this->assertEquals($translation, $result[0]['title']);
+            $this->assertSame($translation, $result[0]['title']);
         }
 
         // Test attribute "serial number" in category "model":
@@ -243,7 +243,7 @@ class APITest extends BaseTest {
             $this->assertArrayHasKey('serial', $result);
             $this->assertInternalType('array', $result['serial']);
             $this->assertArrayHasKey('title', $result['serial']);
-            $this->assertEquals($translation, $result['serial']['title']);
+            $this->assertSame($translation, $result['serial']['title']);
         }
     }
 
@@ -264,9 +264,9 @@ class APITest extends BaseTest {
         $this->api->logout();
         $sessionIDLogoutRequest = $this->getHeader($sessionHeader, $this->api->getLastRequestHeaders());
 
-        $this->assertEquals($sessionIDLogin, $sessionIDRequest);
-        $this->assertEquals($sessionIDResponse, $sessionIDRequest);
-        $this->assertEquals($sessionIDLogin, $sessionIDLogoutRequest);
+        $this->assertSame($sessionIDLogin, $sessionIDRequest);
+        $this->assertSame($sessionIDResponse, $sessionIDRequest);
+        $this->assertSame($sessionIDLogin, $sessionIDLogoutRequest);
     }
 
     /**

@@ -200,11 +200,11 @@ class CheckMKStaticTagTest extends BaseTest {
         $this->assertArrayHasKey(0, $tags);
         $this->assertInternalType('array', $tags[0]);
 
-        $this->assertEquals($id, $tags[0]['id']);
-        $this->assertEquals($tag, $tags[0]['tag']);
-        $this->assertEquals($title, $tags[0]['title']);
-        $this->assertEquals($export, $tags[0]['export']);
-        $this->assertEquals($description, $tags[0]['description']);
+        $this->assertSame($id, $tags[0]['id']);
+        $this->assertSame($tag, $tags[0]['tag']);
+        $this->assertSame($title, $tags[0]['title']);
+        $this->assertSame($export, $tags[0]['export']);
+        $this->assertSame($description, $tags[0]['description']);
 
         $this->assertInternalType('array', $tags[0]['group']);
         $this->assertArrayHasKey('id', $tags[0]['group']);
@@ -215,7 +215,7 @@ class CheckMKStaticTagTest extends BaseTest {
         // 'const' is null or string
         $this->assertArrayHasKey('title_lang', $tags[0]['group']);
         $this->assertInternalType('string', $tags[0]['group']['title_lang']);
-        $this->assertEquals($group, $tags[0]['group']['title']);
+        $this->assertSame($group, $tags[0]['group']['title']);
     }
 
     /**
@@ -286,8 +286,8 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $this->assertInternalType('array', $result);
         $this->assertCount(1, $result);
-        $this->assertEquals($tag, $result[0]['tag']);
-        $this->assertEquals($id, $result[0]['id']);
+        $this->assertSame($tag, $result[0]['tag']);
+        $this->assertSame($id, $result[0]['id']);
     }
 
     /**
@@ -341,7 +341,7 @@ class CheckMKStaticTagTest extends BaseTest {
 
         foreach ($alteredTag[0] as $key => $value) {
             if ($key === 'id') {
-                $this->assertEquals($id, $value);
+                $this->assertSame($id, $value);
             } else {
                 $this->assertNotEquals($orig[$key], $value);
             }

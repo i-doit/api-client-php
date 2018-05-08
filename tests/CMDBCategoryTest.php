@@ -380,7 +380,7 @@ class CMDBCategoryTest extends BaseTest {
         ]);
 
         $this->assertInternalType('int', $result);
-        $this->assertEquals(3, $result);
+        $this->assertSame(3, $result);
     }
 
     /**
@@ -395,7 +395,7 @@ class CMDBCategoryTest extends BaseTest {
         ]);
 
         $this->assertInternalType('int', $result);
-        $this->assertEquals(0, $result);
+        $this->assertSame(0, $result);
     }
 
 }

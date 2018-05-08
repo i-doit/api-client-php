@@ -100,7 +100,7 @@ class CMDBDialogTest extends BaseTest {
             if ($value['title'] === $customAttributeValue) {
                 $found = true;
                 $id = (int) $value['id'];
-                $this->assertEquals($result, $id);
+                $this->assertSame($result, $id);
                 break;
             }
         }

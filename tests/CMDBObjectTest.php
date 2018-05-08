@@ -152,7 +152,7 @@ class CMDBObjectTest extends BaseTest {
         $result = $this->object->upsert('C__OBJTYPE__SERVER', $title, ['purpose' => 'Private stuff']);
 
         $this->assertInternalType('int', $result);
-        $this->assertEquals($objectID, $result);
+        $this->assertSame($objectID, $result);
 
         // Does not exist:
         $result = $this->object->upsert('C__OBJTYPE__SERVER', $this->generateRandomString());

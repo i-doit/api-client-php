@@ -225,7 +225,7 @@ class CMDBObjectsTest extends BaseTest {
         $objectID = $this->instance->getID($uniqueTitle);
 
         $this->assertInternalType('int', $objectID);
-        $this->assertEquals($objectIDs[0], $objectID);
+        $this->assertSame($objectIDs[0], $objectID);
     }
 
 }

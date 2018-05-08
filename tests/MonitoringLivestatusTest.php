@@ -186,8 +186,8 @@ class MonitoringLivestatusTest extends BaseTest {
         $this->assertArrayHasKey(0, $result);
         $this->assertInternalType('array', $result[0]);
 
-        $this->assertEquals($id, $result[0]['id']);
-        $this->assertEquals($title, $result[0]['title']);
+        $this->assertSame($id, $result[0]['id']);
+        $this->assertSame($title, $result[0]['title']);
     }
 
     /**
@@ -253,8 +253,8 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $this->assertInternalType('array', $result);
         $this->assertCount(1, $result);
-        $this->assertEquals($title, $result[0]['title']);
-        $this->assertEquals($id, $result[0]['id']);
+        $this->assertSame($title, $result[0]['title']);
+        $this->assertSame($id, $result[0]['id']);
     }
 
     /**
@@ -305,7 +305,7 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $this->assertInternalType('array', $alteredInstance);
         $this->assertCount(1, $alteredInstance);
-        $this->assertEquals($id, $alteredInstance[0]['id']);
+        $this->assertSame($id, $alteredInstance[0]['id']);
 
         $this->assertNotEquals($orig['title'], $alteredInstance[0]['title']);
         $this->assertNotEquals($orig['address'], $alteredInstance[0]['address']);

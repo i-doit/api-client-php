@@ -132,7 +132,7 @@ class IdoitTest extends BaseTest {
         $this->assertInternalType('array', $result[0]);
         $this->assertArrayHasKey('documentId', $result[0]);
         $documentId = (int) $result[0]['documentId'];
-        $this->assertEquals($objectID, $documentId);
+        $this->assertSame($objectID, $documentId);
     }
 
 }

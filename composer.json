@@ -27,14 +27,14 @@
         "ext-zlib": "*"
     },
     "require-dev": {
+        "php": ">=7.1.0",
         "phploc/phploc": "^4.0",
         "phpmd/phpmd" : "@stable",
         "phpstan/phpstan": "^0.9.2",
-        "phpunit/phpunit": "5.7.*",
+        "phpunit/phpunit": "^7",
         "sebastian/phpcpd": ">=3.0.1",
         "sensiolabs/security-checker": "^4.1",
         "squizlabs/php_codesniffer": "*",
-        "theseer/phpdox": "^0.11.0",
         "ext-xdebug": "*"
     },
     "autoload": {
@@ -56,14 +56,14 @@
             "@composer validate",
             "./vendor/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock",
             "@composer phpcpd",
-            "@composer phpstan",
-            "@composer phpcs"
+            "@composer phpcs",
+            "@composer phpstan"
         ],
         "gitstats": "gitstats -c project_name=`composer config name` . gitstats",
         "gource": "gource -1280x720 --seconds-per-day 3 --auto-skip-seconds 1 --title `composer config name`",
         "phpcpd": "./vendor/bin/phpcpd src/",
         "phpcs": "./vendor/bin/phpcs --extensions=php --standard=PSR1,PSR2 --exclude=PSR2.Classes.ClassDeclaration,Squiz.Functions.MultiLineFunctionDeclaration src/ tests/",
-        "phpdox": "./vendor/bin/phpdox",
+        "phpdox": "phpdox",
         "phploc": "./vendor/bin/phploc --exclude=vendor --exclude=docs --exclude=build .",
         "phpmd": "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
         "phpstan": "./vendor/bin/phpstan analyze -l max src tests",

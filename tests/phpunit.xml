@@ -1,6 +1,6 @@
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd"
     bootstrap="bootstrap.php"
     cacheTokens="false"
     colors="true"
@@ -8,7 +8,6 @@
     timeoutForMediumTests="30"
     timeoutForLargeTests="120"
     verbose="true"
-    beStrictAboutTestsThatDoNotTestAnything="true"
     beStrictAboutCoversAnnotation="true">
     <testsuites>
         <testsuite name="Unit Tests">
@@ -24,7 +23,8 @@
         </whitelist>
     </filter>
     <php>
-        <var name="url" value="https://demo.i-doit.com/src/jsonrpc.php"/>
+        <var name="url" value="http://192.168.43.73/src/jsonrpc.php"/>
+        <!--<var name="url" value="https://demo.i-doit.com/src/jsonrpc.php"/>-->
         <var name="key" value="c1ia5q"/>
         <var name="username" value="admin"/>
         <var name="password" value="admin"/>

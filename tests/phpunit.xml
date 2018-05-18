@@ -22,8 +22,7 @@
         </whitelist>
     </filter>
     <php>
-        <var name="url" value="http://192.168.43.73/src/jsonrpc.php"/>
-        <!--<var name="url" value="https://demo.i-doit.com/src/jsonrpc.php"/>-->
+        <var name="url" value="https://demo.i-doit.com/src/jsonrpc.php"/>
         <var name="key" value="c1ia5q"/>
         <var name="username" value="admin"/>
         <var name="password" value="admin"/>

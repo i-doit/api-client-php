@@ -54,6 +54,38 @@ class IdoitTest extends BaseTest {
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
+
+        $this->assertArrayHasKey('login', $result);
+        $this->assertInternalType('array', $result['login']);
+
+        $this->assertArrayHasKey('userid', $result['login']);
+        $this->assertInternalType('string', $result['login']['userid']);
+
+        $this->assertArrayHasKey('name', $result['login']);
+        $this->assertInternalType('string', $result['login']['name']);
+
+        $this->assertArrayHasKey('mail', $result['login']);
+        $this->assertInternalType('string', $result['login']['mail']);
+
+        $this->assertArrayHasKey('username', $result['login']);
+        $this->assertInternalType('string', $result['login']['username']);
+
+        $this->assertArrayHasKey('mandator', $result['login']);
+        $this->assertInternalType('string', $result['login']['mandator']);
+
+        $this->assertArrayHasKey('language', $result['login']);
+        $this->assertInternalType('string', $result['login']['language']);
+        $this->assertContains($result['login']['language'], ['en', 'de']);
+
+        $this->assertArrayHasKey('version', $result);
+        $this->assertInternalType('string', $result['version']);
+
+        $this->assertArrayHasKey('step', $result);
+        $this->assertInternalType('string', $result['step']);
+
+        $this->assertArrayHasKey('type', $result);
+        $this->assertInternalType('string', $result['type']);
+        $this->assertContains($result['type'], ['OPEN', 'PRO']);
     }
 
     /**
@@ -64,6 +96,41 @@ class IdoitTest extends BaseTest {
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
+
+        $topics = [
+            'objectTypes'
+        ];
+
+        foreach ($topics as $topic) {
+            $this->assertArrayHasKey($topic, $result);
+            $this->assertInternalType('array', $result[$topic]);
+
+            $this->validateConstants($result[$topic]);
+        }
+
+        $this->assertArrayHasKey('categories', $result);
+        $this->assertInternalType('array', $result['categories']);
+
+        $this->assertArrayHasKey('g', $result['categories']);
+        $this->assertInternalType('array', $result['categories']['g']);
+
+        $this->validateConstants($result['categories']['g']);
+
+        $this->assertArrayHasKey('s', $result['categories']);
+        $this->assertInternalType('array', $result['categories']['s']);
+
+        $this->validateConstants($result['categories']['s']);
+    }
+
+    protected function validateConstants($constants) {
+        $this->assertNotCount(0, $constants);
+
+        foreach ($constants as $constant => $value) {
+            $this->assertInternalType('string', $constant);
+            $this->assertNotEmpty($constant);
+            $this->assertInternalType('string', $value);
+            $this->assertNotEmpty($value);
+        }
     }
 
     /**

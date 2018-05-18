@@ -75,6 +75,84 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertInternalType('array', $objects);
         $this->assertNotCount(0, $objects);
 
+        foreach ($objects as $object) {
+            $this->validateObject($object);
+        }
+    }
+
+    protected function validateObject($object) {
+        $this->assertArrayHasKey('id', $object);
+        $this->assertInternalType('string', $object['id']);
+        $objectID = (int) $object['id'];
+        $this->assertGreaterThan(0, $objectID);
+
+        $this->assertArrayHasKey('title', $object);
+        $this->assertInternalType('string', $object['title']);
+        $this->assertNotEmpty($object['title']);
+
+        $this->assertArrayHasKey('sysid', $object);
+        $this->assertInternalType('string', $object['sysid']);
+        $this->assertNotEmpty($object['sysid']);
+
+        $this->assertArrayHasKey('type', $object);
+        $this->assertInternalType('string', $object['type']);
+        $objectTypeID = (int) $object['type'];
+        $this->assertGreaterThan(0, $objectTypeID);
+
+        $this->assertArrayHasKey('created', $object);
+        $this->assertInternalType('string', $object['created']);
+        $this->validateTime($object['created']);
+
+        if (array_key_exists('updated', $object)) {
+            $this->assertInternalType('string', $object['updated']);
+            $this->validateTime($object['updated']);
+        }
+
+        $this->assertArrayHasKey('type_title', $object);
+        $this->assertInternalType('string', $object['type_title']);
+        $this->assertNotEmpty($object['type_title']);
+
+        $this->assertArrayHasKey('type_group_title', $object);
+        $this->assertInternalType('string', $object['type_group_title']);
+        $this->assertNotEmpty($object['type_group_title']);
+
+        $this->assertArrayHasKey('status', $object);
+        $this->assertInternalType('string', $object['status']);
+        $this->assertContains($object['status'], [
+            '1', // Unfinished
+            '2', // Normal
+            '3', // Archived
+            '4', // Deleted
+            '6', // Template
+            '7' // Mass change template
+        ]);
+
+        $this->assertArrayHasKey('cmdb_status', $object);
+        $this->assertInternalType('string', $object['cmdb_status']);
+        $cmdbStatusID = (int) $object['cmdb_status'];
+        $this->assertGreaterThan(0, $cmdbStatusID);
+
+        $this->assertArrayHasKey('cmdb_status_title', $object);
+        $this->assertInternalType('string', $object['cmdb_status_title']);
+        $this->assertNotEmpty($object['cmdb_status_title']);
+
+        $this->assertArrayHasKey('image', $object);
+        $this->assertInternalType('string', $object['image']);
+        $this->assertNotEmpty($object['image']);
+    }
+
+    protected function validateTime($time) {
+        $timestamp = strtotime($time);
+        $this->assertInternalType('int', $timestamp);
+        $formattedTimestamp = date('Y-m-d H:i:s', $timestamp);
+        $this->assertInternalType('string', $formattedTimestamp);
+        $this->assertSame($formattedTimestamp, $time);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testReadSome() {
         $objects = $this->instance->read([], 10, 0, 'title', CMDBObjects::SORT_DESCENDING);
 
         $this->assertInternalType('array', $objects);

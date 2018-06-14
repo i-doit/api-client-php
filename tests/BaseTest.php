@@ -45,6 +45,20 @@ abstract class BaseTest extends TestCase {
     protected $composer = [];
 
     /**
+     * List of valid object conditions ("status")
+     *
+     * @var int[]
+     */
+    protected $conditions = [
+        1, // Unfinished
+        2, // Normal
+        3, // Archived
+        4, // Deleted
+        6, // Template
+        7 // Mass change template
+    ];
+
+    /**
      * Make API available
      *
      * @throws \Exception on error
@@ -366,6 +380,11 @@ abstract class BaseTest extends TestCase {
      */
     protected function generateDate() {
         return date('Y-m-d');
+    }
+
+    protected function isTime($time) {
+        $timestamp = strtotime($time);
+        $this->assertInternalType('integer', $timestamp);
     }
 
 }

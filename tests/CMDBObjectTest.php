@@ -82,6 +82,68 @@ class CMDBObjectTest extends BaseTest {
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
+
+        $requiredKeys = [
+            'id',
+            'title',
+            'sysid',
+            'objecttype',
+            'created',
+            'type_title',
+            'type_icon',
+            'status',
+            'cmdb_status',
+            'cmdb_status_title',
+            'image'
+        ];
+
+        $optionalKeys = [
+            'updated'
+        ];
+
+        $keys = array_merge($requiredKeys, $optionalKeys);
+
+        foreach (array_keys($result) as $key) {
+            $this->assertContains($key, $keys);
+        }
+
+        foreach ($requiredKeys as $key) {
+            $this->assertArrayHasKey($key, $result);
+        }
+
+        $this->assertInternalType('string', $result['id']);
+        $id = (int) $result['id'];
+        $this->assertGreaterThan(0, $id);
+
+        $this->assertInternalType('string', $result['title']);
+
+        $this->assertInternalType('string', $result['sysid']);
+
+        $this->assertInternalType('string', $result['objecttype']);
+        $typeID = (int) $result['objecttype'];
+        $this->assertGreaterThan(0, $typeID);
+
+        $this->assertInternalType('string', $result['type_title']);
+
+        $this->assertInternalType('string', $result['type_icon']);
+
+        $this->assertInternalType('string', $result['status']);
+        $this->assertContains((int) $result['status'], $this->conditions);
+
+        $this->assertInternalType('string', $result['created']);
+        $this->isTime($result['created']);
+
+        if (array_key_exists('updated', $result)) {
+            $this->isTime($result['updated']);
+        }
+
+        $this->assertInternalType('string', $result['cmdb_status']);
+        $cmdbStatus = (int) $result['cmdb_status'];
+        $this->assertGreaterThan(0, $cmdbStatus);
+
+        $this->assertInternalType('string', $result['cmdb_status_title']);
+
+        $this->assertInternalType('string', $result['image']);
     }
 
     /**

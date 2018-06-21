@@ -81,6 +81,7 @@ This project comes with some useful composer scripts:
 | Command                       | Description                                               |
 | ----------------------------- | --------------------------------------------------------- |
 | `composer ci`                 | Perform continuous integration tasks                      |
+| `composer find-forbidden`     | Find forbidden words in source code                       |
 | `composer gitstats`           | Create Git statistics                                     |
 | `composer gource`             | Visualize Git history                                     |
 | `composer phpcpd`             | Detect copy/paste in source code                          |

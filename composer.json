@@ -53,11 +53,15 @@
     "scripts": {
         "ci": [
             "@composer syntax-check",
+            "@composer find-forbidden",
             "@composer validate",
             "./vendor/bin/security-checker security:check --end-point=http://security.sensiolabs.org/check_lock",
             "@composer phpcpd",
             "@composer phpcs",
             "@composer phpstan"
+        ],
+        "find-forbidden": [
+            "! grep -rE \"(echo|var_dump)\" src/* tests/*"
         ],
         "gitstats": "gitstats -c project_name=`composer config name` . gitstats",
         "gource": "gource -1280x720 --seconds-per-day 3 --auto-skip-seconds 1 --title `composer config name`",
@@ -67,7 +71,7 @@
         "phploc": "./vendor/bin/phploc --exclude=vendor --exclude=docs --exclude=build .",
         "phpmd": "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
         "phpstan": "./vendor/bin/phpstan analyze -l max src tests",
-        "phpunit": "./vendor/bin/phpunit --configuration tests/phpunit.xml",
+        "phpunit": "./vendor/bin/phpunit --configuration tests/phpunit.xml --testdox",
         "security-checker": "./vendor/bin/security-checker security:check ./composer.lock",
         "syntax-check": [
             "php -l src/",
@@ -76,6 +80,7 @@
     },
     "scripts-descriptions": {
         "ci": "Perform continuous integration tasks",
+        "find-forbidden": "Find forbidden words in source code",
         "gitstats": "Create Git statistics",
         "gource": "Visualize Git history",
         "phpcpd": "Detect copy/paste in source code",

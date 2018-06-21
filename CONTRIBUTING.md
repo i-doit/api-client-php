@@ -68,7 +68,7 @@ Developers must meet some more requirements:
 4.  Commit changes: `git commit -a -m "Bump version to $(composer config version)"`
 5.  Perform some tests, for example `composer ci`
 6.  Run unit tests: `composer phpunit`
-7.  Create Git tag: `git tag -s -m "Release version $(composer config version)" $(composer config version)`
+7.  Create Git tag: `git tag -s -a -m "Release version $(composer config version)" $(composer config version)`
 8.  Push changes: `git push && git push --tags`
 
 There is already a webhook enabled to push the code from GitHub to Packagist.

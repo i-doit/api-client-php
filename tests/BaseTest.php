@@ -382,9 +382,37 @@ abstract class BaseTest extends TestCase {
         return date('Y-m-d');
     }
 
+    /**
+     * Validate string as timestamp
+     *
+     * @param string $time Any date or timestamp
+     */
     protected function isTime($time) {
         $timestamp = strtotime($time);
         $this->assertInternalType('integer', $timestamp);
+    }
+
+    /**
+     * Validate string as identifier
+     *
+     * @param string $value Positive, numeric string
+     */
+    protected function isIDAsString($value) {
+        $this->assertInternalType('string', $value);
+        $id = (int) $value;
+        $this->assertGreaterThan(0, $id);
+    }
+
+    /**
+     * Validate string as i-doit constant
+     *
+     * @param string $value i-doit constant
+     */
+    protected function isConstant($value) {
+        $this->assertInternalType('string', $value);
+        $this->assertNotEmpty($value);
+        $this->assertRegExp('/([A-Z0-9_]+)/', $value);
+        $this->assertRegExp('/^([A-Z]+)/', $value);
     }
 
 }

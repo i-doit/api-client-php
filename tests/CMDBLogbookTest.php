@@ -87,15 +87,26 @@ class CMDBLogbookTest extends BaseTest {
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
+        $this->validateEntries($result);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testReadByDate() {
         $result = $this->instance->read('today');
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
+        $this->validateEntries($result);
+
         $result = $this->instance->read(date('Y-m-d'));
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
+
+        $this->validateEntries($result);
     }
 
     /**
@@ -109,15 +120,142 @@ class CMDBLogbookTest extends BaseTest {
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
+        $this->validateEntries($result);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testReadByObjectAndDate() {
+        $objectID = $this->createServer();
+
         $result = $this->instance->readByObject($objectID, 'today');
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
+        $this->validateEntries($result);
+
         $result = $this->instance->readByObject($objectID, date('Y-m-d'));
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
+
+        $this->validateEntries($result);
+    }
+
+    /**
+     * @param array $entries
+     *
+     * @throws \Exception on error
+     */
+    protected function validateEntries(array $entries) {
+        foreach ($entries as $entry) {
+            $this->validateEntry($entry);
+        }
+    }
+
+    /**
+     * @param array $entry
+     *
+     * @throws \Exception on error
+     */
+    protected function validateEntry(array $entry) {
+        $this->assertArrayHasKey('logbook_id', $entry);
+        $this->isIDAsString($entry['logbook_id']);
+
+        $this->assertArrayHasKey('logbook_catg_id', $entry);
+        $this->isIDAsString($entry['logbook_catg_id']);
+
+        $this->assertArrayHasKey('comment', $entry);
+        $this->assertInternalType('string', $entry['comment']);
+
+        $this->assertArrayHasKey('description', $entry);
+        $this->assertInternalType('string', $entry['description']);
+
+        $this->assertArrayHasKey('changes', $entry);
+        if (isset($entry['changes']) && is_array($entry['changes'])) {
+            // changes may be empty…
+
+            foreach ($entry['changes'] as $index => $changeSet) {
+                // changes may be nested or not…
+                switch (gettype($index)) {
+                    case 'integer':
+                        $this->assertGreaterThanOrEqual(0, $index);
+
+                        foreach ($changeSet as $source => $change) {
+                            $this->assertInternalType('string', $source);
+                            $this->assertNotEmpty($source);
+
+                            $this->assertInternalType('array', $change);
+                            $this->validateChange($change);
+                        }
+                        break;
+                    case 'string':
+                        $this->assertNotEmpty($index);
+
+                        $this->assertInternalType('array', $changeSet);
+                        $this->validateChange($changeSet);
+                        break;
+                    default:
+                        throw new \Exception('Invalid changeset');
+                }
+            }
+        }
+
+        $this->assertArrayHasKey('date', $entry);
+        $this->isTime($entry['date']);
+
+        $this->assertArrayHasKey('username', $entry);
+        $this->assertInternalType('string', $entry['username']);
+
+        $this->assertArrayHasKey('event', $entry);
+        $this->assertInternalType('string', $entry['event']);
+
+        $this->assertArrayHasKey('object_id', $entry);
+        $this->isIDAsString($entry['object_id']);
+
+        $this->assertArrayHasKey('object_title', $entry);
+        $this->assertInternalType('string', $entry['object_title']);
+
+        if (array_key_exists('object_title_static', $entry)) {
+            $this->assertInternalType('string', $entry['object_title_static']);
+        }
+
+        $this->assertArrayHasKey('source', $entry);
+        $this->assertInternalType('string', $entry['source']);
+
+        $this->assertArrayHasKey('source_constant', $entry);
+        $this->isConstant($entry['source_constant']);
+
+        $this->assertArrayHasKey('level_id', $entry);
+        $this->isIDAsString($entry['level_id']);
+    }
+
+    /**
+     * Validate change
+     *
+     * @param array $change Change from … to …
+     *
+     * @throws \Exception on error
+     */
+    protected function validateChange(array $change) {
+        $this->assertCount(2, $change);
+
+        $this->assertArrayHasKey('from', $change);
+        $this->assertInternalType('string', $change['from']);
+
+        $this->assertArrayHasKey('to', $change);
+
+        // 'to' is not consistent…
+        switch (gettype($change['to'])) {
+            case 'string':
+                break;
+            case 'array':
+                break;
+            default:
+                throw new \Exception('Invalid new value');
+        }
     }
 
 }

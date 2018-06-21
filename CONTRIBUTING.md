@@ -92,6 +92,7 @@ This project comes with some useful composer scripts:
 | `composer phpunit`            | Perform unit tests                                        |
 | `composer security-checker`   | Look for dependencies with known security vulnerabilities |
 | `composer syntax-check`       | Check syntax of source code                               |
+| `composer system-check`       | Run some system checks                                    |
 
 For example, execute `composer phpstan`.
 

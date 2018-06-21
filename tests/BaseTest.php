@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use PHPUnit\Framework\TestCase;
@@ -85,7 +87,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception
      */
-    protected function createServer() {
+    protected function createServer(): int {
         $cmdbObject = new CMDBObject($this->api);
 
         return $cmdbObject->create(
@@ -101,7 +103,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception
      */
-    protected function createPerson() {
+    protected function createPerson(): array {
         $cmdbObject = new CMDBObject($this->api);
         $cmdbCategory = new CMDBCategory($this->api);
 
@@ -143,7 +145,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception
      */
-    protected function createWorkstation() {
+    protected function createWorkstation(): int {
         $cmdbObject = new CMDBObject($this->api);
 
         $workstationID = $cmdbObject->create(
@@ -169,7 +171,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception
      */
-    protected function addPersonToWorkstation($personID, $workstationID) {
+    protected function addPersonToWorkstation(int $personID, int $workstationID): int {
         $cmdbCategory = new CMDBCategory($this->api);
 
         return $cmdbCategory->create(
@@ -192,7 +194,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception
      */
-    protected function addWorkstationComponent($workstationID, $objectTypeConst) {
+    protected function addWorkstationComponent(int $workstationID, string $objectTypeConst): int {
         $cmdbObject = new CMDBObject($this->api);
         $cmdbCategory = new CMDBCategory($this->api);
 
@@ -218,7 +220,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception
      */
-    protected function getIPv4Net() {
+    protected function getIPv4Net(): int {
         $cmdbObjects = new CMDBObjects($this->api);
 
         return $cmdbObjects->getID('Global v4', 'C__OBJTYPE__LAYER3_NET');
@@ -231,7 +233,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception
      */
-    protected function getRootLocation() {
+    protected function getRootLocation(): int {
         $cmdbObjects = new CMDBObjects($this->api);
 
         return $cmdbObjects->getID('Root location', 'C__OBJTYPE__LOCATION_GENERIC');
@@ -246,7 +248,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception
      */
-    protected function addIPv4($objectID) {
+    protected function addIPv4(int $objectID): int {
         $cmdbCategory = new CMDBCategory($this->api);
 
         return $cmdbCategory->create(
@@ -273,7 +275,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception
      */
-    protected function defineModel($objectID) {
+    protected function defineModel(int $objectID): int {
         $cmdbCategory = new CMDBCategory($this->api);
 
         return $cmdbCategory->create(
@@ -298,7 +300,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception on error
      */
-    protected function addObjectToLocation($objectID, $locationID) {
+    protected function addObjectToLocation(int $objectID, int $locationID): int {
         $cmdbCategory = new CMDBCategory($this->api);
 
         return $cmdbCategory->create(
@@ -322,7 +324,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws \Exception on error
      */
-    protected function addContact($objectID, $contactID, $roleID = 1) {
+    protected function addContact(int $objectID, int $contactID, int $roleID = 1): int {
         $cmdbCategory = new CMDBCategory($this->api);
 
         return $cmdbCategory->create(
@@ -341,8 +343,8 @@ abstract class BaseTest extends TestCase {
      *
      * @return string
      */
-    protected function generateRandomString() {
-        return hash('sha256', microtime(true));
+    protected function generateRandomString(): string {
+        return hash('sha256', (string) microtime(true));
     }
 
     /**
@@ -350,7 +352,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return string
      */
-    protected function generateIPv4Address() {
+    protected function generateIPv4Address(): string {
         return sprintf(
             '10.%s.%s.%s',
             mt_rand(2, 254),
@@ -364,7 +366,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return string
      */
-    protected function generateDescription() {
+    protected function generateDescription(): string {
         return sprintf(
             'This data is auto-generated at %s by a unit test for %s, version %s',
             date('c'),
@@ -378,7 +380,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return string Y-m-d
      */
-    protected function generateDate() {
+    protected function generateDate(): string {
         return date('Y-m-d');
     }
 
@@ -387,9 +389,12 @@ abstract class BaseTest extends TestCase {
      *
      * @param string $time Any date or timestamp
      */
-    protected function isTime($time) {
+    protected function isTime(string $time) {
         $timestamp = strtotime($time);
-        $this->assertInternalType('integer', $timestamp);
+        $this->assertInternalType('int', $timestamp);
+        $formattedTimestamp = date('Y-m-d H:i:s', $timestamp);
+        $this->assertInternalType('string', $formattedTimestamp);
+        $this->assertSame($formattedTimestamp, $time);
     }
 
     /**
@@ -397,7 +402,7 @@ abstract class BaseTest extends TestCase {
      *
      * @param string $value Positive, numeric string
      */
-    protected function isIDAsString($value) {
+    protected function isIDAsString(string $value) {
         $this->assertInternalType('string', $value);
         $id = (int) $value;
         $this->assertGreaterThan(0, $id);
@@ -408,7 +413,7 @@ abstract class BaseTest extends TestCase {
      *
      * @param string $value i-doit constant
      */
-    protected function isConstant($value) {
+    protected function isConstant(string $value) {
         $this->assertInternalType('string', $value);
         $this->assertNotEmpty($value);
         $this->assertRegExp('/([A-Z0-9_]+)/', $value);

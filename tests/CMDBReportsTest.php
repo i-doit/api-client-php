@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBReports;
@@ -34,7 +36,7 @@ class CMDBReportsTest extends BaseTest {
     /**
      * @var \bheisig\idoitapi\CMDBReports
      */
-    protected $reports;
+    protected $instance;
 
     /**
      * @throws \Exception on error
@@ -42,14 +44,14 @@ class CMDBReportsTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->reports = new CMDBReports($this->api);
+        $this->instance = new CMDBReports($this->api);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testListReports() {
-        $result = $this->reports->listReports();
+        $result = $this->instance->listReports();
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
@@ -59,14 +61,14 @@ class CMDBReportsTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testRead() {
-        $reports = $this->reports->listReports();
+        $reports = $this->instance->listReports();
 
         foreach ($reports as $report) {
             $this->assertArrayHasKey('id', $report);
 
             $reportID = (int) $report['id'];
 
-            $result = $this->reports->read($reportID);
+            $result = $this->instance->read($reportID);
 
             $this->assertInternalType('array', $result);
         }
@@ -76,7 +78,7 @@ class CMDBReportsTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testBatchRead() {
-        $reports = $this->reports->listReports();
+        $reports = $this->instance->listReports();
         $reportIDs = [];
 
         foreach ($reports as $report) {
@@ -86,7 +88,7 @@ class CMDBReportsTest extends BaseTest {
         }
 
         if (count($reportIDs) > 0) {
-            $result = $this->reports->batchRead($reportIDs);
+            $result = $this->instance->batchRead($reportIDs);
 
             $this->assertInternalType('array', $result);
         }

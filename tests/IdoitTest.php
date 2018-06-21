@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\Idoit;
@@ -122,12 +124,17 @@ class IdoitTest extends BaseTest {
         $this->validateConstants($result['categories']['s']);
     }
 
-    protected function validateConstants($constants) {
+    /**
+     * Validate i-doit constants
+     *
+     * @param array $constants i-doit constants
+     */
+    protected function validateConstants(array $constants) {
         $this->assertNotCount(0, $constants);
 
         foreach ($constants as $constant => $value) {
-            $this->assertInternalType('string', $constant);
-            $this->assertNotEmpty($constant);
+            $this->isConstant($constant);
+
             $this->assertInternalType('string', $value);
             $this->assertNotEmpty($value);
         }

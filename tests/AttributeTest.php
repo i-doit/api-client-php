@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBCategory;
@@ -74,7 +76,7 @@ class AttributeTest extends BaseTest {
      *
      * @throws \Exception on error
      */
-    protected function createTestObject() {
+    protected function createTestObject(): int {
         return $this->cmdbObject->create(
             'C__OBJTYPE__GENERIC_TEMPLATE',
             $this->generateRandomString()
@@ -169,7 +171,7 @@ class AttributeTest extends BaseTest {
      *
      * @throws \Exception on error
      */
-    protected function generateValues(array $attributes) {
+    protected function generateValues(array $attributes): array {
         $values = [];
 
         foreach ($attributes as $attribute => $properties) {
@@ -328,11 +330,11 @@ class AttributeTest extends BaseTest {
         return $objectID;
     }
 
-    protected function generateMoney() {
+    protected function generateMoney(): float {
         return 1234.42;
     }
 
-    protected function generateRandomInteger() {
+    protected function generateRandomInteger(): int {
         return 4;
     }
 

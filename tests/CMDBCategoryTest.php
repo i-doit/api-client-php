@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBCategory;
@@ -87,7 +89,7 @@ class CMDBCategoryTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadOneByID() {
+    public function testReadOneByIdentifier() {
         $objectID = $this->createServer();
         $entryID = $this->defineModel($objectID);
 

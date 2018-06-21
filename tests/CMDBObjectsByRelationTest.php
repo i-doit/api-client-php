@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBObjectsByRelation;
@@ -34,7 +36,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
     /**
      * @var \bheisig\idoitapi\CMDBObjectsByRelation
      */
-    protected $relation;
+    protected $instance;
 
     /**
      * @throws \Exception on error
@@ -42,20 +44,20 @@ class CMDBObjectsByRelationTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->relation = new CMDBObjectsByRelation($this->api);
+        $this->instance = new CMDBObjectsByRelation($this->api);
     }
 
     /**
      * @throws \Exception on error
      */
-    public function testReadByID() {
+    public function testReadByIdentifier() {
         $relationType = 10; // Location
 
         $objectID = $this->createServer();
         $locationID = $this->getRootLocation();
         $this->addObjectToLocation($objectID, $locationID);
 
-        $result = $this->relation->readByID(
+        $result = $this->instance->readByID(
             $objectID,
             $relationType
         );
@@ -74,14 +76,14 @@ class CMDBObjectsByRelationTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByConst() {
+    public function testReadByConstant() {
         $relationType = 'C__RELATION_TYPE__LOCATION';
 
         $objectID = $this->createServer();
         $locationID = $this->getRootLocation();
         $this->addObjectToLocation($objectID, $locationID);
 
-        $result = $this->relation->readByConst(
+        $result = $this->instance->readByConst(
             $objectID,
             $relationType
         );

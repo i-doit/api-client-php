@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBObjects;
@@ -80,7 +82,12 @@ class CMDBObjectsTest extends BaseTest {
         }
     }
 
-    protected function validateObject($object) {
+    /**
+     * Validate common information about an object
+     *
+     * @param array $object Common information about an object
+     */
+    protected function validateObject(array $object) {
         $this->assertArrayHasKey('id', $object);
         $this->assertInternalType('string', $object['id']);
         $objectID = (int) $object['id'];
@@ -101,11 +108,11 @@ class CMDBObjectsTest extends BaseTest {
 
         $this->assertArrayHasKey('created', $object);
         $this->assertInternalType('string', $object['created']);
-        $this->validateTime($object['created']);
+        $this->isTime($object['created']);
 
         if (array_key_exists('updated', $object)) {
             $this->assertInternalType('string', $object['updated']);
-            $this->validateTime($object['updated']);
+            $this->isTime($object['updated']);
         }
 
         $this->assertArrayHasKey('type_title', $object);
@@ -118,14 +125,7 @@ class CMDBObjectsTest extends BaseTest {
 
         $this->assertArrayHasKey('status', $object);
         $this->assertInternalType('string', $object['status']);
-        $this->assertContains($object['status'], [
-            '1', // Unfinished
-            '2', // Normal
-            '3', // Archived
-            '4', // Deleted
-            '6', // Template
-            '7' // Mass change template
-        ]);
+        $this->assertContains((int) $object['status'], $this->conditions);
 
         $this->assertArrayHasKey('cmdb_status', $object);
         $this->assertInternalType('string', $object['cmdb_status']);
@@ -141,14 +141,6 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertNotEmpty($object['image']);
     }
 
-    protected function validateTime($time) {
-        $timestamp = strtotime($time);
-        $this->assertInternalType('int', $timestamp);
-        $formattedTimestamp = date('Y-m-d H:i:s', $timestamp);
-        $this->assertInternalType('string', $formattedTimestamp);
-        $this->assertSame($formattedTimestamp, $time);
-    }
-
     /**
      * @throws \Exception on error
      */
@@ -162,7 +154,7 @@ class CMDBObjectsTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByIDs() {
+    public function testReadByIdentifiers() {
         $objectIDs = $this->instance->create(
             [
                 ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Four'],
@@ -294,7 +286,7 @@ class CMDBObjectsTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testGetID() {
+    public function testGetIdentifier() {
         $uniqueTitle = 'Server No. ' . microtime(true);
 
         $objectIDs = $this->instance->create(

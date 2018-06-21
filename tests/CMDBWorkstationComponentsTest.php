@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBWorkstationComponents;
@@ -84,12 +86,12 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByEMail() {
+    public function testReadByEmail() {
         $person = $this->createPerson();
         $workstationID = $this->createWorkstation();
         $this->addPersonToWorkstation($person['id'], $workstationID);
 
-        $result = $this->instance->readByEMail($person['email']);
+        $result = $this->instance->readByEmail($person['email']);
 
         $this->assertInternalType('array', $result);
         $this->assertCount(1, $result);
@@ -100,7 +102,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByEMails() {
+    public function testReadByEmails() {
         $person1 = $this->createPerson();
         $workstation1ID = $this->createWorkstation();
         $this->addPersonToWorkstation($person1['id'], $workstation1ID);
@@ -109,7 +111,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
         $workstation2ID = $this->createWorkstation();
         $this->addPersonToWorkstation($person2['id'], $workstation2ID);
 
-        $result = $this->instance->readByEMails([$person1['email'], $person2['email']]);
+        $result = $this->instance->readByEmails([$person1['email'], $person2['email']]);
 
         $this->assertInternalType('array', $result);
         $this->assertCount(2, $result);
@@ -117,7 +119,12 @@ class CMDBWorkstationComponentsTest extends BaseTest {
         $this->checkResult($result);
     }
 
-    protected function checkResult($result) {
+    /**
+     * Validate result
+     *
+     * @param array $result
+     */
+    protected function checkResult(array $result) {
         foreach ($result as $person) {
             $this->assertInternalType('array', $person);
 

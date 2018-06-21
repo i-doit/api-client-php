@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\MonitoringLivestatus;
@@ -174,7 +176,7 @@ class MonitoringLivestatusTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByExistingID() {
+    public function testReadByExistingIdentifier() {
         $title = $this->generateRandomString();
 
         $id = $this->instance->createTCPConnection(
@@ -196,7 +198,7 @@ class MonitoringLivestatusTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByNonExistingID() {
+    public function testReadByNonExistingIdentifier() {
         // It is unlikely to produce such high IDs but this *could* fail:
         $id = 99999999;
 
@@ -209,7 +211,7 @@ class MonitoringLivestatusTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByExistingIDs() {
+    public function testReadByExistingIdentifiers() {
         $amount = 3;
         $ids = [];
 
@@ -228,7 +230,7 @@ class MonitoringLivestatusTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByNonExistingIDs() {
+    public function testReadByNonExistingIdentifiers() {
         // It is unlikely to produce such high IDs but this *could* fail:
         $ids = [
             99999999,
@@ -338,7 +340,7 @@ class MonitoringLivestatusTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testDeleteByExistingID() {
+    public function testDeleteByExistingIdentifier() {
         $id = $this->instance->createTCPConnection(
             $this->generateRandomString()
         );
@@ -351,7 +353,7 @@ class MonitoringLivestatusTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testDeleteByNonExistingID() {
+    public function testDeleteByNonExistingIdentifier() {
         // It is unlikely to produce such high IDs but this *could* fail:
         $id = 99999999;
 

@@ -70,15 +70,15 @@ class CMDBWorkstationComponents extends Request {
     }
 
     /**
-     * Reads workplace components for a specific object by its email address, for example a person
+     * Reads workplace components for a specific object by its e-mail address, for example a person
      *
-     * @param string $email Email address
+     * @param string $email E-mail address
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function readByEMail($email) {
+    public function readByEmail($email) {
         return $this->api->request(
             'cmdb.workstation_components',
             [
@@ -90,15 +90,15 @@ class CMDBWorkstationComponents extends Request {
     }
 
     /**
-     * Reads workplace components for one or more objects by their email addresses, for example persons
+     * Reads workplace components for one or more objects by their e-mail addresses, for example persons
      *
-     * @param string[] $emails List of email addresses
+     * @param string[] $emails List of e-mail addresses
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function readByEMails(array $emails) {
+    public function readByEmails(array $emails) {
         return $this->api->request(
             'cmdb.workstation_components',
             [

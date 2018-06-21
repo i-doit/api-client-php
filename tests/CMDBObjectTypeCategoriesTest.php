@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBObjectTypeCategories;
@@ -37,8 +39,14 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
      */
     protected $instance;
 
+    /**
+     * @var int[] List of object type identifiers
+     */
     protected $objectTypeIDs = [];
 
+    /**
+     * @var string[] List of object type constants
+     */
     protected $objectTypeConsts = [];
 
     /**
@@ -61,7 +69,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByID() {
+    public function testReadByIdentifier() {
         $categories = [];
 
         foreach ($this->objectTypeIDs as $objectTypeID) {
@@ -74,7 +82,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByConst() {
+    public function testReadByConstant() {
         $categories = [];
 
         foreach ($this->objectTypeConsts as $objectTypeConst) {
@@ -87,7 +95,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testBatchReadByID() {
+    public function testBatchReadByIdentifier() {
         $batchResult = $this->instance->batchReadByID($this->objectTypeIDs);
 
         $this->assertInternalType('array', $batchResult);
@@ -101,8 +109,8 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testBatchReadByConst() {
-        $batchResult = $this->instance->batchReadByID($this->objectTypeConsts);
+    public function testBatchReadByConstant() {
+        $batchResult = $this->instance->batchReadByConst($this->objectTypeConsts);
 
         $this->assertInternalType('array', $batchResult);
         $this->assertNotCount(0, $batchResult);
@@ -112,6 +120,11 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
         }
     }
 
+    /**
+     * Validate assigned categories
+     *
+     * @param array $categories
+     */
     protected function checkAssignedCategories(array $categories) {
         $this->assertInternalType('array', $categories);
 

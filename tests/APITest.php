@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\API;
@@ -223,7 +225,7 @@ class APITest extends BaseTest {
      * @covers ::request
      * @throws \Exception
      */
-    public function testLanguageParameter() {
+    public function testValidateLanguageParameter() {
         // Test object type "printer":
         $objectTypeTitles = [
             'en' => 'Printer',
@@ -279,7 +281,7 @@ class APITest extends BaseTest {
      * @covers ::logout
      * @throws \Exception
      */
-    public function testSessionID() {
+    public function testValidateSession() {
         $sessionHeader = 'X-RPC-Auth-Session';
         $this->api->login();
         $sessionIDLogin = $this->getHeader($sessionHeader, $this->api->getLastResponseHeaders());
@@ -306,7 +308,7 @@ class APITest extends BaseTest {
      *
      * @throws \Exception on error
      */
-    protected function getHeader($header, $headers) {
+    protected function getHeader(string $header, string $headers) {
         $lines = explode(PHP_EOL, $headers);
 
         foreach ($lines as $line) {

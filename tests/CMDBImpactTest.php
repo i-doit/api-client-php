@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBImpact;
@@ -48,7 +50,7 @@ class CMDBImpactTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByID() {
+    public function testReadByIdentifier() {
         $relationType = 10; // Location
 
         $objectID = $this->createServer();
@@ -67,7 +69,7 @@ class CMDBImpactTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testBatchByConst() {
+    public function testBatchByConstant() {
         $relationType = 'C__RELATION_TYPE__LOCATION';
 
         $objectID = $this->createServer();

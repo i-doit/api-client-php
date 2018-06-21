@@ -9,9 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ##  [Unreleased]
 
 
+### Changed
+
+-   `CMDBWorkstationComponents`: Re-named methods `readByEmail()` and `readByEmails()`
+-   Require PHP >= 7.1 on dev/ci environments (only relevant if you want to [contribute](CONTRIBUTING.md))
+
+
 ### Fixed
 
--   `CMDBCategory::clear`: Archiving zero category entries results in a broken API request
+-   `CMDBCategory::clear()`: Archiving zero category entries results in a broken API request
 
 
 ##  [0.5] – 2018-04-25

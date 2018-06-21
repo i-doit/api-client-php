@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CheckMKStaticTag;
@@ -185,7 +187,7 @@ class CheckMKStaticTagTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByExistingID() {
+    public function testReadByExistingIdentifier() {
         // We need at least 1 host tag:
         $tag = $this->generateRandomString();
         $title = $this->generateRandomString();
@@ -224,7 +226,7 @@ class CheckMKStaticTagTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByNonExistingID() {
+    public function testReadByNonExistingIdentifier() {
         // It is unlikely to produce such high IDs but this *could* fail:
         $id = 99999999;
 
@@ -237,7 +239,7 @@ class CheckMKStaticTagTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByExistingIDs() {
+    public function testReadByExistingIdentifiers() {
         $tags = [];
 
         $amount = 3;
@@ -260,7 +262,7 @@ class CheckMKStaticTagTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testReadByNonExistingIDs() {
+    public function testReadByNonExistingIdentifiers() {
         // It is unlikely to produce such high IDs but this *could* fail:
         $ids = [
             99999999,

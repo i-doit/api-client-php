@@ -107,7 +107,7 @@ class Select extends Request {
                     }
 
                     if (!array_key_exists('objID', $categoryEntry)) {
-                        throw new \Exception('Found attribute for unknown object');
+                        throw new \RuntimeException('Found attribute for unknown object');
                     }
 
                     $objectIDs[] = (int)$categoryEntry['objID'];

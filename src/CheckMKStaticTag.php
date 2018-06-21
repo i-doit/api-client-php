@@ -69,9 +69,9 @@ class CheckMKStaticTag extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -97,7 +97,7 @@ class CheckMKStaticTag extends Request {
         foreach ($tags as $data) {
             foreach ($required as $attribute) {
                 if (!array_key_exists($attribute, $data)) {
-                    throw new \Exception(sprintf(
+                    throw new \BadMethodCallException(sprintf(
                         'Missing attribute "%s"',
                         $attribute
                     ));
@@ -121,9 +121,9 @@ class CheckMKStaticTag extends Request {
             if (!array_key_exists('success', $tag) ||
                 $tag['success'] !== true) {
                 if (array_key_exists('message', $tag)) {
-                    throw new \Exception(sprintf('Bad result: %s', $tag['message']));
+                    throw new \RuntimeException(sprintf('Bad result: %s', $tag['message']));
                 } else {
-                    throw new \Exception('Bad result');
+                    throw new \RuntimeException('Bad result');
                 }
             }
 
@@ -223,9 +223,9 @@ class CheckMKStaticTag extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -252,9 +252,9 @@ class CheckMKStaticTag extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -289,9 +289,9 @@ class CheckMKStaticTag extends Request {
             if (!array_key_exists('success', $tag) ||
                 $tag['success'] !== true) {
                 if (array_key_exists('message', $tag)) {
-                    throw new \Exception(sprintf('Bad result: %s', $tag['message']));
+                    throw new \RuntimeException(sprintf('Bad result: %s', $tag['message']));
                 } else {
-                    throw new \Exception('Bad result');
+                    throw new \RuntimeException('Bad result');
                 }
             }
         }

@@ -53,7 +53,7 @@ class CMDBObject extends Request {
         if (array_key_exists('id', $result)) {
             return (int) $result['id'];
         } else {
-            throw new \Exception('Unable to create object');
+            throw new \RuntimeException('Unable to create object');
         }
     }
 
@@ -105,7 +105,7 @@ class CMDBObject extends Request {
         if (!is_array($result) ||
             !array_key_exists('success', $result) ||
             $result['success'] === false) {
-            throw new \Exception(sprintf(
+            throw new \RuntimeException(sprintf(
                 'Unable to archive object %s',
                 $objectID
             ));
@@ -135,7 +135,7 @@ class CMDBObject extends Request {
         if (!is_array($result) ||
             !array_key_exists('success', $result) ||
             $result['success'] === false) {
-            throw new \Exception(sprintf(
+            throw new \RuntimeException(sprintf(
                 'Unable to archive object %s',
                 $objectID
             ));
@@ -165,7 +165,7 @@ class CMDBObject extends Request {
         if (!is_array($result) ||
             !array_key_exists('success', $result) ||
             $result['success'] === false) {
-            throw new \Exception(sprintf(
+            throw new \RuntimeException(sprintf(
                 'Unable to delete object %s',
                 $objectID
             ));
@@ -195,7 +195,7 @@ class CMDBObject extends Request {
         if (!is_array($result) ||
             !array_key_exists('success', $result) ||
             $result['success'] === false) {
-            throw new \Exception(sprintf(
+            throw new \RuntimeException(sprintf(
                 'Unable to purge object %s',
                 $objectID
             ));
@@ -221,7 +221,7 @@ class CMDBObject extends Request {
 //        if (!is_array($result) ||
 //            !array_key_exists('success', $result) ||
 //            $result['success'] === false) {
-//            throw new \Exception(sprintf(
+//            throw new \RuntimeException(sprintf(
 //                'Unable to restore object %s',
 //                $objectID
 //            ));
@@ -241,11 +241,11 @@ class CMDBObject extends Request {
         $object = $this->read($objectID);
 
         if (count($object) === 0) {
-            throw new \Exception('Object not found');
+            throw new \RuntimeException('Object not found');
         }
 
         if (!array_key_exists('objecttype', $object)) {
-            throw new \Exception(sprintf(
+            throw new \RuntimeException(sprintf(
                 'Object %s has no type',
                 $objectID
             ));
@@ -267,7 +267,7 @@ class CMDBObject extends Request {
 
                 for ($i = 0; $i < count($object[$categoryType]); $i++) {
                     if (!array_key_exists('const', $object[$categoryType][$i])) {
-                        throw new \Exception(
+                        throw new \RuntimeException(
                             'Information about categories is broken. Constant is missing.'
                         );
                     }
@@ -280,7 +280,7 @@ class CMDBObject extends Request {
                 $categoryEntries = $cmdbCategory->batchRead([$objectID], $categoryConstants);
 
                 if (count($object[$categoryType]) !== count($categoryEntries)) {
-                    throw new \Exception(sprintf(
+                    throw new \RuntimeException(sprintf(
                         'Requested entries for %s categories, but received %s results',
                         count($object[$categoryType]),
                         count($categoryEntries)
@@ -323,12 +323,12 @@ class CMDBObject extends Request {
                 return $this->create($type, $title, $attributes);
             case 1:
                 if (!array_key_exists('id', $result[0])) {
-                    throw new \Exception('Bad result');
+                    throw new \RuntimeException('Bad result');
                 }
 
                 return (int) $result[0]['id'];
             default:
-                throw new \Exception(sprintf(
+                throw new \RuntimeException(sprintf(
                     'Found %s objects',
                     count($result)
                 ));

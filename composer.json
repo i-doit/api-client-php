@@ -24,6 +24,7 @@
         "ext-date": "*",
         "ext-json": "*",
         "ext-openssl": "*",
+        "ext-spl": "*",
         "ext-zlib": "*"
     },
     "require-dev": {

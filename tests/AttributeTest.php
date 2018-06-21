@@ -196,7 +196,7 @@ class AttributeTest extends BaseTest {
                             // Category "accounting":
                             $value = $this->generateRandomString();
                         } else {
-                            throw new \Exception(sprintf(
+                            throw new \DomainException(sprintf(
                                 'Unknown text format "%s" for attribute "%s" (%s)',
                                 $properties['format']['callback'][0] . '::' . $properties['format']['callback'][1],
                                 $properties['title'],
@@ -226,7 +226,7 @@ class AttributeTest extends BaseTest {
                     $value = $this->generateRandomInteger();
                     break;
                 default:
-                    throw new \Exception(sprintf(
+                    throw new \DomainException(sprintf(
                         'Unknown type "%s" for attribute "%s" [%s]',
                         $properties['info']['type'],
                         $properties['title'],
@@ -288,7 +288,7 @@ class AttributeTest extends BaseTest {
         }
 
         if (count($options) === 0) {
-            throw new \Exception(sprintf(
+            throw new \DomainException(sprintf(
                 'Unable to generate value for dialog attribute "%s"',
                 $properties['title']
             ));
@@ -311,7 +311,7 @@ class AttributeTest extends BaseTest {
                 $objectTypeConst = $objectTypes[array_rand($objectTypes)];
                 break;
             default:
-                throw new \Exception(sprintf(
+                throw new \DomainException(sprintf(
                     'Unknown export helper "%s" for attribute "%s"',
                     $properties['format']['callback'][0] . '::' . $properties['format']['callback'][1],
                     $properties['title']

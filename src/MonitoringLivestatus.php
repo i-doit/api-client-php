@@ -60,9 +60,9 @@ class MonitoringLivestatus extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -98,9 +98,9 @@ class MonitoringLivestatus extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -197,9 +197,9 @@ class MonitoringLivestatus extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -226,9 +226,9 @@ class MonitoringLivestatus extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -255,9 +255,9 @@ class MonitoringLivestatus extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -292,9 +292,9 @@ class MonitoringLivestatus extends Request {
             if (!array_key_exists('success', $tag) ||
                 $tag['success'] !== true) {
                 if (array_key_exists('message', $tag)) {
-                    throw new \Exception(sprintf('Bad result: %s', $tag['message']));
+                    throw new \RuntimeException(sprintf('Bad result: %s', $tag['message']));
                 } else {
-                    throw new \Exception('Bad result');
+                    throw new \RuntimeException('Bad result');
                 }
             }
         }

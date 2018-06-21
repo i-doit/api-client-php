@@ -200,7 +200,7 @@ class CMDBLogbookTest extends BaseTest {
                         $this->validateChange($changeSet);
                         break;
                     default:
-                        throw new \Exception('Invalid changeset');
+                        throw new \DomainException('Invalid changeset');
                 }
             }
         }
@@ -256,7 +256,7 @@ class CMDBLogbookTest extends BaseTest {
             case 'array':
                 break;
             default:
-                throw new \Exception('Invalid new value');
+                throw new \DomainException('Invalid new value');
         }
     }
 

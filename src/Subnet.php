@@ -71,14 +71,14 @@ class Subnet extends Request {
         $netInfo = $category->read($objectID, 'C__CATS__NET');
 
         if (count($netInfo) === 0) {
-            throw new \Exception(sprintf(
+            throw new \RuntimeException(sprintf(
                 'Nothing found for object identifier %s',
                 $objectID
             ));
         }
 
         if ($netInfo[0]['type']['const'] !== 'C__CATS_NET_TYPE__IPV4') {
-            throw new \Exception('Works only for IPv4');
+            throw new \RuntimeException('Works only for IPv4');
         }
 
         $this->first = ip2long($netInfo[0]['range_from']);
@@ -103,7 +103,7 @@ class Subnet extends Request {
      */
     public function hasNext() {
         if (!isset($this->current)) {
-            throw new \Exception('You need to call method "load()" first.');
+            throw new \BadMethodCallException('You need to call method "load()" first.');
         }
 
         for ($ipLong = $this->current; $ipLong <= $this->last; $ipLong++) {
@@ -124,7 +124,7 @@ class Subnet extends Request {
      */
     public function next() {
         if (!isset($this->current)) {
-            throw new \Exception('You need to call method "load()" first.');
+            throw new \BadMethodCallException('You need to call method "load()" first.');
         }
 
         for ($ipLong = $this->current; $ipLong <= $this->last; $ipLong++) {
@@ -135,7 +135,7 @@ class Subnet extends Request {
             }
         }
 
-        throw new \Exception('No free IP addresses left');
+        throw new \RuntimeException('No free IP addresses left');
     }
 
     /**
@@ -149,7 +149,7 @@ class Subnet extends Request {
      */
     public function isFree($ipAddress) {
         if (!isset($this->current)) {
-            throw new \Exception('You need to call method "load()" first.');
+            throw new \BadMethodCallException('You need to call method "load()" first.');
         }
 
         $longIP = ip2long($ipAddress);

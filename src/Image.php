@@ -100,7 +100,7 @@ class Image extends Request {
     public function encode($filePath) {
         if (!file_exists($filePath) ||
             !is_readable($filePath)) {
-            throw new \Exception(sprintf(
+            throw new \BadMethodCallException(sprintf(
                 'Image "%s" not found or not readable',
                 $filePath
             ));
@@ -109,7 +109,7 @@ class Image extends Request {
         $imageAsString = base64_encode(file_get_contents($filePath));
 
         if ($imageAsString === false) {
-            throw new \Exception(sprintf(
+            throw new \BadMethodCallException(sprintf(
                 'Cannot convert image "%s" to base64 string',
                 $filePath
             ));

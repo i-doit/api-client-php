@@ -236,15 +236,15 @@ class CMDBObjects extends Request {
 
         switch (count($result)) {
             case 0:
-                throw new \Exception('Object not found');
+                throw new \RuntimeException('Object not found');
             case 1:
                 if (!array_key_exists('id', $result[0])) {
-                    throw new \Exception('Bad result');
+                    throw new \RuntimeException('Bad result');
                 }
 
                 return (int) $result[0]['id'];
             default:
-                throw new \Exception('Found %s objects', count($result));
+                throw new \RuntimeException('Found %s objects', count($result));
         }
     }
 

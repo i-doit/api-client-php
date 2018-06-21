@@ -65,7 +65,7 @@ class CMDBLocationTree extends Request {
 
         foreach ($children as $child) {
             if (!array_key_exists('id', $child)) {
-                throw new \Exception('Broken result');
+                throw new \RuntimeException('Broken result');
             }
 
             $node = $child;

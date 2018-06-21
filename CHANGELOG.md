@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+-   Throw SPL exceptions to provide you more semantics on errors
 -   `CMDBWorkstationComponents`: Re-named methods `readByEmail()` and `readByEmails()`
 -   Require PHP >= 7.1 on dev/ci environments (only relevant if you want to [contribute](CONTRIBUTING.md))
 

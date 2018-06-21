@@ -321,7 +321,7 @@ class APITest extends BaseTest {
             }
         }
 
-        throw new \Exception(sprintf(
+        throw new \RuntimeException(sprintf(
             'HTTP header "%s" not found',
             $header
         ));

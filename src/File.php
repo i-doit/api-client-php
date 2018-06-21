@@ -100,7 +100,7 @@ class File extends Request {
         $fileObjectIDs = $cmdbObjects->create($objects);
 
         if (count($fileObjectIDs) !== count($files)) {
-            throw new \Exception(sprintf(
+            throw new \RuntimeException(sprintf(
                 'Wanted to create %s file object(s) but got %s object identifiers',
                 count($files),
                 count($fileObjectIDs)
@@ -159,7 +159,7 @@ class File extends Request {
     public function encode($filePath) {
         if (!file_exists($filePath) ||
             !is_readable($filePath)) {
-            throw new \Exception(sprintf(
+            throw new \BadMethodCallException(sprintf(
                 'File "%s" not found or not readable',
                 $filePath
             ));
@@ -168,14 +168,7 @@ class File extends Request {
         $fileAsString = base64_encode(file_get_contents($filePath));
 
         if ($fileAsString === false) {
-            throw new \Exception(sprintf(
-                'Cannot convert file "%s" to base64 string',
-                $filePath
-            ));
-        }
-
-        if ($fileAsString === false) {
-            throw new \Exception(sprintf(
+            throw new \BadMethodCallException(sprintf(
                 'Cannot convert file "%s" to base64 string',
                 $filePath
             ));

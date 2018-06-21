@@ -57,9 +57,9 @@ class CMDBCategory extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -103,7 +103,7 @@ class CMDBCategory extends Request {
 
         foreach ($entries as $entry) {
             if (!array_key_exists('id', $entry)) {
-                throw new \Exception(sprintf(
+                throw new \RuntimeException(sprintf(
                     'Entries for category "%s" contain no identifier',
                     $categoryConst
                 ));
@@ -116,7 +116,7 @@ class CMDBCategory extends Request {
             }
         }
 
-        throw new \Exception(sprintf(
+        throw new \RuntimeException(sprintf(
             'No entry with identifier %s found in category "%s" for object %s',
             $entryID,
             $categoryConst,
@@ -173,9 +173,9 @@ class CMDBCategory extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -206,9 +206,9 @@ class CMDBCategory extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -257,9 +257,9 @@ class CMDBCategory extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
         }
 
@@ -304,9 +304,9 @@ class CMDBCategory extends Request {
             if (!array_key_exists('success', $entry) ||
                 $entry['success'] !== true) {
                 if (array_key_exists('message', $entry)) {
-                    throw new \Exception(sprintf('Bad result: %s', $entry['message']));
+                    throw new \RuntimeException(sprintf('Bad result: %s', $entry['message']));
                 } else {
-                    throw new \Exception('Bad result');
+                    throw new \RuntimeException('Bad result');
                 }
             }
 
@@ -375,9 +375,9 @@ class CMDBCategory extends Request {
             if (!array_key_exists('success', $result) ||
                 $result['success'] !== true) {
                 if (array_key_exists('message', $result)) {
-                    throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                    throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
                 } else {
-                    throw new \Exception('Bad result');
+                    throw new \RuntimeException('Bad result');
                 }
             }
         }
@@ -431,9 +431,9 @@ class CMDBCategory extends Request {
             if (!array_key_exists('success', $result) ||
                 $result['success'] !== true) {
                 if (array_key_exists('message', $result)) {
-                    throw new \Exception(sprintf('Bad result: %s', $result['message']));
+                    throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
                 } else {
-                    throw new \Exception('Bad result');
+                    throw new \RuntimeException('Bad result');
                 }
             }
         }

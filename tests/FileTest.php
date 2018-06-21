@@ -66,7 +66,7 @@ class FileTest extends BaseTest {
             $status = file_put_contents($filePath, $description);
 
             if ($status === false) {
-                throw new \Exception(sprintf('Unable to create test file "%s"', $filePath));
+                throw new \RuntimeException(sprintf('Unable to create test file "%s"', $filePath));
             }
         }
     }
@@ -117,7 +117,7 @@ class FileTest extends BaseTest {
             $status = unlink($filePath);
 
             if ($status === false) {
-                throw new \Exception(sprintf(
+                throw new \RuntimeException(sprintf(
                     'Unable to remove file "%s"',
                     $filePath
                 ));

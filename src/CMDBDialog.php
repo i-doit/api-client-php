@@ -52,7 +52,7 @@ class CMDBDialog extends Request {
 
         if (!array_key_exists('entry_id', $result) ||
             !is_numeric($result['entry_id'])) {
-            throw new \Exception('Bad result');
+            throw new \RuntimeException('Bad result');
         }
 
         return (int) $result['entry_id'];
@@ -108,7 +108,7 @@ class CMDBDialog extends Request {
         foreach ($entries as $entry) {
             if (!array_key_exists('entry_id', $entry) ||
                 !is_numeric($entry['entry_id'])) {
-                throw new \Exception('Bad result');
+                throw new \RuntimeException('Bad result');
             }
 
             $entryIDs[] = (int) $entry['entry_id'];

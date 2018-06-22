@@ -52,7 +52,7 @@ Developers must meet some more requirements:
 
 *   See requirements mentioned in the [documentation](README.md)
 *   You need at least PHP 7.1 (7.2 is recommended), for example to run unit tests
-*   [Xdebug](https://xdebug.org/)
+*   [Xdebug](https://xdebug.org/), needed for code coverage with phpunit
 *   [Composer](https://getcomposer.org/)
 *   [Git](https://git-scm.com/)
 *   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)

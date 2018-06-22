@@ -36,8 +36,10 @@
         "phpunit/phpunit": "^7",
         "sebastian/phpcpd": ">=3.0.1",
         "sensiolabs/security-checker": "^4.1",
-        "squizlabs/php_codesniffer": "*",
-        "ext-xdebug": "*"
+        "squizlabs/php_codesniffer": "*"
+    },
+    "suggest": {
+        "ext-xdebug": "Needed for code coverage with phpunit"
     },
     "autoload": {
         "psr-4": {

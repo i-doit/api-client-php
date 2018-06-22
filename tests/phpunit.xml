@@ -17,7 +17,7 @@
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
     </logging>
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+        <whitelist>
             <directory suffix=".php">../src/</directory>
         </whitelist>
     </filter>

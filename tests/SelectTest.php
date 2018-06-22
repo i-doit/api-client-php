@@ -52,20 +52,44 @@ class SelectTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testFind() {
+    public function testFindByTitle() {
+        $title = $this->generateRandomString();
+
+        $cmdbObject = new CMDBObject($this->api);
+        $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $title);
+
+        $result = $this->instance->find('C__CATG__GLOBAL', 'title', $title);
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+        $this->assertSame($objectID, $result[0]);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testFindNothing() {
+        $result = $this->instance->find(
+            'C__CATG__GLOBAL',
+            'title',
+            $this->generateRandomString()
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(0, $result);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testFindBySerialNumber() {
         $title = $this->generateRandomString();
         $serial = $this->generateRandomString();
-        $ip = $this->generateIPv4Address();
 
         $cmdbObject = new CMDBObject($this->api);
         $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $title);
 
         $cmdbCategory = new CMDBCategory($this->api);
-
-        $result = $this->instance->find('C__CATG__GLOBAL', 'title', $title);
-
-        $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
 
         $cmdbCategory->create(
             $objectID,
@@ -78,7 +102,21 @@ class SelectTest extends BaseTest {
         $result = $this->instance->find('C__CATG__MODEL', 'serial', $serial);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount(1, $result);
+        $this->assertSame($objectID, $result[0]);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testFindByHostaddress() {
+        $title = $this->generateRandomString();
+        $ip = $this->generateIPv4Address();
+
+        $cmdbObject = new CMDBObject($this->api);
+        $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $title);
+
+        $cmdbCategory = new CMDBCategory($this->api);
 
         $cmdbCategory->create(
             $objectID,
@@ -97,16 +135,8 @@ class SelectTest extends BaseTest {
         $result = $this->instance->find('C__CATG__IP', 'hostaddress', $ip);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
-
-        $result = $this->instance->find(
-            'C__CATG__GLOBAL',
-            'title',
-            $this->generateRandomString()
-        );
-
-        $this->assertInternalType('array', $result);
-        $this->assertCount(0, $result);
+        $this->assertCount(1, $result);
+        $this->assertSame($objectID, $result[0]);
     }
 
 }

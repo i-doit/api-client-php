@@ -84,6 +84,7 @@ This project comes with some useful composer scripts:
 | `composer find-forbidden`     | Find forbidden words in source code                       |
 | `composer gitstats`           | Create Git statistics                                     |
 | `composer gource`             | Visualize Git history                                     |
+| `composer parallel`           | Perform unit tests in parallel                            |
 | `composer phpcpd`             | Detect copy/paste in source code                          |
 | `composer phpcs`              | Detect violations of defined coding standards             |
 | `composer phploc`             | Print source code statistics                              |

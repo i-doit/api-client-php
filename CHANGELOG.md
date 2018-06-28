@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 
 
+### Changed
+
+-   Add HTTP header `Expect: 100-continue` to each API call for huge calls/slow hosts
+
+
 ##  [0.6] – 2018-06-21
 
 Happy summer time ⛱️

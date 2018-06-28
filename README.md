@@ -205,6 +205,7 @@ For almost every case there is a remote procedure you may call to read from or m
 |                               | `checkmk.statictag.read`              |                               | `read()`, `readByID()`, `readByIDs()`, `readByTag()`      |
 |                               | `checkmk.statictag.update`            |                               | `update()`                                                |
 |                               | `checkmk.statictag.delete`            |                               | `delete()`                                                |
+| `checkmk.tags`                | `checkmk.tags.read`                   | `CheckMKTags`                 | `read()`                                                  |
 | `monitoring.livestatus`       | `monitoring.livestatus.create`        | `MonitoringLivestatus`        | `createTCPConnection`, `createUNIXSocketConnection`       |
 |                               | `monitoring.livestatus.read`          |                               | `read()`, `readByID()`, `readByIDs()`, `readByTitle()`    |
 |                               | `monitoring.livestatus.update`        |                               | `update()`                                                |

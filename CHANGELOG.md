@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ##  [Unreleased]
 
-_tbd_
+
+### Added
+
+-   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 
 
 ##  [0.6] – 2018-06-21

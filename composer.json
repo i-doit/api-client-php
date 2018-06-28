@@ -76,7 +76,8 @@
         "phploc": "./vendor/bin/phploc --exclude=vendor --exclude=docs --exclude=build .",
         "phpmd": "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
         "phpstan": "./vendor/bin/phpstan analyze -l max src tests",
-        "phpunit": "./vendor/bin/phpunit --configuration tests/phpunit.xml --testdox",
+        "phpunit": "./vendor/bin/phpunit --configuration tests/phpunit.xml --testdox --exclude-group unreleased",
+        "phpunit-unreleased": "./vendor/bin/phpunit --configuration tests/phpunit.xml --testdox --group unreleased",
         "security-checker": "./vendor/bin/security-checker security:check ./composer.lock",
         "syntax-check": [
             "php -l src/",
@@ -106,6 +107,7 @@
         "phpmd": "Detect mess in source code",
         "phpstan": "Analyze source code",
         "phpunit": "Perform unit tests",
+        "phpunit-unreleased": "Perform unit tests for unreleased features",
         "security-checker": "Look for dependencies with known security vulnerabilities",
         "syntax-check": "Check syntax of source code",
         "system-check": "Run some system checks"

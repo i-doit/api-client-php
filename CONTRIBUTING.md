@@ -91,6 +91,7 @@ This project comes with some useful composer scripts:
 | `composer phpmd`              | Detect mess in source code                                |
 | `composer phpstan`            | Analyze source code                                       |
 | `composer phpunit`            | Perform unit tests                                        |
+| `composer phpunit-unreleased` | Perform unit tests for unreleased features                |
 | `composer security-checker`   | Look for dependencies with known security vulnerabilities |
 | `composer syntax-check`       | Check syntax of source code                               |
 | `composer system-check`       | Run some system checks                                    |

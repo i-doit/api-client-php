@@ -39,7 +39,6 @@ class CMDBCategoryInfo extends Request {
      * @throws \Exception on error
      */
     public function read($categoryConst) {
-
         return $this->api->request(
             'cmdb.category_info',
             array(

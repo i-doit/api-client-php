@@ -100,7 +100,6 @@ class CheckMKTagsTest extends BaseTest {
     public function testReadByBrokenObjectIdentifier() {
         $objectIDs = [
             -1,
-            [],
             0
         ];
 
@@ -169,7 +168,6 @@ class CheckMKTagsTest extends BaseTest {
     public function testBatchReadBrokenObjectIdentifiers() {
         $objectIDs = [
             -1,
-            [],
             0
         ];
 

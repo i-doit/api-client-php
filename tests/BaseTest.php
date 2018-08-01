@@ -31,6 +31,7 @@ use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObject;
 use bheisig\idoitapi\CMDBObjects;
 use bheisig\idoitapi\CMDBCategory;
+use Symfony\Component\Dotenv\Dotenv;
 
 abstract class BaseTest extends TestCase {
 
@@ -81,11 +82,14 @@ abstract class BaseTest extends TestCase {
      * @throws \Exception on error
      */
     public function setUp() {
+        $dotenv = new Dotenv();
+        $dotenv->load(__DIR__ . '/../.env');
+
         $this->api = new API([
-            'url' => $GLOBALS['url'],
-            'key' => $GLOBALS['key'],
-            'username' => $GLOBALS['username'],
-            'password' => $GLOBALS['password']
+            'url' => getenv('URL'),
+            'key' => getenv('KEY'),
+            'username' => getenv('USERNAME'),
+            'password' => getenv('PASSWORD')
         ]);
 
         $this->cmdbObject = new CMDBObject($this->api);

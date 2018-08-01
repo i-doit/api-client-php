@@ -36,7 +36,8 @@
         "phpunit/phpunit": "^7",
         "sebastian/phpcpd": ">=3.0.1",
         "sensiolabs/security-checker": "^4.1",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "symfony/dotenv": "^4.1"
     },
     "suggest": {
         "ext-xdebug": "Needed for code coverage with phpunit"

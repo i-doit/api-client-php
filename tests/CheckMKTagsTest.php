@@ -213,7 +213,9 @@ class CheckMKTagsTest extends BaseTest {
 
     protected function assertTag(array $tag) {
         $this->assertArrayHasKey('id', $tag);
-        $this->assertNull($tag['id']);
+        if (isset($tag['id'])) {
+            $this->isIDAsString($tag['id']);
+        }
 
         $this->assertArrayHasKey('const', $tag);
         $this->assertInternalType('string', $tag['const']);

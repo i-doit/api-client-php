@@ -91,18 +91,19 @@ class AttributeTest extends BaseTest {
             'C__CATG__GLOBAL',
             'C__CATG__LOGBOOK',
             // @todo Categories which return garbage:
-            'C__CATG__VIRTUAL_AUTH',
-            'C__CATG__VRRP_VIEW',
-            'C__CATG__RACK_VIEW',
-            'C__CATG__FLOORPLAN',
-            'C__CATG__VIRTUAL_RELOCATE_CI',
             'C__CATS__CHASSIS_CABLING',
-            'C__CATG__STORAGE',
-            'C__CATG__STACK_MEMBERSHIP',
-            'C__CATG__SANPOOL',
-            'C__CATG__VIRTUAL_SUPERNET',
+            'C__CATG__FLOORPLAN',
             'C__CATG__NET_ZONE',
-            'C__CATG__NET_ZONE_SCOPES'
+            'C__CATG__NET_ZONE_SCOPES',
+            'C__CATG__RACK_VIEW',
+            'C__CATG__SANPOOL',
+            'C__CATG__STACK_MEMBERSHIP',
+            'C__CATG__STORAGE',
+            'C__CATG__VIRTUAL_AUTH',
+            'C__CATG__VIRTUAL_RELOCATE_CI',
+            'C__CATG__VIRTUAL_SUPERNET',
+            'C__CATG__VIRTUAL_TICKETS',
+            'C__CATG__VRRP_VIEW'
         ];
 
         foreach ($this->categories as $categoryConst => $attributes) {

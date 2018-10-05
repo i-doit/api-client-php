@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 -   Add HTTP header `Expect: 100-continue` to each API call for huge calls/slow hosts
+-   Validate error object in response and throw all details about it
 
 
 ##  [0.6] – 2018-06-21

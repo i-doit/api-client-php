@@ -562,11 +562,48 @@ class API {
     protected function evaluateResponse(array $response) {
         if (array_key_exists('error', $response) &&
             $response['error'] !== null) {
-            throw new \RuntimeException(sprintf(
-                'i-doit responded with an error message [%s]: %s',
-                $response['error']['code'],
-                $response['error']['data']['error']
-            ));
+            // Validate error object:
+            if (!is_array($response['error'])) {
+                throw new \RuntimeException('Invalid error object');
+            }
+
+            if (!array_key_exists('code', $response['error']) ||
+                !is_int($response['error']['code']) ||
+                $response['error']['code'] >= 0) {
+                throw new \RuntimeException('Invalid error code');
+            }
+
+            if (!array_key_exists('message', $response['error']) ||
+                !is_string($response['error']['message']) ||
+                strlen($response['error']['message']) === 0) {
+                throw new \RuntimeException('Invalid error message');
+            }
+
+            if (!array_key_exists('data', $response['error']) ||
+                !is_array($response['error']['data'])) {
+                throw new \RuntimeException('Invalid error data');
+            }
+
+            $details = [];
+
+            foreach ($response['error']['data'] as $topic => $description) {
+                $details[] = sprintf(
+                    '%s: %s',
+                    $topic,
+                    $description
+                );
+            }
+
+            $message = sprintf(
+                'i-doit responded with an error: %s [%s]',
+                $response['error']['message'],
+                implode('; ', $details)
+            );
+
+            throw new \RuntimeException(
+                $message,
+                $response['error']['code']
+            );
         }
 
         if (!array_key_exists('result', $response)) {

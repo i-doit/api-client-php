@@ -51,8 +51,7 @@ class API130Test extends BaseTest {
         // This failed because of last two attributes:
         $entryID = $this->cmdbCategory->create($objectID, 'C__CATG__APPLICATION', [
             'application' => $applicationID,
-            'assigned_license' => $licenseID,
-            'assigned_license_key' => $licenseKeyID
+            'assigned_license' => $licenseKeyID
         ]);
         $this->assertInternalType('int', $entryID);
         $this->assertGreaterThan(0, $entryID);

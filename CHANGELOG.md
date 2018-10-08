@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -   Validate error object in response and throw all details about it
 
 
+### Fixed
+
+-   `File::add()`, `File::batchAdd()`: Use renamed constant for category "file versions"
+
+
 ##  [0.6] – 2018-06-21
 
 Happy summer time ⛱️

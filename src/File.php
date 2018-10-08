@@ -54,7 +54,7 @@ class File extends Request {
 
         $cmdbCategory->create(
             $fileObjectID,
-            'C__CMDB__SUBCAT__FILE_VERSIONS',
+            'C__CATS__FILE_VERSIONS',
             [
                 'file_content' => $fileAsString,
                 'file_physical' => basename($filePath),
@@ -118,7 +118,7 @@ class File extends Request {
                 'method' => 'cmdb.category.create',
                 'params' => [
                     'objID' => $fileObjectIDs[$counter],
-                    'catsID' => 'C__CMDB__SUBCAT__FILE_VERSIONS',
+                    'catsID' => 'C__CATS__FILE_VERSIONS',
                     'data' => [
                         'file_content' => $fileAsString,
                         'file_physical' => basename($filePath),

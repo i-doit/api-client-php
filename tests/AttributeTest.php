@@ -87,24 +87,10 @@ class AttributeTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testReadEmptyCategories() {
-        $ignoredCategories = [
+        $ignoredCategories = array_merge([
             'C__CATG__GLOBAL',
-            'C__CATG__LOGBOOK',
-            // @todo Categories which return garbage:
-            'C__CATS__CHASSIS_CABLING',
-            'C__CATG__FLOORPLAN',
-            'C__CATG__NET_ZONE',
-            'C__CATG__NET_ZONE_SCOPES',
-            'C__CATG__RACK_VIEW',
-            'C__CATG__SANPOOL',
-            'C__CATG__STACK_MEMBERSHIP',
-            'C__CATG__STORAGE',
-            'C__CATG__VIRTUAL_AUTH',
-            'C__CATG__VIRTUAL_RELOCATE_CI',
-            'C__CATG__VIRTUAL_SUPERNET',
-            'C__CATG__VIRTUAL_TICKETS',
-            'C__CATG__VRRP_VIEW'
-        ];
+            'C__CATG__LOGBOOK'
+        ], $this->cmdbCategoryInfo->getVirtualCategoryConstants());
 
         foreach ($this->categories as $categoryConst => $attributes) {
             if (in_array($categoryConst, $ignoredCategories)) {

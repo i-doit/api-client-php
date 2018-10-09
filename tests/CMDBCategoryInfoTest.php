@@ -102,4 +102,13 @@ class CMDBCategoryInfoTest extends BaseTest {
         }
     }
 
+    public function testGetVirtualCategoryConstants() {
+        $categoryConstants = $this->instance->getVirtualCategoryConstants();
+        $this->assertInternalType('array', $categoryConstants);
+        foreach ($categoryConstants as $categoryConstant) {
+            $this->assertInternalType('string', $categoryConstant);
+            $this->isConstant($categoryConstant);
+        }
+    }
+
 }

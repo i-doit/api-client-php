@@ -472,7 +472,6 @@ abstract class BaseTest extends TestCase {
      * @param string $value i-doit constant
      */
     protected function isConstant(string $value) {
-        $this->assertInternalType('string', $value);
         $this->assertNotEmpty($value);
         $this->assertRegExp('/([A-Z0-9_]+)/', $value);
         $this->assertRegExp('/^([A-Z]+)/', $value);

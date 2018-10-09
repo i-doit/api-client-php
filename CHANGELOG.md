@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 -   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 -   `API::rawRequest()`: Perform a low level API request
+-   `CMDBCategoryInfo::testGetVirtualCategoryConstants()`: Get list of constants for virtual categories
 
 
 ### Changed

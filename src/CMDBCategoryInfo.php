@@ -111,9 +111,48 @@ class CMDBCategoryInfo extends Request {
 
         $categoryConsts = array_unique($categoryConsts);
 
-        $categories = $this->batchRead($categoryConsts);
+        $blacklistedCategoryConsts = $this->getVirtualCategoryConstants();
+        $cleanCategoryConstants = [];
 
-        return array_combine($categoryConsts, $categories);
+        foreach ($categoryConsts as $categoryConstant) {
+            if (!in_array($categoryConstant, $blacklistedCategoryConsts)) {
+                $cleanCategoryConstants[] = $categoryConstant;
+            }
+        }
+
+        sort($cleanCategoryConstants);
+
+        $categories = $this->batchRead($cleanCategoryConstants);
+
+        return array_combine($cleanCategoryConstants, $categories);
+    }
+
+    /**
+     * Get list of constants for virtual categories
+     *
+     * "Virtual" means these categories have no attributes at all.
+     *
+     * @return array Array of strings
+     */
+    public function getVirtualCategoryConstants() {
+        return [
+            'C__CATG__CABLING',
+            'C__CATG__FLOORPLAN',
+            'C__CATG__NET_ZONE',
+            'C__CATG__NET_ZONE_SCOPES',
+            'C__CATG__OBJECT',
+            'C__CATG__OBJECT_VITALITY',
+            'C__CATG__RACK_VIEW',
+            'C__CATG__SANPOOL',
+            'C__CATG__STACK_MEMBERSHIP',
+            'C__CATG__STORAGE',
+            'C__CATG__VIRTUAL_AUTH',
+            'C__CATG__VIRTUAL_RELOCATE_CI',
+            'C__CATG__VIRTUAL_SUPERNET',
+            'C__CATG__VIRTUAL_TICKETS',
+            'C__CATG__VRRP_VIEW',
+            'C__CATS__CHASSIS_CABLING'
+        ];
     }
 
 }

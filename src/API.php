@@ -181,6 +181,8 @@ class API {
         if (is_readable($composerFile)) {
             $this->composer = json_decode(file_get_contents($composerFile), true);
         }
+
+        $this->setCURLOptions();
     }
 
     /**
@@ -218,18 +220,7 @@ class API {
         return isset($this->session);
     }
 
-    /**
-     * Connects to API
-     *
-     * This method is optional and may be used for re-connects.
-     *
-     * @return self Returns itself
-     *
-     * @throws \Exception on error
-     */
-    public function connect() {
-        $this->resource = curl_init();
-
+    protected function setCURLOptions() {
         $this->options = [
             CURLOPT_FAILONERROR => true,
             // Follow (only) 301s and 302s:
@@ -244,16 +235,16 @@ class API {
             CURLOPT_REDIR_PROTOCOLS => (CURLPROTO_HTTP | CURLPROTO_HTTPS),
             CURLOPT_ENCODING => 'application/json',
             CURLOPT_URL => $this->config[self::URL],
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/json',
-                'Expect: 100-continue'
-            ],
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_SSL_VERIFYHOST => 2,
             // TLS 1.2:
             CURLOPT_SSLVERSION => 6,
             // In seconds:
-            CURLOPT_CONNECTTIMEOUT => 10
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_HTTPHEADER => [
+                'Content-Type: application/json',
+                'Expect: 100-continue'
+            ]
         ];
 
         if (array_key_exists('name', $this->composer) &&
@@ -287,6 +278,19 @@ class API {
                     ));
             }
         }
+    }
+
+    /**
+     * Connects to API
+     *
+     * This method is optional and may be used for re-connects.
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function connect() {
+        $this->resource = curl_init();
 
         return $this;
     }
@@ -579,26 +583,31 @@ class API {
                 throw new \RuntimeException('Invalid error message');
             }
 
-            if (!array_key_exists('data', $response['error']) ||
-                !is_array($response['error']['data'])) {
-                throw new \RuntimeException('Invalid error data');
-            }
-
             $details = [];
 
-            foreach ($response['error']['data'] as $topic => $description) {
-                $details[] = sprintf(
-                    '%s: %s',
-                    $topic,
-                    $description
-                );
+            if (array_key_exists('data', $response['error']) &&
+                is_array($response['error']['data'])) {
+                foreach ($response['error']['data'] as $topic => $description) {
+                    $details[] = sprintf(
+                        '%s: %s',
+                        $topic,
+                        $description
+                    );
+                }
             }
 
-            $message = sprintf(
-                'i-doit responded with an error: %s [%s]',
-                $response['error']['message'],
-                implode('; ', $details)
-            );
+            if (count($details) > 0) {
+                $message = sprintf(
+                    'i-doit responded with an error: %s [%s]',
+                    $response['error']['message'],
+                    implode('; ', $details)
+                );
+            } else {
+                $message = sprintf(
+                    'i-doit responded with an error: %s',
+                    $response['error']['message']
+                );
+            }
 
             throw new \RuntimeException(
                 $message,
@@ -611,6 +620,23 @@ class API {
         }
 
         return $this;
+    }
+
+    /**
+     * Perform a low level API request
+     *
+     * @param array $data JSON-RPC compatible payload
+     * @param array $headers Additional headers as key-value pairs
+     *
+     * @return array Raw response from
+     * @throws \Exception on error
+     */
+    public function rawRequest(array $data = [], array $headers = []) {
+        foreach ($headers as $header => $value) {
+            $this->options[CURLOPT_HTTPHEADER][] = $header . ': ' . $value;
+        }
+
+        return $this->execute($data);
     }
 
     /**

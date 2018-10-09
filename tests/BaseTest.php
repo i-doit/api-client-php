@@ -143,7 +143,7 @@ abstract class BaseTest extends TestCase {
             'C__CATG__MAIL_ADDRESSES',
             [
                 'title' => $email,
-                'primary' => true,
+                'primary' => 1,
                 'description' => $this->generateDescription()
             ]
         );
@@ -247,22 +247,42 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
+     * Create IPv4 subnet 10.0.0.0/8
+     *
+     * @return int Object identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function createSubnet(): int {
+        $netID = $this->cmdbObject->create('C__OBJTYPE__LAYER3_NET', $this->generateRandomString());
+
+        $this->cmdbCategory->create($netID, 'C__CATS__NET', [
+            'type' => 1, // IPv4
+            'address' => '10.0.0.0',
+            'netmask' => '255.0.0.0'
+        ]);
+
+        return $netID;
+    }
+
+    /**
      * Add random IPv4 address to object
      *
      * @param int $objectID Object identifier
+     * @param int $subnetID Use this subnet, otherwise fall back to "Global v4"
      *
      * @return int Category entry identifier
      *
      * @throws \Exception
      */
-    protected function addIPv4(int $objectID): int {
+    protected function addIPv4(int $objectID, int $subnetID = null): int {
         return $this->cmdbCategory->create(
             $objectID,
             'C__CATG__IP',
             [
-                'net' => $this->getIPv4Net(),
-                'active' => false,
-                'primary' => false,
+                'net' => (isset($subnetID)) ? $subnetID : $this->getIPv4Net(),
+                'active' => 0,
+                'primary' => 0,
                 'net_type' => 1,
                 'ipv4_assignment' => 2,
                 'ipv4_address' => $this->generateIPv4Address(),
@@ -346,6 +366,10 @@ abstract class BaseTest extends TestCase {
         return hash('sha256', (string) microtime(true));
     }
 
+    protected function generateRandomID(): int {
+        return mt_rand(1, PHP_INT_MAX);
+    }
+
     /**
      * Generate random IPv4 address
      *
@@ -354,9 +378,9 @@ abstract class BaseTest extends TestCase {
     protected function generateIPv4Address(): string {
         return sprintf(
             '10.%s.%s.%s',
-            mt_rand(2, 254),
-            mt_rand(2, 254),
-            mt_rand(2, 254)
+            mt_rand(1, 254),
+            mt_rand(1, 254),
+            mt_rand(1, 254)
         );
     }
 
@@ -383,6 +407,32 @@ abstract class BaseTest extends TestCase {
         return date('Y-m-d');
     }
 
+    protected function isAssignedObject(array $object) {
+        $this->assertArrayHasKey('id', $object);
+        $this->isIDAsString($object['id']);
+
+        $this->assertArrayHasKey('title', $object);
+        $this->assertInternalType('string', $object);
+        $this->isOneLiner($object['title']);
+
+        $this->assertArrayHasKey('sysid', $object);
+        $this->assertInternalType('sysid', $object);
+        $this->isOneLiner($object['sysid']);
+
+        $this->assertArrayHasKey('type', $object);
+        $this->isConstant($object['type']);
+
+        $this->assertArrayHasKey('type_title', $object);
+        $this->assertInternalType('type_title', $object);
+        $this->isOneLiner($object['type_title']);
+    }
+
+    protected function isOneLiner(string $value) {
+        $length = strlen($value);
+        $this->assertGreaterThan(0, $length, 'One-liner is empty');
+        $this->assertLessThan(255, $length, 'One-liner is too long');
+    }
+
     /**
      * Validate string as timestamp
      *
@@ -402,7 +452,6 @@ abstract class BaseTest extends TestCase {
      * @param int $value Positive integer
      */
     protected function isID(int $value) {
-        $this->assertInternalType('int', $value);
         $this->assertGreaterThan(0, $value);
     }
 
@@ -427,6 +476,79 @@ abstract class BaseTest extends TestCase {
         $this->assertNotEmpty($value);
         $this->assertRegExp('/([A-Z0-9_]+)/', $value);
         $this->assertRegExp('/^([A-Z]+)/', $value);
+    }
+
+    protected function isValidResponse(array $response, array $request) {
+        $this->hasValidJSONRPCIdentifier($request, $response);
+
+        $this->assertArrayHasKey('jsonrpc', $response, 'Missing JSON-RPC version number');
+        $this->assertInternalType('string', $response['jsonrpc'], 'Invalid JSON-RPC version number');
+        $this->assertSame('2.0', $response['jsonrpc'], 'Unknown JSON-RPC version number');
+
+        $this->assertArrayHasKey('result', $response, 'Result is missing');
+        $this->assertNotNull($response['result'], 'Result is null');
+
+        $this->assertArrayNotHasKey('error', $response);
+    }
+
+    protected function isError(array $response) {
+        // 'id' may be set or not depending on whether 'id' is valid in request:
+        $this->assertArrayHasKey('id', $response, 'Identifier is missing');
+
+        $this->assertArrayHasKey('jsonrpc', $response, 'Missing JSON-RPC version number');
+        $this->assertInternalType('string', $response['jsonrpc'], 'Invalid JSON-RPC version number');
+        $this->assertSame('2.0', $response['jsonrpc'], 'Unknown JSON-RPC version number');
+
+        $this->assertArrayNotHasKey('result', $response, '"result" must not exist');
+
+        $this->assertArrayHasKey('error', $response, 'Error is missing');
+        $this->assertInternalType('array', $response['error'], 'Error is invalid');
+
+        $this->assertArrayHasKey('code', $response['error'], 'Error code is missing');
+        $this->assertInternalType('int', $response['error']['code'], 'Error code is invalid');
+        $this->assertLessThan(0, $response['error']['code'], 'Error code is invalid');
+
+        $this->assertArrayHasKey('message', $response['error'], 'Error message is missing');
+        $this->assertInternalType('string', $response['error']['message'], 'Error message is invalid');
+        $this->assertNotEmpty($response['error']['message'], 'Error message is empty');
+
+        $this->assertArrayHasKey('data', $response['error']);
+        if (isset($response['error']['data'])) {
+            $this->assertInternalType('array', $response['error']['data']);
+            $this->assertNotCount(0, $response['error']['data']);
+
+            foreach ($response['error']['data'] as $key => $value) {
+                // @todo Check whether key is int or string
+
+                $this->assertInternalType('string', $value);
+            }
+        }
+    }
+
+    protected function hasValidJSONRPCIdentifier(array $request, array $response) {
+        $this->assertArrayHasKey('id', $request, 'Identifier is missing in request');
+
+        $this->assertNotInternalType('boolean', $request['id']);
+        $this->assertNotInternalType('float', $request['id']);
+        $this->assertNotInternalType('double', $request['id']);
+        $this->assertNotInternalType('array', $request['id']);
+        $this->assertNotInternalType('object', $request['id']);
+        $this->assertNotInternalType('callable', $request['id']);
+        $this->assertNotInternalType('resource', $request['id']);
+        $this->assertNotNull($request['id']);
+
+        $this->assertArrayHasKey('id', $response, 'Identifier is missing in response');
+
+        $this->assertNotInternalType('boolean', $response['id']);
+        $this->assertNotInternalType('float', $response['id']);
+        $this->assertNotInternalType('double', $response['id']);
+        $this->assertNotInternalType('array', $response['id']);
+        $this->assertNotInternalType('object', $response['id']);
+        $this->assertNotInternalType('callable', $response['id']);
+        $this->assertNotInternalType('resource', $response['id']);
+        $this->assertNotNull($response['id']);
+
+        $this->assertSame($request['id'], $response['id'], 'Identifiers in request and response do not match');
     }
 
 }

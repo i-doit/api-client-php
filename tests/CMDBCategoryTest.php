@@ -34,17 +34,348 @@ use bheisig\idoitapi\CMDBCategory;
 class CMDBCategoryTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBCategory
-     */
-    protected $instance;
-
-    /**
+     * @group unreleased
      * @throws \Exception on error
      */
-    public function setUp() {
-        parent::setUp();
+    public function testSaveNewEntryInSingleValueCategory() {
+        $objectID = $this->createServer();
 
-        $this->instance = new CMDBCategory($this->api);
+        $attributes = [
+            'manufacturer' => $this->generateRandomString(),
+            'title' => $this->generateRandomString()
+        ];
+
+        $entryID = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__MODEL',
+            $attributes
+        );
+
+        $this->assertInternalType('int', $entryID);
+        $this->isID($entryID);
+
+        $entries = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__MODEL'
+        );
+
+        $this->assertInternalType('array', $entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+
+        $entry = $entries[0];
+
+        // Check both dialog+ attributes:
+        foreach ($attributes as $attribute => $value) {
+            $this->assertArrayHasKey($attribute, $entry);
+            $this->assertInternalType('array', $entry[$attribute]);
+            $this->assertArrayHasKey('title', $entry[$attribute]);
+            $this->assertSame($value, $entry[$attribute]['title']);
+        }
+    }
+
+    /**
+     * @group unreleased
+     * @throws \Exception on error
+     */
+    public function testSaveNewEntryInMultiValueCategory() {
+        $objectID = $this->createServer();
+
+        $attributes = [
+            'net' => $this->getIPv4Net(),
+            'active' => 0,
+            'primary' => 0,
+            'net_type' => 1,
+            'ipv4_assignment' => 2,
+            'ipv4_address' => $this->generateIPv4Address(),
+            'description' => $this->generateDescription()
+        ];
+
+        $entryID = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__IP',
+            $attributes
+        );
+
+        $this->assertInternalType('int', $entryID);
+        $this->isID($entryID);
+
+        $entries = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+
+        $entry = $entries[0];
+
+        foreach ($attributes as $attribute => $value) {
+            $this->assertArrayHasKey($attribute, $entry);
+        }
+    }
+
+    /**
+     * @group unreleased
+     * @throws \Exception on error
+     */
+    public function testSaveExistingEntryInSingleValueCategory() {
+        $objectID = $this->createServer();
+
+        // Original entry:
+
+        $attributes = [
+            'manufacturer' => $this->generateRandomString(),
+            'title' => $this->generateRandomString()
+        ];
+
+        $entryID = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__MODEL',
+            $attributes
+        );
+
+        $this->assertInternalType('int', $entryID);
+        $this->isID($entryID);
+
+        $entries = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__MODEL'
+        );
+
+        $this->assertInternalType('array', $entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+
+        $entry = $entries[0];
+
+        $this->assertArrayHasKey('id', $entry);
+        $id = (int) $entry['id'];
+        $this->assertSame($entryID, $id);
+
+        foreach ($attributes as $attribute => $value) {
+            $this->assertArrayHasKey($attribute, $entry);
+            $this->assertInternalType('array', $entry[$attribute]);
+            $this->assertArrayHasKey('title', $entry[$attribute]);
+            $this->assertSame($value, $entry[$attribute]['title']);
+        }
+
+        // Updated entry:
+
+        $newAttributes = [
+            'manufacturer' => $this->generateRandomString(),
+            'title' => $this->generateRandomString()
+        ];
+
+        $newEntryID = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__MODEL',
+            $newAttributes
+        );
+
+        $this->assertInternalType('int', $newEntryID);
+        $this->isID($newEntryID);
+
+        $entries = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__MODEL'
+        );
+
+        $this->assertInternalType('array', $entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+
+        $newEntry = $entries[0];
+
+        $this->assertArrayHasKey('id', $newEntry);
+        $id = (int) $newEntry['id'];
+        $this->assertSame($newEntryID, $id);
+        $this->assertSame($entryID, $newEntryID);
+
+        foreach ($newAttributes as $attribute => $value) {
+            $this->assertArrayHasKey($attribute, $newEntry);
+            $this->assertInternalType('array', $newEntry[$attribute]);
+            $this->assertArrayHasKey('title', $newEntry[$attribute]);
+            $this->assertSame($value, $newEntry[$attribute]['title']);
+        }
+
+        // Verify that further tests really pass:
+        foreach (array_keys($attributes) as $attribute) {
+            $this->assertNotSame($entry[$attribute], $newEntry[$attribute]);
+            $this->assertNotSame($entry[$attribute], $newEntry[$attribute]);
+        }
+    }
+
+    /**
+     * @group unreleased
+     * @throws \Exception on error
+     */
+    public function testSaveExistingEntryInMultiValueCategory() {
+        $objectID = $this->createServer();
+
+        // Original entry:
+
+        $attributes = [
+            'net' => $this->getIPv4Net(),
+            'active' => 0,
+            'primary' => 0,
+            'net_type' => 1,
+            'ipv4_assignment' => 2,
+            'ipv4_address' => $this->generateIPv4Address(),
+            'description' => $this->generateDescription()
+        ];
+
+        $entryID = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__IP',
+            $attributes
+        );
+
+        $this->assertInternalType('int', $entryID);
+        $this->isID($entryID);
+
+        $entries = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+
+        $entry = $entries[0];
+
+        foreach ($attributes as $attribute => $value) {
+            $this->assertArrayHasKey($attribute, $entry);
+        }
+
+        // Updated entry:
+
+        $newAttributes = [
+            'net' => $this->getIPv4Net(),
+            'active' => 1,
+            'primary' => 1,
+            'net_type' => 1,
+            'ipv4_assignment' => 2,
+            'ipv4_address' => $this->generateIPv4Address(),
+            'description' => $this->generateDescription()
+        ];
+
+        $newEntryID = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__IP',
+            $newAttributes,
+            $entryID
+        );
+
+        $this->assertInternalType('int', $newEntryID);
+        $this->isID($newEntryID);
+
+        $entries = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+
+        $newEntry = $entries[0];
+
+        $this->assertArrayHasKey('id', $newEntry);
+        $id = (int) $newEntry['id'];
+        $this->assertSame($newEntryID, $id);
+        $this->assertSame($entryID, $newEntryID);
+
+        foreach ($newAttributes as $attribute => $value) {
+            $this->assertArrayHasKey($attribute, $newEntry);
+        }
+    }
+
+    /**
+     * @group unreleased
+     * @throws \Exception on error
+     */
+    public function testSaveAdditionalEntryInMultiValueCategory() {
+        $objectID = $this->createServer();
+
+        // First entry:
+
+        $firstAttributes = [
+            'net' => $this->getIPv4Net(),
+            'active' => 0,
+            'primary' => 0,
+            'net_type' => 1,
+            'ipv4_assignment' => 2,
+            'ipv4_address' => $this->generateIPv4Address(),
+            'description' => $this->generateDescription()
+        ];
+
+        $firstEntryID = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__IP',
+            $firstAttributes
+        );
+
+        $this->assertInternalType('int', $firstEntryID);
+        $this->isID($firstEntryID);
+
+        $entries = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+
+        $entry = $entries[0];
+
+        foreach ($firstAttributes as $attribute => $value) {
+            $this->assertArrayHasKey($attribute, $entry);
+        }
+
+        // Additional entry:
+
+        $secondAttributes = [
+            'net' => $this->getIPv4Net(),
+            'active' => 1,
+            'primary' => 1,
+            'net_type' => 1,
+            'ipv4_assignment' => 2,
+            'ipv4_address' => $this->generateIPv4Address(),
+            'description' => $this->generateDescription()
+        ];
+
+        $secondEntryID = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__IP',
+            $secondAttributes
+        );
+
+        $this->assertInternalType('int', $secondEntryID);
+        $this->isID($secondEntryID);
+
+        $entries = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $entries);
+        $this->assertCount(2, $entries);
+        $this->assertArrayHasKey(1, $entries);
+
+        $secondEntry = $entries[1];
+
+        $this->assertArrayHasKey('id', $secondEntry);
+        $id = (int) $secondEntry['id'];
+        $this->assertSame($secondEntryID, $id);
+        $this->assertNotSame($firstEntryID, $secondEntryID);
+
+        foreach ($secondAttributes as $attribute => $value) {
+            $this->assertArrayHasKey($attribute, $secondAttributes);
+        }
     }
 
     /**
@@ -53,13 +384,13 @@ class CMDBCategoryTest extends BaseTest {
     public function testCreate() {
         $objectID = $this->createServer();
 
-        $entryID = $this->instance->create(
+        $entryID = $this->cmdbCategory->create(
             $objectID,
             'C__CATG__IP',
             [
                 'net' => $this->getIPv4Net(),
-                'active' => false,
-                'primary' => false,
+                'active' => 0,
+                'primary' => 0,
                 'net_type' => 1,
                 'ipv4_assignment' => 2,
                 'ipv4_address' => $this->generateIPv4Address(),
@@ -77,7 +408,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
         $this->defineModel($objectID);
 
-        $result = $this->instance->read(
+        $result = $this->cmdbCategory->read(
             $objectID,
             'C__CATG__MODEL'
         );
@@ -94,7 +425,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryID = $this->defineModel($objectID);
 
         // Test single-value category:
-        $result = $this->instance->readOneByID(
+        $result = $this->cmdbCategory->readOneByID(
             $objectID,
             'C__CATG__MODEL',
             $entryID
@@ -107,7 +438,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryID = $this->addIPv4($objectID);
 
         // Test multi-value category:
-        $result = $this->instance->readOneByID(
+        $result = $this->cmdbCategory->readOneByID(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -126,7 +457,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->defineModel($objectID);
 
         // Test single-value category:
-        $result = $this->instance->readFirst(
+        $result = $this->cmdbCategory->readFirst(
             $objectID,
             'C__CATG__MODEL'
         );
@@ -138,7 +469,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->addIPv4($objectID);
 
         // Test multi-value category:
-        $result = $this->instance->readFirst(
+        $result = $this->cmdbCategory->readFirst(
             $objectID,
             'C__CATG__IP'
         );
@@ -148,7 +479,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertArrayHasKey('id', $result);
 
         // Test empty category (no entry for object):
-        $result = $this->instance->readFirst(
+        $result = $this->cmdbCategory->readFirst(
             $objectID,
             'C__CATG__ACCESS'
         );
@@ -164,7 +495,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
 
         // Test single-value category:
-        $itself = $this->instance->update(
+        $itself = $this->cmdbCategory->update(
             $objectID,
             'C__CATG__GLOBAL',
             [
@@ -183,7 +514,7 @@ class CMDBCategoryTest extends BaseTest {
         }
 
         for ($i = 0; $i < $amount; $i++) {
-            $itself = $this->instance->update($objectID, 'C__CATG__IP', [
+            $itself = $this->cmdbCategory->update($objectID, 'C__CATG__IP', [
                 'ipv4_address' => $this->generateIPv4Address()
             ], $entryIDs[$i]);
 
@@ -201,7 +532,7 @@ class CMDBCategoryTest extends BaseTest {
         // @todo Not supported by i-doit!
 //        $entryID = $this->defineModel($objectID);
 //
-//        $itself = $this->instance->archive(
+//        $itself = $this->cmdbCategory->archive(
 //            $objectID,
 //            'C__CATG__MODEL',
 //            $entryID
@@ -212,7 +543,7 @@ class CMDBCategoryTest extends BaseTest {
         // Multi-valued category:
         $entryID = $this->addIPv4($objectID);
 
-        $itself = $this->instance->archive(
+        $itself = $this->cmdbCategory->archive(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -228,7 +559,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
         $entryID = $this->addIPv4($objectID);
 
-        $itself = $this->instance->delete(
+        $itself = $this->cmdbCategory->delete(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -244,7 +575,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
         $entryID = $this->addIPv4($objectID);
 
-        $itself = $this->instance->purge(
+        $itself = $this->cmdbCategory->purge(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -261,7 +592,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID2 = $this->createServer();
 
         // Single-valued category:
-        $result = $this->instance->batchCreate(
+        $result = $this->cmdbCategory->batchCreate(
             [$objectID1, $objectID2],
             'C__CATG__MODEL',
             [
@@ -283,14 +614,14 @@ class CMDBCategoryTest extends BaseTest {
         }
 
         // Multi-valued category:
-        $result = $this->instance->batchCreate(
+        $result = $this->cmdbCategory->batchCreate(
             [$objectID1, $objectID2],
             'C__CATG__IP',
             [
                 [
                     'net' => $this->getIPv4Net(),
-                    'active' => true,
-                    'primary' => true,
+                    'active' => 1,
+                    'primary' => 1,
                     'net_type' => 1,
                     'ipv4_assignment' => 2,
                     "ipv4_address" =>  $this->generateIPv4Address(),
@@ -298,8 +629,8 @@ class CMDBCategoryTest extends BaseTest {
                 ],
                 [
                     'net' => $this->getIPv4Net(),
-                    'active' => true,
-                    'primary' => false,
+                    'active' => 1,
+                    'primary' => 0,
                     'net_type' => 1,
                     'ipv4_assignment' => 2,
                     "ipv4_address" =>  $this->generateIPv4Address(),
@@ -328,7 +659,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->defineModel($objectID1);
         $this->defineModel($objectID2);
 
-        $batchResult = $this->instance->batchRead(
+        $batchResult = $this->cmdbCategory->batchRead(
             [$objectID1, $objectID2],
             ['C__CATG__IP', 'C__CATG__MODEL']
         );
@@ -356,7 +687,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryIDs[] = $this->defineModel($objectID1);
         $entryIDs[] = $this->defineModel($objectID2);
 
-        $itself = $this->instance->batchUpdate(
+        $itself = $this->cmdbCategory->batchUpdate(
             [$objectID1, $objectID2],
             'C__CATG__MODEL',
             [
@@ -379,7 +710,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->addIPv4($objectID);
         $this->addContact($objectID, 9, 1);
 
-        $result = $this->instance->clear($objectID, [
+        $result = $this->cmdbCategory->clear($objectID, [
             'C__CATG__IP',
             'C__CATG__CONTACT'
         ]);
@@ -394,7 +725,7 @@ class CMDBCategoryTest extends BaseTest {
     public function testClearEmptyCategory() {
         $objectID = $this->createServer();
 
-        $result = $this->instance->clear($objectID, [
+        $result = $this->cmdbCategory->clear($objectID, [
             'C__CATG__IP',
             'C__CATG__CONTACT'
         ]);

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+-   `CMDBCategory::save()`: Create new or update existing category entry for a specific object
 -   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 -   `API::rawRequest()`: Perform a low level API request
 -   `CMDBCategoryInfo::testGetVirtualCategoryConstants()`: Get list of constants for virtual categories
@@ -18,7 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
--   Add HTTP header `Expect: 100-continue` to each API call for huge calls/slow hosts
+-   Add HTTP header `Expect: 100-continue` to each API call, useful for huge calls/slow hosts
 -   Validate error object in response and throw all details about it
 
 

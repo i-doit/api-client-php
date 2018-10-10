@@ -30,11 +30,44 @@ namespace bheisig\idoitapi;
 class CMDBCategory extends Request {
 
     /**
+     * Create new or update existing category entry for a specific object
+     *
+     * Suitable for single- and multi-value categories
+     *
+     * @param int $objectID Object identifier
+     * @param string $categoryConstant Category constant
+     * @param array $attributes Attributes as key-value pairs
+     * @param int $entryID Entry identifier (only needed for multi-valued categories)
+     *
+     * @return int Entry identifier
+     *
+     * @throws \Exception on error
+     */
+    public function save($objectID, $categoryConstant, array $attributes, $entryID = null) {
+        $params = [
+            'object' => $objectID,
+            'data' => $attributes,
+            'category' => $categoryConstant
+        ];
+
+        if (isset($entryID)) {
+            $params['entry'] = $entryID;
+        }
+
+        $result = $this->api->request(
+            'cmdb.category.save',
+            $params
+        );
+
+        return $result['entry'];
+    }
+
+    /**
      * Creates a new category entry for a specific object
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
-     * @param array $attributes Attributes
+     * @param array $attributes Attributes as key-value pairs
      *
      * @return int Entry identifier
      *
@@ -72,7 +105,7 @@ class CMDBCategory extends Request {
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      *
-     * @return array[] Indexed array of result sets (for both single- and multi-valued categories)
+     * @return array Indexed array of result sets (for both single- and multi-valued categories)
      *
      * @throws \Exception on error
      */
@@ -149,7 +182,7 @@ class CMDBCategory extends Request {
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
-     * @param array $attributes Attributes
+     * @param array $attributes Attributes as key-value pairs
      * @param int $entryID Entry identifier (only needed for multi-valued categories)
      *
      * @return self Returns itself
@@ -269,11 +302,11 @@ class CMDBCategory extends Request {
     /**
      * Creates multiple entries for a specific category and one or more objects
      *
-     * @param int[] $objectIDs List of object identifiers
+     * @param array $objectIDs List of object identifiers as integers
      * @param string $categoryConst Category constant
-     * @param array[] $attributes Indexed array of attributes
+     * @param array $attributes Indexed array of attributes as key-value pairs
      *
-     * @return int[] Entry identifiers
+     * @return array List of entry identifiers as integers
      *
      * @throws \Exception on error
      */
@@ -319,8 +352,8 @@ class CMDBCategory extends Request {
     /**
      * Reads one or more category entries for one or more objects
      *
-     * @param int[] $objectIDs List of object identifiers
-     * @param string[] $categoryConsts List of category constants
+     * @param array $objectIDs List of object identifiers as integers
+     * @param array $categoryConsts List of category constants as strings
      *
      * @return array Indexed array of result sets (for both single- and multi-valued categories)
      *
@@ -347,9 +380,9 @@ class CMDBCategory extends Request {
     /**
      * Updates a single-valued category for one or more objects
      *
-     * @param int[] $objectIDs List of object identifiers
+     * @param array $objectIDs List of object identifiers as integers
      * @param string $categoryConst Category constant
-     * @param array $attributes List of attributes with keys and values
+     * @param array $attributes Attributes as key-value pairs
      *
      * @return self Returns itself
      *

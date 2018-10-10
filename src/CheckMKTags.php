@@ -50,7 +50,7 @@ class CheckMKTags extends Request {
     /**
      * Read host tags for one or more objects
      *
-     * @param int[] $objectIDs List of object identifiers
+     * @param array $objectIDs List of object identifiers as integers
      *
      * @return array
      *

@@ -70,7 +70,7 @@ class Idoit extends Request {
     /**
      * Performs one or more searches at once
      *
-     * @param string[] $queries Queries
+     * @param array $queries Queries as strings
      *
      * @return array Search results
      *

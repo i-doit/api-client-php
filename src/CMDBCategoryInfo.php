@@ -50,7 +50,7 @@ class CMDBCategoryInfo extends Request {
     /**
      * Fetches information about one or more categories
      *
-     * @param string[] $categories List of category constants
+     * @param array $categories List of category constants as strings
      *
      * @return array Indexed array of associative arrays
      *

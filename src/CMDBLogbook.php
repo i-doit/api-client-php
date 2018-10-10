@@ -71,7 +71,7 @@ class CMDBLogbook extends Request {
      * Create one or more logbook entries for a specific object
      *
      * @param int $objectID Object identifier
-     * @param string[] $messages List of messages
+     * @param array $messages List of messages as strings
      *
      * @return self Returns itself
      *

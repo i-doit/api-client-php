@@ -287,7 +287,7 @@ class AttributeTest extends BaseTest {
     /**
      * @param array $properties Information about attribute
      *
-     * @return int|int[] Object identifier(s)
+     * @return int|array Object identifier(s) as integer(s)
      *
      * @throws \Exception on error
      */

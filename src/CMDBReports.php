@@ -69,7 +69,7 @@ class CMDBReports extends Request {
     /**
      * Fetches the result of one or more reports
      *
-     * @param int[] $reportIDs List of report identifiers
+     * @param array $reportIDs List of report identifiers as integers
      *
      * @return array Indexed array of arrays
      *

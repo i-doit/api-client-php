@@ -85,7 +85,7 @@ class CheckMKStaticTag extends Request {
      * required attributes per tag: "tag", "title";
      * optional attributes per tag: "group", "export", "description"
      *
-     * @return int[] List of identifiers
+     * @return array List of identifiers as integers
      *
      * @throws \Exception on error
      */
@@ -167,7 +167,7 @@ class CheckMKStaticTag extends Request {
     /**
      * Read all static hosts tags filtered by their identifiers
      *
-     * @param int[] $ids List of identifiers
+     * @param array $ids List of identifiers as integers
      *
      * @return array
      *
@@ -264,7 +264,7 @@ class CheckMKStaticTag extends Request {
     /**
      * Delete one or more static host tags be their identifiers
      *
-     * @param int[] $ids List of identifiers
+     * @param array $ids List of identifiers as integers
      *
      * @return self Returns itself
      *

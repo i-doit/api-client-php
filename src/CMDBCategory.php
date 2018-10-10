@@ -422,7 +422,7 @@ class CMDBCategory extends Request {
      * Archive category entries for a specific object
      *
      * @param int $objectID Object identifier
-     * @param string[] $categoryConsts List of category constants
+     * @param array $categoryConsts List of category constants as strings
      *
      * @return int Number of purged category entries
      *

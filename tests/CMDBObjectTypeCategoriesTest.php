@@ -40,12 +40,12 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     protected $instance;
 
     /**
-     * @var int[] List of object type identifiers
+     * @var array List of object type identifiers as integers
      */
     protected $objectTypeIDs = [];
 
     /**
-     * @var string[] List of object type constants
+     * @var array List of object type constants as strings
      */
     protected $objectTypeConsts = [];
 

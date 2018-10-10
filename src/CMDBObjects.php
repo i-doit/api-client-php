@@ -124,7 +124,7 @@ class CMDBObjects extends Request {
     /**
      * Fetches objects by their identifiers
      *
-     * @param int[] $objectIDs List of object identifiers
+     * @param array $objectIDs List of object identifiers as integers
      *
      * @return array Indexed array of associative arrays
      *
@@ -275,7 +275,7 @@ class CMDBObjects extends Request {
     /**
      * Archives one or more objects
      *
-     * @param int[] $objectIDs List of object identifiers
+     * @param array $objectIDs List of object identifiers as integers
      *
      * @return self Returns itself
      *
@@ -302,7 +302,7 @@ class CMDBObjects extends Request {
     /**
      * Deletes one or more objects
      *
-     * @param int[] $objectIDs List of object identifiers
+     * @param array $objectIDs List of object identifiers as integers
      *
      * @return self Returns itself
      *
@@ -329,7 +329,7 @@ class CMDBObjects extends Request {
     /**
      * Purges one or more objects
      *
-     * @param int[] $objectIDs List of object identifiers
+     * @param array $objectIDs List of object identifiers as integers
      *
      * @return self Returns itself
      *

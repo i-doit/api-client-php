@@ -123,8 +123,8 @@ class SelectTest extends BaseTest {
             'C__CATG__IP',
             [
                 'net' => $this->getIPv4Net(),
-                'active' => false,
-                'primary' => false,
+                'active' => 0,
+                'primary' => 0,
                 'net_type' => 1,
                 'ipv4_assignment' => 2,
                 "ipv4_address" =>  $ip,

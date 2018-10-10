@@ -36,7 +36,7 @@ class Select extends Request {
      * @param string $attribute
      * @param mixed $value
      *
-     * @return int[] List of object identifiers
+     * @return array List of object identifiers as integers
      *
      * @throws \Exception on error
      */

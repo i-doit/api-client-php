@@ -68,7 +68,7 @@ class CMDBObjectTypeCategories extends Request {
     /**
      * Fetches assigned categories for one or more objects types at once identified by their identifiers
      *
-     * @param int[] $objectTypeIDs List of object types identifiers
+     * @param array $objectTypeIDs List of object types identifiers as integers
      *
      * @return array
      *
@@ -92,9 +92,9 @@ class CMDBObjectTypeCategories extends Request {
     /**
      * Fetches assigned categories for one or more objects types at once identified by their constants
      *
-     * @param string[] $objectTypeConsts List of object types constants
+     * @param array $objectTypeConsts List of object types constants as strings
      *
-     * @return array
+     * @return array Result
      *
      * @throws \Exception on error
      */

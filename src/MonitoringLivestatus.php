@@ -141,9 +141,9 @@ class MonitoringLivestatus extends Request {
     /**
      * Read all monitoring instances filtered by their identifiers
      *
-     * @param int[] $ids List of identifiers
+     * @param array $ids List of identifiers as integers
      *
-     * @return array
+     * @return array Result
      *
      * @throws \Exception on error
      */
@@ -267,7 +267,7 @@ class MonitoringLivestatus extends Request {
     /**
      * Delete one or more monitoring instances be their identifiers
      *
-     * @param int[] $ids List of identifiers
+     * @param array $ids List of identifiers as integers
      *
      * @return self Returns itself
      *

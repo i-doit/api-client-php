@@ -65,7 +65,7 @@ abstract class BaseTest extends TestCase {
     /**
      * List of valid object conditions ("status")
      *
-     * @var int[]
+     * @var array List of integers
      */
     protected $conditions = [
         1, // Unfinished

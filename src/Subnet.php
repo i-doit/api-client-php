@@ -32,7 +32,7 @@ class Subnet extends Request {
     /**
      * List of used IP addresses
      *
-     * @var string[]
+     * @var array List of strings
      */
     protected $taken = [];
 

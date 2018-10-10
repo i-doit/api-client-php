@@ -52,9 +52,9 @@ class CMDBWorkstationComponents extends Request {
     /**
      * Reads workplace components for one or more objects, for example persons
      *
-     * @param int[] $objectIDs List of object identifiers
+     * @param array $objectIDs List of object identifiers as integers
      *
-     * @return array
+     * @return array Result
      *
      * @throws \Exception on error
      */
@@ -92,7 +92,7 @@ class CMDBWorkstationComponents extends Request {
     /**
      * Reads workplace components for one or more objects by their e-mail addresses, for example persons
      *
-     * @param string[] $emails List of e-mail addresses
+     * @param array $emails List of e-mail addresses as strings
      *
      * @return array
      *

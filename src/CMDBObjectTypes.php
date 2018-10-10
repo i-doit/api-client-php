@@ -71,7 +71,7 @@ class CMDBObjectTypes extends Request {
     /**
      * Fetches information about one or more object types by their constants
      *
-     * @param string[] $objectTypes List of object type constants
+     * @param array $objectTypes List of object type constants as strings
      *
      * @return array Indexed array of associative arrays
      *

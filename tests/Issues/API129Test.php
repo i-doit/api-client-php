@@ -38,7 +38,7 @@ class API129Test extends BaseTest {
     /**
      * @throws \Exception
      */
-    public function testReproduceBug() {
+    public function testIssue() {
         $serverID = $this->cmdbObject->create('C__OBJTYPE__SERVER', 'My little server');
         $this->assertInternalType('int', $serverID);
         $this->assertGreaterThan(0, $serverID);

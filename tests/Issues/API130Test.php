@@ -39,7 +39,7 @@ class API130Test extends BaseTest {
     /**
      * @throws \Exception
      */
-    public function testReproduceBug() {
+    public function testIssue() {
         $objectID = $this->cmdbObject->create('C__OBJTYPE__SERVER', 'My host');
         $applicationID = $this->cmdbObject->create('C__OBJTYPE__APPLICATION', 'My app');
         $licenseID = $this->cmdbObject->create('C__OBJTYPE__LICENCE', 'My license');

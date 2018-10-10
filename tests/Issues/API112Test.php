@@ -38,36 +38,19 @@ class API112Test extends BaseTest {
     /**
      * @throws \Exception
      */
-    public function testReproduceBug() {
-        $netID = $this->cmdbObject->create('C__OBJTYPE__LAYER3_NET', $this->generateRandomString());
-        $this->cmdbCategory->create($netID, 'C__CATS__NET', [
-            'type' => 1, // IPv4
-            'address' => '10.0.0.0',
-            'netmask' => '255.0.0.0'
-        ]);
+    public function testIssue() {
+        $subnetID = $this->createSubnet();
 
         $amount = 5;
         $objectIDs = [];
 
         for ($index = 0; $index < $amount; $index++) {
             $objectID = $this->createServer();
-            $this->cmdbCategory->create(
-                $objectID,
-                'C__CATG__IP',
-                [
-                    'net' => $netID,
-                    'active' => 0,
-                    'primary' => 0,
-                    'net_type' => 1,
-                    'ipv4_assignment' => 2,
-                    'ipv4_address' => $this->generateIPv4Address(),
-                    'description' => $this->generateDescription()
-                ]
-            );
+            $this->addIPv4($objectID, $subnetID);
             $objectIDs[] = $objectID;
         }
 
-        $ipList = $this->cmdbCategory->read($netID, 'C__CATS__NET_IP_ADDRESSES');
+        $ipList = $this->cmdbCategory->read($subnetID, 'C__CATS__NET_IP_ADDRESSES');
 
         $this->assertInternalType('array', $ipList);
 
@@ -79,7 +62,7 @@ class API112Test extends BaseTest {
 
             $this->assertArrayHasKey('objID', $ipAddress);
             $objID = (int) $ipAddress['objID'];
-            $this->assertSame($netID, $objID);
+            $this->assertSame($subnetID, $objID);
 
             // This failed because of wrong object relations:
             $this->assertArrayHasKey('object', $ipAddress);
@@ -96,11 +79,7 @@ class API112Test extends BaseTest {
             // 'assigned_object' and 'object' are the same:
             $this->assertArrayHasKey('assigned_object', $ipAddress);
             $this->assertInternalType('array', $ipAddress['assigned_object']);
-            $this->assertArrayHasKey('id', $ipAddress['assigned_object']);
-            $this->assertArrayHasKey('title', $ipAddress['assigned_object']);
-            $this->assertArrayHasKey('sysid', $ipAddress['assigned_object']);
-            $this->assertArrayHasKey('type', $ipAddress['assigned_object']);
-            $this->assertArrayHasKey('type_title', $ipAddress['assigned_object']);
+            $this->isAssignedObject($ipAddress['assigned_object']);
             $this->assertSame($ipAddress['object']['id'], $ipAddress['assigned_object']['id']);
             $this->assertSame($ipAddress['object']['title'], $ipAddress['assigned_object']['title']);
             $this->assertSame($ipAddress['object']['sysid'], $ipAddress['assigned_object']['sysid']);

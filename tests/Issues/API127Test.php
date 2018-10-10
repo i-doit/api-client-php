@@ -38,7 +38,7 @@ class API127Test extends BaseTest {
     /**
      * @throws \Exception
      */
-    public function testReproduceBug() {
+    public function testIssue() {
         $objectID = $this->createServer();
         $entryID = $this->addIPv4($objectID);
 

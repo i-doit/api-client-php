@@ -41,7 +41,8 @@ class API134Test extends BaseTest {
     public function testCreate() {
         $this->performCall(
             'cmdb.category.create',
-            'Category entry successfully created. [This method is deprecated und will be removed in a feature release. Use \'cmdb.category.save\' instead.]'
+            'Category entry successfully created. ' .
+            '[This method is deprecated und will be removed in a feature release. Use \'cmdb.category.save\' instead.]'
         );
     }
 
@@ -51,7 +52,8 @@ class API134Test extends BaseTest {
     public function testUpdate() {
         $this->performCall(
             'cmdb.category.update',
-            'update: Category entry successfully created. [This method is deprecated und will be removed in a feature release. Use \'cmdb.category.save\' instead.'
+            'Category entry successfully saved. ' .
+            '[This method is deprecated und will be removed in a feature release. Use \'cmdb.category.save\' instead.]'
         );
     }
 

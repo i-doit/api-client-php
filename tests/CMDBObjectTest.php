@@ -57,8 +57,13 @@ class CMDBObjectTest extends BaseTest {
         );
 
         $this->assertInternalType('int', $objectID);
-        $this->assertGreaterThanOrEqual(1, $objectID);
+        $this->isID($objectID);
+    }
 
+    /**
+     * @throws \Exception on error
+     */
+    public function testCreateWithMoreAttributes() {
         $objectID = $this->object->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
@@ -71,7 +76,92 @@ class CMDBObjectTest extends BaseTest {
         );
 
         $this->assertInternalType('int', $objectID);
-        $this->assertGreaterThanOrEqual(1, $objectID);
+        $this->isID($objectID);
+    }
+
+    /**
+     * @group unreleased
+     * @throws \Exception on error
+     */
+    public function testCreateWithCategories() {
+        $result = $this->object->createWithCategories(
+            'C__OBJTYPE__SERVER',
+            $this->generateRandomString(),
+            [
+                'C__CATG__MODEL' => [
+                    [
+                        'manufacturer' => $this->generateRandomString(),
+                        'title' => $this->generateRandomString()
+                    ]
+                ],
+                'C__CATG__IP' => [
+                    [
+                        'net' => $this->getIPv4Net(),
+                        'active' => 1,
+                        'primary' => 1,
+                        'net_type' => 1,
+                        'ipv4_assignment' => 2,
+                        'ipv4_address' => $this->generateIPv4Address(),
+                        'description' => $this->generateDescription()
+                    ],
+                    [
+                        'net' => $this->getIPv4Net(),
+                        'active' => 1,
+                        'primary' => 0,
+                        'net_type' => 1,
+                        'ipv4_assignment' => 2,
+                        'ipv4_address' => $this->generateIPv4Address(),
+                        'description' => $this->generateDescription()
+                    ]
+                ]
+            ]
+        );
+
+        $this->assertArrayHasKey('id', $result);
+        $this->isID($result['id']);
+
+        $this->assertArrayHasKey('categories', $result);
+        $this->assertInternalType('array', $result['categories']);
+        $this->assertCount(2, $result['categories']);
+
+        $this->assertArrayHasKey('C__CATG__MODEL', $result['categories']);
+        $this->assertInternalType('array', $result['categories']['C__CATG__MODEL']);
+        $this->assertCount(1, $result['categories']['C__CATG__MODEL']);
+        $this->assertArrayHasKey(0, $result['categories']['C__CATG__MODEL']);
+        $this->isID($result['categories']['C__CATG__MODEL'][0]);
+
+        $this->assertArrayHasKey('C__CATG__IP', $result['categories']);
+        $this->assertInternalType('array', $result['categories']['C__CATG__IP']);
+        $this->assertCount(2, $result['categories']['C__CATG__IP']);
+        $this->assertArrayHasKey(0, $result['categories']['C__CATG__IP']);
+        $this->isID($result['categories']['C__CATG__IP'][0]);
+        $this->assertArrayHasKey(1, $result['categories']['C__CATG__IP']);
+        $this->isID($result['categories']['C__CATG__IP'][1]);
+
+        // Verify entries:
+
+        $objectID = $result['id'];
+        $modelEntryID = (int) $result['categories']['C__CATG__MODEL'][0];
+        $firstIPEntryID = $result['categories']['C__CATG__IP'][0];
+        $secondIPEntryID = $result['categories']['C__CATG__IP'][0];
+
+        $model = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__MODEL', $modelEntryID);
+        $this->assertArrayHasKey('id', $model);
+        $this->isIDAsString($model['id']);
+        $id = (int) $model['id'];
+        $this->assertSame($modelEntryID, $id);
+
+        $firstIPEntry = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__IP', $firstIPEntryID);
+        $this->assertArrayHasKey('id', $firstIPEntry);
+        $this->isIDAsString($firstIPEntry['id']);
+        $id = (int) $firstIPEntry['id'];
+        $this->assertSame($firstIPEntryID, $id);
+
+        $secondIPEntry = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__IP', $secondIPEntryID);
+        $this->assertArrayHasKey('id', $secondIPEntry);
+        $this->isIDAsString($secondIPEntry['id']);
+        $id = (int) $secondIPEntry['id'];
+        $this->assertSame($secondIPEntryID, $id);
     }
 
     /**

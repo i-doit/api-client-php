@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+-   `CMDBObject::createWithCategories()`: Create new object with category entries
 -   `CMDBCategory::save()`: Create new or update existing category entry for a specific object
 -   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 -   `API::rawRequest()`: Perform a low level API request

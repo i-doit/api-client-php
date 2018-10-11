@@ -30,7 +30,7 @@ namespace bheisig\idoitapi;
 class CMDBObject extends Request {
 
     /**
-     * Creates a new object
+     * Create new object
      *
      * @param int|string $type Object type identifier or its constant
      * @param string $title Object title
@@ -58,7 +58,37 @@ class CMDBObject extends Request {
     }
 
     /**
-     * Reads an object
+     * Create new object with category entries
+     *
+     * @param int|string $type Object type identifier or its constant
+     * @param string $title Object title
+     * @param array $categories Also create category entries;
+     * set category constant (string) as key and
+     * one (array of attributes) entry or even several entries (array of arrays) as value
+     * @param array $attributes (Optional) additional common attributes
+     * ('category', 'purpose', 'cmdb_status', 'description')
+     *
+     * @return array Result with object identifier ('id') and
+     * key-value pairs of category constants and array of category entry identifiers as integers
+     *
+     * @throws \Exception on error
+     */
+    public function createWithCategories($type, $title, array $categories = [], array $attributes = []) {
+        $attributes['type'] = $type;
+        $attributes['title'] = $title;
+
+        if (count($categories) > 0) {
+            $attributes['categories'] = $categories;
+        }
+
+        return $this->api->request(
+            'cmdb.object.create',
+            $attributes
+        );
+    }
+
+    /**
+     * Read common information about object
      *
      * @param int $objectID Object identifier
      *
@@ -73,7 +103,7 @@ class CMDBObject extends Request {
     }
 
     /**
-     * Updates an existing object
+     * Update existing object
      *
      * @param int $objectID Object identifier
      * @param array $attributes (Optional) common attributes (only 'title' is supported at the moment)
@@ -115,7 +145,7 @@ class CMDBObject extends Request {
     }
 
     /**
-     * Archives an object
+     * Archive object
      *
      * @param int $objectID Object identifier
      *
@@ -145,7 +175,7 @@ class CMDBObject extends Request {
     }
 
     /**
-     * Deletes an object
+     * Delete object
      *
      * @param int $objectID Object identifier
      *
@@ -175,7 +205,7 @@ class CMDBObject extends Request {
     }
 
     /**
-     * Purges an object
+     * Purge object
      *
      * @param int $objectID Object identifier
      *
@@ -229,7 +259,7 @@ class CMDBObject extends Request {
 //    }
 
     /**
-     * Loads all data of a specific object
+     * Load all data about object
      *
      * @param int $objectID Object identifier
      *
@@ -297,7 +327,7 @@ class CMDBObject extends Request {
     }
 
     /**
-     * Creates a new object or fetch an existing one based on its title and type
+     * Create new object or fetch existing one based on its title and type
      *
      * @param int|string $type Object type identifier or its constant
      * @param string $title Object title

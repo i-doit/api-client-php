@@ -412,18 +412,18 @@ abstract class BaseTest extends TestCase {
         $this->isIDAsString($object['id']);
 
         $this->assertArrayHasKey('title', $object);
-        $this->assertInternalType('string', $object);
+        $this->assertInternalType('string', $object['title']);
         $this->isOneLiner($object['title']);
 
         $this->assertArrayHasKey('sysid', $object);
-        $this->assertInternalType('sysid', $object);
+        $this->assertInternalType('string', $object['sysid']);
         $this->isOneLiner($object['sysid']);
 
         $this->assertArrayHasKey('type', $object);
         $this->isConstant($object['type']);
 
         $this->assertArrayHasKey('type_title', $object);
-        $this->assertInternalType('type_title', $object);
+        $this->assertInternalType('string', $object['type_title']);
         $this->isOneLiner($object['type_title']);
     }
 

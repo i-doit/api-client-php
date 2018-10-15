@@ -76,15 +76,8 @@ class API112Test extends BaseTest {
             $this->assertArrayHasKey('type', $ipAddress['object']);
             $this->assertArrayHasKey('type_title', $ipAddress['object']);
 
-            // 'assigned_object' and 'object' are the same:
-            $this->assertArrayHasKey('assigned_object', $ipAddress);
-            $this->assertInternalType('array', $ipAddress['assigned_object']);
-            $this->isAssignedObject($ipAddress['assigned_object']);
-            $this->assertSame($ipAddress['object']['id'], $ipAddress['assigned_object']['id']);
-            $this->assertSame($ipAddress['object']['title'], $ipAddress['assigned_object']['title']);
-            $this->assertSame($ipAddress['object']['sysid'], $ipAddress['assigned_object']['sysid']);
-            $this->assertSame($ipAddress['object']['type'], $ipAddress['assigned_object']['type']);
-            $this->assertSame($ipAddress['object']['type_title'], $ipAddress['assigned_object']['type_title']);
+            // There is no "assigned_object" any more because it's "virtual":
+            $this->assertArrayNotHasKey('assigned_object', $ipAddress);
         }
     }
 

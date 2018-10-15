@@ -31,7 +31,7 @@ use bheisig\idoitapi\CMDBObject;
 /**
  * @coversDefaultClass \bheisig\idoitapi\CMDBObject
  */
-class ObjectStatus extends BaseTest {
+class ObjectStatusTest extends BaseTest {
 
     /**
      * @group unreleased

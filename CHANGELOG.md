@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ##  [Unreleased]
 
+This release comes with some new features and tons of unit tests. To get the full experience, please update your i-doit to version >= 1.11.2 and API add-on to version >= 1.10.
+
 
 ### Added
 
 -   `CMDBObject::createWithCategories()`: Create new object with category entries
+-   `CMDBObject::recycle()`: Restore object to "normal" status
+-   `CMDBObject::markAsTemplate()`: Convert object to template
+-   `CMDBObject::markAsMassChangeTemplate()`: Convert object to mass change template
 -   `CMDBCategory::save()`: Create new or update existing category entry for a specific object
 -   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 -   `API::rawRequest()`: Perform a low level API request
@@ -20,6 +25,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+-   `CMDBObject::archive()`: Use new API method `cmdb.object.archive`
+-   `CMDBObject::delete()`: Use re-newed API method `cmdb.object.delete`
+-   `CMDBObject::purge()`: Use new API method `cmdb.object.purge`
 -   Add HTTP header `Expect: 100-continue` to each API call, useful for huge calls/slow hosts
 -   Validate error object in response and throw all details about it
 

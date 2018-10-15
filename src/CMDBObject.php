@@ -154,28 +154,18 @@ class CMDBObject extends Request {
      * @throws \Exception on error
      */
     public function archive($objectID) {
-        $result = $this->api->request(
-            'cmdb.object.delete',
+        $this->api->request(
+            'cmdb.object.archive',
             [
-                'id' => $objectID,
-                'status' => 'C__RECORD_STATUS__ARCHIVED'
+                'object' => $objectID
             ]
         );
-
-        if (!is_array($result) ||
-            !array_key_exists('success', $result) ||
-            $result['success'] === false) {
-            throw new \RuntimeException(sprintf(
-                'Unable to archive object %s',
-                $objectID
-            ));
-        }
 
         return $this;
     }
 
     /**
-     * Delete object
+     * Mark object as deleted (it's still available)
      *
      * @param int $objectID Object identifier
      *
@@ -184,28 +174,18 @@ class CMDBObject extends Request {
      * @throws \Exception on error
      */
     public function delete($objectID) {
-        $result = $this->api->request(
+        $this->api->request(
             'cmdb.object.delete',
             [
-                'id' => $objectID,
-                'status' => 'C__RECORD_STATUS__DELETED'
+                'object' => $objectID
             ]
         );
-
-        if (!is_array($result) ||
-            !array_key_exists('success', $result) ||
-            $result['success'] === false) {
-            throw new \RuntimeException(sprintf(
-                'Unable to delete object %s',
-                $objectID
-            ));
-        }
 
         return $this;
     }
 
     /**
-     * Purge object
+     * Purge object (delete it irrevocable)
      *
      * @param int $objectID Object identifier
      *
@@ -214,49 +194,81 @@ class CMDBObject extends Request {
      * @throws \Exception on error
      */
     public function purge($objectID) {
-        $result = $this->api->request(
+        $this->api->request(
             'cmdb.object.delete',
             [
-                'id' => $objectID,
-                'status' => 'C__RECORD_STATUS__PURGE'
+                'object' => $objectID
             ]
         );
-
-        if (!is_array($result) ||
-            !array_key_exists('success', $result) ||
-            $result['success'] === false) {
-            throw new \RuntimeException(sprintf(
-                'Unable to purge object %s',
-                $objectID
-            ));
-        }
 
         return $this;
     }
 
-// @todo Does not work:
-//    public function restore($objectID) {
-//        $result = $this->api->request(
-//            'cmdb.category.update',
-//            [
-//                'objID' => $objectID,
-//                'category' => 'C__CATG__GLOBAL',
-//                'data' => [
-//                    // C__RECORD_STATUS__NORMAL
-//                    'status' => 2
-//                ]
-//            ]
-//        );
-//
-//        if (!is_array($result) ||
-//            !array_key_exists('success', $result) ||
-//            $result['success'] === false) {
-//            throw new \RuntimeException(sprintf(
-//                'Unable to restore object %s',
-//                $objectID
-//            ));
-//        }
-//    }
+    /**
+     * Convert object to template
+     *
+     * Works only for "normal objects" and "mass change templates"
+     *
+     * @param int $objectID Object identifier
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function markAsTemplate($objectID) {
+        $this->api->request(
+            'cmdb.object.markAsTemplate',
+            [
+                'object' => $objectID
+            ]
+        );
+
+        return $this;
+    }
+
+    /**
+     * Convert object to mass change template
+     *
+     * Works only for "normal objects" and "templates"
+     *
+     * @param int $objectID Object identifier
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function markAsMassChangeTemplate($objectID) {
+        $this->api->request(
+            'cmdb.object.markAsMassChangeTemplate',
+            [
+                'object' => $objectID
+            ]
+        );
+
+        return $this;
+    }
+
+    /**
+     * Restore object to "normal" status
+     *
+     * Works with archived and deleted objects, templates and mass change templates
+     *
+     * @param int $objectID Object identifier
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function recycle($objectID) {
+        $this->api->request(
+            'cmdb.object.recycle',
+            [
+                'object' => $objectID
+            ]
+        );
+
+        return $this;
+    }
 
     /**
      * Load all data about object

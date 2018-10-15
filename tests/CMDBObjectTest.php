@@ -34,24 +34,10 @@ use bheisig\idoitapi\CMDBObject;
 class CMDBObjectTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBObject
-     */
-    protected $object;
-
-    /**
-     * @throws \Exception on error
-     */
-    public function setUp() {
-        parent::setUp();
-
-        $this->object = new CMDBObject($this->api);
-    }
-
-    /**
      * @throws \Exception on error
      */
     public function testCreate() {
-        $objectID = $this->object->create(
+        $objectID = $this->cmdbObject->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString()
         );
@@ -64,7 +50,7 @@ class CMDBObjectTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testCreateWithMoreAttributes() {
-        $objectID = $this->object->create(
+        $objectID = $this->cmdbObject->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
             [
@@ -84,7 +70,7 @@ class CMDBObjectTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testCreateWithCategories() {
-        $result = $this->object->createWithCategories(
+        $result = $this->cmdbObject->createWithCategories(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
             [
@@ -170,7 +156,7 @@ class CMDBObjectTest extends BaseTest {
     public function testRead() {
         $objectID = $this->createServer();
 
-        $result = $this->object->read($objectID);
+        $result = $this->cmdbObject->read($objectID);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
@@ -246,43 +232,7 @@ class CMDBObjectTest extends BaseTest {
 
         $this->assertInstanceOf(
             CMDBObject::class,
-            $this->object->update($objectID, ['title' => 'Anne Admin'])
-        );
-    }
-
-    /**
-     * @throws \Exception on error
-     */
-    public function testArchive() {
-        $objectID = $this->createServer();
-
-        $this->assertInstanceOf(
-            CMDBObject::class,
-            $this->object->archive($objectID)
-        );
-    }
-
-    /**
-     * @throws \Exception on error
-     */
-    public function testDelete() {
-        $objectID = $this->createServer();
-
-        $this->assertInstanceOf(
-            CMDBObject::class,
-            $this->object->delete($objectID)
-        );
-    }
-
-    /**
-     * @throws \Exception on error
-     */
-    public function testPurge() {
-        $objectID = $this->createServer();
-
-        $this->assertInstanceOf(
-            CMDBObject::class,
-            $this->object->purge($objectID)
+            $this->cmdbObject->update($objectID, ['title' => 'Anne Admin'])
         );
     }
 
@@ -292,7 +242,7 @@ class CMDBObjectTest extends BaseTest {
     public function testLoad() {
         $objectID = $this->createServer();
 
-        $result = $this->object->load($objectID);
+        $result = $this->cmdbObject->load($objectID);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
@@ -305,14 +255,14 @@ class CMDBObjectTest extends BaseTest {
         $title = $this->generateRandomString();
 
         // Exists:
-        $objectID = $this->object->create('C__OBJTYPE__SERVER', $title);
-        $result = $this->object->upsert('C__OBJTYPE__SERVER', $title, ['purpose' => 'Private stuff']);
+        $objectID = $this->cmdbObject->create('C__OBJTYPE__SERVER', $title);
+        $result = $this->cmdbObject->upsert('C__OBJTYPE__SERVER', $title, ['purpose' => 'Private stuff']);
 
         $this->assertInternalType('int', $result);
         $this->assertSame($objectID, $result);
 
         // Does not exist:
-        $result = $this->object->upsert('C__OBJTYPE__SERVER', $this->generateRandomString());
+        $result = $this->cmdbObject->upsert('C__OBJTYPE__SERVER', $this->generateRandomString());
 
         $this->assertInternalType('int', $result);
         $this->assertGreaterThan(0, $result);

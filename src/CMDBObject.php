@@ -195,7 +195,7 @@ class CMDBObject extends Request {
      */
     public function purge($objectID) {
         $this->api->request(
-            'cmdb.object.delete',
+            'cmdb.object.purge',
             [
                 'object' => $objectID
             ]

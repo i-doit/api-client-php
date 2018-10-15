@@ -57,10 +57,6 @@ class API131Test extends BaseTest {
         $this->isIDAsString($entry['objID']);
         $this->assertSame($objectID, (int) $entry['objID']);
 
-        $this->assertArrayHasKey('title', $entry);
-        $this->assertInternalType('string', $entry['title']);
-        $this->assertSame($title, $entry['title']);
-
         $this->assertArrayHasKey('first_name', $entry);
         $this->assertInternalType('string', $entry['first_name']);
         $this->assertSame($firstName, $entry['first_name']);
@@ -90,10 +86,6 @@ class API131Test extends BaseTest {
         $this->isIDAsString($updatedEntry['objID']);
         $this->assertSame($objectID, (int) $updatedEntry['objID']);
 
-        $this->assertArrayHasKey('title', $updatedEntry);
-        $this->assertInternalType('string', $updatedEntry['title']);
-        $this->assertSame($newTitle, $updatedEntry['title']);
-
         $this->assertArrayHasKey('first_name', $updatedEntry);
         $this->assertInternalType('string', $updatedEntry['first_name']);
         $this->assertSame($newFirstName, $updatedEntry['first_name']);
@@ -117,10 +109,6 @@ class API131Test extends BaseTest {
         $this->assertArrayHasKey('objID', $entry);
         $this->isIDAsString($entry['objID']);
         $this->assertSame($objectID, (int) $entry['objID']);
-
-        $this->assertArrayHasKey('title', $entry);
-        $this->assertInternalType('string', $entry['title']);
-        $this->assertSame($title, $entry['title']);
 
         $this->assertArrayHasKey('first_name', $entry);
         $this->assertInternalType('string', $entry['first_name']);

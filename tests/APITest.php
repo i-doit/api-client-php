@@ -303,6 +303,7 @@ class APITest extends BaseTest {
 
     /**
      * @group unreleased
+     * @group API-107
      * @throws \Exception on error
      */
     public function testRequestWithMissingApiKey() {
@@ -323,6 +324,7 @@ class APITest extends BaseTest {
 
     /**
      * @group unreleased
+     * @group API-107
      * @throws \Exception on error
      */
     public function testRequestWithInvalidApiKeys() {
@@ -583,6 +585,7 @@ class APITest extends BaseTest {
 
     /**
      * @group unreleased
+     * @group API-118
      * @throws \Exception on error
      */
     public function testRepeatingIdentifiersInBatchRequest() {
@@ -623,6 +626,7 @@ class APITest extends BaseTest {
 
     /**
      * @group unreleased
+     * @group API-119
      * @throws \Exception on error
      */
     public function testVariousApiKeysInBatchRequest() {
@@ -657,15 +661,16 @@ class APITest extends BaseTest {
 
         $this->assertInternalType('array', $response);
         $this->isError($response);
-        $this->hasValidJSONRPCIdentifier($request, $response);
+        $this->assertNull($response['id']);
         $this->assertSame(-32602, $response['error']['code']);
     }
 
     /**
      * @group unreleased
+     * @group API-77
      * @throws \Exception on error
      * @todo At the moment this library expects a JSON string in response body, so this test will fail.
-     * @expectedException \Exception (remove me!)
+     * @expectedException \Exception
      */
     public function testNotification() {
         $request = [
@@ -683,9 +688,10 @@ class APITest extends BaseTest {
 
     /**
      * @group unreleased
+     * @group API-77
      * @throws \Exception on error
      * @todo At the moment this library expects a JSON string in response body, so this test will fail.
-     * @expectedException \Exception (remove me!)
+     * @expectedException \Exception
      */
     public function testOnlyNotificationsInBatchRequest() {
         $request = [
@@ -719,6 +725,7 @@ class APITest extends BaseTest {
 
     /**
      * @group unreleased
+     * @group API-77
      * @throws \Exception on error
      */
     public function testSomeNotificationsInBatchRequest() {

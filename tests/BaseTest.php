@@ -85,12 +85,17 @@ abstract class BaseTest extends TestCase {
         $dotenv = new Dotenv();
         $dotenv->load(__DIR__ . '/../.env');
 
-        $this->api = new API([
+        $config = [
             'url' => getenv('URL'),
-            'key' => getenv('KEY'),
-            'username' => getenv('USERNAME'),
-            'password' => getenv('PASSWORD')
-        ]);
+            'key' => getenv('KEY')
+        ];
+
+        if (getenv('USERNAME') !== false && getenv('PASSWORD') !== false) {
+            $config['username'] = getenv('USERNAME');
+            $config['password'] = getenv('PASSWORD');
+        }
+
+        $this->api = new API($config);
 
         $this->cmdbObject = new CMDBObject($this->api);
         $this->cmdbObjects = new CMDBObjects($this->api);

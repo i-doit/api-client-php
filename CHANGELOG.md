@@ -18,6 +18,7 @@ This release comes with new features and tons of unit tests. To get the full exp
 -   `CMDBObject::markAsTemplate()`: Convert object to template
 -   `CMDBObject::markAsMassChangeTemplate()`: Convert object to mass change template
 -   `CMDBCategory::save()`: Create new or update existing category entry for a specific object
+-   `CMDBCategory::read()`, `CMDBCategory::readOneByID()`: Filter entry/entries by status
 -   `CMDBCategory::archive()`: Archive entry in a multi-value category for a specific object
 -   `CMDBCategory::delete()`: Marks entry in a multi-value category for a specific object as deleted
 -   `CMDBCategory::purge()`: Purge entry in a multi-value category for a specific object

@@ -376,6 +376,48 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
+     * @group unreleased
+     * @group API-79
+     * @throws \Exception on error
+     * @expectedException \Exception
+     */
+    public function testSaveUnknownAttribute() {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $result = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__MODEL',
+            [
+                'unknown' => $this->generateRandomString()
+            ]
+        );
+
+        $this->isID($result);
+    }
+
+    /**
+     * @group unreleased
+     * @group API-78
+     * @throws \Exception on error
+     * @expectedException \Exception
+     */
+    public function testSaveInvalidAttribute() {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $result = $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__MODEL',
+            [
+                'serial' => [1, 2, 3]
+            ]
+        );
+
+        $this->isID($result);
+    }
+
+    /**
      * @throws \Exception on error
      */
     public function testCreate() {
@@ -401,9 +443,12 @@ class CMDBCategoryTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testRead() {
+    public function testReadSingleValueCategory() {
         $objectID = $this->createServer();
-        $this->defineModel($objectID);
+        $this->isID($objectID);
+
+        $entryID = $this->defineModel($objectID);
+        $this->isID($entryID);
 
         $result = $this->cmdbCategory->read(
             $objectID,
@@ -411,17 +456,283 @@ class CMDBCategoryTest extends BaseTest {
         );
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey(0, $result);
+        $this->assertInternalType('array', $result[0]);
+
+        $this->assertArrayHasKey('id', $result[0]);
+        $this->isIDAsString($result[0]['id']);
+        $this->assertSame($entryID, (int) $result[0]['id']);
+
+        $this->assertArrayHasKey('objID', $result[0]);
+        $this->isIDAsString($result[0]['objID']);
+        $this->assertSame($objectID, (int) $result[0]['objID']);
     }
 
     /**
      * @throws \Exception on error
      */
-    public function testReadOneByIdentifier() {
+    public function testReadEntriesInMultiValueCategory() {
         $objectID = $this->createServer();
-        $entryID = $this->defineModel($objectID);
+        $this->isID($objectID);
 
-        // Test single-value category:
+        $numberOfEntries = 3;
+        $entryIDs = [];
+
+        for ($index = 0; $index < $numberOfEntries; $index++) {
+            $entryIDs[] = $entryID = $this->addIPv4($objectID);
+            $this->isID($entryID);
+        }
+
+        $result = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount($numberOfEntries, $result);
+
+        foreach ($result as $index => $entry) {
+            $this->assertInternalType('int', $index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertInternalType('array', $entry);
+
+            $this->assertArrayHasKey('id', $entry);
+            $this->isIDAsString($entry['id']);
+            $this->assertArrayHasKey($index, $entryIDs);
+            $this->assertSame($entryIDs[$index], (int) $entry['id']);
+
+            $this->assertArrayHasKey('objID', $entry);
+            $this->isIDAsString($entry['objID']);
+            $this->assertSame($objectID, (int) $entry['objID']);
+        }
+    }
+
+    /**
+     * @group unreleased
+     * @group API-99
+     * @throws \Exception on error
+     */
+    public function testReadArchivedEntriesInMultiValueCategory() {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $numberOfEntries = 3;
+        $entryIDs = [];
+
+        for ($index = 0; $index < $numberOfEntries; $index++) {
+            $entryIDs[] = $entryID = $this->addIPv4($objectID);
+            $this->isID($entryID);
+        }
+
+        $result = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount($numberOfEntries, $result);
+
+        // Rank the first entry:
+        $rankedEntryID = $entryIDs[0];
+        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $rankedEntryID);
+
+        // Read it:
+        $result = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP',
+            3 // Archived
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey(0, $result);
+        $this->assertInternalType('array', $result[0]);
+
+        $this->assertArrayHasKey('id', $result[0]);
+        $this->isIDAsString($result[0]['id']);
+        $this->assertSame($rankedEntryID, (int) $result[0]['id']);
+
+        $this->assertArrayHasKey('objID', $result[0]);
+        $this->isIDAsString($result[0]['objID']);
+        $this->assertSame($objectID, (int) $result[0]['objID']);
+
+        // Check the other entries:
+        $result = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP',
+            2
+        );
+
+        $this->assertInternalType('array', $result);
+        // Only 2 left:
+        $this->assertCount(2, $result);
+
+        foreach ($result as $index => $entry) {
+            $this->assertInternalType('int', $index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertInternalType('array', $entry);
+
+            $this->assertArrayHasKey('id', $entry);
+            $this->isIDAsString($entry['id']);
+            $this->assertContains((int) $entry['id'], $entryIDs);
+            $this->assertNotSame($rankedEntryID, (int) $entry['id']);
+
+            $this->assertArrayHasKey('objID', $entry);
+            $this->isIDAsString($entry['objID']);
+            $this->assertSame($objectID, (int) $entry['objID']);
+        }
+    }
+
+    /**
+     * @group unreleased
+     * @group API-99
+     * @throws \Exception on error
+     */
+    public function testReadDeletedEntriesInMultiValueCategory() {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $numberOfEntries = 3;
+        $entryIDs = [];
+
+        for ($index = 0; $index < $numberOfEntries; $index++) {
+            $entryIDs[] = $entryID = $this->addIPv4($objectID);
+            $this->isID($entryID);
+        }
+
+        $result = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount($numberOfEntries, $result);
+
+        // Rank the first entry:
+        $rankedEntryID = $entryIDs[0];
+        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $rankedEntryID);
+
+        // Read it:
+        $result = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP',
+            4 // Deleted
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey(0, $result);
+        $this->assertInternalType('array', $result[0]);
+
+        $this->assertArrayHasKey('id', $result[0]);
+        $this->isIDAsString($result[0]['id']);
+        $this->assertSame($rankedEntryID, (int) $result[0]['id']);
+
+        $this->assertArrayHasKey('objID', $result[0]);
+        $this->isIDAsString($result[0]['objID']);
+        $this->assertSame($objectID, (int) $result[0]['objID']);
+
+        // Check the other entries:
+        $result = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP',
+            2
+        );
+
+        $this->assertInternalType('array', $result);
+        // Only 2 left:
+        $this->assertCount(2, $result);
+
+        foreach ($result as $index => $entry) {
+            $this->assertInternalType('int', $index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertInternalType('array', $entry);
+
+            $this->assertArrayHasKey('id', $entry);
+            $this->isIDAsString($entry['id']);
+            $this->assertContains((int) $entry['id'], $entryIDs);
+            $this->assertNotSame($rankedEntryID, (int) $entry['id']);
+
+            $this->assertArrayHasKey('objID', $entry);
+            $this->isIDAsString($entry['objID']);
+            $this->assertSame($objectID, (int) $entry['objID']);
+        }
+    }
+
+    /**
+     * @group unreleased
+     * @group API-99
+     * @throws \Exception on error
+     */
+    public function testReadEntriesInMultiValueCategoryByAllStates() {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $numberOfEntries = 3;
+        $entryIDs = [];
+
+        for ($index = 0; $index < $numberOfEntries; $index++) {
+            $entryIDs[] = $entryID = $this->addIPv4($objectID);
+            $this->isID($entryID);
+        }
+
+        $result = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP'
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount($numberOfEntries, $result);
+
+        // Archive the first one:
+        $archivedEntryID = $entryIDs[0];
+        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $archivedEntryID);
+
+        // Delete the second one:
+        $deletedEntryID = $entryIDs[1];
+        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $deletedEntryID);
+
+        // Read all of them:
+        $result = $this->cmdbCategory->read(
+            $objectID,
+            'C__CATG__IP',
+            -1 // All
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount($numberOfEntries, $result);
+
+        foreach ($result as $index => $entry) {
+            $this->assertInternalType('int', $index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertInternalType('array', $entry);
+
+            $this->assertArrayHasKey('id', $entry);
+            $this->isIDAsString($entry['id']);
+            $this->assertArrayHasKey($index, $entryIDs);
+            $this->assertSame($entryIDs[$index], (int) $entry['id']);
+
+            $this->assertArrayHasKey('objID', $entry);
+            $this->isIDAsString($entry['objID']);
+            $this->assertSame($objectID, (int) $entry['objID']);
+        }
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testReadOneSingleValueCategoryByItsIdentifier() {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $entryID = $this->defineModel($objectID);
+        $this->isID($entryID);
+
         $result = $this->cmdbCategory->readOneByID(
             $objectID,
             'C__CATG__MODEL',
@@ -429,12 +740,26 @@ class CMDBCategoryTest extends BaseTest {
         );
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+
         $this->assertArrayHasKey('id', $result);
+        $this->isIDAsString($result['id']);
+        $this->assertSame($entryID, (int) $result['id']);
+
+        $this->assertArrayHasKey('objID', $result);
+        $this->isIDAsString($result['objID']);
+        $this->assertSame($objectID, (int) $result['objID']);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testReadOneEntryInMultiValueCategoryByItsIdentifier() {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
 
         $entryID = $this->addIPv4($objectID);
+        $this->isID($entryID);
 
-        // Test multi-value category:
         $result = $this->cmdbCategory->readOneByID(
             $objectID,
             'C__CATG__IP',
@@ -442,8 +767,14 @@ class CMDBCategoryTest extends BaseTest {
         );
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+
         $this->assertArrayHasKey('id', $result);
+        $this->isIDAsString($result['id']);
+        $this->assertSame($entryID, (int) $result['id']);
+
+        $this->assertArrayHasKey('objID', $result);
+        $this->isIDAsString($result['objID']);
+        $this->assertSame($objectID, (int) $result['objID']);
     }
 
     /**

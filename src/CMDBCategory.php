@@ -104,7 +104,13 @@ class CMDBCategory extends Request {
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
-     * @param int $status All: 0; normal: 2; archived: 3; deleted: 4; defaults to 2 (normal)
+     * @param int $status Filter entries by status:
+     * 2 = normal;
+     * 3 = archived;
+     * 4 = deleted,
+     * -1 = combination of all;
+     * defaults to: 2 = normal;
+     * note: a status != 2 is only suitable for multi-value categories
      *
      * @return array Indexed array of result sets (for both single- and multi-valued categories)
      *
@@ -127,7 +133,13 @@ class CMDBCategory extends Request {
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      * @param int $entryID Entry identifier
-     * @param int $status All: 0; normal: 2; archived: 3; deleted: 4; defaults to 2 (normal)
+     * @param int $status Filter entry by status:
+     * 2 = normal;
+     * 3 = archived;
+     * 4 = deleted,
+     * -1 = combination of all;
+     * defaults to: 2 = normal;
+     * note: a status != 2 is only suitable for multi-value categories
      *
      * @return array Associative array
      *

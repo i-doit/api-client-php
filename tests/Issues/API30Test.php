@@ -39,19 +39,83 @@ class API30Test extends BaseTest {
      * @throws \Exception on error
      */
     public function testIssue() {
-//        $cableID = $this->cmdbObject->create(
-//            'C__OBJTYPE__CABLE',
-//            $this->generateRandomString()
-//        );
-//
-//        $wireID = $this->cmdbCategory->create(
-//            $cableID,
-//            '',
-//            [
-//                'label' => $this->generateRandomString(),
-//
-//            ]
-//        );
+        $hostAID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            'Host A'
+        );
+        $this->isID($hostAID);
+
+        $hostBID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            'Host B'
+        );
+        $this->isID($hostBID);
+
+        $cableID = $this->cmdbObject->create(
+            'C__OBJTYPE__CABLE',
+            'Cabel A <=> B'
+        );
+        $this->isID($cableID);
+
+        $rxID = $this->cmdbCategory->save(
+            $cableID,
+            'C__CATG__FIBER_LEAD',
+            [
+                'label' => 'rx',
+                'color' => 'black',
+                'description' => $this->generateDescription()
+            ]
+        );
+        $this->isID($rxID);
+
+        $txID = $this->cmdbCategory->save(
+            $cableID,
+            'C__CATG__FIBER_LEAD',
+            [
+                'label' => 'tx',
+                'color' => 'white',
+                'description' => $this->generateDescription()
+            ]
+        );
+        $this->isID($txID);
+
+        $connectorAID = $this->cmdbCategory->save(
+            $hostAID,
+            'C__CATG__CONNECTOR',
+            [
+                'title' => 'Port A/1'
+            ]
+        );
+        $this->isID($connectorAID);
+
+        $connectorBID = $this->cmdbCategory->save(
+            $hostBID,
+            'C__CATG__CONNECTOR',
+            [
+                'title' => 'Port B/1'
+            ]
+        );
+        $this->isID($connectorBID);
+
+        $result = $this->cmdbCategory->save(
+            $hostAID,
+            'C__CATG__CONNECTOR',
+            [
+                'assigned_connector' => $connectorBID,
+                'cable_connection' => $cableID,
+                'used_fiber_lead_rx' => $rxID,
+                'used_fiber_lead_tx' => $txID
+            ],
+            $connectorAID
+        );
+        $this->isID($result);
+        $this->assertSame($connectorAID, $result);
+
+        $wires = $this->cmdbCategory->read($cableID, 'C__CATG__FIBER_LEAD');
+        $this->assertInternalType('array', $wires);
+        $this->assertCount(2, $wires);
+
+        // @todo Check whether both missing attributes are set properly!
     }
 
 }

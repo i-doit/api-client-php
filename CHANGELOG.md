@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ##  [Unreleased]
 
-This release comes with some new features and tons of unit tests. To get the full experience, please update your i-doit to version >= 1.11.2 and API add-on to version >= 1.10.
+This release comes with new features and tons of unit tests. To get the full experience, please update your i-doit to version >= 1.11.2 and API add-on to version >= 1.10.
 
 
 ### Added
@@ -18,6 +18,10 @@ This release comes with some new features and tons of unit tests. To get the ful
 -   `CMDBObject::markAsTemplate()`: Convert object to template
 -   `CMDBObject::markAsMassChangeTemplate()`: Convert object to mass change template
 -   `CMDBCategory::save()`: Create new or update existing category entry for a specific object
+-   `CMDBCategory::archive()`: Archive entry in a multi-value category for a specific object
+-   `CMDBCategory::delete()`: Marks entry in a multi-value category for a specific object as deleted
+-   `CMDBCategory::purge()`: Purge entry in a multi-value category for a specific object
+-   `CMDBCategory::recycle()`: Restore entry in a multi-value category for a specific object to "normal" state
 -   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 -   `API::rawRequest()`: Perform a low level API request
 -   `CMDBCategoryInfo::testGetVirtualCategoryConstants()`: Get list of constants for virtual categories
@@ -25,9 +29,11 @@ This release comes with some new features and tons of unit tests. To get the ful
 
 ### Changed
 
--   `CMDBObject::archive()`: Use new API method `cmdb.object.archive`
--   `CMDBObject::delete()`: Use re-newed API method `cmdb.object.delete`
--   `CMDBObject::purge()`: Use new API method `cmdb.object.purge`
+-   `CMDBObject::archive()`: Change to new API method `cmdb.object.archive`
+-   `CMDBObject::delete()`: Change to re-newed API method `cmdb.object.delete`
+-   `CMDBObject::purge()`: Change to new API method `cmdb.object.purge`
+-   `CMDBCategory::clear()`: Change to new API method `cmdb.object.archive`
+-   `CMDBCategory::purge()`: Re-name method `purge()` to `quickpurge()`
 -   Add HTTP header `Expect: 100-continue` to each API call, useful for huge calls/slow hosts
 -   Validate error object in response and throw all details about it
 

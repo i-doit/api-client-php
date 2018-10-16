@@ -111,4 +111,32 @@ class CMDBCategoryInfoTest extends BaseTest {
         }
     }
 
+    /**
+     * @group unreleased
+     * @group API-72
+     * @throws \Exception on error
+     */
+    public function testReadVirtualCategories() {
+        $categoryConstants = $this->instance->getVirtualCategoryConstants();
+
+        foreach ($categoryConstants as $categoryConstant) {
+            $request = [
+                'jsonrpc' => '2.0',
+                'method' => 'cmdb.category_info',
+                'params' => array(
+                    'category' => $categoryConstant,
+                    'apikey' => getenv('KEY')
+                ),
+                'id' => 1
+            ];
+
+            $response = $this->api->rawRequest($request);
+
+            $this->assertInternalType('array', $response);
+            $this->isError($response);
+            $this->hasValidJSONRPCIdentifier($request, $response);
+            $this->assertSame(-32099, $response['error']['code'], $categoryConstant);
+        }
+    }
+
 }

@@ -28,9 +28,6 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBCategory;
 
-/**
- * @coversDefaultClass \bheisig\idoitapi\CMDBCategory
- */
 class CMDBCategoryTest extends BaseTest {
 
     /**
@@ -525,68 +522,6 @@ class CMDBCategoryTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testArchive() {
-        $objectID = $this->createServer();
-
-        // Single-valued category:
-        // @todo Not supported by i-doit!
-//        $entryID = $this->defineModel($objectID);
-//
-//        $itself = $this->cmdbCategory->archive(
-//            $objectID,
-//            'C__CATG__MODEL',
-//            $entryID
-//        );
-//
-//        $this->assertInstanceOf(CMDBCategory::class, $itself);
-
-        // Multi-valued category:
-        $entryID = $this->addIPv4($objectID);
-
-        $itself = $this->cmdbCategory->archive(
-            $objectID,
-            'C__CATG__IP',
-            $entryID
-        );
-
-        $this->assertInstanceOf(CMDBCategory::class, $itself);
-    }
-
-    /**
-     * @throws \Exception on error
-     */
-    public function testDelete() {
-        $objectID = $this->createServer();
-        $entryID = $this->addIPv4($objectID);
-
-        $itself = $this->cmdbCategory->delete(
-            $objectID,
-            'C__CATG__IP',
-            $entryID
-        );
-
-        $this->assertInstanceOf(CMDBCategory::class, $itself);
-    }
-
-    /**
-     * @throws \Exception on error
-     */
-    public function testPurge() {
-        $objectID = $this->createServer();
-        $entryID = $this->addIPv4($objectID);
-
-        $itself = $this->cmdbCategory->purge(
-            $objectID,
-            'C__CATG__IP',
-            $entryID
-        );
-
-        $this->assertInstanceOf(CMDBCategory::class, $itself);
-    }
-
-    /**
-     * @throws \Exception on error
-     */
     public function testBatchCreate() {
         $objectID1 = $this->createServer();
         $objectID2 = $this->createServer();
@@ -699,39 +634,6 @@ class CMDBCategoryTest extends BaseTest {
         );
 
         $this->assertInstanceOf(CMDBCategory::class, $itself);
-    }
-
-    /**
-     * @throws \Exception on error
-     */
-    public function testClear() {
-        $objectID = $this->createServer();
-        $this->addIPv4($objectID);
-        $this->addIPv4($objectID);
-        $this->addContact($objectID, 9, 1);
-
-        $result = $this->cmdbCategory->clear($objectID, [
-            'C__CATG__IP',
-            'C__CATG__CONTACT'
-        ]);
-
-        $this->assertInternalType('int', $result);
-        $this->assertSame(3, $result);
-    }
-
-    /**
-     * @throws \Exception on error
-     */
-    public function testClearEmptyCategory() {
-        $objectID = $this->createServer();
-
-        $result = $this->cmdbCategory->clear($objectID, [
-            'C__CATG__IP',
-            'C__CATG__CONTACT'
-        ]);
-
-        $this->assertInternalType('int', $result);
-        $this->assertSame(0, $result);
     }
 
 }

@@ -63,7 +63,7 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Creates a new category entry for a specific object
+     * Create new category entry for a specific object
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
@@ -100,39 +100,41 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Reads one or more category entries for a specific object (works with both single- and multi-valued categories)
+     * Read one or more category entries for a specific object (works with both single- and multi-valued categories)
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
+     * @param int $status All: 0; normal: 2; archived: 3; deleted: 4; defaults to 2 (normal)
      *
      * @return array Indexed array of result sets (for both single- and multi-valued categories)
      *
      * @throws \Exception on error
      */
-    public function read($objectID, $categoryConst) {
+    public function read($objectID, $categoryConst, $status = 2) {
         return $this->api->request(
             'cmdb.category.read',
             [
                 'objID' => $objectID,
-                'category' => $categoryConst
-
+                'category' => $categoryConst,
+                'status' => $status
             ]
         );
     }
 
     /**
-     * Reads one specific category entry for a specific object (works with both single- and multi-valued categories)
+     * Read one specific category entry for a specific object (works with both single- and multi-valued categories)
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      * @param int $entryID Entry identifier
+     * @param int $status All: 0; normal: 2; archived: 3; deleted: 4; defaults to 2 (normal)
      *
      * @return array Associative array
      *
      * @throws \Exception on error
      */
-    public function readOneByID($objectID, $categoryConst, $entryID) {
-        $entries = $this->read($objectID, $categoryConst);
+    public function readOneByID($objectID, $categoryConst, $entryID, $status = 2) {
+        $entries = $this->read($objectID, $categoryConst, $status);
 
         foreach ($entries as $entry) {
             if (!array_key_exists('id', $entry)) {
@@ -158,7 +160,7 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Reads first category entry for a specific object (works with both single- and multi-valued categories)
+     * Read first category entry for a specific object (works with both single- and multi-valued categories)
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
@@ -178,7 +180,7 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Updates a category entry for a specific object
+     * Update category entry for a specific object
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
@@ -216,7 +218,7 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Archives a category entry for a specific object
+     * Archive entry in a multi-value category for a specific object
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
@@ -227,29 +229,20 @@ class CMDBCategory extends Request {
      * @throws \Exception on error
      */
     public function archive($objectID, $categoryConst, $entryID) {
-        $result = $this->api->request(
-            'cmdb.category.delete',
+        $this->api->request(
+            'cmdb.category.archive',
             [
-                'objID' => $objectID,
+                'object' => $objectID,
                 'category' => $categoryConst,
-                'cateID' => $entryID
+                'entry' => $entryID
             ]
         );
-
-        if (!array_key_exists('success', $result) ||
-            $result['success'] !== true) {
-            if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
-            } else {
-                throw new \RuntimeException('Bad result');
-            }
-        }
 
         return $this;
     }
 
     /**
-     * Marks a category entry for a specific object as deleted
+     * Marks entry in a multi-value category for a specific object as deleted
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
@@ -260,14 +253,20 @@ class CMDBCategory extends Request {
      * @throws \Exception on error
      */
     public function delete($objectID, $categoryConst, $entryID) {
-        return $this
-            ->archive($objectID, $categoryConst, $entryID)
-            ->archive($objectID, $categoryConst, $entryID);
+        $this->api->request(
+            'cmdb.category.delete',
+            [
+                'object' => $objectID,
+                'category' => $categoryConst,
+                'entry' => $entryID
+            ]
+        );
+
+        return $this;
     }
 
-
     /**
-     * Purges a category entry for a specific object
+     * Purge entry in a multi-value category for a specific object
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
@@ -278,6 +277,54 @@ class CMDBCategory extends Request {
      * @throws \Exception on error
      */
     public function purge($objectID, $categoryConst, $entryID) {
+        $this->api->request(
+            'cmdb.category.purge',
+            [
+                'object' => $objectID,
+                'category' => $categoryConst,
+                'entry' => $entryID
+            ]
+        );
+
+        return $this;
+    }
+
+    /**
+     * Restore entry in a multi-value category for a specific object to "normal" state
+     *
+     * @param int $objectID Object identifier
+     * @param string $categoryConst Category constant
+     * @param int $entryID Entry identifier
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function recycle($objectID, $categoryConst, $entryID) {
+        $this->api->request(
+            'cmdb.category.recycle',
+            [
+                'object' => $objectID,
+                'category' => $categoryConst,
+                'entry' => $entryID
+            ]
+        );
+
+        return $this;
+    }
+
+    /**
+     * Purge entry in a multi-value category for a specific object
+     *
+     * @param int $objectID Object identifier
+     * @param string $categoryConst Category constant
+     * @param int $entryID Entry identifier
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function quickPurge($objectID, $categoryConst, $entryID) {
         $result = $this->api->request(
             'cmdb.category.quickpurge',
             [
@@ -300,7 +347,7 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Creates multiple entries for a specific category and one or more objects
+     * Create multiple entries for a specific category and one or more objects
      *
      * @param array $objectIDs List of object identifiers as integers
      * @param string $categoryConst Category constant
@@ -350,7 +397,7 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Reads one or more category entries for one or more objects
+     * Read one or more category entries for one or more objects
      *
      * @param array $objectIDs List of object identifiers as integers
      * @param array $categoryConsts List of category constants as strings
@@ -378,7 +425,7 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Updates a single-valued category for one or more objects
+     * Update single-value category for one or more objects
      *
      * @param array $objectIDs List of object identifiers as integers
      * @param string $categoryConst Category constant
@@ -440,11 +487,11 @@ class CMDBCategory extends Request {
 
             foreach ($entries as $entry) {
                 $requests[] = [
-                    'method' => 'cmdb.category.delete',
+                    'method' => 'cmdb.category.archive',
                     'params' => [
-                        'objID' => $objectID,
+                        'object' => $objectID,
                         'category' => $categoryConst,
-                        'cateID' => (int) $entry['id']
+                        'entry' => (int) $entry['id']
                     ]
                 ];
 

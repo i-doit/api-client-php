@@ -877,6 +877,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @group API-123
      * @covers ::login
      * @covers ::getLastResponseHeaders
      * @covers ::getLastRequestHeaders

@@ -137,7 +137,8 @@ class CMDBCategoryInfo extends Request {
     public function getVirtualCategoryConstants() {
         return [
             'C__CATG__CABLING',
-            'C__CATG__FLOORPLAN',
+            // @todo This is an add-on related category:
+            //'C__CATG__FLOORPLAN',
             'C__CATG__NET_ZONE',
             'C__CATG__NET_ZONE_SCOPES',
             'C__CATG__OBJECT',
@@ -147,11 +148,11 @@ class CMDBCategoryInfo extends Request {
             'C__CATG__STACK_MEMBERSHIP',
             'C__CATG__STORAGE',
             'C__CATG__VIRTUAL_AUTH',
-            'C__CATG__VIRTUAL_RELOCATE_CI',
+            // @todo This is an add-on related category:
+            //'C__CATG__VIRTUAL_RELOCATE_CI',
             'C__CATG__VIRTUAL_SUPERNET',
             'C__CATG__VIRTUAL_TICKETS',
-            'C__CATG__VRRP_VIEW',
-            'C__CATS__CHASSIS_CABLING'
+            'C__CATG__VRRP_VIEW'
         ];
     }
 

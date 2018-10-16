@@ -60,16 +60,41 @@ class ID934Test extends BaseTest {
         $cmdbCategoryInfo = new CMDBCategoryInfo($this->api);
 
         foreach ($categoryConstants as $oldConstant => $newConstant) {
-            $result = $cmdbCategoryInfo->read($newConstant);
-            $this->isValidCategoryInfo($oldConstant, $result);
-            $result = $cmdbCategoryInfo->read($oldConstant);
-            $this->isValidCategoryInfo($newConstant, $result);
+            $resultOld = $cmdbCategoryInfo->read($newConstant);
+            $this->assertInternalType(
+                'array',
+                $resultOld,
+                sprintf('Category "%s" has no result', $oldConstant)
+            );
+            $this->isValidCategoryInfo($oldConstant, $resultOld);
+
+            $resultNew = $cmdbCategoryInfo->read($oldConstant);
+            $this->assertInternalType(
+                'array',
+                $resultNew,
+                sprintf('Category "%s" has no result', $newConstant)
+            );
+            $this->isValidCategoryInfo($newConstant, $resultNew);
         }
     }
 
     protected function isValidCategoryInfo(string $categoryConstant, array $categoryInfo) {
-        $this->assertInternalType('array', $categoryInfo, sprintf('Category "%s" has no result', $categoryConstant));
-        $this->assertNotCount(0, $categoryInfo, sprintf('No information found for category "%s"', $categoryConstant));
+        // There are some "view" categories in this list:
+        // - C__CATG__NETWORK_PORT_OVERVIEW
+        // - C__CATS__LICENCE_OVERVIEW
+        // Ignore these categories for the following test:
+        if (!in_array($categoryConstant, [
+            'C__CATG__NETWORK_PORT_OVERVIEW',
+            'C__CMDB__SUBCAT__NETWORK_PORT_OVERVIEW',
+            'C__CATS__LICENCE_OVERVIEW',
+            'C__CMDB__SUBCAT__LICENCE_OVERVIEW'
+        ])) {
+            $this->assertNotCount(
+                0,
+                $categoryInfo,
+                sprintf('No information found for category "%s"', $categoryConstant)
+            );
+        }
     }
 
 }

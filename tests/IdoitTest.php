@@ -91,6 +91,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
+     * @group unreleased
      * @throws \Exception on error
      */
     public function testReadConstants() {
@@ -100,27 +101,29 @@ class IdoitTest extends BaseTest {
         $this->assertNotCount(0, $result);
 
         $topics = [
-            'objectTypes'
+            'objectTypes',
+            'categories',
+            'recordStates',
+            'relationTypes',
+            'staticObjects'
         ];
 
         foreach ($topics as $topic) {
             $this->assertArrayHasKey($topic, $result);
             $this->assertInternalType('array', $result[$topic]);
 
-            $this->validateConstants($result[$topic]);
+            // Check category constants later:
+            if ($topic !== 'categories') {
+                $this->validateConstants($result[$topic]);
+            }
         }
-
-        $this->assertArrayHasKey('categories', $result);
-        $this->assertInternalType('array', $result['categories']);
 
         $this->assertArrayHasKey('g', $result['categories']);
         $this->assertInternalType('array', $result['categories']['g']);
-
         $this->validateConstants($result['categories']['g']);
 
         $this->assertArrayHasKey('s', $result['categories']);
         $this->assertInternalType('array', $result['categories']['s']);
-
         $this->validateConstants($result['categories']['s']);
     }
 
@@ -133,6 +136,7 @@ class IdoitTest extends BaseTest {
         $this->assertNotCount(0, $constants);
 
         foreach ($constants as $constant => $value) {
+            $this->assertInternalType('string', $constant);
             $this->isConstant($constant);
 
             $this->assertInternalType('string', $value);

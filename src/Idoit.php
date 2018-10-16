@@ -30,7 +30,7 @@ namespace bheisig\idoitapi;
 class Idoit extends Request {
 
     /**
-     * Reads information about i-doit
+     * Read information about i-doit
      *
      * @return array Associative array
      *
@@ -41,7 +41,18 @@ class Idoit extends Request {
     }
 
     /**
-     * Reads list of defined constants
+     * Read information about installed add-ons
+     *
+     * @return array Associative array
+     *
+     * @throws \Exception on error
+     */
+    public function getAddOns() {
+        return $this->api->request('idoit.addons.read');
+    }
+
+    /**
+     * Read list of defined constants
      *
      * @return array Associative array
      *
@@ -52,7 +63,7 @@ class Idoit extends Request {
     }
 
     /**
-     * Searches i-doit's database
+     * Search i-doit's database
      *
      * @param string $query Query
      *
@@ -68,7 +79,7 @@ class Idoit extends Request {
     }
 
     /**
-     * Performs one or more searches at once
+     * Perform one or more searches at once
      *
      * @param array $queries Queries as strings
      *

@@ -22,6 +22,7 @@ This release comes with new features and tons of unit tests. To get the full exp
 -   `CMDBCategory::delete()`: Marks entry in a multi-value category for a specific object as deleted
 -   `CMDBCategory::purge()`: Purge entry in a multi-value category for a specific object
 -   `CMDBCategory::recycle()`: Restore entry in a multi-value category for a specific object to "normal" state
+-   `Idoit::getAddOns()`: Read information about installed add-ons
 -   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 -   `API::rawRequest()`: Perform a low level API request
 -   `CMDBCategoryInfo::testGetVirtualCategoryConstants()`: Get list of constants for virtual categories

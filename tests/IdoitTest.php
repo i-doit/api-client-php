@@ -92,6 +92,52 @@ class IdoitTest extends BaseTest {
 
     /**
      * @group unreleased
+     * @group API-55
+     * @throws \Exception on error
+     */
+    public function testGetAddOns() {
+        $result = $this->instance->getAddOns();
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+
+        foreach ($result as $index => $addOn) {
+            $this->assertInternalType('int', $index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertInternalType('array', $addOn);
+
+            $this->assertArrayHasKey('title', $addOn);
+            $this->assertInternalType('string', $addOn['title']);
+            $this->isOneLiner($addOn['title']);
+
+            $this->assertArrayHasKey('key', $addOn);
+            $this->assertInternalType('string', $addOn['key']);
+            $this->isOneLiner($addOn['key']);
+
+            $this->assertArrayHasKey('version', $addOn);
+            $this->assertInternalType('string', $addOn['version']);
+            $this->isOneLiner($addOn['version']);
+
+            $this->assertArrayHasKey('author', $addOn);
+            $this->assertInternalType('array', $addOn['author']);
+            $this->assertArrayHasKey('name', $addOn['author']);
+            $this->assertInternalType('string', $addOn['author']['name']);
+            $this->isOneLiner($addOn['author']['name']);
+
+            $this->assertArrayHasKey('active', $addOn);
+            $this->assertInternalType('boolean', $addOn['active']);
+
+            $this->assertArrayHasKey('licensed', $addOn);
+            $this->assertInternalType('boolean', $addOn['licensed']);
+
+            $this->assertArrayHasKey('installed', $addOn);
+            $this->assertInternalType('boolean', $addOn['installed']);
+        }
+    }
+
+    /**
+     * @group unreleased
      * @throws \Exception on error
      */
     public function testReadConstants() {

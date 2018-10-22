@@ -27,20 +27,136 @@ declare(strict_types=1);
 namespace bheisig\idoitapi\tests\Issues;
 
 use bheisig\idoitapi\tests\BaseTest;
+use bheisig\idoitapi\CMDBDialog;
 
 /**
  * @group issues
  * @group unreleased
+ * @group API-29
  * @see https://i-doit.atlassian.net/browse/API-29
  */
 class API29Test extends BaseTest {
 
     /**
+     * @var \bheisig\idoitapi\CMDBDialog
+     */
+    protected $cmdbDialog;
+
+    /**
+     * @throws \Exception on error
+     */
+    public function setUp() {
+        parent::setUp();
+
+        $this->cmdbDialog = new CMDBDialog($this->api);
+    }
+
+    /**
      * @throws \Exception on error
      */
     public function testIssue() {
-//        $objectID = $this->createServer();
-//        $personID = $this->createPerson();
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $person = $this->createPerson();
+        $personID = $person['id'];
+        $this->isID($personID);
+
+        $roles = $this->cmdbDialog->read('C__CATG__CONTACT', 'role');
+
+        // This is a little overhead, because one role would be enough…
+        foreach ($roles as $role) {
+            // 1st test: Check whether defined roles are suitable:
+            $this->assertInternalType('array', $role);
+
+            $this->assertArrayHasKey('id', $role);
+            $this->isIDAsString($role['id']);
+
+            $this->assertArrayHasKey('title', $role);
+            $this->isOneLiner($role['title']);
+
+            // 2nd test: Assign role by its title:
+            $entryID = $this->cmdbCategory->create($objectID, 'C__CATG__CONTACT', [
+                'contact' => $personID,
+                'role' => $role['title']
+            ]);
+
+            $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
+
+            $this->assertInternalType('array', $result);
+            $this->assertArrayHasKey('id', $result);
+            $this->isIDAsString($result['id']);
+            $this->assertSame($entryID, (int) $result['id']);
+            $this->assertArrayHasKey('objID', $result);
+            $this->isIDAsString($result['objID']);
+            $this->assertSame($objectID, (int) $result['objID']);
+            $this->assertArrayHasKey('contact_object', $result);
+            $this->assertInternalType('array', $result['contact_object']);
+            $this->isAssignedObject($result['contact_object']);
+            $this->assertSame($personID, (int) $result['contact_object']['id']);
+
+            $this->assertArrayHasKey('role', $result);
+            $this->isDialog($result['role']);
+
+            // This is the important part:
+            $this->assertSame($role['id'], $result['role']['id']);
+            $this->assertSame($role['title'], $result['role']['title']);
+
+            // 3rd test: Assign role by its identifier (as integer!):
+            $entryID = $this->cmdbCategory->create($objectID, 'C__CATG__CONTACT', [
+                'contact' => $personID,
+                'role' => (int) $role['id']
+            ]);
+
+            $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
+
+            $this->assertInternalType('array', $result);
+            $this->assertArrayHasKey('id', $result);
+            $this->isIDAsString($result['id']);
+            $this->assertSame($entryID, (int) $result['id']);
+            $this->assertArrayHasKey('objID', $result);
+            $this->isIDAsString($result['objID']);
+            $this->assertSame($objectID, (int) $result['objID']);
+            $this->assertArrayHasKey('contact_object', $result);
+            $this->assertInternalType('array', $result['contact_object']);
+            $this->isAssignedObject($result['contact_object']);
+            $this->assertSame($personID, (int) $result['contact_object']['id']);
+
+            $this->assertArrayHasKey('role', $result);
+            $this->isDialog($result['role']);
+
+            // This is the important part:
+            $this->assertSame($role['id'], $result['role']['id']);
+            $this->assertSame($role['title'], $result['role']['title']);
+
+            // 4th test: Assign role by its identifier (as string!):
+            $entryID = $this->cmdbCategory->create($objectID, 'C__CATG__CONTACT', [
+                'contact' => $personID,
+                'role' => $role['id']
+            ]);
+
+            $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
+
+            $this->assertInternalType('array', $result);
+            $this->assertArrayHasKey('id', $result);
+            $this->isIDAsString($result['id']);
+            $this->assertSame($entryID, (int) $result['id']);
+            $this->assertArrayHasKey('objID', $result);
+            $this->isIDAsString($result['objID']);
+            $this->assertSame($objectID, (int) $result['objID']);
+            $this->assertArrayHasKey('contact_object', $result);
+            $this->assertInternalType('array', $result['contact_object']);
+            $this->isAssignedObject($result['contact_object']);
+            $this->assertSame($personID, (int) $result['contact_object']['id']);
+
+            $this->assertArrayHasKey('role', $result);
+            $this->isDialog($result['role']);
+
+            // This is the important part:
+            $this->assertNotSame($role['id'], $result['role']['id']);
+            $this->assertNotSame($role['title'], $result['role']['title']);
+            $this->assertSame($role['id'], $result['role']['title']);
+        }
     }
 
 }

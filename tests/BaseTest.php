@@ -432,6 +432,51 @@ abstract class BaseTest extends TestCase {
         $this->isOneLiner($object['type_title']);
     }
 
+    protected function isDialog(array $dialog) {
+        $this->assertArrayHasKey('id', $dialog);
+        $this->isIDAsString($dialog['id']);
+
+        $this->assertArrayHasKey('title', $dialog);
+        $this->assertInternalType('string', $dialog['title']);
+        $this->isOneLiner($dialog['title']);
+
+        // "const" is optional and may be null or empty string.
+        // Sometimes it's even a constant:
+        if (array_key_exists('const', $dialog)) {
+            switch (gettype($dialog['const'])) {
+                case 'NULL':
+                    // Okay!
+                    break;
+                case 'string':
+                    if (strlen($dialog['const'])) {
+                        $this->isConstant($dialog['const']);
+                    }
+                    break;
+            }
+        }
+
+        // With "cmdb.category.read" we get the translated title:
+        if (array_key_exists('title_lang', $dialog)) {
+            $this->assertArrayHasKey('title_lang', $dialog);
+            $this->assertInternalType('string', $dialog['title_lang']);
+            $this->isOneLiner($dialog['title_lang']);
+        }
+
+        // With "cmdb.dialog.read" we get some information about its parent.
+        // But is is completely optional:
+        if (array_key_exists('parent', $dialog)) {
+            $this->assertInternalType('array', $dialog['parent']);
+            $this->assertArrayHasKey('id', $dialog['parent']);
+            $this->assertArrayHasKey('const', $dialog['parent']);
+            $this->assertArrayHasKey('title', $dialog['parent']);
+
+            // Only if parent is set it's a valid dialog:
+            if (isset($dialog['parent']['id']) && isset($dialog['parent']['title'])) {
+                $this->isDialog($dialog['parent']);
+            }
+        }
+    }
+
     protected function isOneLiner(string $value) {
         $length = strlen($value);
         $this->assertGreaterThan(0, $length, 'One-liner is empty');

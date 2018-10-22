@@ -35,19 +35,26 @@ class CMDBDialog extends Request {
      * @param string $category Category constant
      * @param string $attribute Attribute
      * @param mixed $value Value
+     * @param string|integer $parent Reference parent entry by its title (string) or by its identifier (integer)
      *
      * @return int Entry identifier
      *
      * @throws \Exception on error
      */
-    public function create($category, $attribute, $value) {
+    public function create($category, $attribute, $value, $parent = null) {
+        $params = [
+            'category' => $category,
+            'property' => $attribute,
+            'value' => $value
+        ];
+
+        if (isset($parent)) {
+            $params['parent'] = $parent;
+        }
+
         $result = $this->api->request(
             'cmdb.dialog.create',
-            [
-                'category' => $category,
-                'property' => $attribute,
-                'value' => $value
-            ]
+            $params
         );
 
         if (!array_key_exists('entry_id', $result) ||
@@ -74,6 +81,8 @@ class CMDBDialog extends Request {
      * @return array List of entry identifiers
      *
      * @throws \Exception on error
+     *
+     * @todo Add support for parameter "parent"!
      */
     public function batchCreate(array $values) {
         $requests = [];

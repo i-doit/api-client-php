@@ -36,7 +36,7 @@ class CMDBDialogTest extends BaseTest {
     /**
      * @var \bheisig\idoitapi\CMDBDialog
      */
-    protected $instance;
+    protected $cmdbDialog;
 
     /**
      * @throws \Exception on error
@@ -44,27 +44,208 @@ class CMDBDialogTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->instance = new CMDBDialog($this->api);
+        $this->cmdbDialog = new CMDBDialog($this->api);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testCreate() {
-        $result = $this->instance->create(
+        $result = $this->cmdbDialog->create(
             'C__CATG__CPU',
             'manufacturer',
-            'ACME Semiconductor, Inc.'
+            $this->generateRandomString()
         );
 
-        $this->assertInternalType('int', $result);
-        $this->assertGreaterThanOrEqual(1, $result);
+        $this->isID($result);
+    }
+
+    /**
+     * @group unreleased
+     * @group API-32
+     * @throws \Exception on error
+     */
+    public function testCreateWithParentTitle() {
+        $parentTitle = $this->generateRandomString();
+
+        $parentID = $this->cmdbDialog->create(
+            'C__CATG__MODEL',
+            'manufacturer',
+            $parentTitle
+        );
+        $this->isID($parentID);
+
+        $entryTitle = $this->generateRandomString();
+
+        $entryID = $this->cmdbDialog->create(
+            'C__CATG__MODEL',
+            'title',
+            $entryTitle,
+            $parentTitle
+        );
+        $this->isID($entryID);
+
+        $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+
+        $entry = end($result);
+        $this->isDialog($entry);
+
+        $this->assertArrayHasKey('id', $entry);
+        $this->isIDAsString($entry['id']);
+        $this->assertSame($entryID, (int) $entry['id']);
+
+        $this->assertArrayHasKey('title', $entry);
+        $this->assertSame($entryTitle, $entry['title']);
+
+        $this->assertArrayHasKey('parent', $entry);
+        $this->assertInternalType('array', $entry['parent']);
+
+        $this->assertArrayHasKey('id', $entry['parent']);
+        $this->isIDAsString($entry['parent']['id']);
+        $this->assertSame($parentID, (int) $entry['parent']['id']);
+
+        $this->assertArrayHasKey('title', $entry['parent']);
+        $this->isOneLiner($entry['parent']['title']);
+        $this->assertSame($parentTitle, $entry['parent']['title']);
+    }
+
+    /**
+     * @group unreleased
+     * @group API-32
+     * @throws \Exception on error
+     */
+    public function testCreateWithParentIdentifier() {
+        $parentTitle = $this->generateRandomString();
+
+        $parentID = $this->cmdbDialog->create(
+            'C__CATG__MODEL',
+            'manufacturer',
+            $parentTitle
+        );
+        $this->isID($parentID);
+
+        $entryTitle = $this->generateRandomString();
+
+        $entryID = $this->cmdbDialog->create(
+            'C__CATG__MODEL',
+            'title',
+            $entryTitle,
+            $parentID
+        );
+        $this->isID($entryID);
+
+        $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+
+        $entry = end($result);
+        $this->isDialog($entry);
+
+        $this->assertArrayHasKey('id', $entry);
+        $this->isIDAsString($entry['id']);
+        $this->assertSame($entryID, (int) $entry['id']);
+
+        $this->assertArrayHasKey('title', $entry);
+        $this->assertSame($entryTitle, $entry['title']);
+
+        $this->assertArrayHasKey('parent', $entry);
+        $this->assertInternalType('array', $entry['parent']);
+
+        $this->assertArrayHasKey('id', $entry['parent']);
+        $this->isIDAsString($entry['parent']['id']);
+        $this->assertSame($parentID, (int) $entry['parent']['id']);
+
+        $this->assertArrayHasKey('title', $entry['parent']);
+        $this->isOneLiner($entry['parent']['title']);
+        $this->assertSame($parentTitle, $entry['parent']['title']);
+    }
+
+    /**
+     * @group unreleased
+     * @group API-32
+     * @throws \Exception on error
+     */
+    public function testCreateWithParentIdentifierAsString() {
+        $parentTitle = $this->generateRandomString();
+
+        $parentID = $this->cmdbDialog->create(
+            'C__CATG__MODEL',
+            'manufacturer',
+            $parentTitle
+        );
+        $this->isID($parentID);
+
+        $entryTitle = $this->generateRandomString();
+
+        $entryID = $this->cmdbDialog->create(
+            'C__CATG__MODEL',
+            'title',
+            $entryTitle,
+            "$parentID"
+        );
+        $this->isID($entryID);
+
+        $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+
+        $entry = end($result);
+        $this->isDialog($entry);
+
+        $this->assertArrayHasKey('id', $entry);
+        $this->isIDAsString($entry['id']);
+        $this->assertSame($entryID, (int) $entry['id']);
+
+        $this->assertArrayHasKey('title', $entry);
+        $this->assertSame($entryTitle, $entry['title']);
+
+        $this->assertArrayHasKey('parent', $entry);
+        $this->assertInternalType('array', $entry['parent']);
+
+        $this->assertArrayHasKey('id', $entry['parent']);
+        $this->isIDAsString($entry['parent']['id']);
+        $this->assertNotSame($parentID, (int) $entry['parent']['id']);
+
+        $this->assertArrayHasKey('title', $entry['parent']);
+        $this->isOneLiner($entry['parent']['title']);
+        $this->assertNotSame($parentTitle, $entry['parent']['title']);
+
+        $this->assertSame("$parentID", $entry['parent']['id']);
+    }
+
+    /**
+     * @group unreleased
+     * @group API-32
+     * @throws \Exception on error
+     */
+    public function testCreateWithoutParent() {
+        $value = $this->generateRandomString();
+
+        $dialogID = $this->cmdbDialog->create('C__CATG__MODEL', 'title', $value);
+        $this->isID($dialogID);
+
+        $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+
+        $entry = end($result);
+        $this->assertInternalType('array', $entry);
+        $this->isDialog($entry);
+        $this->assertArrayHasKey('parent', $entry);
+        $this->assertInternalType('array', $entry['parent']);
+        $this->assertArrayHasKey('id', $entry['parent']);
+        $this->assertNull($entry['parent']['id']);
+        $this->assertArrayHasKey('const', $entry['parent']);
+        $this->assertEmpty($entry['parent']['const']);
+        $this->assertArrayHasKey('title', $entry['parent']);
+        $this->assertNull($entry['parent']['title']);
     }
 
     /**
      * @throws \Exception on error
-     * @todo At the moment this only works the demo.i-doit.com.
-     * There must exist a custom category before the tests are running
+     * @todo There must exist a custom category before the tests are running
      * because it's not possible to create custom categories via API.
      */
     public function testCreateCustomMultiDialog() {
@@ -75,7 +256,7 @@ class CMDBDialogTest extends BaseTest {
         // Random transport protocol:
         $customAttributeValue = $this->generateRandomString();
 
-        $result = $this->instance->create(
+        $result = $this->cmdbDialog->create(
             $customCategoryConst,
             $customAttributeKey,
             $customAttributeValue
@@ -84,7 +265,7 @@ class CMDBDialogTest extends BaseTest {
         $this->assertInternalType('int', $result);
         $this->assertGreaterThanOrEqual(1, $result);
 
-        $values = $this->instance->read(
+        $values = $this->cmdbDialog->read(
             $customCategoryConst,
             $customAttributeKey
         );
@@ -117,7 +298,7 @@ class CMDBDialogTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testBatchCreate() {
-        $result = $this->instance->batchCreate([
+        $result = $this->cmdbDialog->batchCreate([
             'C__CATG__CPU' => [
                 'manufacturer' => 'ACME Semiconductor, Inc.'
             ],
@@ -144,7 +325,7 @@ class CMDBDialogTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testRead() {
-        $result = $this->instance->read(
+        $result = $this->cmdbDialog->read(
             'C__CATG__MODEL',
             'manufacturer'
         );
@@ -157,7 +338,7 @@ class CMDBDialogTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testBatchRead() {
-        $result = $this->instance->batchRead([
+        $result = $this->cmdbDialog->batchRead([
             'C__CATG__GLOBAL' => 'purpose',
             'C__CATG__MODEL' => [
                 'manufacturer',

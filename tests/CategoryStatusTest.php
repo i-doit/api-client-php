@@ -1122,7 +1122,7 @@ class CategoryStatusTest extends BaseTest {
             );
         }
 
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -1149,7 +1149,7 @@ class CategoryStatusTest extends BaseTest {
             );
         }
 
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isNotAvailable($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**

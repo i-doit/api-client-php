@@ -197,7 +197,7 @@ class CMDBCategory extends Request {
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
      * @param array $attributes Attributes as key-value pairs
-     * @param int $entryID Entry identifier (only needed for multi-valued categories)
+     * @param int $entryID Entry identifier (only needed for multi-value categories)
      *
      * @return self Returns itself
      *
@@ -278,24 +278,29 @@ class CMDBCategory extends Request {
     }
 
     /**
-     * Purge entry in a multi-value category for a specific object
+     * Purge entry in a single- or multi-value category for a specific object
      *
      * @param int $objectID Object identifier
      * @param string $categoryConst Category constant
-     * @param int $entryID Entry identifier
+     * @param int $entryID Entry identifier (only needed for multi-value categories)
      *
      * @return self Returns itself
      *
      * @throws \Exception on error
      */
-    public function purge($objectID, $categoryConst, $entryID) {
+    public function purge($objectID, $categoryConst, $entryID = null) {
+        $params = [
+            'object' => $objectID,
+            'category' => $categoryConst
+        ];
+
+        if (isset($entryID)) {
+            $params['entry'] = $entryID;
+        }
+
         $this->api->request(
             'cmdb.category.purge',
-            [
-                'object' => $objectID,
-                'category' => $categoryConst,
-                'entry' => $entryID
-            ]
+            $params
         );
 
         return $this;

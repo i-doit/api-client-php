@@ -31,6 +31,8 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group unreleased
+ * @group API-130
+ * @group API-108
  * @see https://i-doit.atlassian.net/browse/API-130
  * @see https://i-doit.atlassian.net/browse/API-108
  */

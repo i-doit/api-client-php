@@ -17,6 +17,7 @@ This release comes with new features and tons of unit tests. To get the full exp
 -   `CMDBObject::recycle()`: Restore object to "normal" status
 -   `CMDBObject::markAsTemplate()`: Convert object to template
 -   `CMDBObject::markAsMassChangeTemplate()`: Convert object to mass change template
+-   `CMDBObjects::recycle()`: Restore objects to "normal" status
 -   `CMDBCategory::save()`: Create new or update existing category entry for a specific object
 -   `CMDBCategory::read()`, `CMDBCategory::readOneByID()`: Filter entry/entries by status
 -   `CMDBCategory::archive()`: Archive entry in a multi-value category for a specific object
@@ -32,9 +33,10 @@ This release comes with new features and tons of unit tests. To get the full exp
 
 ### Changed
 
--   `CMDBObject::archive()`: Change to new API method `cmdb.object.archive`
--   `CMDBObject::delete()`: Change to re-newed API method `cmdb.object.delete`
--   `CMDBObject::purge()`: Change to new API method `cmdb.object.purge`
+-   `CMDBObject::archive()`, `CMDBObjects::archive()`: Change to new API method `cmdb.object.archive`
+-   `CMDBObject::delete()`, `CMDBObjects::delete()`: Change to re-newed API method `cmdb.object.delete`
+-   `CMDBObject::purge()`, `CMDBObjects::purge()`: Change to new API method `cmdb.object.purge`
+-   `CMDBObject::load()`: Ignore virtual categories which have no data
 -   `CMDBCategory::clear()`: Change to new API method `cmdb.object.archive`
 -   `CMDBCategory::purge()`: Re-name method `purge()` to `quickpurge()`
 -   Add HTTP header `Expect: 100-continue` to each API call, useful for huge calls/slow hosts

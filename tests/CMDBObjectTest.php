@@ -35,6 +35,7 @@ class CMDBObjectTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group API-81
      */
     public function testCreate() {
         $objectID = $this->cmdbObject->create(
@@ -48,6 +49,7 @@ class CMDBObjectTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group API-81
      */
     public function testCreateWithMoreAttributes() {
         $objectID = $this->cmdbObject->create(
@@ -67,6 +69,7 @@ class CMDBObjectTest extends BaseTest {
 
     /**
      * @group unreleased
+     * @group API-84
      * @throws \Exception on error
      */
     public function testCreateWithCategories() {
@@ -152,6 +155,7 @@ class CMDBObjectTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group API-81
      */
     public function testRead() {
         $objectID = $this->createServer();
@@ -159,8 +163,10 @@ class CMDBObjectTest extends BaseTest {
         $result = $this->cmdbObject->read($objectID);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->isObject($result);
+    }
 
+    protected function isObject(array $object) {
         $requiredKeys = [
             'id',
             'title',
@@ -181,47 +187,46 @@ class CMDBObjectTest extends BaseTest {
 
         $keys = array_merge($requiredKeys, $optionalKeys);
 
-        foreach (array_keys($result) as $key) {
+        foreach (array_keys($object) as $key) {
             $this->assertContains($key, $keys);
         }
 
         foreach ($requiredKeys as $key) {
-            $this->assertArrayHasKey($key, $result);
+            $this->assertArrayHasKey($key, $object);
         }
 
-        $this->assertInternalType('string', $result['id']);
-        $id = (int) $result['id'];
-        $this->assertGreaterThan(0, $id);
+        $this->assertInternalType('integer', $object['id']);
+        $this->isID($object['id']);
 
-        $this->assertInternalType('string', $result['title']);
+        $this->assertInternalType('string', $object['title']);
 
-        $this->assertInternalType('string', $result['sysid']);
+        $this->assertInternalType('string', $object['sysid']);
 
-        $this->assertInternalType('string', $result['objecttype']);
-        $typeID = (int) $result['objecttype'];
-        $this->assertGreaterThan(0, $typeID);
+        $this->assertInternalType('integer', $object['objecttype']);
+        $this->isID($object['objecttype']);
 
-        $this->assertInternalType('string', $result['type_title']);
+        $this->assertInternalType('string', $object['type_title']);
 
-        $this->assertInternalType('string', $result['type_icon']);
+        $this->assertInternalType('string', $object['type_icon']);
 
-        $this->assertInternalType('string', $result['status']);
-        $this->assertContains((int) $result['status'], $this->conditions);
+        $this->assertInternalType('integer', $object['status']);
+        $this->isID($object['status']);
+        $this->assertContains($object['status'], $this->conditions);
 
-        $this->assertInternalType('string', $result['created']);
-        $this->isTime($result['created']);
+        $this->assertInternalType('string', $object['created']);
+        $this->isTime($object['created']);
 
-        if (array_key_exists('updated', $result)) {
-            $this->isTime($result['updated']);
+        if (array_key_exists('updated', $object)) {
+            $this->assertInternalType('string', $object['updated']);
+            $this->isTime($object['updated']);
         }
 
-        $this->assertInternalType('string', $result['cmdb_status']);
-        $cmdbStatus = (int) $result['cmdb_status'];
-        $this->assertGreaterThan(0, $cmdbStatus);
+        $this->assertInternalType('integer', $object['cmdb_status']);
+        $this->isID($object['cmdb_status']);
 
-        $this->assertInternalType('string', $result['cmdb_status_title']);
+        $this->assertInternalType('string', $object['cmdb_status_title']);
 
-        $this->assertInternalType('string', $result['image']);
+        $this->assertInternalType('string', $object['image']);
     }
 
     /**
@@ -238,6 +243,7 @@ class CMDBObjectTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group API-81
      */
     public function testLoad() {
         $objectID = $this->createServer();
@@ -250,6 +256,7 @@ class CMDBObjectTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group API-81
      */
     public function testUpsert() {
         $title = $this->generateRandomString();

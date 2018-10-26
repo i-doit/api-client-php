@@ -51,7 +51,7 @@ class CMDBObject extends Request {
         );
 
         if (array_key_exists('id', $result)) {
-            return (int) $result['id'];
+            return $result['id'];
         } else {
             throw new \RuntimeException('Unable to create object');
         }
@@ -296,42 +296,56 @@ class CMDBObject extends Request {
         $cmdbObjectTypeCategories = new CMDBObjectTypeCategories($this->api);
 
         $object += $cmdbObjectTypeCategories->readByID(
-            (int) $object['objecttype']
+            $object['objecttype']
         );
 
         $cmdbCategory = new CMDBCategory($this->api);
 
         $categoryTypes = ['catg', 'cats'];
 
+        $cmdbCategoryInfo = new CMDBCategoryInfo($this->api);
+        $blacklistedCategoryConstants = $cmdbCategoryInfo->getVirtualCategoryConstants();
+
         foreach ($categoryTypes as $categoryType) {
-            if (array_key_exists($categoryType, $object)) {
-                $categoryConstants = [];
+            if (!array_key_exists($categoryType, $object)) {
+                continue;
+            }
 
-                for ($i = 0; $i < count($object[$categoryType]); $i++) {
-                    if (!array_key_exists('const', $object[$categoryType][$i])) {
-                        throw new \RuntimeException(
-                            'Information about categories is broken. Constant is missing.'
-                        );
+            $categoryConstants = [];
+
+            for ($i = 0; $i < count($object[$categoryType]); $i++) {
+                if (!array_key_exists('const', $object[$categoryType][$i])) {
+                    throw new \RuntimeException(
+                        'Information about categories is broken. Constant is missing.'
+                    );
+                }
+
+                $categoryConstant = $object[$categoryType][$i]['const'];
+
+                if (in_array($categoryConstant, $blacklistedCategoryConstants)) {
+                    continue;
+                }
+
+                $object[$categoryType][$i]['entries'] = [];
+
+                $categoryConstants[] = $categoryConstant;
+            }
+
+            $categoryEntries = $cmdbCategory->batchRead([$objectID], $categoryConstants);
+
+            for ($i = 0; $i < count($categoryConstants); $i++) {
+                $index = -1;
+                $entries = [];
+
+                foreach ($object[$categoryType] as $key => $category) {
+                    if ($category['const'] === $categoryConstants[$i]) {
+                        $index = $key;
+                        $entries = $categoryEntries[$i];
+                        break;
                     }
-
-                    $object[$categoryType][$i]['entries'] = [];
-
-                    $categoryConstants[] = $object[$categoryType][$i]['const'];
                 }
 
-                $categoryEntries = $cmdbCategory->batchRead([$objectID], $categoryConstants);
-
-                if (count($object[$categoryType]) !== count($categoryEntries)) {
-                    throw new \RuntimeException(sprintf(
-                        'Requested entries for %s categories, but received %s results',
-                        count($object[$categoryType]),
-                        count($categoryEntries)
-                    ));
-                }
-
-                for ($i = 0; $i < count($object[$categoryType]); $i++) {
-                    $object[$categoryType][$i]['entries'] = $categoryEntries[$i];
-                }
+                $object[$categoryType][$index]['entries'] = $entries;
             }
         }
 
@@ -364,11 +378,12 @@ class CMDBObject extends Request {
             case 0:
                 return $this->create($type, $title, $attributes);
             case 1:
-                if (!array_key_exists('id', $result[0])) {
+                if (!array_key_exists(0, $result) ||
+                    !array_key_exists('id', $result[0])) {
                     throw new \RuntimeException('Bad result');
                 }
 
-                return (int) $result[0]['id'];
+                return $result[0]['id'];
             default:
                 throw new \RuntimeException(sprintf(
                     'Found %s objects',

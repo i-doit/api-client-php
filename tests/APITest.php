@@ -167,6 +167,23 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @throws \Exception
+     */
+    public function testOneRequestInABatch() {
+        $results = $this->api->batchRequest([
+            [
+                'method' => 'idoit.version'
+            ]
+        ]);
+
+        $this->assertInternalType('array', $results);
+        $this->assertCount(1, $results);
+        $this->assertArrayHasKey(0, $results);
+        $this->assertInternalType('array', $results[0]);
+        $this->assertNotCount(0, $results[0]);
+    }
+
+    /**
      * @group unreleased
      * @throws \Exception on error
      */

@@ -464,6 +464,13 @@ class API {
         $results = [];
 
         foreach ($responses as $response) {
+            if (!is_array($response)) {
+                throw new \RuntimeException(sprintf(
+                    'Found invalid result for request in batch: %s',
+                    $response
+                ));
+            }
+
             $this->evaluateResponse($response);
 
             $results[] = $response['result'];

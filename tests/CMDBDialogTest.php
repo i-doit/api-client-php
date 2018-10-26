@@ -166,8 +166,9 @@ class CMDBDialogTest extends BaseTest {
      * @group unreleased
      * @group API-32
      * @throws \Exception on error
+     * @expectedException \Exception
      */
-    public function testCreateWithParentIdentifierAsString() {
+    public function testCreateWithParentIdentifierAsTitle() {
         $parentTitle = $this->generateRandomString();
 
         $parentID = $this->cmdbDialog->create(
@@ -179,6 +180,7 @@ class CMDBDialogTest extends BaseTest {
 
         $entryTitle = $this->generateRandomString();
 
+        // This must fail because parent is unknown:
         $entryID = $this->cmdbDialog->create(
             'C__CATG__MODEL',
             'title',
@@ -186,33 +188,25 @@ class CMDBDialogTest extends BaseTest {
             "$parentID"
         );
         $this->isID($entryID);
+    }
 
-        $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
-        $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+    /**
+     * @group unreleased
+     * @group API-32
+     * @throws \Exception on error
+     * @expectedException \Exception
+     */
+    public function testCreateWithUnknownParent() {
+        $entryTitle = $this->generateRandomString();
 
-        $entry = end($result);
-        $this->isDialog($entry);
-
-        $this->assertArrayHasKey('id', $entry);
-        $this->isIDAsString($entry['id']);
-        $this->assertSame($entryID, (int) $entry['id']);
-
-        $this->assertArrayHasKey('title', $entry);
-        $this->assertSame($entryTitle, $entry['title']);
-
-        $this->assertArrayHasKey('parent', $entry);
-        $this->assertInternalType('array', $entry['parent']);
-
-        $this->assertArrayHasKey('id', $entry['parent']);
-        $this->isIDAsString($entry['parent']['id']);
-        $this->assertNotSame($parentID, (int) $entry['parent']['id']);
-
-        $this->assertArrayHasKey('title', $entry['parent']);
-        $this->isOneLiner($entry['parent']['title']);
-        $this->assertNotSame($parentTitle, $entry['parent']['title']);
-
-        $this->assertSame("$parentID", $entry['parent']['id']);
+        // This must fail because parent is unknown:
+        $entryID = $this->cmdbDialog->create(
+            'C__CATG__MODEL',
+            'title',
+            $entryTitle,
+            $this->generateRandomString()
+        );
+        $this->isID($entryID);
     }
 
     /**

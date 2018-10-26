@@ -68,7 +68,7 @@ class CMDBObjects extends Request {
         $objectIDs = [];
 
         foreach ($result as $object) {
-            $objectIDs[] = (int) $object['id'];
+            $objectIDs[] = $object['id'];
         }
 
         return $objectIDs;
@@ -238,11 +238,12 @@ class CMDBObjects extends Request {
             case 0:
                 throw new \RuntimeException('Object not found');
             case 1:
-                if (!array_key_exists('id', $result[0])) {
+                if (!array_key_exists(0, $result) ||
+                    !array_key_exists('id', $result[0])) {
                     throw new \RuntimeException('Bad result');
                 }
 
-                return (int) $result[0]['id'];
+                return $result[0]['id'];
             default:
                 throw new \RuntimeException('Found %s objects', count($result));
         }
@@ -286,10 +287,9 @@ class CMDBObjects extends Request {
 
         foreach ($objectIDs as $objectID) {
             $requests[] = [
-                'method' => 'cmdb.object.delete',
+                'method' => 'cmdb.object.archive',
                 'params' => [
-                    'id' => $objectID,
-                    'status' => 'C__RECORD_STATUS__ARCHIVED'
+                    'object' => $objectID
                 ]
             ];
         }
@@ -315,8 +315,7 @@ class CMDBObjects extends Request {
             $requests[] = [
                 'method' => 'cmdb.object.delete',
                 'params' => [
-                    'id' => $objectID,
-                    'status' => 'C__RECORD_STATUS__DELETED'
+                    'object' => $objectID
                 ]
             ];
         }
@@ -340,10 +339,9 @@ class CMDBObjects extends Request {
 
         foreach ($objectIDs as $objectID) {
             $requests[] = [
-                'method' => 'cmdb.object.delete',
+                'method' => 'cmdb.object.purge',
                 'params' => [
-                    'id' => $objectID,
-                    'status' => 'C__RECORD_STATUS__PURGE'
+                    'object' => $objectID
                 ]
             ];
         }
@@ -353,9 +351,30 @@ class CMDBObjects extends Request {
         return $this;
     }
 
-// @todo Does not work:
-//    public function restore(array $objectIDs) {
-//
-//    }
+    /**
+     * Restore objects to "normal" status
+     *
+     * @param array $objectIDs List of object identifiers as integers
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function recycle(array $objectIDs) {
+        $requests = [];
+
+        foreach ($objectIDs as $objectID) {
+            $requests[] = [
+                'method' => 'cmdb.object.recycle',
+                'params' => [
+                    'object' => $objectID
+                ]
+            ];
+        }
+
+        $this->api->batchRequest($requests);
+
+        return $this;
+    }
 
 }

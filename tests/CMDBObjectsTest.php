@@ -49,6 +49,7 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group API-81
      */
     public function testCreate() {
         $objectIDs = $this->instance->create(
@@ -64,12 +65,13 @@ class CMDBObjectsTest extends BaseTest {
 
         foreach ($objectIDs as $objectID) {
             $this->assertInternalType('int', $objectID);
-            $this->assertGreaterThan(0, $objectID);
+            $this->isID($objectID);
         }
     }
 
     /**
      * @throws \Exception on error
+     * @group API-81
      */
     public function testRead() {
         $objects = $this->instance->read();
@@ -89,9 +91,7 @@ class CMDBObjectsTest extends BaseTest {
      */
     protected function validateObject(array $object) {
         $this->assertArrayHasKey('id', $object);
-        $this->assertInternalType('string', $object['id']);
-        $objectID = (int) $object['id'];
-        $this->assertGreaterThan(0, $objectID);
+        $this->isID($object['id']);
 
         $this->assertArrayHasKey('title', $object);
         $this->assertInternalType('string', $object['title']);
@@ -102,9 +102,7 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertNotEmpty($object['sysid']);
 
         $this->assertArrayHasKey('type', $object);
-        $this->assertInternalType('string', $object['type']);
-        $objectTypeID = (int) $object['type'];
-        $this->assertGreaterThan(0, $objectTypeID);
+        $this->isID($object['type']);
 
         $this->assertArrayHasKey('created', $object);
         $this->assertInternalType('string', $object['created']);
@@ -124,13 +122,11 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertNotEmpty($object['type_group_title']);
 
         $this->assertArrayHasKey('status', $object);
-        $this->assertInternalType('string', $object['status']);
-        $this->assertContains((int) $object['status'], $this->conditions);
+        $this->isID($object['status']);
+        $this->assertContains($object['status'], $this->conditions);
 
         $this->assertArrayHasKey('cmdb_status', $object);
-        $this->assertInternalType('string', $object['cmdb_status']);
-        $cmdbStatusID = (int) $object['cmdb_status'];
-        $this->assertGreaterThan(0, $cmdbStatusID);
+        $this->isID($object['cmdb_status']);
 
         $this->assertArrayHasKey('cmdb_status_title', $object);
         $this->assertInternalType('string', $object['cmdb_status_title']);
@@ -149,6 +145,10 @@ class CMDBObjectsTest extends BaseTest {
 
         $this->assertInternalType('array', $objects);
         $this->assertCount(10, $objects);
+
+        foreach ($objects as $object) {
+            $this->validateObject($object);
+        }
     }
 
     /**
@@ -167,6 +167,10 @@ class CMDBObjectsTest extends BaseTest {
 
         $this->assertInternalType('array', $objects);
         $this->assertCount(3, $objects);
+
+        foreach ($objects as $object) {
+            $this->validateObject($object);
+        }
     }
 
     /**
@@ -177,6 +181,10 @@ class CMDBObjectsTest extends BaseTest {
 
         $this->assertInternalType('array', $objects);
         $this->assertNotCount(0, $objects);
+
+        foreach ($objects as $object) {
+            $this->validateObject($object);
+        }
     }
 
     /**
@@ -190,6 +198,10 @@ class CMDBObjectsTest extends BaseTest {
         $objects = $this->instance->readArchived('C__OBJTYPE__PERSON');
 
         $this->assertInternalType('array', $objects);
+
+        foreach ($objects as $object) {
+            $this->validateObject($object);
+        }
     }
 
     /**
@@ -203,6 +215,10 @@ class CMDBObjectsTest extends BaseTest {
         $objects = $this->instance->readDeleted('C__OBJTYPE__PERSON');
 
         $this->assertInternalType('array', $objects);
+
+        foreach ($objects as $object) {
+            $this->validateObject($object);
+        }
     }
 
     /**
@@ -231,6 +247,8 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group unreleased
+     * @group API-88
      */
     public function testArchive() {
         $objectIDs = $this->instance->create(
@@ -249,6 +267,8 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group unreleased
+     * @group API-89
      */
     public function testDelete() {
         $objectIDs = $this->instance->create(
@@ -267,6 +287,8 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group unreleased
+     * @group API-90
      */
     public function testPurge() {
         $objectIDs = $this->instance->create(
@@ -285,6 +307,31 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @throws \Exception on error
+     * @group unreleased
+     * @group API-91
+     */
+    public function testRecycle() {
+        $objectIDs = $this->instance->create(
+            [
+                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Purged Server One'],
+                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Purged Server Two'],
+                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Purged Server Three']
+            ]
+        );
+
+        $this->instance->archive($objectIDs);
+
+        $result = $this->instance->recycle($objectIDs);
+
+        $this->assertInstanceOf(
+            CMDBObjects::class,
+            $result
+        );
+    }
+
+    /**
+     * @throws \Exception on error
+     * @group API-81
      */
     public function testGetIdentifier() {
         $uniqueTitle = 'Server No. ' . microtime(true);

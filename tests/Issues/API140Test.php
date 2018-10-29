@@ -31,36 +31,40 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group unreleased
- * @group API-53
- * @see https://i-doit.atlassian.net/browse/API-53
- * @see https://i-doit.atlassian.net/browse/ID-5840
+ * @group API-140
+ * @group ID-6259
+ * @see https://i-doit.atlassian.net/browse/API-140
+ * @see https://i-doit.atlassian.net/browse/ID-6259
  */
-class API53Test extends BaseTest {
+class API140Test extends BaseTest {
 
     /**
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testIssue() {
         $objectID = $this->createServer();
         $this->isID($objectID);
+        $subnetID = $this->createSubnet();
+        $this->isID($subnetID);
+        $this->addIPv4($objectID, $subnetID);
 
-        $result = $this->cmdbCategory->create(
-            $objectID,
-            'C__CATG__IP',
-            [
-                // This request must fail, because object does not exist:
-                'net' => $this->generateRandomID(),
-                'active' => 1,
-                'primary' => 1,
-                'net_type' => 1,
-                'ipv4_assignment' => 2,
-                'ipv4_address' => $this->generateIPv4Address(),
-                'description' => $this->generateDescription()
-            ]
-        );
+        $amount = 1000;
+        $categoryConsts = [];
 
-        $this->assertInternalType('array', $result);
+        for ($index = 0; $index < $amount; $index++) {
+            $categoryConsts[] = 'C__CATG__IP';
+        }
+
+        // This was pretty slow:
+        $results = $this->cmdbCategory->batchRead([$objectID], $categoryConsts);
+
+        $this->assertInternalType('array', $results);
+        $this->assertCount($amount, $results);
+
+        foreach ($results as $result) {
+            $this->assertInternalType('array', $result);
+            $this->assertCount(1, $result);
+        }
     }
 
 }

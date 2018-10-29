@@ -286,10 +286,10 @@ abstract class BaseTest extends TestCase {
             'C__CATG__IP',
             [
                 'net' => (isset($subnetID)) ? $subnetID : $this->getIPv4Net(),
-                'active' => 0,
-                'primary' => 0,
-                'net_type' => 1,
-                'ipv4_assignment' => 2,
+                'active' => mt_rand(0, 1),
+                'primary' => mt_rand(0, 1),
+                'net_type' => 1, // IPv4
+                'ipv4_assignment' => 2, // Static
                 'ipv4_address' => $this->generateIPv4Address(),
                 'description' => $this->generateDescription()
             ]

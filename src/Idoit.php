@@ -48,7 +48,13 @@ class Idoit extends Request {
      * @throws \Exception on error
      */
     public function getAddOns() {
-        return $this->api->request('idoit.addons.read');
+        $response = $this->api->request('idoit.addons.read');
+
+        if (!array_key_exists('result', $response) || !is_array($response['result'])) {
+            throw new \RuntimeException('Bad result');
+        }
+
+        return $response['result'];
     }
 
     /**

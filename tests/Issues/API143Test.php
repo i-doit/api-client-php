@@ -31,36 +31,54 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group unreleased
- * @group API-53
- * @see https://i-doit.atlassian.net/browse/API-53
- * @see https://i-doit.atlassian.net/browse/ID-5840
+ * @group API-143
+ * @see https://i-doit.atlassian.net/browse/API-143
  */
-class API53Test extends BaseTest {
+class API143Test extends BaseTest {
 
     /**
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testIssue() {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $result = $this->cmdbCategory->create(
+        $entryID = $this->cmdbCategory->create(
             $objectID,
-            'C__CATG__IP',
+            'C__CATG__CPU',
             [
-                // This request must fail, because object does not exist:
-                'net' => $this->generateRandomID(),
-                'active' => 1,
-                'primary' => 1,
-                'net_type' => 1,
-                'ipv4_assignment' => 2,
-                'ipv4_address' => $this->generateIPv4Address(),
-                'description' => $this->generateDescription()
+                'title' => $this->generateRandomString(),
+                'manufacturer' => 'Amdtel'
             ]
         );
+        $this->isID($entryID);
 
+        $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CPU', $entryID);
         $this->assertInternalType('array', $result);
+
+        $this->assertArrayHasKey('frequency', $result);
+        $this->assertNull($result['frequency']);
+
+        $this->assertArrayHasKey('frequency_unit', $result);
+        $this->assertNull($result['frequency_unit']);
+
+        $this->cmdbCategory->update(
+            $objectID,
+            'C__CATG__CPU',
+            [
+                'manufacturer' => 'Amdtel'
+            ],
+            $entryID
+        );
+
+        $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CPU', $entryID);
+        $this->assertInternalType('array', $result);
+
+        $this->assertArrayHasKey('frequency', $result);
+        $this->assertNull($result['frequency']);
+
+        $this->assertArrayHasKey('frequency_unit', $result);
+        $this->assertNull($result['frequency_unit']);
     }
 
 }

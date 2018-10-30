@@ -348,9 +348,7 @@ class APITest extends BaseTest {
         $requestTpl = [
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
-            'params' => [
-                'apikey' => $this->generateRandomString()
-            ],
+            'params' => [],
             'id' => 1
         ];
 

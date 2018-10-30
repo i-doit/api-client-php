@@ -600,4 +600,13 @@ abstract class BaseTest extends TestCase {
         $this->assertSame($request['id'], $response['id'], 'Identifiers in request and response do not match');
     }
 
+    protected function isOutput(array $output) {
+        foreach ($output as $lineNumber => $line) {
+            $this->assertInternalType('int', $lineNumber);
+            $this->assertGreaterThanOrEqual(0, $lineNumber);
+
+            $this->assertInternalType('string', $line);
+        }
+    }
+
 }

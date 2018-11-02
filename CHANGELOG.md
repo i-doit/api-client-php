@@ -17,6 +17,7 @@ This release comes with new features and tons of unit tests. To get the full exp
 -   `CMDBObject::recycle()`: Restore object to "normal" status
 -   `CMDBObject::markAsTemplate()`: Convert object to template
 -   `CMDBObject::markAsMassChangeTemplate()`: Convert object to mass change template
+-   `CMDBObjects::read()` & Co.: Optionally, fetch category entries for each object
 -   `CMDBObjects::recycle()`: Restore objects to "normal" status
 -   `CMDBCategory::save()`: Create new or update existing category entry for a specific object
 -   `CMDBCategory::read()`, `CMDBCategory::readOneByID()`: Filter entry/entries by status

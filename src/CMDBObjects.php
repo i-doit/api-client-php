@@ -44,7 +44,7 @@ class CMDBObjects extends Request {
     const SORT_DESCENDING = 'DESC';
 
     /**
-     * Creates one or more objects
+     * Create one or more objects
      *
      * @param array $objects Mandatory attributes ('type', 'title') and optional attributes
      * ('category', 'purpose', 'cmdb_status', 'description')
@@ -75,7 +75,7 @@ class CMDBObjects extends Request {
     }
 
     /**
-     * Fetches objects
+     * Fetch objects
      *
      * @param array $filter (optional) Filter; use any combination of 'ids' (array of object identifiers),
      * 'type' (object type identifier), 'type_group', 'status', 'title' (object title), 'type_title' (l10n object type),
@@ -87,16 +87,24 @@ class CMDBObjects extends Request {
      * 'isys_cats_person_list__first_name', 'first_name', 'isys_cats_person_list__last_name', 'last_name',
      * 'isys_cats_person_list__mail_address', 'email', 'isys_obj__id', 'id'
      * @param string $sort Sort ascending ('ASC') or descending ('DESC')
+     * @param bool|array $categories Also fetch category entries; add a list of category constants as array of strings
+     * or true for all assigned categories, otherwise false for none; defaults to false
      *
      * @return array Indexed array of associative arrays
      *
      * @throws \Exception on error
      */
-    public function read(array $filter = [], $limit = null, $offset = null, $orderBy = null, $sort = null) {
+    public function read(
+        array $filter = [], $limit = null, $offset = null, $orderBy = null, $sort = null, $categories = false
+    ) {
         $params = [];
 
         if (count($filter) > 0) {
             $params['filter'] = $filter;
+        }
+
+        if ($categories !== false) {
+            $params['categories'] = $categories;
         }
 
         if (isset($limit)) {
@@ -122,99 +130,127 @@ class CMDBObjects extends Request {
     }
 
     /**
-     * Fetches objects by their identifiers
+     * Fetch objects by their identifiers
      *
      * @param array $objectIDs List of object identifiers as integers
+     * @param bool|array $categories Also fetch category entries; add a list of category constants as array of strings
+     * or true for all assigned categories, otherwise false for none; defaults to false
      *
      * @return array Indexed array of associative arrays
      *
      * @throws \Exception on error
      */
-    public function readByIDs(array $objectIDs) {
+    public function readByIDs(array $objectIDs, $categories = false) {
+        $params = [
+            'filter' => [
+                'ids' => $objectIDs
+            ]
+        ];
+
+        if ($categories !== false) {
+            $params['categories'] = $categories;
+        }
+
         return $this->api->request(
             'cmdb.objects.read',
-            [
-                'filter' => [
-                    'ids' => $objectIDs
-                ]
-            ]
+            $params
         );
     }
 
     /**
-     * Fetches objects by their object type
+     * Fetch objects by their object type
      *
      * @param string $objectType Object type constant
+     * @param bool|array $categories Also fetch category entries; add a list of category constants as array of strings
+     * or true for all assigned categories, otherwise false for none; defaults to false
      *
      * @return array Indexed array of associative arrays
      *
      * @throws \Exception on error
      */
-    public function readByType($objectType) {
-        return $this->api->request(
-            'cmdb.objects.read',
-            [
-                'filter' => [
-                    'type' => $objectType
-                ]
+    public function readByType($objectType, $categories = false) {
+        $params = [
+            'filter' => [
+                'type' => $objectType
             ]
-        );
-    }
-
-    /**
-     * Fetches archived objects filtered by (optional) type
-     *
-     * @param string $type (Optional) object type constant
-     *
-     * @return array Indexed array of associative arrays
-     *
-     * @throws \Exception on error
-     */
-    public function readArchived($type = null) {
-        $filter = [
-            'status' => 'C__RECORD_STATUS__ARCHIVED'
         ];
 
-        if (isset($type)) {
-            $filter['type'] = $type;
+        if ($categories !== false) {
+            $params['categories'] = $categories;
         }
 
         return $this->api->request(
             'cmdb.objects.read',
-            [
-                'filter' => $filter
-            ]
+            $params
         );
     }
 
     /**
-     * Fetches deleted objects filtered by (optional) type
+     * Fetch archived objects filtered by (optional) type
      *
      * @param string $type (Optional) object type constant
+     * @param bool|array $categories Also fetch category entries; add a list of category constants as array of strings
+     * or true for all assigned categories, otherwise false for none; defaults to false
      *
      * @return array Indexed array of associative arrays
      *
      * @throws \Exception on error
      */
-    public function readDeleted($type = null) {
-        $filter = [
-            'status' => 'C__RECORD_STATUS__DELETED'
+    public function readArchived($type = null, $categories = false) {
+        $params = [
+            'filter' => [
+                'status' => 'C__RECORD_STATUS__ARCHIVED'
+            ]
         ];
 
+        if ($categories !== false) {
+            $params['categories'] = $categories;
+        }
+
         if (isset($type)) {
-            $filter['type'] = $type;
+            $params['filter']['type'] = $type;
         }
 
         return $this->api->request(
             'cmdb.objects.read',
-            [
-                'filter' => $filter
-            ]
+            $params
         );
     }
 
     /**
-     * Fetches an object identifier by object title and (optional) type
+     * Fetch deleted objects filtered by (optional) type
+     *
+     * @param string $type (Optional) object type constant
+     * @param bool|array $categories Also fetch category entries; add a list of category constants as array of strings
+     * or true for all assigned categories, otherwise false for none; defaults to false
+     *
+     * @return array Indexed array of associative arrays
+     *
+     * @throws \Exception on error
+     */
+    public function readDeleted($type = null, $categories = false) {
+        $params = [
+            'filter' => [
+                'status' => 'C__RECORD_STATUS__DELETED'
+            ]
+        ];
+
+        if ($categories !== false) {
+            $params['categories'] = $categories;
+        }
+
+        if (isset($type)) {
+            $params['filter']['type'] = $type;
+        }
+
+        return $this->api->request(
+            'cmdb.objects.read',
+            $params
+        );
+    }
+
+    /**
+     * Fetch an object identifier by object title and (optional) type
      *
      * @param string $title Object title
      * @param string $type (Optional) type constant
@@ -250,7 +286,7 @@ class CMDBObjects extends Request {
     }
 
     /**
-     * Updates one or more existing objects
+     * Update one or more existing objects
      *
      * @param array $objects Indexed array of object attributes ('id' and 'title')
      *
@@ -274,7 +310,7 @@ class CMDBObjects extends Request {
     }
 
     /**
-     * Archives one or more objects
+     * Archive one or more objects
      *
      * @param array $objectIDs List of object identifiers as integers
      *
@@ -300,7 +336,7 @@ class CMDBObjects extends Request {
     }
 
     /**
-     * Deletes one or more objects
+     * Delete one or more objects
      *
      * @param array $objectIDs List of object identifiers as integers
      *
@@ -326,7 +362,7 @@ class CMDBObjects extends Request {
     }
 
     /**
-     * Purges one or more objects
+     * Purge one or more objects
      *
      * @param array $objectIDs List of object identifiers as integers
      *

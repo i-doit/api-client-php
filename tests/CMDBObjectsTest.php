@@ -222,6 +222,104 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
+     * @group unrelease
+     * @group API-83
+     * @throws \Exception on error
+     */
+    public function testReadWithSomeCategories() {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+        $person = $this->createPerson();
+        $this->defineModel($objectID);
+        $this->addIPv4($objectID);
+        $this->addContact($objectID, $person['id']);
+
+        $categoryConstants = [
+            'C__CATG__MODEL',
+            'C__CATG__IP',
+            'C__CATG__CONTACT'
+        ];
+
+        $result = $this->cmdbObjects->read(['ids' => [$objectID]], null, null, null, null, $categoryConstants);
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey(0, $result);
+        $this->assertInternalType('array', $result[0]);
+        $this->validateObject($result[0]);
+        $this->assertSame($objectID, $result[0]['id']);
+
+        $this->assertArrayHasKey('categories', $result[0]);
+        $this->assertInternalType('array', $result[0]['categories']);
+        $this->assertCount(3, $result[0]['categories']);
+
+        foreach ($result[0]['categories'] as $categoryConstant => $entries) {
+            $this->assertInternalType('string', $categoryConstant);
+            $this->assertContains($categoryConstant, $categoryConstants);
+
+            $this->assertInternalType('array', $entries);
+            $this->assertNotCount(0, $entries);
+
+            foreach ($entries as $index => $entry) {
+                $this->assertInternalType('int', $index);
+                $this->assertGreaterThanOrEqual(0, $index);
+
+                $this->assertInternalType('array', $entry);
+                $this->isCategoryEntry($entry);
+                $this->assertSame($objectID, (int) $entry['objID']);
+            }
+        }
+    }
+
+    /**
+     * @group unrelease
+     * @group API-83
+     * @throws \Exception on error
+     */
+    public function testReadWithAllCategories() {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+        $person = $this->createPerson();
+        $this->defineModel($objectID);
+        $this->addIPv4($objectID);
+        $this->addContact($objectID, $person['id']);
+
+        $result = $this->cmdbObjects->read(['ids' => [$objectID]], null, null, null, null, true);
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+        $this->assertArrayHasKey(0, $result);
+        $this->assertInternalType('array', $result[0]);
+        $this->validateObject($result[0]);
+        $this->assertSame($objectID, $result[0]['id']);
+
+        $this->assertArrayHasKey('categories', $result[0]);
+        $this->assertInternalType('array', $result[0]['categories']);
+        $this->assertGreaterThanOrEqual(3, count($result[0]['categories']));
+
+        foreach ($result[0]['categories'] as $categoryConstant => $entries) {
+            $this->assertInternalType('string', $categoryConstant);
+            $this->isConstant($categoryConstant);
+
+            $this->assertInternalType('array', $entries);
+
+            foreach ($entries as $index => $entry) {
+                $this->assertInternalType('int', $index);
+                $this->assertGreaterThanOrEqual(0, $index);
+
+                $this->assertInternalType('array', $entry);
+                $this->isCategoryEntry($entry);
+
+                if ($categoryConstant === 'C__CATG__RELATION') {
+                    continue;
+                }
+
+                $this->assertSame($objectID, (int) $entry['objID']);
+            }
+        }
+    }
+
+    /**
      * @throws \Exception on error
      */
     public function testUpdate() {

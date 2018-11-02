@@ -633,4 +633,14 @@ abstract class BaseTest extends TestCase {
         $this->assertInternalType('string', $result['status']);
     }
 
+    protected function isCategoryEntry(array $entry) {
+        $this->assertGreaterThanOrEqual(3, count($entry));
+
+        $this->assertArrayHasKey('id', $entry);
+        $this->isIDAsString($entry['id']);
+
+        $this->assertArrayHasKey('objID', $entry);
+        $this->isIDAsString($entry['objID']);
+    }
+
 }

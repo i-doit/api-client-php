@@ -26,10 +26,15 @@ This release comes with new features and tons of unit tests. To get the full exp
 -   `CMDBCategory::recycle()`: Restore entry in a multi-value category for a specific object to "normal" state
 -   `CMDBDialog::create()`: Reference parent entry by its title (string) or by its identifier (integer)
 -   `Idoit::getAddOns()`: Read information about installed add-ons
+-   `CMDBImpact`: Filter relations by status
+-   `CMDBObjectsByRelation`: Filter relations by status
+-   `CMDBLocationTree`: Filter relations by status
+-   `CMDBWorkstationComponents`: Filter relations by status
 -   Execute CLI commands over API (method namespace `console`)
 -   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 -   `API::rawRequest()`: Perform a low level API request
 -   `CMDBCategoryInfo::testGetVirtualCategoryConstants()`: Get list of constants for virtual categories
+-   `CMDBImpact::readByTypes()`: Perform an impact analysis for a specific object by one ore more relation type constant or identifiers
 
 
 ### Changed

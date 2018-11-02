@@ -35,17 +35,24 @@ class CMDBLocationTree extends Request {
      * This method does not run recursively. Use readRecursively() instead.
      *
      * @param int $objectID Object identifier
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function read($objectID) {
+    public function read($objectID, $status = null) {
+        $params = [
+            'id' => $objectID
+        ];
+
+        if (isset($status)) {
+            $params['status'] = $status;
+        }
+
         return $this->api->request(
             'cmdb.location_tree.read',
-            [
-                'id' => $objectID
-            ]
+            $params
         );
     }
 
@@ -53,13 +60,14 @@ class CMDBLocationTree extends Request {
      * Reads recursively objects located under an object
      *
      * @param int $objectID Object identifier
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function readRecursively($objectID) {
-        $children = $this->read($objectID);
+    public function readRecursively($objectID, $status = null) {
+        $children = $this->read($objectID, $status);
 
         $tree = [];
 
@@ -70,7 +78,7 @@ class CMDBLocationTree extends Request {
 
             $node = $child;
 
-            $childChildren = $this->read((int) $child['id']);
+            $childChildren = $this->read((int) $child['id'], $status);
 
             if (count($childChildren) > 0) {
                 $node['children'] = $childChildren;

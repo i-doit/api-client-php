@@ -120,6 +120,24 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
+     * @group unreleased
+     * @group API-71
+     * @throws \Exception on error
+     */
+    public function testReadByStatus() {
+        // @todo Implement me!
+    }
+
+    /**
+     * @group unreleased
+     * @group API-71
+     * @throws \Exception on error
+     */
+    public function testReadByInvalidStatus() {
+        // @todo Implement me!
+    }
+
+    /**
      * Validate result
      *
      * @param array $result

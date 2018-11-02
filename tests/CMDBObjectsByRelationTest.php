@@ -99,4 +99,25 @@ class CMDBObjectsByRelationTest extends BaseTest {
         $this->assertInternalType('boolean', $first['children']);
     }
 
+    /**
+     * @throws \Exception on error
+     */
+    public function testFilterByStatusNormal() {
+        // @todo Implement me!
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testFilterByStatusArchived() {
+        // @todo Implement me!
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testFilterByStatusDeleted() {
+        // @todo Implement me!
+    }
+
 }

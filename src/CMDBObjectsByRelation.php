@@ -34,18 +34,24 @@ class CMDBObjectsByRelation extends Request {
      *
      * @param int $objectID Object identifier
      * @param int $relationType Relation type identifier
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function readByID($objectID, $relationType) {
+    public function readByID($objectID, $relationType, $status = null) {
+        $params = [
+            'id' => $objectID,
+            'relation_type' => $relationType
+        ];
+
+        if (isset($status)) {
+            $params['status'] = $status;
+        }
         return $this->api->request(
             'cmdb.objects_by_relation.read',
-            [
-                'id' => $objectID,
-                'relation_type' => $relationType
-            ]
+            $params
         );
     }
 
@@ -54,18 +60,24 @@ class CMDBObjectsByRelation extends Request {
      *
      * @param int $objectID Object identifier
      * @param string $relationType Relation type constant
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function readByConst($objectID, $relationType) {
+    public function readByConst($objectID, $relationType, $status = null) {
+        $params = [
+            'id' => $objectID,
+            'relation_type' => $relationType
+        ];
+
+        if (isset($status)) {
+            $params['status'] = $status;
+        }
         return $this->api->request(
             'cmdb.objects_by_relation.read',
-            [
-                'id' => $objectID,
-                'relation_type' => $relationType
-            ]
+            $params
         );
     }
 

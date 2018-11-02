@@ -30,42 +30,83 @@ namespace bheisig\idoitapi;
 class CMDBImpact extends Request {
 
     /**
-     * Performs an impact analysis for a specific object by its relation type identifier
+     * Perform an impact analysis for a specific object by its relation type identifier
      *
      * @param int $objectID Object identifier
      * @param int $relationType Relation type identifier
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function readByID($objectID, $relationType) {
+    public function readByID($objectID, $relationType, $status = null) {
+        $params = [
+            'id' => $objectID,
+            'relation_type' => $relationType
+        ];
+
+        if (isset($status)) {
+            $params['status'] = $status;
+        }
+
         return $this->api->request(
             'cmdb.impact.read',
-            [
-                'id' => $objectID,
-                'relation_type' => $relationType
-            ]
+            $params
         );
     }
 
     /**
-     * Performs an impact analysis for a specific object by its relation type constant
+     * Perform an impact analysis for a specific object by its relation type constant
      *
      * @param int $objectID Object identifier
      * @param string $relationType Relation type constant
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function readByConst($objectID, $relationType) {
+    public function readByConst($objectID, $relationType, $status = null) {
+        $params = [
+            'id' => $objectID,
+            'relation_type' => $relationType
+        ];
+
+        if (isset($status)) {
+            $params['status'] = $status;
+        }
+
         return $this->api->request(
             'cmdb.impact.read',
-            [
-                'id' => $objectID,
-                'relation_type' => $relationType
-            ]
+            $params
+        );
+    }
+
+    /**
+     * Perform an impact analysis for a specific object by one ore more relation type constant or identifiers
+     *
+     * @param int $objectID Object identifier
+     * @param array $relationTypes List of relation type constants as strings or identifiers as integers
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
+     *
+     * @return array
+     *
+     * @throws \Exception on error
+     */
+    public function readByTypes($objectID, array $relationTypes, $status = null) {
+        $params = [
+            'id' => $objectID,
+            'relation_type' => $relationTypes
+        ];
+
+        if (isset($status)) {
+            $params['status'] = $status;
+        }
+
+        return $this->api->request(
+            'cmdb.impact.read',
+            $params
         );
     }
 

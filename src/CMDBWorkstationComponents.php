@@ -33,19 +33,26 @@ class CMDBWorkstationComponents extends Request {
      * Reads workplace components for a specific object, for example a person
      *
      * @param int $objectID Object identifier
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function read($objectID) {
+    public function read($objectID, $status = null) {
+        $params = [
+            'filter' => [
+                'id' => $objectID
+            ]
+        ];
+
+        if (isset($status)) {
+            $params['filter']['status'] = $status;
+        }
+
         return $this->api->request(
             'cmdb.workstation_components',
-            [
-                'filter' => [
-                    'id' => $objectID
-                ]
-            ]
+            $params
         );
     }
 
@@ -53,19 +60,26 @@ class CMDBWorkstationComponents extends Request {
      * Reads workplace components for one or more objects, for example persons
      *
      * @param array $objectIDs List of object identifiers as integers
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array Result
      *
      * @throws \Exception on error
      */
-    public function batchRead(array $objectIDs) {
+    public function batchRead(array $objectIDs, $status = null) {
+        $params = [
+            'filter' => [
+                'ids' => $objectIDs
+            ]
+        ];
+
+        if (isset($status)) {
+            $params['filter']['status'] = $status;
+        }
+
         return $this->api->request(
             'cmdb.workstation_components',
-            [
-                'filter' => [
-                    'ids' => $objectIDs
-                ]
-            ]
+            $params
         );
     }
 
@@ -73,19 +87,26 @@ class CMDBWorkstationComponents extends Request {
      * Reads workplace components for a specific object by its e-mail address, for example a person
      *
      * @param string $email E-mail address
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function readByEmail($email) {
+    public function readByEmail($email, $status = null) {
+        $params = [
+            'filter' => [
+                'email' => $email
+            ]
+        ];
+
+        if (isset($status)) {
+            $params['filter']['status'] = $status;
+        }
+
         return $this->api->request(
             'cmdb.workstation_components',
-            [
-                'filter' => [
-                    'email' => $email
-                ]
-            ]
+            $params
         );
     }
 
@@ -93,19 +114,26 @@ class CMDBWorkstationComponents extends Request {
      * Reads workplace components for one or more objects by their e-mail addresses, for example persons
      *
      * @param array $emails List of e-mail addresses as strings
+     * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      *
      * @return array
      *
      * @throws \Exception on error
      */
-    public function readByEmails(array $emails) {
+    public function readByEmails(array $emails, $status = null) {
+        $params = [
+            'filter' => [
+                'emails' => $emails
+            ]
+        ];
+
+        if (isset($status)) {
+            $params['filter']['status'] = $status;
+        }
+
         return $this->api->request(
             'cmdb.workstation_components',
-            [
-                'filter' => [
-                    'emails' => $emails
-                ]
-            ]
+            $params
         );
     }
 

@@ -78,4 +78,14 @@ class LDAPTest extends BaseTest {
         $this->assertInternalType('array', $result);
     }
 
+    /**
+     * @throws \Exception on error
+     * @todo We need at least one LDAP configuration!
+     */
+    public function testSyncDistinguishedNames() {
+//        $result = $this->ldap->syncDN();
+//
+//        $this->assertInternalType('array', $result);
+    }
+
 }

@@ -25,54 +25,20 @@
 namespace bheisig\idoitapi\Console;
 
 /**
- * Requests for API namespace 'console.ldap'
+ * Requests for API namespace 'console.logbook'
  */
-class LDAP extends Console {
+class Logbook extends Console {
 
     /**
-     * Synchronize LDAP user accounts with i-doit person objects
-     *
-     * @param int $ldapServerID Identifier of LDAP configuration
+     * Archive old logbook entries
      *
      * @return array Output (one value per line)
      *
      * @throws \Exception on error
      */
-    public function sync($ldapServerID) {
+    public function archive() {
         return $this->execute(
-            'console.ldap.sync',
-            [
-                'ldapServerId' => $ldapServerID
-            ]
-        );
-    }
-
-    /**
-     * Synchronize LDAP user accounts with i-doit person objects
-     *
-     * @return array Output (one value per line)
-     *
-     * @throws \Exception on error
-     */
-    public function syncAll() {
-        return $this->execute(
-            'console.ldap.sync'
-        );
-    }
-
-    /**
-     * Synchronize distinguished names (DN) from LDAP user accounts with i-doit person objects
-     *
-     * @param array $options Options
-     *
-     * @return array Output (one value per line)
-     *
-     * @throws \Exception on error
-     */
-    public function syncDistinguishedNames(array $options = []) {
-        return $this->execute(
-            'console.ldap.syncdn',
-            $options
+            'console.logbook.archive'
         );
     }
 

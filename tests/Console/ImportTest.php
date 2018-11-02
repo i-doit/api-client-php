@@ -26,19 +26,19 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
-use bheisig\idoitapi\Console\Console;
+use bheisig\idoitapi\Console\Import;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
  * @group unreleased
  * @group API-57
  */
-class ConsoleTest extends BaseTest {
+class ImportTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Console\Console
+     * @var \bheisig\idoitapi\Console\Import
      */
-    protected $console;
+    protected $import;
 
     /**
      * @throws \Exception on error
@@ -46,29 +46,14 @@ class ConsoleTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->console = new Console($this->api);
-    }
-
-    /**
-     * @throws \Exception on error
-     * @expectedException \Exception
-     */
-    public function testExecuteNothing() {
-        $result = $this->console->execute('');
-
-        $this->assertInternalType('array', $result);
+        $this->import = new Import($this->api);
     }
 
     /**
      * @throws \Exception on error
      */
-    public function testExecuteSimpleCommand() {
-        $result = $this->console->execute(
-            'console.search.query',
-            [
-                'searchString' => 'test'
-            ]
-        );
+    public function testImportFromCSVFile() {
+        $result = $this->import->importFromCSVFile();
 
         $this->assertInternalType('array', $result);
         $this->isOutput($result);
@@ -76,40 +61,72 @@ class ConsoleTest extends BaseTest {
 
     /**
      * @throws \Exception on error
-     * @expectedException \Exception
      */
-    public function testExecuteUnknownCommand() {
-        $result = $this->console->execute(
-            'console.commands.' . $this->generateRandomString()
-        );
+    public function testListCSVImportProfiles() {
+        $result = $this->import->listCSVImportProfiles();
 
         $this->assertInternalType('array', $result);
+        $this->isOutput($result);
     }
 
     /**
-     * List of blacklisted commands
-     * @return array Blacklisted commands
-     */
-    public function getBlacklistedCommands(): array {
-        return [
-            ['console.system.checkforupdates'],
-            ['console.system.update'],
-            ['console.tenant.add'],
-            ['console.tenant.disable'],
-            ['console.tenant.enable'],
-            ['console.tenant.list'],
-        ];
-    }
-
-    /**
-     * @dataProvider getBlacklistedCommands
-     * @expectedException \RuntimeException
-     * @param string $blacklistedCommand Blacklisted command
      * @throws \Exception on error
      */
-    public function testExecuteBlacklistedCommand($blacklistedCommand) {
-        $result = $this->console->execute($blacklistedCommand);
+    public function testImportFromHInventory() {
+        $result = $this->import->importFromHInventory();
+
         $this->assertInternalType('array', $result);
+        $this->isOutput($result);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testImportFromJDiscDiscovery() {
+        $result = $this->import->importFromJDiscDiscovery();
+
+        $this->assertInternalType('array', $result);
+        $this->isOutput($result);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testTriggerJDiscDiscovery() {
+        $result = $this->import->triggerJDiscDiscovery();
+
+        $this->assertInternalType('array', $result);
+        $this->isOutput($result);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testImportFromOCSInventoryNG() {
+        $result = $this->import->importFromOCSInventoryNG();
+
+        $this->assertInternalType('array', $result);
+        $this->isOutput($result);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testImportFromSyslog() {
+        $result = $this->import->importFromSyslog();
+
+        $this->assertInternalType('array', $result);
+        $this->isOutput($result);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testImportFromXMLFile() {
+        $result = $this->import->importFromXMLFile();
+
+        $this->assertInternalType('array', $result);
+        $this->isOutput($result);
     }
 
 }

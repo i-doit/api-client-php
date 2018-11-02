@@ -89,8 +89,8 @@ class API142Test extends BaseTest {
         $this->isID($result['id']);
 
         $this->searchInCMDBFor('Server > Model > Manufacturer', $manufacturer, $result['id'], $objectTitle);
-        $this->searchInCMDBFor('Server > Model > Title', $model, $result['id'], $objectTitle);
-        $this->searchInCMDBFor('Server > Model > Serial', $serial, $result['id'], $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Model', $model, $result['id'], $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Serial Number', $serial, $result['id'], $objectTitle);
         $this->searchInCMDBFor('Server > CPU > Title', $cpu1, $result['id'], $objectTitle);
         $this->searchInCMDBFor('Server > CPU > Title', $cpu2, $result['id'], $objectTitle);
     }
@@ -99,42 +99,212 @@ class API142Test extends BaseTest {
      * @throws \Exception on error
      */
     public function testCreateSingleValueCategory() {
-        // @todo Implement me!
+        $objectTitle = 'Title ' . $this->generateRandomString();
+        $manufacturer = 'Manufacturer ' . $this->generateRandomString();
+        $model = 'Model ' . $this->generateRandomString();
+        $serial = 'Serial ' . $this->generateRandomString();
+
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $objectTitle
+        );
+        $this->isID($objectID);
+
+        $this->cmdbCategory->create(
+            $objectID,
+            'C__CATG__MODEL',
+            [
+                'manufacturer' => $manufacturer,
+                'title' => $model,
+                'serial' => $serial
+            ]
+        );
+
+        $this->searchInCMDBFor('Server > Model > Manufacturer', $manufacturer, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Model', $model, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Serial Number', $serial, $objectID, $objectTitle);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testCreateMultiValueCategory() {
-        // @todo Implement me!
+        $objectTitle = 'Title ' . $this->generateRandomString();
+        $cpu1 = 'CPU 1 ' . $this->generateRandomString();
+        $cpu2 = 'CPU 2 ' . $this->generateRandomString();
+
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $objectTitle
+        );
+        $this->isID($objectID);
+
+        $this->cmdbCategory->create(
+            $objectID,
+            'C__CATG__CPU',
+            [
+                'title' => $cpu1,
+            ]
+        );
+
+        $this->cmdbCategory->create(
+            $objectID,
+            'C__CATG__CPU',
+            [
+                'title' => $cpu2,
+            ]
+        );
+
+        $this->searchInCMDBFor('Server > CPU > Title', $cpu1, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > CPU > Title', $cpu2, $objectID, $objectTitle);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testUpdateSingleValueCategory() {
-        // @todo Implement me!
+        $objectTitle = 'Title ' . $this->generateRandomString();
+        $manufacturer = 'Manufacturer ' . $this->generateRandomString();
+        $model = 'Model ' . $this->generateRandomString();
+        $serial = 'Serial ' . $this->generateRandomString();
+
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $objectTitle
+        );
+        $this->isID($objectID);
+
+        $this->defineModel($objectID);
+
+        $this->cmdbCategory->create(
+            $objectID,
+            'C__CATG__MODEL',
+            [
+                'manufacturer' => $manufacturer,
+                'title' => $model,
+                'serial' => $serial
+            ]
+        );
+
+        $this->searchInCMDBFor('Server > Model > Manufacturer', $manufacturer, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Model', $model, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Serial Number', $serial, $objectID, $objectTitle);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testUpdateMultiValueCategory() {
-        // @todo Implement me!
+        $objectTitle = 'Title ' . $this->generateRandomString();
+        $cpu1 = 'CPU 1 ' . $this->generateRandomString();
+        $cpu2 = 'CPU 2 ' . $this->generateRandomString();
+
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $objectTitle
+        );
+        $this->isID($objectID);
+
+        $entry1ID = $this->cmdbCategory->create(
+            $objectID,
+            'C__CATG__CPU',
+            [
+                'title' => $this->generateRandomString(),
+            ]
+        );
+
+        $entry2ID = $this->cmdbCategory->create(
+            $objectID,
+            'C__CATG__CPU',
+            [
+                'title' => $this->generateRandomString(),
+            ]
+        );
+
+        $this->cmdbCategory->update(
+            $objectID,
+            'C__CATG__CPU',
+            [
+                'title' => $cpu1,
+            ],
+            $entry1ID
+        );
+
+        $this->cmdbCategory->update(
+            $objectID,
+            'C__CATG__CPU',
+            [
+                'title' => $cpu2,
+            ],
+            $entry2ID
+        );
+
+        $this->searchInCMDBFor('Server > CPU > Title', $cpu1, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > CPU > Title', $cpu2, $objectID, $objectTitle);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testSaveSingleValueCategory() {
-        // @todo Implement me!
+        $objectTitle = 'Title ' . $this->generateRandomString();
+        $manufacturer = 'Manufacturer ' . $this->generateRandomString();
+        $model = 'Model ' . $this->generateRandomString();
+        $serial = 'Serial ' . $this->generateRandomString();
+
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $objectTitle
+        );
+        $this->isID($objectID);
+
+        $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__MODEL',
+            [
+                'manufacturer' => $manufacturer,
+                'title' => $model,
+                'serial' => $serial
+            ]
+        );
+
+        $this->searchInCMDBFor('Server > Model > Manufacturer', $manufacturer, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Model', $model, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Serial Number', $serial, $objectID, $objectTitle);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testSaveMultiValueCategory() {
-        // @todo Implement me!
+        $objectTitle = 'Title ' . $this->generateRandomString();
+        $cpu1 = 'CPU 1 ' . $this->generateRandomString();
+        $cpu2 = 'CPU 2 ' . $this->generateRandomString();
+
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $objectTitle
+        );
+        $this->isID($objectID);
+
+        $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__CPU',
+            [
+                'title' => $cpu1,
+            ]
+        );
+
+        $this->cmdbCategory->save(
+            $objectID,
+            'C__CATG__CPU',
+            [
+                'title' => $cpu2,
+            ]
+        );
+
+        $this->searchInCMDBFor('Server > CPU > Title', $cpu1, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > CPU > Title', $cpu2, $objectID, $objectTitle);
     }
 
     /**

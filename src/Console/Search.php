@@ -30,7 +30,9 @@ namespace bheisig\idoitapi\Console;
 class Search extends Console {
 
     /**
+     * Create search index from scratch
      *
+     * @return array Output (one value per line)
      *
      * @throws \Exception on error
      */
@@ -41,7 +43,9 @@ class Search extends Console {
     }
 
     /**
+     * Update existing search index
      *
+     * @return array Output (one value per line)
      *
      * @throws \Exception on error
      */
@@ -50,6 +54,24 @@ class Search extends Console {
             'console.search.index',
             [
                 'update' => true
+            ]
+        );
+    }
+
+    /**
+     * Search for query
+     *
+     * @param string $query Query
+     *
+     * @return array Output (one value per line)
+     *
+     * @throws \Exception on error
+     */
+    public function query($query) {
+        return $this->execute(
+            'console.search.query',
+            [
+                'searchString' => $query
             ]
         );
     }

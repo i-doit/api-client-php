@@ -32,6 +32,8 @@ class Notifications extends Console {
     /**
      * Send e-mail notifications
      *
+     * @return array Output (one value per line)
+     *
      * @throws \Exception on error
      */
     public function send() {

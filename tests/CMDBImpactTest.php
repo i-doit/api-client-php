@@ -143,53 +143,56 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @return array
      */
-    public function readByInvalidRelationTypeIdentifiers() {
-        $invalidRelationTypes = [
-            -1,
-            0
+    public function getInvalidRelationTypeIdentifiers(): array {
+        return [
+            [-1],
+            [0]
         ];
-
-        $objectID = $this->createServer();
-
-        foreach ($invalidRelationTypes as $invalidRelationType) {
-            try {
-                $this->instance->readByID(
-                    $objectID,
-                    $invalidRelationType
-                );
-            } catch (\Exception $e) {
-                $this->expectException(\RuntimeException::class);
-            }
-        }
     }
 
     /**
+     * @dataProvider getInvalidRelationTypeIdentifiers
+     * @param int $invalidRelationType
      * @throws \Exception on error
+     * @expectedException \RuntimeException
      */
-    public function readByInvalidRelationTypeConstants() {
-        $invalidRelationTypes = [
-            '0',
-            '1',
-            $this->generateRandomString(),
-            '',
-            'NULL',
-            'C__RELATION_TYPE__UNKNOWN'
-        ];
+    public function readByInvalidRelationTypeIdentifier(int $invalidRelationType) {
+        $objectID = $this->createServer();
+        $this->instance->readByID(
+            $objectID,
+            $invalidRelationType
+        );
+    }
 
+    /**
+     * @return array
+     */
+    public function getInvalidRelationsTypeConstants(): array {
+        return [
+            ['0'],
+            ['1'],
+            [$this->generateRandomString()],
+            [''],
+            ['NULL'],
+            ['C__RELATION_TYPE__UNKNOWN']
+        ];
+    }
+
+    /**
+     * @dataProvider getInvalidRelationsTypeConstants
+     * @param string $invalidRelationType
+     * @throws \Exception on error
+     * @expectedException \RuntimeException
+     */
+    public function readByInvalidRelationTypeConstants(string $invalidRelationType) {
         $objectID = $this->createServer();
 
-        foreach ($invalidRelationTypes as $invalidRelationType) {
-            try {
-                $this->instance->readByConst(
-                    $objectID,
-                    $invalidRelationType
-                );
-            } catch (\Exception $e) {
-                $this->expectException(\RuntimeException::class);
-            }
-        }
+        $this->instance->readByConst(
+            $objectID,
+            $invalidRelationType
+        );
     }
 
     /**
@@ -299,20 +302,28 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
+     * @return array
+     */
+    public function getInvalidStatus(): array {
+        return [
+            'negative' => [-1],
+            'zero' => [0],
+            'unfinished' => [1],
+            'purged' => [5],
+            'template' => [6],
+            'mass change template' => [7]
+        ];
+    }
+
+    /**
      * @group unreleased
      * @group API-71
+     * @dataProvider getInvalidStatus
+     * @param int $status
+     * @expectedException \RuntimeException
      * @throws \Exception on error
      */
-    public function testFilterByInvalidStatus() {
-        $invalidStatus = [
-            -1,
-            0,
-            1,
-            5,
-            6,
-            7
-        ];
-
+    public function testFilterByInvalidStatus(int $status) {
         $relationType = 'C__RELATION_TYPE__LOCATION';
 
         $objectID = $this->createServer();
@@ -325,17 +336,11 @@ class CMDBImpactTest extends BaseTest {
         $this->addObjectToLocation($roomID, $rootLocationID);
         $this->addObjectToLocation($objectID, $roomID);
 
-        foreach ($invalidStatus as $status) {
-            try {
-                $this->instance->readByConst(
-                    $roomID,
-                    $relationType,
-                    $status
-                );
-            } catch (\Exception $e) {
-                $this->expectException(\RuntimeException::class);
-            }
-        }
+        $this->instance->readByConst(
+            $roomID,
+            $relationType,
+            $status
+        );
     }
 
     protected function isRelation(array $relation) {

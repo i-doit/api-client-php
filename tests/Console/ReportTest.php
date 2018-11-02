@@ -26,19 +26,19 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
-use bheisig\idoitapi\Console\Search;
+use bheisig\idoitapi\Console\Report;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
  * @group unreleased
  * @group API-57
  */
-class SearchTest extends BaseTest {
+class ReportTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Console\Search
+     * @var \bheisig\idoitapi\Console\Report
      */
-    protected $search;
+    protected $report;
 
     /**
      * @throws \Exception on error
@@ -46,41 +46,14 @@ class SearchTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->search = new Search($this->api);
+        $this->report = new Report($this->api);
     }
 
     /**
      * @throws \Exception on error
      */
-    public function testCreateIndex() {
-        $result = $this->search->createIndex();
-
-        $this->assertInternalType('array', $result);
-        $this->isOutput($result);
-    }
-
-    /**
-     * @throws \Exception on error
-     */
-    public function testUpdateIndex() {
-        $result = $this->search->updateIndex();
-
-        $this->assertInternalType('array', $result);
-        $this->isOutput($result);
-    }
-
-    /**
-     * @throws \Exception on error
-     */
-    public function testQuery() {
-        $title = $this->generateRandomString();
-
-        $this->cmdbObject->create(
-            'C__OBJTYPE__SERVER',
-            $title
-        );
-
-        $result = $this->search->query($title);
+    public function testExport() {
+        $result = $this->report->export();
 
         $this->assertInternalType('array', $result);
         $this->isOutput($result);

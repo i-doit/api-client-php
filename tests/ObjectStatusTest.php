@@ -751,13 +751,14 @@ class ObjectStatusTest extends BaseTest {
         $this->assertSame(4, (int) $object['status']);
     }
 
+    /**
+     * @param int $objectID Object identifier
+     *
+     * @throws \Exception on error
+     */
     protected function isPurged(int $objectID) {
-        try {
-            $result = $this->cmdbObject->read($objectID);
-            $this->assertInternalType('array', $result);
-        } catch (\Exception $e) {
-            $this->expectExceptionObject($e);
-        }
+        $result = $this->cmdbObject->read($objectID);
+        $this->assertCount(0, $result);
     }
 
     /**

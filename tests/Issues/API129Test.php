@@ -31,6 +31,7 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group unreleased
+ * @group API-129
  * @see https://i-doit.atlassian.net/browse/API-129
  */
 class API129Test extends BaseTest {

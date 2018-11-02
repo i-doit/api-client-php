@@ -32,6 +32,7 @@ use bheisig\idoitapi\CMDBCategoryInfo;
 /**
  * @group issues
  * @group unreleased
+ * @group ID-934
  * @see https://i-doit.atlassian.net/browse/ID-934
  */
 class ID934Test extends BaseTest {

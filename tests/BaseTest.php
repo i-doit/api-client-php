@@ -609,4 +609,28 @@ abstract class BaseTest extends TestCase {
         }
     }
 
+    protected function isSearchResult(array $result) {
+        $this->assertArrayHasKey('documentId', $result);
+        $this->assertInternalType('string', $result['documentId']);
+        $this->isIDAsString($result['documentId']);
+
+        $this->assertArrayHasKey('key', $result);
+        $this->assertInternalType('string', $result['key']);
+
+        $this->assertArrayHasKey('value', $result);
+        $this->assertInternalType('string', $result['value']);
+
+        $this->assertArrayHasKey('type', $result);
+        $this->assertInternalType('string', $result['type']);
+
+        $this->assertArrayHasKey('link', $result);
+        $this->assertInternalType('string', $result['link']);
+
+        $this->assertArrayHasKey('score', $result);
+        $this->assertInternalType('string', $result['score']);
+
+        $this->assertArrayHasKey('status', $result);
+        $this->assertInternalType('string', $result['status']);
+    }
+
 }

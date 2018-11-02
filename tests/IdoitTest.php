@@ -206,27 +206,7 @@ class IdoitTest extends BaseTest {
 
         foreach ($results as $result) {
             $this->assertInternalType('array', $result);
-
-            $this->assertArrayHasKey('documentId', $result);
-            $this->assertInternalType('string', $result['documentId']);
-            // "documentId" is a numeric string:
-            $documentId = (int) $result['documentId'];
-            $this->assertGreaterThan(0, $documentId);
-
-            $this->assertArrayHasKey('key', $result);
-            $this->assertInternalType('string', $result['key']);
-
-            $this->assertArrayHasKey('value', $result);
-            $this->assertInternalType('string', $result['value']);
-
-            $this->assertArrayHasKey('type', $result);
-            $this->assertInternalType('string', $result['type']);
-
-            $this->assertArrayHasKey('link', $result);
-            $this->assertInternalType('string', $result['link']);
-
-            $this->assertArrayHasKey('score', $result);
-            $this->assertInternalType('string', $result['score']);
+            $this->isSearchResult($result);
         }
     }
 
@@ -234,13 +214,16 @@ class IdoitTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testBatchSearch() {
-        $batchResult = $this->instance->batchSearch(['demo', 'test', 'server']);
+        $batch = $this->instance->batchSearch(['demo', 'test', 'server']);
 
-        $this->assertInternalType('array', $batchResult);
-        $this->assertNotCount(0, $batchResult);
+        $this->assertInternalType('array', $batch);
+        $this->assertNotCount(0, $batch);
 
-        foreach ($batchResult as $result) {
-            $this->assertInternalType('array', $result);
+        foreach ($batch as $results) {
+            foreach ($results as $result) {
+                $this->assertInternalType('array', $result);
+                $this->isSearchResult($result);
+            }
         }
     }
 
@@ -251,15 +234,15 @@ class IdoitTest extends BaseTest {
         $objectTitle = $this->generateRandomString();
         $cmdbObject = new CMDBObject($this->api);
         $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $objectTitle);
-        $result = $this->instance->search($objectTitle);
+        $results = $this->instance->search($objectTitle);
 
-        $this->assertInternalType('array', $result);
-        $this->assertCount(1, $result);
-        $this->assertArrayHasKey(0, $result);
-        $this->assertInternalType('array', $result[0]);
-        $this->assertArrayHasKey('documentId', $result[0]);
-        $documentId = (int) $result[0]['documentId'];
-        $this->assertSame($objectID, $documentId);
+        $this->assertInternalType('array', $results);
+        $this->assertCount(1, $results);
+        $this->assertArrayHasKey(0, $results);
+        $this->assertInternalType('array', $results[0]);
+        $this->isSearchResult($results[0]);
+        $this->assertArrayHasKey('documentId', $results[0]);
+        $this->assertSame($objectID, (int) $results[0]['documentId']);
     }
 
 }

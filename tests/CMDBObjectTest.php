@@ -86,7 +86,7 @@ class CMDBObjectTest extends BaseTest {
                 'C__CATG__IP' => [
                     [
                         'net' => $this->getIPv4Net(),
-                        'active' => 1,
+                        'active' => mt_rand(0, 1),
                         'primary' => 1,
                         'net_type' => 1,
                         'ipv4_assignment' => 2,
@@ -95,7 +95,7 @@ class CMDBObjectTest extends BaseTest {
                     ],
                     [
                         'net' => $this->getIPv4Net(),
-                        'active' => 1,
+                        'active' => mt_rand(0, 1),
                         'primary' => 0,
                         'net_type' => 1,
                         'ipv4_assignment' => 2,
@@ -106,6 +106,7 @@ class CMDBObjectTest extends BaseTest {
             ]
         );
 
+        $this->assertInternalType('array', $result);
         $this->assertArrayHasKey('id', $result);
         $this->isID($result['id']);
 

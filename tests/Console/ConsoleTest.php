@@ -92,12 +92,12 @@ class ConsoleTest extends BaseTest {
      */
     public function getBlacklistedCommands(): array {
         return [
-            ['console.system.checkforupdates'],
-            ['console.system.update'],
-            ['console.tenant.add'],
-            ['console.tenant.disable'],
-            ['console.tenant.enable'],
-            ['console.tenant.list'],
+            'console.system.checkforupdates' => ['console.system.checkforupdates'],
+            'console.system.update' => ['console.system.update'],
+            '' => ['console.tenant.add'],
+            'console.tenant.add' => ['console.tenant.disable'],
+            'console.tenant.enable' => ['console.tenant.enable'],
+            'console.tenant.list' => ['console.tenant.list'],
         ];
     }
 
@@ -107,7 +107,7 @@ class ConsoleTest extends BaseTest {
      * @param string $blacklistedCommand Blacklisted command
      * @throws \Exception on error
      */
-    public function testExecuteBlacklistedCommand($blacklistedCommand) {
+    public function testExecuteBlacklistedCommand(string $blacklistedCommand) {
         $result = $this->console->execute($blacklistedCommand);
         $this->assertInternalType('array', $result);
     }

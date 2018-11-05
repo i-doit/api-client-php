@@ -162,7 +162,7 @@ abstract class BaseTest extends TestCase {
     }
 
     /**
-     * Create a new workstation object with 4 assigned components
+     * Create new workstation object
      *
      * @return int Object identifier
      *
@@ -173,11 +173,6 @@ abstract class BaseTest extends TestCase {
             'C__OBJTYPE__WORKSTATION',
             $this->generateRandomString()
         );
-
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__CLIENT');
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__VOIP_PHONE');
 
         return $workstationID;
     }

@@ -36,7 +36,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
     /**
      * @var \bheisig\idoitapi\CMDBObjectsByRelation
      */
-    protected $instance;
+    protected $cmdbObjectsByRelation;
 
     /**
      * @throws \Exception on error
@@ -44,7 +44,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->instance = new CMDBObjectsByRelation($this->api);
+        $this->cmdbObjectsByRelation = new CMDBObjectsByRelation($this->api);
     }
 
     /**
@@ -57,7 +57,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
         $locationID = $this->getRootLocation();
         $this->addObjectToLocation($objectID, $locationID);
 
-        $result = $this->instance->readByID(
+        $result = $this->cmdbObjectsByRelation->readByID(
             $objectID,
             $relationType
         );
@@ -83,7 +83,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
         $locationID = $this->getRootLocation();
         $this->addObjectToLocation($objectID, $locationID);
 
-        $result = $this->instance->readByConst(
+        $result = $this->cmdbObjectsByRelation->readByConst(
             $objectID,
             $relationType
         );
@@ -103,21 +103,114 @@ class CMDBObjectsByRelationTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testFilterByStatusNormal() {
-        // @todo Implement me!
+        $relationType = 'C__RELATION_TYPE__LOCATION';
+
+        $objectID = $this->createServer();
+        $locationID = $this->getRootLocation();
+        $this->addObjectToLocation($objectID, $locationID);
+
+        $result = $this->cmdbObjectsByRelation->readByConst(
+            $objectID,
+            $relationType,
+            2
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+
+        $first = end($result);
+
+        $this->assertArrayHasKey('data', $first);
+        $this->assertInternalType('array', $first['data']);
+        $this->assertArrayHasKey('children', $first);
+        $this->assertInternalType('boolean', $first['children']);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testFilterByStatusArchived() {
-        // @todo Implement me!
+        $hostID = $this->createServer();
+        $admin = $this->createPerson();
+        $entryID = $this->addContact($hostID, $admin['id'], 1);
+        $this->cmdbCategory->archive($hostID, 'C__CATG__CONTACT', $entryID);
+
+        $result = $this->cmdbObjectsByRelation->readByConst(
+            $hostID,
+            'C__RELATION_TYPE__ADMIN',
+            3
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+
+        $first = end($result);
+
+        $this->assertArrayHasKey('data', $first);
+        $this->assertInternalType('array', $first['data']);
+        $this->assertArrayHasKey('children', $first);
+        $this->assertInternalType('boolean', $first['children']);
     }
 
     /**
      * @throws \Exception on error
      */
     public function testFilterByStatusDeleted() {
-        // @todo Implement me!
+        $hostID = $this->createServer();
+        $admin = $this->createPerson();
+        $entryID = $this->addContact($hostID, $admin['id'], 1);
+        $this->cmdbCategory->delete($hostID, 'C__CATG__CONTACT', $entryID);
+
+        $result = $this->cmdbObjectsByRelation->readByConst(
+            $hostID,
+            'C__RELATION_TYPE__ADMIN',
+            4
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+
+        $first = end($result);
+
+        $this->assertArrayHasKey('data', $first);
+        $this->assertInternalType('array', $first['data']);
+        $this->assertArrayHasKey('children', $first);
+        $this->assertInternalType('boolean', $first['children']);
+    }
+
+    /**
+     * @return array
+     */
+    public function getInvalidStatus(): array {
+        return [
+            'negative' => [-1],
+            'zero' => [0],
+            'unfinished' => [1],
+            'purged' => [5],
+            'template' => [6],
+            'mass change template' => [7]
+        ];
+    }
+
+    /**
+     * @group unreleased
+     * @group API-71
+     * @dataProvider getInvalidStatus
+     * @param int $status
+     * @expectedException \RuntimeException
+     * @throws \Exception on error
+     * @doesNotPerformAssertions
+     */
+    public function testFilterByInvalidStatus(int $status) {
+        $hostID = $this->createServer();
+        $admin = $this->createPerson();
+        $this->addContact($hostID, $admin['id'], 1);
+
+        $this->cmdbObjectsByRelation->readByConst(
+            $hostID,
+            'C__RELATION_TYPE__ADMIN',
+            $status
+        );
     }
 
 }

@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\CMDBCategoryInfo;
 use bheisig\idoitapi\CMDBObjects;
 
 /**
@@ -222,7 +223,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @group unrelease
+     * @group unreleased
      * @group API-83
      * @throws \Exception on error
      */
@@ -272,7 +273,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @group unrelease
+     * @group unreleased
      * @group API-83
      * @throws \Exception on error
      */
@@ -297,9 +298,14 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertInternalType('array', $result[0]['categories']);
         $this->assertGreaterThanOrEqual(3, count($result[0]['categories']));
 
+        $categoryInfo = new CMDBCategoryInfo($this->api);
+        $blacklistedCategoryConstants = $categoryInfo->getVirtualCategoryConstants();
+
         foreach ($result[0]['categories'] as $categoryConstant => $entries) {
             $this->assertInternalType('string', $categoryConstant);
             $this->isConstant($categoryConstant);
+
+            $this->assertNotContains($categoryConstant, $blacklistedCategoryConstants);
 
             $this->assertInternalType('array', $entries);
 

@@ -27,15 +27,43 @@ declare(strict_types=1);
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\API;
-use bheisig\idoitapi\Idoit;
 
-/**
- * @coversDefaultClass \bheisig\idoitapi\API
- */
 class APITest extends BaseTest {
 
     /**
-     * @covers ::connect
+     * @covers \bheisig\idoitapi\API::__construct
+     * @covers \bheisig\idoitapi\API::testConfig
+     * @throws \Exception
+     */
+    public function testConstructor() {
+        // Minimal config:
+        $api = new API([
+            API::URL => 'https://example.com/src/json.rpc',
+            API::KEY => $this->generateRandomString()
+        ]);
+
+        $this->assertInstanceOf(API::class, $api);
+    }
+
+    /**
+     * @covers \bheisig\idoitapi\API::__construct
+     * @covers \bheisig\idoitapi\API::testConfig
+     * @covers \bheisig\idoitapi\API::__destruct
+     * @throws \Exception
+     * @doesNotPerformAssertions
+     */
+    public function testDestructor() {
+        // Minimal config:
+        $api = new API([
+            API::URL => 'https://example.com/src/json.rpc',
+            API::KEY => $this->generateRandomString()
+        ]);
+
+        unset($api);
+    }
+
+    /**
+     * @covers \bheisig\idoitapi\API::connect
      * @throws \Exception
      */
     public function testConnect() {
@@ -43,8 +71,8 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::connect
-     * @covers ::disconnect
+     * @covers \bheisig\idoitapi\API::connect
+     * @covers \bheisig\idoitapi\API::disconnect
      * @throws \Exception
      */
     public function testDisconnect() {
@@ -54,9 +82,9 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::isConnected
-     * @covers ::connect
-     * @covers ::disconnect
+     * @covers \bheisig\idoitapi\API::isConnected
+     * @covers \bheisig\idoitapi\API::connect
+     * @covers \bheisig\idoitapi\API::disconnect
      * @throws \Exception
      */
     public function testIsConnected() {
@@ -72,7 +100,7 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::login
+     * @covers \bheisig\idoitapi\API::login
      * @throws \Exception
      */
     public function testLogin() {
@@ -80,8 +108,8 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::login
-     * @covers ::logout
+     * @covers \bheisig\idoitapi\API::login
+     * @covers \bheisig\idoitapi\API::logout
      * @throws \Exception
      */
     public function testLogout() {
@@ -91,9 +119,9 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::isLoggedIn
-     * @covers ::login
-     * @covers ::logout
+     * @covers \bheisig\idoitapi\API::isLoggedIn
+     * @covers \bheisig\idoitapi\API::login
+     * @covers \bheisig\idoitapi\API::logout
      * @throws \Exception
      */
     public function testIsLoggedIn() {
@@ -109,8 +137,22 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::request
-     * @covers ::countRequests
+     * @covers \bheisig\idoitapi\API::request
+     * @covers \bheisig\idoitapi\API::setCURLOptions
+     * @covers \bheisig\idoitapi\API::evaluateResponse
+     * @throws \Exception
+     */
+    public function testRequest() {
+        $result = $this->api->request('idoit.version');
+
+        $this->assertInternalType('array', $result);
+        $this->assertNotCount(0, $result);
+    }
+
+    /**
+     * @covers \bheisig\idoitapi\API::request
+     * @covers \bheisig\idoitapi\API::countRequests
+     * @covers \bheisig\idoitapi\API::genID
      * @throws \Exception
      */
     public function testCountRequests() {
@@ -130,18 +172,7 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::request
-     * @throws \Exception
-     */
-    public function testRequest() {
-        $result = $this->api->request('idoit.version');
-
-        $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
-    }
-
-    /**
-     * @covers ::batchRequest
+     * @covers \bheisig\idoitapi\API::batchRequest
      * @throws \Exception
      */
     public function testBatchRequest() {
@@ -167,6 +198,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::batchRequest
      * @throws \Exception
      */
     public function testOneRequestInABatch() {
@@ -184,6 +216,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -205,6 +238,8 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
+     * @covers \bheisig\idoitapi\API::getLastRequestHeaders
      * @group unreleased
      * @throws \Exception on error
      */
@@ -234,6 +269,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -265,6 +301,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -284,6 +321,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -319,6 +357,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @group API-107
      * @throws \Exception on error
@@ -340,6 +379,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @group API-107
      * @throws \Exception on error
@@ -379,6 +419,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -400,6 +441,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -439,6 +481,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -471,6 +514,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -507,6 +551,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -528,6 +573,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -565,6 +611,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
      */
@@ -599,6 +646,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @group API-118
      * @throws \Exception on error
@@ -640,6 +688,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @group API-119
      * @throws \Exception on error
@@ -681,6 +730,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @group API-77
      * @throws \Exception on error
@@ -702,6 +752,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @group API-77
      * @throws \Exception on error
@@ -739,6 +790,7 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @group API-77
      * @throws \Exception on error
@@ -784,7 +836,8 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::getLastInfo
+     * @covers \bheisig\idoitapi\API::request
+     * @covers \bheisig\idoitapi\API::getLastInfo
      * @throws \Exception
      */
     public function testGetLastInfo() {
@@ -795,7 +848,8 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::getLastResponse
+     * @covers \bheisig\idoitapi\API::request
+     * @covers \bheisig\idoitapi\API::getLastResponse
      * @throws \Exception
      */
     public function testGetLastResponse() {
@@ -806,7 +860,8 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::getLastRequestContent
+     * @covers \bheisig\idoitapi\API::request
+     * @covers \bheisig\idoitapi\API::getLastRequestContent
      * @throws \Exception
      */
     public function testGetLastRequestContent() {
@@ -817,7 +872,8 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::getLastResponseHeaders
+     * @covers \bheisig\idoitapi\API::request
+     * @covers \bheisig\idoitapi\API::getLastResponseHeaders
      * @throws \Exception
      */
     public function testGetLastResponseHeaders() {
@@ -828,7 +884,8 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::getLastRequestHeaders
+     * @covers \bheisig\idoitapi\API::request
+     * @covers \bheisig\idoitapi\API::getLastRequestHeaders
      * @throws \Exception
      */
     public function testGetLastRequestHeaders() {
@@ -839,7 +896,7 @@ class APITest extends BaseTest {
     }
 
     /**
-     * @covers ::request
+     * @covers \bheisig\idoitapi\API::request
      * @throws \Exception
      */
     public function testValidateLanguageParameter() {
@@ -893,10 +950,10 @@ class APITest extends BaseTest {
 
     /**
      * @group API-123
-     * @covers ::login
-     * @covers ::getLastResponseHeaders
-     * @covers ::getLastRequestHeaders
-     * @covers ::logout
+     * @covers \bheisig\idoitapi\API::login
+     * @covers \bheisig\idoitapi\API::getLastResponseHeaders
+     * @covers \bheisig\idoitapi\API::getLastRequestHeaders
+     * @covers \bheisig\idoitapi\API::logout
      * @throws \Exception
      */
     public function testValidateSession() {
@@ -905,8 +962,7 @@ class APITest extends BaseTest {
         $sessionIDLogin = $this->getHeader($sessionHeader, $this->api->getLastResponseHeaders());
 
         // Random request:
-        $idoit = new Idoit($this->api);
-        $idoit->readVersion();
+        $this->api->request('idoit.version');
         $sessionIDRequest = $this->getHeader($sessionHeader, $this->api->getLastRequestHeaders());
         $sessionIDResponse = $this->getHeader($sessionHeader, $this->api->getLastResponseHeaders());
 

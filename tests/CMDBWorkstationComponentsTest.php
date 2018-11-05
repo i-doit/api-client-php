@@ -36,7 +36,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     /**
      * @var \bheisig\idoitapi\CMDBWorkstationComponents
      */
-    protected $instance;
+    protected $cmdbWorkstationComponents;
 
     /**
      * @throws \Exception on error
@@ -44,7 +44,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->instance = new CMDBWorkstationComponents($this->api);
+        $this->cmdbWorkstationComponents = new CMDBWorkstationComponents($this->api);
     }
 
     /**
@@ -53,9 +53,13 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     public function testRead() {
         $person = $this->createPerson();
         $workstationID = $this->createWorkstation();
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__CLIENT');
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__VOIP_PHONE');
         $this->addPersonToWorkstation($person['id'], $workstationID);
 
-        $result = $this->instance->read($person['id']);
+        $result = $this->cmdbWorkstationComponents->read($person['id']);
 
         $this->assertInternalType('array', $result);
         $this->assertCount(1, $result);
@@ -69,13 +73,21 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     public function testBatchRead() {
         $person1 = $this->createPerson();
         $workstation1ID = $this->createWorkstation();
+        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__CLIENT');
+        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__VOIP_PHONE');
         $this->addPersonToWorkstation($person1['id'], $workstation1ID);
 
         $person2 = $this->createPerson();
         $workstation2ID = $this->createWorkstation();
+        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__CLIENT');
+        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__VOIP_PHONE');
         $this->addPersonToWorkstation($person2['id'], $workstation2ID);
 
-        $result = $this->instance->batchRead([$person1['id'], $person2['id']]);
+        $result = $this->cmdbWorkstationComponents->batchRead([$person1['id'], $person2['id']]);
 
         $this->assertInternalType('array', $result);
         $this->assertCount(2, $result);
@@ -89,9 +101,13 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     public function testReadByEmail() {
         $person = $this->createPerson();
         $workstationID = $this->createWorkstation();
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__CLIENT');
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__VOIP_PHONE');
         $this->addPersonToWorkstation($person['id'], $workstationID);
 
-        $result = $this->instance->readByEmail($person['email']);
+        $result = $this->cmdbWorkstationComponents->readByEmail($person['email']);
 
         $this->assertInternalType('array', $result);
         $this->assertCount(1, $result);
@@ -105,13 +121,21 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     public function testReadByEmails() {
         $person1 = $this->createPerson();
         $workstation1ID = $this->createWorkstation();
+        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__CLIENT');
+        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__VOIP_PHONE');
         $this->addPersonToWorkstation($person1['id'], $workstation1ID);
 
         $person2 = $this->createPerson();
         $workstation2ID = $this->createWorkstation();
+        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__CLIENT');
+        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__MONITOR');
+        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__VOIP_PHONE');
         $this->addPersonToWorkstation($person2['id'], $workstation2ID);
 
-        $result = $this->instance->readByEmails([$person1['email'], $person2['email']]);
+        $result = $this->cmdbWorkstationComponents->readByEmails([$person1['email'], $person2['email']]);
 
         $this->assertInternalType('array', $result);
         $this->assertCount(2, $result);
@@ -124,8 +148,18 @@ class CMDBWorkstationComponentsTest extends BaseTest {
      * @group API-71
      * @throws \Exception on error
      */
-    public function testReadByStatus() {
-        // @todo Implement me!
+    public function testReadByStatusNormal() {
+        $person = $this->createPerson();
+        $workstationID = $this->createWorkstation();
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__CLIENT');
+        $this->addPersonToWorkstation($person['id'], $workstationID);
+
+        $result = $this->cmdbWorkstationComponents->read($person['id'], 2);
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+
+        $this->checkResult($result);
     }
 
     /**
@@ -133,8 +167,109 @@ class CMDBWorkstationComponentsTest extends BaseTest {
      * @group API-71
      * @throws \Exception on error
      */
-    public function testReadByInvalidStatus() {
-        // @todo Implement me!
+    public function testReadByStatusArchived() {
+        $person = $this->createPerson();
+        $workstationID = $this->createWorkstation();
+
+        $componentID = $this->cmdbObject->create(
+            'C__OBJTYPE__CLIENT',
+            $this->generateRandomString()
+        );
+        $workstationComponentID = $this->cmdbCategory->create(
+            $componentID,
+            'C__CATG__ASSIGNED_WORKSTATION',
+            [
+                'parent' => $workstationID,
+                'description' => $this->generateDescription()
+            ]
+        );
+        $this->cmdbCategory->archive($componentID, 'C__CATG__ASSIGNED_WORKSTATION', $workstationComponentID);
+
+        $assignedWorkstationID = $this->addPersonToWorkstation($person['id'], $workstationID);
+        $this->cmdbCategory->archive($workstationID, 'C__CATG__LOGICAL_UNIT', $assignedWorkstationID);
+
+        $result = $this->cmdbWorkstationComponents->read($person['id'], 3);
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+
+        $this->checkResult($result);
+
+        $result = $this->cmdbWorkstationComponents->read($person['id'], 2);
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(0, $result);
+    }
+
+    /**
+     * @group unreleased
+     * @group API-71
+     * @throws \Exception on error
+     */
+    public function testReadByStatusDeleted() {
+        $person = $this->createPerson();
+        $workstationID = $this->createWorkstation();
+
+        $componentID = $this->cmdbObject->create(
+            'C__OBJTYPE__CLIENT',
+            $this->generateRandomString()
+        );
+        $workstationComponentID = $this->cmdbCategory->create(
+            $componentID,
+            'C__CATG__ASSIGNED_WORKSTATION',
+            [
+                'parent' => $workstationID,
+                'description' => $this->generateDescription()
+            ]
+        );
+        $this->cmdbCategory->delete($componentID, 'C__CATG__ASSIGNED_WORKSTATION', $workstationComponentID);
+
+        $assignedWorkstationID = $this->addPersonToWorkstation($person['id'], $workstationID);
+        $this->cmdbCategory->delete($workstationID, 'C__CATG__LOGICAL_UNIT', $assignedWorkstationID);
+
+        $result = $this->cmdbWorkstationComponents->read($person['id'], 4);
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(1, $result);
+
+        $this->checkResult($result);
+
+        $result = $this->cmdbWorkstationComponents->read($person['id'], 2);
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(0, $result);
+    }
+
+    /**
+     * @return array
+     */
+    public function getInvalidStatus(): array {
+        return [
+            'negative' => [-1],
+            'zero' => [0],
+            'unfinished' => [1],
+            'purged' => [5],
+            'template' => [6],
+            'mass change template' => [7]
+        ];
+    }
+
+    /**
+     * @group unreleased
+     * @group API-71
+     * @dataProvider getInvalidStatus
+     * @param int $status
+     * @expectedException \RuntimeException
+     * @throws \Exception on error
+     * @doesNotPerformAssertions
+     */
+    public function testReadByInvalidStatus(int $status) {
+        $person = $this->createPerson();
+        $workstationID = $this->createWorkstation();
+        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__CLIENT');
+        $this->addPersonToWorkstation($person['id'], $workstationID);
+
+        $this->cmdbWorkstationComponents->read($person['id'], $status);
     }
 
     /**

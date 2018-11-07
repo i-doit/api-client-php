@@ -60,7 +60,7 @@ abstract class BaseTest extends TestCase {
      *
      * @var array
      */
-    protected $composer = [];
+    protected static $composer = [];
 
     /**
      * List of valid object conditions ("status")
@@ -79,18 +79,17 @@ abstract class BaseTest extends TestCase {
     protected static $dotEnv;
 
     /**
-     * Read configuration settings from .env file
+     * Load environment settings
      */
     public static function setUpBeforeClass() {
         self::$dotEnv = new Dotenv();
         self::$dotEnv->load(__DIR__ . '/../.env');
-    }
 
-    /**
-     * Forget configuration settings
-     */
-    public static function tearDownAfterClass() {
-        self::$dotEnv = null;
+        $composerFile = __DIR__ . '/../composer.json';
+
+        if (is_readable($composerFile)) {
+            self::$composer = json_decode(file_get_contents($composerFile), true);
+        }
     }
 
     /**
@@ -114,12 +113,14 @@ abstract class BaseTest extends TestCase {
         $this->cmdbObject = new CMDBObject($this->api);
         $this->cmdbObjects = new CMDBObjects($this->api);
         $this->cmdbCategory = new CMDBCategory($this->api);
+    }
 
-        $composerFile = __DIR__ . '/../composer.json';
-
-        if (is_readable($composerFile)) {
-            $this->composer = json_decode(file_get_contents($composerFile), true);
-        }
+    /**
+     * Forget environment settings
+     */
+    public static function tearDownAfterClass() {
+        self::$dotEnv = null;
+        self::$composer = [];
     }
 
     /**
@@ -407,8 +408,8 @@ abstract class BaseTest extends TestCase {
         return sprintf(
             'This data is auto-generated at %s by a unit test for %s, version %s',
             date('c'),
-            $this->composer['name'],
-            $this->composer['version']
+            self::$composer['name'],
+            self::$composer['version']
         );
     }
 

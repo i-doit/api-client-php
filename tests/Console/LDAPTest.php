@@ -54,9 +54,10 @@ class LDAPTest extends BaseTest {
      * @todo We need at least one LDAP configuration!
      */
     public function testSync() {
-//        $result = $this->ldap->sync();
-//
-//        $this->assertInternalType('array', $result);
+        $result = $this->ldap->sync(1);
+
+        $this->assertInternalType('array', $result);
+        $this->isOutput($result);
     }
 
     /**
@@ -64,9 +65,10 @@ class LDAPTest extends BaseTest {
      * @todo We need at least one LDAP configuration!
      */
     public function testSyncUnknownConfig() {
-//        $result = $this->ldap->sync();
-//
-//        $this->assertInternalType('array', $result);
+        $result = $this->ldap->sync(0);
+
+        $this->assertInternalType('array', $result);
+        $this->isOutput($result);
     }
 
     /**
@@ -76,6 +78,7 @@ class LDAPTest extends BaseTest {
         $result = $this->ldap->syncAll();
 
         $this->assertInternalType('array', $result);
+        $this->isOutput($result);
     }
 
     /**
@@ -83,9 +86,10 @@ class LDAPTest extends BaseTest {
      * @todo We need at least one LDAP configuration!
      */
     public function testSyncDistinguishedNames() {
-//        $result = $this->ldap->syncDN();
-//
-//        $this->assertInternalType('array', $result);
+        $result = $this->ldap->syncDistinguishedNames();
+
+        $this->assertInternalType('array', $result);
+        $this->isOutput($result);
     }
 
 }

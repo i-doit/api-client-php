@@ -26,26 +26,19 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
-use bheisig\idoitapi\CMDBCategory;
-use bheisig\idoitapi\CMDBCategoryInfo;
-use bheisig\idoitapi\CMDBObject;
+//use bheisig\idoitapi\CMDBCategoryInfo;
 
+/**
+ * @unreleased
+ * @group open
+ * @todo These tests won't work at all. Instead create tests for each category explicitly!
+ */
 class AttributeTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBCategory
+     * @var array
      */
-    protected $cmdbCategory;
-
-    /**
-     * @var \bheisig\idoitapi\CMDBCategoryInfo
-     */
-    protected $cmdbCategoryInfo;
-
-    /**
-     * @var \bheisig\idoitapi\CMDBObject
-     */
-    protected $cmdbObject;
+    protected $virtualCategories = [];
 
     /**
      * @var array
@@ -63,11 +56,13 @@ class AttributeTest extends BaseTest {
     public function setUp() {
         parent::setUp();
 
-        $this->cmdbCategory = new CMDBCategory($this->api);
-        $this->cmdbCategoryInfo = new CMDBCategoryInfo($this->api);
-        $this->cmdbObject = new CMDBObject($this->api);
+//        $cmdbCategoryInfo = new CMDBCategoryInfo($this->api);
+//
+//        $this->categories = $cmdbCategoryInfo->readAll();
+//        $this->virtualCategories = $cmdbCategoryInfo->getVirtualCategoryConstants();
+//
+//        unset($cmdbCategoryInfo);
 
-        $this->categories = $this->cmdbCategoryInfo->readAll();
         $this->objectID = $this->createTestObject();
     }
 
@@ -84,40 +79,34 @@ class AttributeTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @return array
      */
-    public function testReadEmptyCategories() {
-        $ignoredCategories = array_merge([
+    public function provideCategories(): array {
+        $parameters = [];
+
+        $blacklistedCategories = array_merge([
             'C__CATG__GLOBAL',
             'C__CATG__LOGBOOK'
-        ], $this->cmdbCategoryInfo->getVirtualCategoryConstants());
+        ], $this->virtualCategories);
 
         foreach ($this->categories as $categoryConst => $attributes) {
-            if (in_array($categoryConst, $ignoredCategories)) {
+            if (in_array($categoryConst, $blacklistedCategories)) {
                 continue;
             }
 
-            $entry = $this->cmdbCategory->readFirst($this->objectID, $categoryConst);
-            $this->assertInternalType('array', $entry);
-            $this->assertCount(0, $entry, sprintf(
-                'Entry found for object %s in category %s: %s%s',
-                $this->objectID,
-                $categoryConst,
-                PHP_EOL,
-                var_export($entry, true)
-            ));
+            $parameters[$categoryConst] = [$categoryConst, $attributes];
         }
+
+        return $parameters;
     }
 
-    /**
-     * @throws \Exception on error
-     */
-    public function testCreateCategoryEntries() {
-        $ignoredCategories = [
-            'C__CATG__OVERVIEW',
+    public function provideCategoryConstants(): array {
+        $parameters = [];
+
+        $blacklistedCategories = array_merge([
             'C__CATG__GLOBAL',
             'C__CATG__LOGBOOK'
-        ];
+        ], $this->virtualCategories);
 
         // @todo For a quick win we test popular categories at first:
         $whitlistedCategories = [
@@ -128,27 +117,55 @@ class AttributeTest extends BaseTest {
             //'C__CMDB__SUBCAT__NETWORK_PORT'
         ];
 
-        foreach ($this->categories as $categoryConst => $attributes) {
-            if (in_array($categoryConst, $ignoredCategories)) {
+        foreach (array_keys($this->categories) as $categoryConst => $attributes) {
+            if (in_array($categoryConst, $blacklistedCategories)) {
                 continue;
             }
 
-            // @todo Remove me when TODO above is resolved:
             if (!in_array($categoryConst, $whitlistedCategories)) {
                 continue;
             }
 
-            $values = $this->generateValues($attributes);
-
-            $entryID = $this->cmdbCategory->create(
-                $this->objectID,
-                $categoryConst,
-                $values
-            );
-
-            $this->assertInternalType('int', $entryID);
-            $this->assertGreaterThan(0, $entryID);
+            $parameters[$categoryConst] = [$categoryConst];
         }
+
+        return $parameters;
+    }
+
+    /**
+     * @throws \Exception on error
+     * @param string $categoryConst Category constant
+     * @dataProvider provideCategories
+     */
+    public function testReadEmptyCategories(string $categoryConst) {
+//        $entry = $this->cmdbCategory->readFirst($this->objectID, $categoryConst);
+//        $this->assertInternalType('array', $entry);
+//        $this->assertCount(0, $entry, sprintf(
+//            'Entry found for object %s in category %s: %s%s',
+//            $this->objectID,
+//            $categoryConst,
+//            PHP_EOL,
+//            var_export($entry, true)
+//        ));
+    }
+
+    /**
+     * @throws \Exception on error
+     * @param string $categoryConst Category constant
+     * @param array $attributes Attributes
+     * @dataProvider provideCategories
+     */
+    public function testCreateCategoryEntries(string $categoryConst, array $attributes) {
+//        $values = $this->generateValues($attributes);
+//
+//        $entryID = $this->cmdbCategory->create(
+//            $this->objectID,
+//            $categoryConst,
+//            $values
+//        );
+//
+//        $this->assertInternalType('int', $entryID);
+//        $this->assertGreaterThan(0, $entryID);
     }
 
     /**

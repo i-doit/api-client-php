@@ -144,8 +144,10 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
+     * @group open
      * @group unreleased
      * @group API-71
+     * @group API-145
      * @throws \Exception on error
      */
     public function testReadByStatusNormal() {
@@ -163,8 +165,10 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
+     * @group open
      * @group unreleased
      * @group API-71
+     * @group API-145
      * @throws \Exception on error
      */
     public function testReadByStatusArchived() {
@@ -208,8 +212,10 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
+     * @group open
      * @group unreleased
      * @group API-71
+     * @group API-145
      * @throws \Exception on error
      */
     public function testReadByStatusDeleted() {

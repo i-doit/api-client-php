@@ -152,7 +152,9 @@ class CMDBCategoryInfo extends Request {
             //'C__CATG__VIRTUAL_RELOCATE_CI',
             'C__CATG__VIRTUAL_SUPERNET',
             'C__CATG__VIRTUAL_TICKETS',
-            'C__CATG__VRRP_VIEW'
+            'C__CATG__VRRP_VIEW',
+            'C__CATS__BASIC_AUTH',
+            'C__CATS__CHASSIS_CABLING'
         ];
     }
 

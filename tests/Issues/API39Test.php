@@ -55,6 +55,7 @@ class API39Test extends BaseTest {
             'C__CATG__APPLICATION',
             [
                 'application' => $primaryOSID,
+                'application_type' => 2, // 2 = operating system
                 'application_priority' => 1
             ]
         );
@@ -85,6 +86,7 @@ class API39Test extends BaseTest {
             'C__CATG__APPLICATION',
             [
                 'application' => $secondaryOSID,
+                'application_type' => 2, // 2 = operating system
                 'application_priority' => 2
             ]
         );
@@ -111,6 +113,15 @@ class API39Test extends BaseTest {
                 'application_priority' => 2
             ],
             $firstEntryID
+        );
+
+        $this->cmdbCategory->update(
+            $hostID,
+            'C__CATG__APPLICATION',
+            [
+                'application_priority' => 1
+            ],
+            $secondEntryID
         );
 
         // Validate that former primary operating system is now the secondary one:

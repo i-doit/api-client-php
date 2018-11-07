@@ -100,6 +100,8 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
+     * @group unreleased
+     * @group API-71
      * @throws \Exception on error
      */
     public function testFilterByStatusNormal() {
@@ -127,6 +129,8 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
+     * @group unreleased
+     * @group API-71
      * @throws \Exception on error
      */
     public function testFilterByStatusArchived() {
@@ -153,6 +157,8 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
+     * @group unreleased
+     * @group API-71
      * @throws \Exception on error
      */
     public function testFilterByStatusDeleted() {
@@ -181,7 +187,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
     /**
      * @return array
      */
-    public function getInvalidStatus(): array {
+    public function provideInvalidStatus(): array {
         return [
             'negative' => [-1],
             'zero' => [0],
@@ -195,11 +201,10 @@ class CMDBObjectsByRelationTest extends BaseTest {
     /**
      * @group unreleased
      * @group API-71
-     * @dataProvider getInvalidStatus
+     * @dataProvider provideInvalidStatus
      * @param int $status
      * @expectedException \RuntimeException
      * @throws \Exception on error
-     * @doesNotPerformAssertions
      */
     public function testFilterByInvalidStatus(int $status) {
         $hostID = $this->createServer();

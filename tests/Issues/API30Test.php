@@ -93,7 +93,10 @@ class API30Test extends BaseTest {
             $hostBID,
             'C__CATG__CONNECTOR',
             [
-                'title' => 'Port B/1'
+                'title' => 'Port B/1',
+                // It's important to assign connector and cable first…
+                'assigned_connector' => $connectorAID,
+                'cable_connection' => $cableID
             ]
         );
         $this->isID($connectorBID);
@@ -102,8 +105,7 @@ class API30Test extends BaseTest {
             $hostAID,
             'C__CATG__CONNECTOR',
             [
-                'assigned_connector' => $connectorBID,
-                'cable_connection' => $cableID,
+                // … before selecting wich wire is rx/tx:
                 'used_fiber_lead_rx' => $rxID,
                 'used_fiber_lead_tx' => $txID
             ],
@@ -112,11 +114,82 @@ class API30Test extends BaseTest {
         $this->isID($result);
         $this->assertSame($connectorAID, $result);
 
+        // Verify both wires:
         $wires = $this->cmdbCategory->read($cableID, 'C__CATG__FIBER_LEAD');
         $this->assertInternalType('array', $wires);
         $this->assertCount(2, $wires);
 
-        // @todo Check whether both missing attributes are set properly!
+        $this->assertArrayHasKey(0, $wires);
+        $this->assertInternalType('array', $wires[0]);
+        $this->assertArrayHasKey('id', $wires[0]);
+        $this->isIDAsString($wires[0]['id']);
+        $this->assertSame($rxID, (int) $wires[0]['id']);
+        $this->assertArrayHasKey('objID', $wires[0]);
+        $this->isIDAsString($wires[0]['objID']);
+        $this->assertSame($cableID, (int) $wires[0]['objID']);
+        $this->assertArrayHasKey('label', $wires[0]);
+        $this->assertSame('rx', $wires[0]['label']);
+
+        $this->assertArrayHasKey(1, $wires);
+        $this->assertInternalType('array', $wires[1]);
+        $this->assertArrayHasKey('id', $wires[1]);
+        $this->isIDAsString($wires[1]['id']);
+        $this->assertSame($txID, (int) $wires[1]['id']);
+        $this->assertArrayHasKey('objID', $wires[1]);
+        $this->isIDAsString($wires[1]['objID']);
+        $this->assertSame($cableID, (int) $wires[1]['objID']);
+        $this->assertArrayHasKey('label', $wires[1]);
+        $this->assertSame('tx', $wires[1]['label']);
+
+        // Verify first connector:
+        $connectorA = $this->cmdbCategory->readOneByID(
+            $hostAID,
+            'C__CATG__CONNECTOR',
+            $connectorAID
+        );
+
+        $this->assertInternalType('array', $connectorA);
+        $this->assertArrayHasKey('id', $connectorA);
+        $this->isIDAsString($connectorA['id']);
+        $this->assertSame($connectorAID, (int) $connectorA['id']);
+        $this->assertArrayHasKey('objID', $connectorA);
+        $this->isIDAsString($connectorA['objID']);
+        $this->assertSame($hostAID, (int) $connectorA['objID']);
+
+        $this->assertArrayHasKey('used_fiber_lead_rx', $connectorA);
+        $this->assertInternalType('array', $connectorA['used_fiber_lead_rx']);
+        $this->assertArrayHasKey('id', $connectorA['used_fiber_lead_rx']);
+        $this->assertSame($rxID, (int) $connectorA['used_fiber_lead_rx']['id']);
+
+        $this->assertArrayHasKey('used_fiber_lead_tx', $connectorA);
+        $this->assertInternalType('array', $connectorA['used_fiber_lead_tx']);
+        $this->assertArrayHasKey('id', $connectorA['used_fiber_lead_tx']);
+        $this->assertSame($txID, (int) $connectorA['used_fiber_lead_tx']['id']);
+
+        // Verify second connector:
+        $connectorB = $this->cmdbCategory->readOneByID(
+            $hostBID,
+            'C__CATG__CONNECTOR',
+            $connectorBID
+        );
+
+        $this->assertInternalType('array', $connectorB);
+        $this->assertArrayHasKey('id', $connectorB);
+        $this->isIDAsString($connectorB['id']);
+        $this->assertSame($connectorBID, (int) $connectorB['id']);
+        $this->assertArrayHasKey('objID', $connectorB);
+        $this->isIDAsString($connectorB['objID']);
+        $this->assertSame($hostBID, (int) $connectorB['objID']);
+
+        $this->assertArrayHasKey('used_fiber_lead_rx', $connectorB);
+        $this->assertInternalType('array', $connectorB['used_fiber_lead_rx']);
+        $this->assertArrayHasKey('id', $connectorB['used_fiber_lead_rx']);
+        $this->assertSame($txID, (int) $connectorB['used_fiber_lead_rx']['id']);
+
+        $this->assertArrayHasKey('used_fiber_lead_tx', $connectorB);
+        $this->assertInternalType('array', $connectorB['used_fiber_lead_tx']);
+        $this->assertArrayHasKey('id', $connectorB['used_fiber_lead_tx']);
+        $this->assertSame($rxID, (int) $connectorB['used_fiber_lead_tx']['id']);
     }
 
 }

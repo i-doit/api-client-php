@@ -145,15 +145,15 @@ class CMDBImpactTest extends BaseTest {
     /**
      * @return array
      */
-    public function getInvalidRelationTypeIdentifiers(): array {
+    public function provideInvalidRelationTypeIdentifiers(): array {
         return [
-            [-1],
-            [0]
+            '-1' => [-1],
+            '0' => [0]
         ];
     }
 
     /**
-     * @dataProvider getInvalidRelationTypeIdentifiers
+     * @dataProvider provideInvalidRelationTypeIdentifiers
      * @param int $invalidRelationType
      * @throws \Exception on error
      * @expectedException \RuntimeException
@@ -169,19 +169,19 @@ class CMDBImpactTest extends BaseTest {
     /**
      * @return array
      */
-    public function getInvalidRelationsTypeConstants(): array {
+    public function provideInvalidRelationsTypeConstants(): array {
         return [
-            ['0'],
-            ['1'],
-            [$this->generateRandomString()],
-            [''],
-            ['NULL'],
-            ['C__RELATION_TYPE__UNKNOWN']
+            'zero' => ['0'],
+            'one' => ['1'],
+            'random string' => [$this->generateRandomString()],
+            'empty string' => [''],
+            'null' => ['NULL'],
+            'unknown constant' => ['C__RELATION_TYPE__UNKNOWN']
         ];
     }
 
     /**
-     * @dataProvider getInvalidRelationsTypeConstants
+     * @dataProvider provideInvalidRelationsTypeConstants
      * @param string $invalidRelationType
      * @throws \Exception on error
      * @expectedException \RuntimeException
@@ -201,20 +201,16 @@ class CMDBImpactTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testFilterByStatusNormal() {
-        $relationType = 'C__RELATION_TYPE__LOCATION';
+        $relationType = 'C__RELATION_TYPE__USER';
 
         $objectID = $this->createServer();
-        $rootLocationID = $this->getRootLocation();
-        $roomID = $this->cmdbObject->create(
-            'C__OBJTYPE__ROOM',
-            $this->generateRandomString()
-        );
+        $this->isID($objectID);
+        $user = $this->createPerson();
 
-        $this->addObjectToLocation($roomID, $rootLocationID);
-        $this->addObjectToLocation($objectID, $roomID);
+        $this->addContact($objectID, $user['id'], 2);
 
         $result = $this->instance->readByConst(
-            $roomID,
+            $objectID,
             $relationType,
             2
         );
@@ -224,8 +220,8 @@ class CMDBImpactTest extends BaseTest {
 
         foreach ($result as $relation) {
             $this->isRelation($relation);
-            $this->assertSame($objectID, $relation['id']);
-            $this->assertSame($objectID, $relation['data']['objID']);
+            $this->assertSame($user['id'], $relation['id']);
+            $this->assertSame($user['id'], $relation['data']['objID']);
         }
     }
 
@@ -235,22 +231,18 @@ class CMDBImpactTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testFilterByStatusArchived() {
-        $relationType = 'C__RELATION_TYPE__LOCATION';
+        $relationType = 'C__RELATION_TYPE__USER';
 
         $objectID = $this->createServer();
-        $rootLocationID = $this->getRootLocation();
-        $roomID = $this->cmdbObject->create(
-            'C__OBJTYPE__ROOM',
-            $this->generateRandomString()
-        );
+        $this->isID($objectID);
+        $user = $this->createPerson();
 
-        $this->addObjectToLocation($roomID, $rootLocationID);
-        $this->addObjectToLocation($objectID, $roomID);
+        $entryID = $this->addContact($objectID, $user['id'], 2);
 
-        $this->cmdbObject->archive($objectID);
+        $this->cmdbCategory->archive($objectID, 'C__CATG__CONTACT', $entryID);
 
         $result = $this->instance->readByConst(
-            $roomID,
+            $objectID,
             $relationType,
             3
         );
@@ -260,9 +252,19 @@ class CMDBImpactTest extends BaseTest {
 
         foreach ($result as $relation) {
             $this->isRelation($relation);
-            $this->assertSame($objectID, $relation['id']);
-            $this->assertSame($objectID, $relation['data']['objID']);
+            $this->assertSame($user['id'], $relation['id']);
+            $this->assertSame($user['id'], $relation['data']['objID']);
         }
+
+        // There must not be any entry with "normal" status:
+        $result = $this->instance->readByConst(
+            $objectID,
+            $relationType,
+            2
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(0, $result);
     }
 
     /**
@@ -271,22 +273,18 @@ class CMDBImpactTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testFilterByStatusDeleted() {
-        $relationType = 'C__RELATION_TYPE__LOCATION';
+        $relationType = 'C__RELATION_TYPE__USER';
 
         $objectID = $this->createServer();
-        $rootLocationID = $this->getRootLocation();
-        $roomID = $this->cmdbObject->create(
-            'C__OBJTYPE__ROOM',
-            $this->generateRandomString()
-        );
+        $this->isID($objectID);
+        $user = $this->createPerson();
 
-        $this->addObjectToLocation($roomID, $rootLocationID);
-        $this->addObjectToLocation($objectID, $roomID);
+        $entryID = $this->addContact($objectID, $user['id'], 2);
 
-        $this->cmdbObject->delete($objectID);
+        $this->cmdbCategory->delete($objectID, 'C__CATG__CONTACT', $entryID);
 
         $result = $this->instance->readByConst(
-            $roomID,
+            $objectID,
             $relationType,
             4
         );
@@ -296,17 +294,27 @@ class CMDBImpactTest extends BaseTest {
 
         foreach ($result as $relation) {
             $this->isRelation($relation);
-            $this->assertSame($objectID, $relation['id']);
-            $this->assertSame($objectID, $relation['data']['objID']);
+            $this->assertSame($user['id'], $relation['id']);
+            $this->assertSame($user['id'], $relation['data']['objID']);
         }
+
+        // There must not be any entry with "normal" status:
+        $result = $this->instance->readByConst(
+            $objectID,
+            $relationType,
+            2
+        );
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(0, $result);
     }
 
     /**
      * @return array
      */
-    public function getInvalidStatus(): array {
+    public function provideInvalidStatus(): array {
         return [
-            'negative' => [-1],
+            'negative integer' => [-1],
             'zero' => [0],
             'unfinished' => [1],
             'purged' => [5],
@@ -318,26 +326,34 @@ class CMDBImpactTest extends BaseTest {
     /**
      * @group unreleased
      * @group API-71
-     * @dataProvider getInvalidStatus
+     * @dataProvider provideInvalidStatus
      * @param int $status
      * @expectedException \RuntimeException
      * @throws \Exception on error
      */
     public function testFilterByInvalidStatus(int $status) {
-        $relationType = 'C__RELATION_TYPE__LOCATION';
+        $relationType = 'C__RELATION_TYPE__CLUSTER_MEMBERSHIPS';
 
-        $objectID = $this->createServer();
-        $rootLocationID = $this->getRootLocation();
-        $roomID = $this->cmdbObject->create(
-            'C__OBJTYPE__ROOM',
+        $hostID = $this->createServer();
+        $this->isID($hostID);
+
+        $clusterID = $this->cmdbObject->create(
+            'C__OBJTYPE__CLUSTER',
             $this->generateRandomString()
         );
+        $this->isID($clusterID);
 
-        $this->addObjectToLocation($roomID, $rootLocationID);
-        $this->addObjectToLocation($objectID, $roomID);
+        $entryID = $this->cmdbCategory->save(
+            $clusterID,
+            'C__CATG__CLUSTER_MEMBERS',
+            [
+                'member' => [$hostID]
+            ]
+        );
+        $this->isID($entryID);
 
         $this->instance->readByConst(
-            $roomID,
+            $clusterID,
             $relationType,
             $status
         );

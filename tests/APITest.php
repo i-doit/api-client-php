@@ -269,35 +269,36 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @return array
+     */
+    public function provideInvalidRequests(): array {
+        return [
+            'empty' => [
+                []
+            ],
+            'array with integer' => [
+                [1]
+            ],
+            'array with list of integers' => [
+                [1, 2, 3]
+            ]
+        ];
+    }
+
+    /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
+     * @dataProvider provideInvalidRequests
+     * @param mixed $request Invalid request
      */
-    public function testInvalidRequests() {
-        $invalidRequests = [
-            [],
-            [1],
-            [1, 2, 3]
-            // @todo Unable to check, because rawRequest() expects an array:
-//            null,
-//            '',
-//            new \stdClass(),
-//            true,
-//            false,
-//            $this->generateRandomString(),
-//            23,
-//            -42,
-//            123.456
-        ];
+    public function testInvalidRequests($request) {
+        $response = $this->api->rawRequest($request);
 
-        foreach ($invalidRequests as $invalidRequest) {
-            $response = $this->api->rawRequest($invalidRequest);
-
-            $this->assertInternalType('array', $response);
-            $this->isError($response);
-            $this->assertNull($response['id']);
-            $this->assertSame(-32600, $response['error']['code']);
-        }
+        $this->assertInternalType('array', $response);
+        $this->isError($response);
+        $this->assertNull($response['id']);
+        $this->assertSame(-32600, $response['error']['code']);
     }
 
     /**
@@ -321,39 +322,42 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @return array
+     */
+    public function provideInvalidParameters(): array {
+        return [
+            'null' => [null],
+            'positive integer' => [23],
+            'negative integer' => [-42],
+            'float' => [123.456],
+            'true' => [true],
+            'false' => [false],
+            'empty string' => [''],
+            'random string' => [$this->generateRandomString()]
+        ];
+    }
+
+    /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
+     * @param mixed $parameters Invalid parameters
+     * @dataProvider provideInvalidParameters
      */
-    public function testRequestWithInvalidParameters() {
-        $requestTpl = [
+    public function testRequestWithInvalidParameters($parameters) {
+        $request = [
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
+            'params' => $parameters,
             'id' => 1
         ];
 
-        $invalidParameters = [
-            null,
-            23,
-            -42,
-            123.456,
-            true,
-            false,
-            '',
-            $this->generateRandomString()
-        ];
+        $response = $this->api->rawRequest($request);
 
-        foreach ($invalidParameters as $invalidParameter) {
-            $request = $requestTpl;
-            $request['params'] = $invalidParameter;
-
-            $response = $this->api->rawRequest($request);
-
-            $this->assertInternalType('array', $response);
-            $this->isError($response);
-            $this->hasValidJSONRPCIdentifier($request, $response);
-            $this->assertSame(-32602, $response['error']['code']);
-        }
+        $this->assertInternalType('array', $response);
+        $this->isError($response);
+        $this->hasValidJSONRPCIdentifier($request, $response);
+        $this->assertSame(-32602, $response['error']['code']);
     }
 
     /**
@@ -379,43 +383,47 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @return array
+     */
+    public function provideInvalidAPIKeys(): array {
+        return [
+            'null' => [null],
+            'object' => [new \StdClass()],
+            'empty array' => [[]],
+            'positive integer' => [23],
+            'negative integer' => [-42],
+            'float' => [123.456],
+            'true' => [true],
+            'false' => [false],
+            'empty string' => [''],
+            'random string' => [$this->generateRandomString()]
+        ];
+    }
+
+    /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @group API-107
      * @throws \Exception on error
+     * @param mixed $apiKey Invalid API key
+     * @dataProvider provideInvalidAPIKeys
      */
-    public function testRequestWithInvalidApiKeys() {
-        $requestTpl = [
+    public function testRequestWithInvalidApiKeys($apiKey) {
+        $request = [
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
-            'params' => [],
+            'params' => [
+                'apikey' => $apiKey
+            ],
             'id' => 1
         ];
 
-        $invalidAPIKeys = [
-            null,
-            new \StdClass(),
-            [],
-            23,
-            -42,
-            123.456,
-            true,
-            false,
-            '',
-            $this->generateRandomString()
-        ];
+        $response = $this->api->rawRequest($request);
 
-        foreach ($invalidAPIKeys as $invalidAPIKey) {
-            $request = $requestTpl;
-            $request['params']['apikey'] = $invalidAPIKey;
-
-            $response = $this->api->rawRequest($request);
-
-            $this->assertInternalType('array', $response);
-            $this->isError($response);
-            $this->hasValidJSONRPCIdentifier($request, $response);
-            $this->assertSame(-32099, $response['error']['code']);
-        }
+        $this->assertInternalType('array', $response);
+        $this->isError($response);
+        $this->hasValidJSONRPCIdentifier($request, $response);
+        $this->assertSame(-32099, $response['error']['code']);
     }
 
     /**
@@ -441,12 +449,33 @@ class APITest extends BaseTest {
     }
 
     /**
+     * @return array
+     */
+    public function provideInvalidVersionNumbers() {
+        return [
+            'null' => [null],
+            'object' => [new \StdClass()],
+            'empty array' => [[]],
+            'positive integer' => [23],
+            'negative integer' => [-42],
+            'float' => [123.456],
+            'true' => [true],
+            'false' => [false],
+            'empty string' => [''],
+            'random string' => [$this->generateRandomString()]
+        ];
+    }
+
+    /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
+     * @param mixed $versionNumber Invalid version number
+     * @dataProvider provideInvalidVersionNumbers
      */
-    public function testRequestWithInvalidVersionNumbers() {
-        $requestTpl = [
+    public function testRequestWithInvalidVersionNumbers($versionNumber) {
+        $request = [
+            'jsonrpc' => $versionNumber,
             'method' => 'idoit.version',
             'params' => [
                 'apikey' => getenv('KEY')
@@ -454,100 +483,88 @@ class APITest extends BaseTest {
             'id' => 1
         ];
 
-        $invalidVersionNumbers = [
-            null,
-            new \StdClass(),
-            [],
-            23,
-            -42,
-            123.456,
-            true,
-            false,
-            '',
-            $this->generateRandomString()
+        $response = $this->api->rawRequest($request);
+
+        $this->assertInternalType('array', $response);
+        $this->isError($response);
+        $this->hasValidJSONRPCIdentifier($request, $response);
+        $this->assertSame(-32600, $response['error']['code']);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideValidIdentifiers(): array {
+        return [
+            'positive integer' => [23],
+            'negative integer' => [-42],
+            'zero' => [0],
+            'random string' => [$this->generateRandomString()]
         ];
-
-        foreach ($invalidVersionNumbers as $invalidVersionNumber) {
-            $request = $requestTpl;
-            $request['jsonrpc'] = $invalidVersionNumber;
-
-            $response = $this->api->rawRequest($request);
-
-            $this->assertInternalType('array', $response);
-            $this->isError($response);
-            $this->hasValidJSONRPCIdentifier($request, $response);
-            $this->assertSame(-32600, $response['error']['code']);
-        }
     }
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
+     * @param mixed $identifier Valid identifier
+     * @dataProvider provideValidIdentifiers
      */
-    public function testRequestWithValidIdentifiers() {
-        $requestTpl = [
+    public function testRequestWithValidIdentifiers($identifier) {
+        $request = [
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
             'params' => [
                 'apikey' => getenv('KEY')
-            ]
+            ],
+            'id' => $identifier
         ];
 
-        $validIdentifiers = [
-            23,
-            -42,
-            0,
-            $this->generateRandomString()
+        $response = $this->api->rawRequest($request);
+
+        $this->assertInternalType('array', $response);
+        $this->isValidResponse($response, $request);
+        $this->hasValidJSONRPCIdentifier($request, $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideInvalidIdentifiers(): array {
+        return [
+            'null' => [null],
+            'object' => [new \StdClass()],
+            'empty array' => [[]],
+            'float' => [123.456],
+            'true' => [true],
+            'false' => [false],
+            'empty string' => ['']
         ];
-
-        foreach ($validIdentifiers as $validIdentifier) {
-            $request = $requestTpl;
-            $request['id'] = $validIdentifier;
-
-            $response = $this->api->rawRequest($request);
-
-            $this->assertInternalType('array', $response);
-            $this->isValidResponse($response, $request);
-            $this->hasValidJSONRPCIdentifier($request, $response);
-        }
     }
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
+     * @param mixed $identifier Invalid identifier
+     * @dataProvider provideInvalidIdentifiers
      */
-    public function testRequestWithInvalidIdentifiers() {
-        $requestTpl = [
+    public function testRequestWithInvalidIdentifiers($identifier) {
+        $request = [
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
             'params' => [
                 'apikey' => getenv('KEY')
-            ]
+            ],
+            'id' => $identifier
         ];
 
-        $invalidIdentifiers = [
-            null,
-            new \StdClass(),
-            [],
-            123.456,
-            true,
-            false,
-            ''
-        ];
+        $response = $this->api->rawRequest($request);
 
-        foreach ($invalidIdentifiers as $invalidIdentifier) {
-            $request = $requestTpl;
-            $request['id'] = $invalidIdentifier;
-
-            $response = $this->api->rawRequest($request);
-
-            $this->assertInternalType('array', $response);
-            $this->isError($response);
-            $this->assertNull($response['id']);
-            $this->assertSame(-32600, $response['error']['code']);
-        }
+        $this->assertInternalType('array', $response);
+        $this->isError($response);
+        $this->assertNull($response['id']);
+        $this->assertSame(-32600, $response['error']['code']);
     }
 
     /**

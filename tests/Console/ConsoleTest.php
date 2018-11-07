@@ -90,7 +90,7 @@ class ConsoleTest extends BaseTest {
      * List of blacklisted commands
      * @return array Blacklisted commands
      */
-    public function getBlacklistedCommands(): array {
+    public function provideBlacklistedCommands(): array {
         return [
             'console.system.checkforupdates' => ['console.system.checkforupdates'],
             'console.system.update' => ['console.system.update'],
@@ -102,7 +102,7 @@ class ConsoleTest extends BaseTest {
     }
 
     /**
-     * @dataProvider getBlacklistedCommands
+     * @dataProvider provideBlacklistedCommands
      * @expectedException \RuntimeException
      * @param string $blacklistedCommand Blacklisted command
      * @throws \Exception on error

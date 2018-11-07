@@ -89,7 +89,7 @@ abstract class BaseTest extends TestCase {
     /**
      * Forget configuration settings
      */
-    public static function tearDownAfterClass () {
+    public static function tearDownAfterClass() {
         self::$dotEnv = null;
     }
 

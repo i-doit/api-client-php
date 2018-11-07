@@ -176,17 +176,22 @@ class CMDBWorkstationComponentsTest extends BaseTest {
             $this->generateRandomString()
         );
         $workstationComponentID = $this->cmdbCategory->create(
-            $componentID,
-            'C__CATG__ASSIGNED_WORKSTATION',
+            $workstationID,
+            'C__CATG__ASSIGNED_LOGICAL_UNIT',
             [
-                'parent' => $workstationID,
-                'description' => $this->generateDescription()
+                'assigned_object' => [$componentID]
             ]
         );
-        $this->cmdbCategory->archive($componentID, 'C__CATG__ASSIGNED_WORKSTATION', $workstationComponentID);
+        $this->cmdbCategory->archive($workstationID, 'C__CATG__ASSIGNED_LOGICAL_UNIT', $workstationComponentID);
 
-        $assignedWorkstationID = $this->addPersonToWorkstation($person['id'], $workstationID);
-        $this->cmdbCategory->archive($workstationID, 'C__CATG__LOGICAL_UNIT', $assignedWorkstationID);
+        $assignedWorkstationID = $this->cmdbCategory->create(
+            $person['id'],
+            'C__CATG__PERSON_ASSIGNED_WORKSTATION',
+            [
+                'assigned_workstations' => $workstationID
+            ]
+        );
+        $this->cmdbCategory->archive($person['id'], 'C__CATG__PERSON_ASSIGNED_WORKSTATION', $assignedWorkstationID);
 
         $result = $this->cmdbWorkstationComponents->read($person['id'], 3);
 
@@ -195,6 +200,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
 
         $this->checkResult($result);
 
+        // There must not be any entry left with status "normal":
         $result = $this->cmdbWorkstationComponents->read($person['id'], 2);
 
         $this->assertInternalType('array', $result);
@@ -215,17 +221,22 @@ class CMDBWorkstationComponentsTest extends BaseTest {
             $this->generateRandomString()
         );
         $workstationComponentID = $this->cmdbCategory->create(
-            $componentID,
-            'C__CATG__ASSIGNED_WORKSTATION',
+            $workstationID,
+            'C__CATG__ASSIGNED_LOGICAL_UNIT',
             [
-                'parent' => $workstationID,
-                'description' => $this->generateDescription()
+                'assigned_object' => [$componentID]
             ]
         );
-        $this->cmdbCategory->delete($componentID, 'C__CATG__ASSIGNED_WORKSTATION', $workstationComponentID);
+        $this->cmdbCategory->delete($workstationID, 'C__CATG__ASSIGNED_LOGICAL_UNIT', $workstationComponentID);
 
-        $assignedWorkstationID = $this->addPersonToWorkstation($person['id'], $workstationID);
-        $this->cmdbCategory->delete($workstationID, 'C__CATG__LOGICAL_UNIT', $assignedWorkstationID);
+        $assignedWorkstationID = $this->cmdbCategory->create(
+            $person['id'],
+            'C__CATG__PERSON_ASSIGNED_WORKSTATION',
+            [
+                'assigned_workstations' => $workstationID
+            ]
+        );
+        $this->cmdbCategory->delete($person['id'], 'C__CATG__PERSON_ASSIGNED_WORKSTATION', $assignedWorkstationID);
 
         $result = $this->cmdbWorkstationComponents->read($person['id'], 4);
 
@@ -234,6 +245,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
 
         $this->checkResult($result);
 
+        // There must not be any entry left with status "normal":
         $result = $this->cmdbWorkstationComponents->read($person['id'], 2);
 
         $this->assertInternalType('array', $result);
@@ -243,7 +255,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     /**
      * @return array
      */
-    public function getInvalidStatus(): array {
+    public function provideInvalidStatus(): array {
         return [
             'negative' => [-1],
             'zero' => [0],
@@ -257,11 +269,10 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     /**
      * @group unreleased
      * @group API-71
-     * @dataProvider getInvalidStatus
+     * @dataProvider provideInvalidStatus
      * @param int $status
      * @expectedException \RuntimeException
      * @throws \Exception on error
-     * @doesNotPerformAssertions
      */
     public function testReadByInvalidStatus(int $status) {
         $person = $this->createPerson();
@@ -296,7 +307,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
 
                 $this->assertArrayHasKey('children', $workstation);
                 $this->assertInternalType('array', $workstation['children']);
-                $this->assertCount(4, $workstation['children']);
+                $this->assertNotCount(0, $workstation['children']);
 
                 foreach ($workstation['children'] as $id => $component) {
                     $this->assertInternalType('integer', $id);

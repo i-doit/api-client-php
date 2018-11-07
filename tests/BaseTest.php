@@ -76,15 +76,29 @@ abstract class BaseTest extends TestCase {
         7 // Mass change template
     ];
 
+    protected static $dotEnv;
+
+    /**
+     * Read configuration settings from .env file
+     */
+    public static function setUpBeforeClass() {
+        self::$dotEnv = new Dotenv();
+        self::$dotEnv->load(__DIR__ . '/../.env');
+    }
+
+    /**
+     * Forget configuration settings
+     */
+    public static function tearDownAfterClass () {
+        self::$dotEnv = null;
+    }
+
     /**
      * Make API available
      *
      * @throws \Exception on error
      */
     public function setUp() {
-        $dotenv = new Dotenv();
-        $dotenv->load(__DIR__ . '/../.env');
-
         $config = [
             'url' => getenv('URL'),
             'key' => getenv('KEY')

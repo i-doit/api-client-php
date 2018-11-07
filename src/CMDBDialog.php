@@ -30,7 +30,7 @@ namespace bheisig\idoitapi;
 class CMDBDialog extends Request {
 
     /**
-     * Creates a new entry for a drop-down menu
+     * Create a new entry for a drop-down menu
      *
      * @param string $category Category constant
      * @param string $attribute Attribute
@@ -66,7 +66,7 @@ class CMDBDialog extends Request {
     }
 
     /**
-     * Creates one or more entries for a drow-down menu
+     * Create one or more entries for a drow-down menu
      *
      * @param array $values Values:
      *  [
@@ -127,7 +127,7 @@ class CMDBDialog extends Request {
     }
 
     /**
-     * Fetches values from a specific drop-down menu
+     * Fetch values from drop-down menu
      *
      * @param string $category Category constant
      * @param string $attribute Attribute
@@ -147,7 +147,7 @@ class CMDBDialog extends Request {
     }
 
     /**
-     * Fetches values from one or more drop-down menus
+     * Fetch values from one or more drop-down menus
      *
      * @param array $attributes Attributes: ['cat' => 'attr', 'cat' => ['attr 1', 'attr 2']]
      *
@@ -179,6 +179,30 @@ class CMDBDialog extends Request {
         }
 
         return $this->api->batchRequest($requests);
+    }
+
+    /**
+     * Purge value from drop-down menu
+     *
+     * @param string $category Category constant
+     * @param string $attribute Attribute
+     * @param int $entryID Entry identifier
+     *
+     * @return self Returns itself
+     *
+     * @throws \Exception on error
+     */
+    public function delete($category, $attribute, $entryID) {
+        $this->api->request(
+            'cmdb.dialog.delete',
+            [
+                'category' => $category,
+                'property' => $attribute,
+                'entry_id' => $entryID
+            ]
+        );
+
+        return $this;
     }
 
 }

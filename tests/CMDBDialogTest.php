@@ -51,13 +51,30 @@ class CMDBDialogTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testCreate() {
-        $result = $this->cmdbDialog->create(
+        $entryTitle = $this->generateRandomString();
+
+        $entryID = $this->cmdbDialog->create(
             'C__CATG__CPU',
             'manufacturer',
-            $this->generateRandomString()
+            $entryTitle
         );
 
-        $this->isID($result);
+        $this->isID($entryID);
+
+        $entries = $this->cmdbDialog->read(
+            'C__CATG__CPU',
+            'manufacturer'
+        );
+
+        $entry = end($entries);
+        $this->isDialog($entry);
+
+        $this->assertArrayHasKey('id', $entry);
+        $this->isIDAsString($entry['id']);
+        $this->assertSame($entryID, (int) $entry['id']);
+
+        $this->assertArrayHasKey('title', $entry);
+        $this->assertSame($entryTitle, $entry['title']);
     }
 
     /**
@@ -320,12 +337,19 @@ class CMDBDialogTest extends BaseTest {
      */
     public function testRead() {
         $result = $this->cmdbDialog->read(
-            'C__CATG__MODEL',
+            'C__CATG__CPU',
             'manufacturer'
         );
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+
+        foreach ($result as $index => $entry) {
+            $this->assertInternalType('int', $index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertInternalType('array', $entry);
+            $this->isDialog($entry);
+        }
     }
 
     /**
@@ -342,6 +366,46 @@ class CMDBDialogTest extends BaseTest {
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testDelete() {
+        $entryTitle = $this->generateRandomString();
+
+        $entryID = $this->cmdbDialog->create(
+            'C__CATG__CPU',
+            'manufacturer',
+            $entryTitle
+        );
+
+        $this->isID($entryID);
+
+        $result = $this->cmdbDialog->delete(
+            'C__CATG__CPU',
+            'manufacturer',
+            $entryID
+        );
+
+        $this->assertInstanceOf(CMDBDialog::class, $result);
+
+        // Verify
+        $entries = $this->cmdbDialog->read(
+            'C__CATG__CPU',
+            'manufacturer'
+        );
+
+        foreach ($entries as $entry) {
+            $this->isDialog($entry);
+
+            $this->assertArrayHasKey('id', $entry);
+            $this->isIDAsString($entry['id']);
+            $this->assertNotSame($entryID, (int) $entry['id']);
+
+            $this->assertArrayHasKey('title', $entry);
+            $this->assertNotSame($entryTitle, $entry['title']);
+        }
     }
 
 }

@@ -22,10 +22,11 @@ This release comes with new features and tons of unit tests. To get the full exp
 -   `CMDBCategory::save()`: Create new or update existing category entry for a specific object
 -   `CMDBCategory::read()`, `CMDBCategory::readOneByID()`: Filter entry/entries by status
 -   `CMDBCategory::archive()`: Archive entry in a multi-value category for a specific object
--   `CMDBCategory::delete()`: Marks entry in a multi-value category for a specific object as deleted
+-   `CMDBCategory::delete()`: Mark entry in a multi-value category for a specific object as deleted
 -   `CMDBCategory::purge()`: Purge entry in a single- or multi-value category for a specific object
 -   `CMDBCategory::recycle()`: Restore entry in a multi-value category for a specific object to "normal" state
 -   `CMDBDialog::create()`: Reference parent entry by its title (string) or by its identifier (integer)
+-   `CMDBDialog::delete()`: Purge value from drop-down menu
 -   `Idoit::getAddOns()`: Read information about installed add-ons
 -   `CMDBImpact`: Filter relations by status
 -   `CMDBObjectsByRelation`: Filter relations by status

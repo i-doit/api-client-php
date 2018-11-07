@@ -58,6 +58,59 @@ Developers must meet some more requirements:
 *   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)
 
 
+##  Run unit tests
+
+There is a huge amount of tests located under `tests/`. These tests can be executed by [PHPUnit](https://phpunit.de/). We test both this client library and the i-doit JSON-RPC API as well.
+
+### Prerequisites
+
+1.  Copy fiel `.env.dist` to `.env`
+2.  Put your configuration settings to `.env`
+
+
+### Usage
+
+Execute tests for all released features:
+
+~~~
+composer phpunit
+~~~
+
+At the end you get the result of a code coverage analysis.
+
+Run these tests in parallel to produce a higher load:
+
+~~~
+composer parallel
+~~~
+
+Run all tests in debug mode using [Xdebug](https://xdebug.org/):
+
+~~~
+bin/phpunit-dbg
+~~~
+
+If you configure your system properly, you will be able to set breakpoints in your IDE.
+
+You may add arguments and options, for example:
+
+~~~
+bin/phpunit-dbg --group unreleased tests/APITest.php
+~~~
+
+
+### Available test groups
+
+Some tests are grouped. Include a group by `--group` or exclude it by `--exclude-group`.
+
+| Group name    | Description                                       |
+| ------------- | ------------------------------------------------- |
+| `unreleased`  | Unreleased features in the i-doit JSON-RPC API    |
+| `open`        | Still open issues in the i-doit JSON-RPC API      |
+| `issues`      | Perform tests for reported issues                 |
+| `ABC-123`     | Perform tests for reported issue `ABC-123`        |
+
+
 ##  Release new version
 
 … and publish it to [packagist.org](https://packagist.org/packages/bheisig/idoitapi). You need commit rights for this repository.

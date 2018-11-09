@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBCategoryInfo;
 
 /**
@@ -112,31 +113,49 @@ class CMDBCategoryInfoTest extends BaseTest {
     }
 
     /**
+     * @return array
+     * @throws \Exception
+     */
+    public function provideVirtualCategories(): array {
+        $cmdbCategoryInfo = new CMDBCategoryInfo(new API([
+            API::URL => 'https://example.com/src/json.rpc',
+            API::KEY => '123'
+        ]));
+        $virtualCategoryConstants = $cmdbCategoryInfo->getVirtualCategoryConstants();
+
+        $parameters = [];
+
+        foreach ($virtualCategoryConstants as $virtualCategoryConstant) {
+            $parameters[$virtualCategoryConstant] = [$virtualCategoryConstant];
+        }
+
+        return $parameters;
+    }
+
+    /**
      * @group unreleased
      * @group API-72
      * @throws \Exception on error
+     * @dataProvider provideVirtualCategories
+     * @param string $categoryConstant Category constant
      */
-    public function testReadVirtualCategories() {
-        $categoryConstants = $this->instance->getVirtualCategoryConstants();
+    public function testReadVirtualCategories(string $categoryConstant) {
+        $request = [
+            'jsonrpc' => '2.0',
+            'method' => 'cmdb.category_info',
+            'params' => array(
+                'category' => $categoryConstant,
+                'apikey' => getenv('KEY')
+            ),
+            'id' => 1
+        ];
 
-        foreach ($categoryConstants as $categoryConstant) {
-            $request = [
-                'jsonrpc' => '2.0',
-                'method' => 'cmdb.category_info',
-                'params' => array(
-                    'category' => $categoryConstant,
-                    'apikey' => getenv('KEY')
-                ),
-                'id' => 1
-            ];
+        $response = $this->api->rawRequest($request);
 
-            $response = $this->api->rawRequest($request);
-
-            $this->assertInternalType('array', $response);
-            $this->isError($response);
-            $this->hasValidJSONRPCIdentifier($request, $response);
-            $this->assertSame(-32099, $response['error']['code'], $categoryConstant);
-        }
+        $this->assertInternalType('array', $response);
+        $this->isError($response);
+        $this->hasValidJSONRPCIdentifier($request, $response);
+        $this->assertSame(-32099, $response['error']['code'], $categoryConstant);
     }
 
 }

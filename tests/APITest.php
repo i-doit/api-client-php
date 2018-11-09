@@ -275,7 +275,15 @@ class APITest extends BaseTest {
         return [
             'empty' => [
                 []
-            ],
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function provideInvalidBatch(): array {
+        return [
             'array with integer' => [
                 [1]
             ],
@@ -292,13 +300,33 @@ class APITest extends BaseTest {
      * @dataProvider provideInvalidRequests
      * @param mixed $request Invalid request
      */
-    public function testInvalidRequests($request) {
+    public function testInvalidRequest($request) {
         $response = $this->api->rawRequest($request);
 
         $this->assertInternalType('array', $response);
+
         $this->isError($response);
         $this->assertNull($response['id']);
         $this->assertSame(-32600, $response['error']['code']);
+    }
+
+    /**
+     * @covers \bheisig\idoitapi\API::rawRequest
+     * @group unreleased
+     * @throws \Exception on error
+     * @dataProvider provideInvalidBatch
+     * @param mixed $request Invalid batch request
+     */
+    public function testInvalidBatchRequest($request) {
+        $response = $this->api->rawRequest($request);
+
+        $this->assertInternalType('array', $response);
+
+        foreach ($response as $result) {
+            $this->isError($result);
+            $this->assertNull($result['id']);
+            $this->assertSame(-32600, $result['error']['code']);
+        }
     }
 
     /**
@@ -445,7 +473,7 @@ class APITest extends BaseTest {
         $this->assertInternalType('array', $response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
-        $this->assertSame(-32603, $response['error']['code']);
+        $this->assertSame(-32600, $response['error']['code']);
     }
 
     /**
@@ -499,7 +527,10 @@ class APITest extends BaseTest {
             'positive integer' => [23],
             'negative integer' => [-42],
             'zero' => [0],
-            'random string' => [$this->generateRandomString()]
+            'random string' => [$this->generateRandomString()],
+            'positive integer as string' => ['23'],
+            'negative integer as string' => ['-42'],
+            'zero as string' => ['0'],
         ];
     }
 
@@ -564,7 +595,7 @@ class APITest extends BaseTest {
         $this->assertInternalType('array', $response);
         $this->isError($response);
         $this->assertNull($response['id']);
-        $this->assertSame(-32600, $response['error']['code']);
+        $this->assertSame(-32603, $response['error']['code']);
     }
 
     /**
@@ -586,80 +617,80 @@ class APITest extends BaseTest {
         $this->assertInternalType('array', $response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
-        $this->assertSame(-32601, $response['error']['code']);
+        $this->assertSame(-32600, $response['error']['code']);
+    }
+
+    public function provideInvalidMethods(): array {
+        return [
+            'empty string' => [''],
+            'null' => [null],
+            'object' => [new \StdClass()],
+            'empty array' => [[]],
+            'positive integer' => [23],
+            'negative integer' => [-42],
+            'float' => [123.456],
+            'true' => [true],
+            'false' => [false]
+        ];
     }
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group unreleased
      * @throws \Exception on error
+     * @param mixed $method Invalid method
+     * @dataProvider provideInvalidMethods
      */
-    public function testRequestWithInvalidMethods() {
-        $requestTpl = [
+    public function testRequestWithInvalidMethods($method) {
+        $request = [
             'jsonrpc' => '2.0',
+            'method' => $method,
             'params' => [
                 'apikey' => getenv('KEY')
             ],
             'id' => 1
         ];
 
-        $invalidMethods = [
-            null,
-            new \StdClass(),
-            [],
-            23,
-            -42,
-            123.456,
-            true,
-            false
-        ];
+        $response = $this->api->rawRequest($request);
 
-        foreach ($invalidMethods as $invalidMethod) {
-            $request = $requestTpl;
-            $request['method'] = $invalidMethod;
-
-            $response = $this->api->rawRequest($request);
-
-            $this->assertInternalType('array', $response);
-            $this->isError($response);
-            $this->hasValidJSONRPCIdentifier($request, $response);
-            $this->assertSame(-32600, $response['error']['code']);
-        }
+        $this->assertInternalType('array', $response);
+        $this->isError($response);
+        $this->hasValidJSONRPCIdentifier($request, $response);
+        $this->assertSame(-32600, $response['error']['code']);
     }
 
-    /**
-     * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
-     * @throws \Exception on error
-     */
-    public function testRequestWithUnkownMethods() {
-        $requestTpl = [
-            'jsonrpc' => '2.0',
-            'params' => [
-                'apikey' => getenv('KEY')
-            ],
-            'id' => 1
-        ];
-
-        $unknownMethods = [
-            $this->generateRandomString(),
-            'cmdb.nope',
-            ''
+    public function provideUnknownMethods() {
+        return [
+            'random string' => [$this->generateRandomString()],
+            'cmdb.nope' => ['cmdb.nope'],
             // @todo i-doit's routing thinks it's "cmdb.objects.read" (even if "read" doesn't exist):
-            //'cmdb.objects.' . $this->generateRandomString()
+            //'' => ['cmdb.objects.' . $this->generateRandomString()]
+        ];
+    }
+
+    /**
+     * @covers \bheisig\idoitapi\API::rawRequest
+     * @group unreleased
+     * @throws \Exception on error
+     * @param string $method Unknown method
+     * @dataProvider provideUnknownMethods
+     */
+    public function testRequestWithUnknownMethod(string $method) {
+        $request = [
+            'jsonrpc' => '2.0',
+            'method' => $method,
+            'params' => [
+                'apikey' => getenv('KEY')
+            ],
+            'id' => 1
         ];
 
-        foreach ($unknownMethods as $unknownMethod) {
-            $request = $requestTpl;
-            $request['method'] = $unknownMethod;
+        $response = $this->api->rawRequest($request);
 
-            $response = $this->api->rawRequest($request);
-
-            $this->assertInternalType('array', $response);
-            $this->isError($response);
-            $this->hasValidJSONRPCIdentifier($request, $response);
-            $this->assertSame(-32601, $response['error']['code']);
-        }
+        $this->assertInternalType('array', $response);
+        $this->isError($response);
+        $this->hasValidJSONRPCIdentifier($request, $response);
+        $this->assertSame(-32601, $response['error']['code']);
     }
 
     /**

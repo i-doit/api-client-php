@@ -90,7 +90,7 @@ class API142Test extends BaseTest {
 
         $this->searchInCMDBFor('Server > Model > Manufacturer', $manufacturer, $result['id'], $objectTitle);
         $this->searchInCMDBFor('Server > Model > Model', $model, $result['id'], $objectTitle);
-        $this->searchInCMDBFor('Server > Model > Serial Number', $serial, $result['id'], $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Serial number', $serial, $result['id'], $objectTitle);
         $this->searchInCMDBFor('Server > CPU > Title', $cpu1, $result['id'], $objectTitle);
         $this->searchInCMDBFor('Server > CPU > Title', $cpu2, $result['id'], $objectTitle);
     }
@@ -122,7 +122,7 @@ class API142Test extends BaseTest {
 
         $this->searchInCMDBFor('Server > Model > Manufacturer', $manufacturer, $objectID, $objectTitle);
         $this->searchInCMDBFor('Server > Model > Model', $model, $objectID, $objectTitle);
-        $this->searchInCMDBFor('Server > Model > Serial Number', $serial, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Serial number', $serial, $objectID, $objectTitle);
     }
 
     /**
@@ -188,7 +188,7 @@ class API142Test extends BaseTest {
 
         $this->searchInCMDBFor('Server > Model > Manufacturer', $manufacturer, $objectID, $objectTitle);
         $this->searchInCMDBFor('Server > Model > Model', $model, $objectID, $objectTitle);
-        $this->searchInCMDBFor('Server > Model > Serial Number', $serial, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Serial number', $serial, $objectID, $objectTitle);
     }
 
     /**
@@ -270,7 +270,7 @@ class API142Test extends BaseTest {
 
         $this->searchInCMDBFor('Server > Model > Manufacturer', $manufacturer, $objectID, $objectTitle);
         $this->searchInCMDBFor('Server > Model > Model', $model, $objectID, $objectTitle);
-        $this->searchInCMDBFor('Server > Model > Serial Number', $serial, $objectID, $objectTitle);
+        $this->searchInCMDBFor('Server > Model > Serial number', $serial, $objectID, $objectTitle);
     }
 
     /**

@@ -136,25 +136,40 @@ class CMDBCategoryInfo extends Request {
      */
     public function getVirtualCategoryConstants() {
         return [
+            'C__CATG__ASSIGNED_LOGICAL_UNIT',
             'C__CATG__CABLING',
+            'C__CATG__CABLE_CONNECTION',
+            'C__CATG__CLUSTER_SHARED_STORAGE',
+            'C__CATG__CLUSTER_VITALITY',
+            'C__CATG__CLUSTER_SHARED_VIRTUAL_SWITCH',
             // @todo This is an add-on related category:
-            //'C__CATG__FLOORPLAN',
+            'C__CATG__FLOORPLAN',
+//            'C__CATG__JDISC_DISCOVERY',
+            'C__CATG__LIVESTATUS',
+            'C__CATG__MANAGED_OBJECTS',
+            'C__CATG__MULTIEDIT',
+//            'C__CATG__NAGIOS_SERVICE_REFS_TPL_BACKWARDS',
+//            'C__CATG__NAGIOS_HOST_TPL_ASSIGNED_OBJECTS',
+//            'C__CATG__NDO',
             'C__CATG__NET_ZONE',
             'C__CATG__NET_ZONE_SCOPES',
             'C__CATG__OBJECT',
             'C__CATG__OBJECT_VITALITY',
             'C__CATG__RACK_VIEW',
+            'C__CATG__RM_CONTROLLER_BACKWARD',
             'C__CATG__SANPOOL',
             'C__CATG__STACK_MEMBERSHIP',
+            'C__CATG__STACK_PORT_OVERVIEW',
             'C__CATG__STORAGE',
             'C__CATG__VIRTUAL_AUTH',
             // @todo This is an add-on related category:
-            //'C__CATG__VIRTUAL_RELOCATE_CI',
+//            'C__CATG__VIRTUAL_RELOCATE_CI',
             'C__CATG__VIRTUAL_SUPERNET',
             'C__CATG__VIRTUAL_TICKETS',
             'C__CATG__VRRP_VIEW',
             'C__CATS__BASIC_AUTH',
-            'C__CATS__CHASSIS_CABLING'
+            'C__CATS__CHASSIS_CABLING',
+            'C__CATS__PDU_OVERVIEW'
         ];
     }
 

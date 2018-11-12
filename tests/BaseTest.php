@@ -99,8 +99,9 @@ abstract class BaseTest extends TestCase {
      */
     public function setUp() {
         $config = [
-            'url' => getenv('URL'),
-            'key' => getenv('KEY')
+            API::URL => getenv('URL'),
+            API::KEY => getenv('KEY'),
+            API::LANGUAGE => getenv('IDOIT_LANGUAGE')
         ];
 
         if (getenv('USERNAME') !== false && getenv('PASSWORD') !== false) {

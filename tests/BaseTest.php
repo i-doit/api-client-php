@@ -76,6 +76,9 @@ abstract class BaseTest extends TestCase {
         7 // Mass change template
     ];
 
+    /**
+     * @var \Symfony\Component\Dotenv\Dotenv
+     */
     protected static $dotEnv;
 
     /**
@@ -114,14 +117,6 @@ abstract class BaseTest extends TestCase {
         $this->cmdbObject = new CMDBObject($this->api);
         $this->cmdbObjects = new CMDBObjects($this->api);
         $this->cmdbCategory = new CMDBCategory($this->api);
-    }
-
-    /**
-     * Forget environment settings
-     */
-    public static function tearDownAfterClass() {
-        self::$dotEnv = null;
-        self::$composer = [];
     }
 
     /**

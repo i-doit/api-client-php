@@ -28,27 +28,175 @@ namespace bheisig\idoitapi\tests\Extension;
 
 use PHPUnit\Runner\BeforeFirstTestHook;
 use Symfony\Component\Dotenv\Dotenv;
+use bheisig\idoitapi\API;
+use bheisig\idoitapi\Idoit;
 
 final class PrintMetaData implements BeforeFirstTestHook {
 
+    /**
+     * @var \bheisig\idoitapi\API
+     */
+    protected $api;
+
+    /**
+     * @var \bheisig\idoitapi\Idoit
+     */
+    protected $idoit;
+
+    /**
+     * @var array
+     */
+    protected $composer = [];
+
+    /**
+     * @var array
+     */
+    protected $idoitInfo = [];
+
+    /**
+     * @var array
+     */
+    protected $apiInfo = [];
+
     public function executeBeforeFirstTest(): void {
+        $this
+            ->loadEnvironment()
+            ->loadComposer()
+            ->connectToAPI()
+            ->getIdoitVersion()
+            ->getAPIVersion()
+            ->printMetaData();
+    }
+
+    /**
+     * @return self Returns itself
+     */
+    protected function loadEnvironment(): self {
         $dotenv = new Dotenv();
         $dotenv->load(__DIR__ . '/../../.env');
+        return $this;
+    }
 
-        $url = getenv('URL');
-
+    /**
+     * @return self Returns itself
+     */
+    protected function loadComposer(): self {
         $composerFile = __DIR__ . '/../../composer.json';
-        $composer = json_decode(file_get_contents($composerFile), true);
-        $name = $composer['name'];
-        $version = $composer['version'];
+        $this->composer = json_decode(file_get_contents($composerFile), true);
+        return $this;
+    }
+
+    /**
+     * @return self Returns itself
+     */
+    protected function connectToAPI(): self {
+        try {
+            $config = [
+                API::URL => getenv('URL'),
+                API::KEY => getenv('KEY'),
+                API::LANGUAGE => getenv('IDOIT_LANGUAGE')
+            ];
+
+            if (getenv('USERNAME') !== false && getenv('PASSWORD') !== false) {
+                $config['username'] = getenv('USERNAME');
+                $config['password'] = getenv('PASSWORD');
+            }
+
+            $this->api = new API($config);
+            $this->idoit = new Idoit($this->api);
+        } catch (\Exception $e) {
+            // Suppress any exception…
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return self Returns itself
+     */
+    protected function getIdoitVersion(): self {
+        try {
+            $this->idoitInfo = $this->idoit->readVersion();
+        } catch (\Exception $e) {
+            // Suppress any exception…
+        }
+        return $this;
+    }
+
+    /**
+     * @return self Returns itself
+     */
+    protected function getAPIVersion(): self {
+        try {
+            $addOns = $this->idoit->getAddOns();
+
+            foreach ($addOns as $addOn) {
+                if ($addOn['key'] === 'api') {
+                    $this->apiInfo = $addOn;
+                    break;
+                }
+            }
+        } catch (\Exception $e) {
+            // Suppress any exception…
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return self Returns itself
+     */
+    protected function printMetaData(): self {
+        $url = getenv('URL');
+        $libName = $this->composer['name'];
+        $libVersion = $this->composer['version'];
+        $phpVersion = PHP_VERSION;
+        $idoitVersion = 'unknown';
+        $user = 'unknown';
+        $apiVersion = 'unknown';
+
+        if (array_key_exists('version', $this->idoitInfo) &&
+            array_key_exists('type', $this->idoitInfo)) {
+            $idoitVersion = sprintf(
+                '%s %s',
+                $this->idoitInfo['version'],
+                $this->idoitInfo['type']
+            );
+        }
+
+        if (array_key_exists('login', $this->idoitInfo) &&
+            is_array($this->idoitInfo['login']) &&
+            array_key_exists('username', $this->idoitInfo['login']) &&
+            array_key_exists('language', $this->idoitInfo['login']) &&
+            array_key_exists('mandator', $this->idoitInfo['login'])) {
+            $user = sprintf(
+                '%s (%s) @ %s',
+                $this->idoitInfo['login']['username'],
+                $this->idoitInfo['login']['language'],
+                $this->idoitInfo['login']['mandator']
+            );
+        }
+
+        if (array_key_exists('version', $this->apiInfo)) {
+            $apiVersion = sprintf(
+                '%s',
+                $this->apiInfo['version']
+            );
+        }
 
         fwrite(STDOUT, <<< EOF
-API URL:       $url
-Version:       $name $version
+URL:           $url
+i-doit:        $idoitVersion
+User/tenant:   $user
+API:           $apiVersion
+Library:       $libName $libVersion
+PHP:           $phpVersion
 
 
 EOF
         );
+
+        return $this;
     }
 
 }

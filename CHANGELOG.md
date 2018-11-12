@@ -31,7 +31,6 @@ This release comes with new features and tons of unit tests. To get the full exp
 -   `CMDBImpact`: Filter relations by status
 -   `CMDBObjectsByRelation`: Filter relations by status
 -   `CMDBLocationTree`: Filter relations by status
--   `CMDBWorkstationComponents`: Filter relations by status
 -   Execute CLI commands over API (method namespace `console`)
 -   `CheckMKTags`: Read host tags by one or more objects from category `C__CATG__CMK_TAG`
 -   `API::rawRequest()`: Perform a low level API request

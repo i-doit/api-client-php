@@ -154,6 +154,8 @@ final class PrintMetaData implements BeforeFirstTestHook {
         $idoitVersion = 'unknown';
         $user = 'unknown';
         $apiVersion = 'unknown';
+        $date = date('c');
+        $os = PHP_OS;
 
         if (array_key_exists('version', $this->idoitInfo) &&
             array_key_exists('type', $this->idoitInfo)) {
@@ -185,12 +187,17 @@ final class PrintMetaData implements BeforeFirstTestHook {
         }
 
         fwrite(STDOUT, <<< EOF
-URL:           $url
-i-doit:        $idoitVersion
-User/tenant:   $user
-API:           $apiVersion
-Library:       $libName $libVersion
-PHP:           $phpVersion
+Server-side information:
+    URL:            $url
+    i-doit:         $idoitVersion
+    API:            $apiVersion
+    User/tenant:    $user
+
+Client-side information:
+    Library:        $libName $libVersion
+    PHP:            $phpVersion
+    OS:             $os
+    Date:           $date
 
 
 EOF

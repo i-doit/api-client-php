@@ -53,6 +53,7 @@ This release comes with new features and tons of unit tests. To get the full exp
 ### Fixed
 
 -   `File::add()`, `File::batchAdd()`: Use renamed constant for category "file versions"
+-   Avoid "PHP Notice" when there is a detailed error description available
 
 
 ##  [0.6] – 2018-06-21

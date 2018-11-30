@@ -595,10 +595,21 @@ class API {
             if (array_key_exists('data', $response['error']) &&
                 is_array($response['error']['data'])) {
                 foreach ($response['error']['data'] as $topic => $description) {
+                    $text = 'unknown';
+
+                    switch (gettype($description)) {
+                        case 'array':
+                            $text = implode('; ', $description);
+                            break;
+                        case 'string':
+                            $text = $description;
+                            break;
+                    }
+
                     $details[] = sprintf(
                         '%s: %s',
                         $topic,
-                        $description
+                        $text
                     );
                 }
             }

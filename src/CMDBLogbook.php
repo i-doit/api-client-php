@@ -100,13 +100,16 @@ class CMDBLogbook extends Request {
      *
      * @param string $since Optional list only entries since a specific date; supports everything which can be parsed
      * by strtotime()
+     * @param int $limit Limit number of entries; defaults to 1000
      *
      * @return array Indexed array of associative arrays
      *
      * @throws \Exception on error
      */
-    public function read($since = null) {
-        $params = [];
+    public function read($since = null, $limit = 1000) {
+        $params = [
+            'limit' => $limit
+        ];
 
         if (isset($since)) {
             $params['since'] = $since;
@@ -124,14 +127,16 @@ class CMDBLogbook extends Request {
      * @param int $objectID Object identifier
      * @param string $since Optional list only entries since a specific date; supports everything which can be parsed by
      * strtotime()
+     * @param int $limit Limit number of entries; defaults to 1000
      *
      * @return array Indexed array of associative arrays
      *
      * @throws \Exception on error
      */
-    public function readByObject($objectID, $since = null) {
+    public function readByObject($objectID, $since = null, $limit = 1000) {
         $params = [
-            'object_id' => $objectID
+            'object_id' => $objectID,
+            'limit' => $limit
         ];
 
         if (isset($since)) {

@@ -93,20 +93,58 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
+     * Provide dates and Unix timestamps
+     *
+     * @return array
+     */
+    public function provideDates(): array {
+        return [
+            // This will probably result in a HTTP status code 500:
+//            '0' => ['0'],
+            'today' => ['today'],
+            'yesterday' => ['yesterday'],
+            'now as Y-m-d' => [date('Y-m-d')],
+            'now as Unix timestamp' => ['' . time() . ''],
+            'now as c' => [date('c')]
+        ];
+    }
+
+    /**
+     * @dataProvider provideDates
+     * @param string $date Date or Unix timestamp
      * @throws \Exception on error
      */
-    public function testReadByDate() {
-        $result = $this->instance->read('today');
+    public function testReadByDate(string $date) {
+        $result = $this->instance->read($date);
 
         $this->assertInternalType('array', $result);
         $this->assertNotCount(0, $result);
 
         $this->validateEntries($result);
+    }
 
-        $result = $this->instance->read(date('Y-m-d'));
+    public function provideLimits(): array {
+        return [
+            // This will probably result in a HTTP status code 500:
+//            '0' => [0],
+            'limit to 1' => [1],
+            'limit to 10' => [10],
+            'limit to 100' => [100],
+            'limit to 1000' => [1000],
+            'limit to 10000' => [10000]
+        ];
+    }
+
+    /**
+     * @dataProvider provideLimits
+     * @param int $limit Limit
+     * @throws \Exception on error
+     */
+    public function testReadWithLimit(int $limit) {
+        $result = $this->instance->read(null, $limit);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
+        $this->assertCount($limit, $result);
 
         $this->validateEntries($result);
     }
@@ -126,22 +164,31 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
+     * @param string $date Date or Unix timestamp
+     * @dataProvider provideDates
      * @throws \Exception on error
      */
-    public function testReadByObjectAndDate() {
+    public function testReadByObjectAndDate(string $date) {
         $objectID = $this->createServer();
 
-        $result = $this->instance->readByObject($objectID, 'today');
+        $result = $this->instance->readByObject($objectID, $date);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
 
         $this->validateEntries($result);
+    }
 
-        $result = $this->instance->readByObject($objectID, date('Y-m-d'));
+    /**
+     * @param int $limit Limit
+     * @dataProvider provideLimits
+     * @throws \Exception on error
+     */
+    public function testReadByObjectAndLimit(int $limit) {
+        $objectID = $this->createServer();
+
+        $result = $this->instance->readByObject($objectID, null, $limit);
 
         $this->assertInternalType('array', $result);
-        $this->assertNotCount(0, $result);
 
         $this->validateEntries($result);
     }

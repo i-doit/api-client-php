@@ -44,6 +44,7 @@ This release comes with new features and tons of unit tests. To get the full exp
 -   `CMDBObject::archive()`, `CMDBObjects::archive()`: Change to new API method `cmdb.object.archive`
 -   `CMDBObject::delete()`, `CMDBObjects::delete()`: Change to re-newed API method `cmdb.object.delete`
 -   `CMDBObject::purge()`, `CMDBObjects::purge()`: Change to new API method `cmdb.object.purge`
+-   `CMDBObject::load()`: Include custom categories with user-defined attributes
 -   `CMDBObject::load()`: Ignore virtual categories which have no data
 -   `CMDBCategory::clear()`: Change to new API method `cmdb.object.archive`
 -   `CMDBCategory::purge()`: Re-name method `purge()` to `quickpurge()`

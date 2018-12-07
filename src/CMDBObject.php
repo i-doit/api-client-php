@@ -301,7 +301,7 @@ class CMDBObject extends Request {
 
         $cmdbCategory = new CMDBCategory($this->api);
 
-        $categoryTypes = ['catg', 'cats'];
+        $categoryTypes = ['catg', 'cats', 'custom'];
 
         $cmdbCategoryInfo = new CMDBCategoryInfo($this->api);
         $blacklistedCategoryConstants = $cmdbCategoryInfo->getVirtualCategoryConstants();

@@ -59,6 +59,17 @@ class CMDBCategory extends Request {
             $params
         );
 
+        if (!array_key_exists('entry', $result) ||
+            !is_int($result['entry']) ||
+            !array_key_exists('success', $result) ||
+            $result['success'] !== true) {
+            if (array_key_exists('message', $result)) {
+                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+            } else {
+                throw new \RuntimeException('Bad result');
+            }
+        }
+
         return $result['entry'];
     }
 

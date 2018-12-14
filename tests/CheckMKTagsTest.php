@@ -55,7 +55,7 @@ class CheckMKTagsTest extends BaseTest {
         $objectID = $this->createServer();
         $this->cmdbCategory->create(
             $objectID,
-            'C__CATG__CMK_TAG',
+            'C__CATG__CMK2_TAG',
             [
                 'description' => $this->generateDescription()
             ]
@@ -123,7 +123,7 @@ class CheckMKTagsTest extends BaseTest {
 
             $this->cmdbCategory->create(
                 $objectID,
-                'C__CATG__CMK_TAG',
+                'C__CATG__CMK2_TAG',
                 [
                     'description' => $this->generateDescription()
                 ]

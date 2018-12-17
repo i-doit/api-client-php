@@ -51,10 +51,10 @@ Meet these simple requirements before using the client:
 It is recommended to install this client via [Composer](https://getcomposer.org/). Change to your project's root directory and fetch the latest stable version:
 
 ~~~ {.bash}
-composer require "bheisig/idoitapi=>=0.6"
+composer require "bheisig/idoitapi=>=0.7"
 ~~~
 
-This installs version `0.6` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
+This installs version `0.7` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
 
 ~~~ {.bash}
 composer require "bheisig/idoitapi=@DEV"

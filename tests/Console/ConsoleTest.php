@@ -30,7 +30,6 @@ use bheisig\idoitapi\Console\Console;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
- * @group unreleased
  * @group API-57
  */
 class ConsoleTest extends BaseTest {

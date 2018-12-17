@@ -34,7 +34,6 @@ use bheisig\idoitapi\CMDBObject;
 class ObjectStatusTest extends BaseTest {
 
     /**
-     * @group unreleased
      * @group API-88
      * @throws \Exception on error
      */
@@ -48,7 +47,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-88
      * @throws \Exception on error
      */
@@ -66,7 +64,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-88
      * @throws \Exception on error
      * @expectedException \Exception
@@ -85,7 +82,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-88
      * @throws \Exception on error
      * @expectedException \Exception
@@ -104,7 +100,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-88
      * @throws \Exception on error
      * @expectedException \Exception
@@ -123,7 +118,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-88
      * @throws \Exception on error
      * @expectedException \Exception
@@ -136,7 +130,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-89
      * @throws \Exception on error
      */
@@ -150,7 +143,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-89
      * @throws \Exception on error
      */
@@ -168,7 +160,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-89
      * @throws \Exception on error
      * @expectedException \Exception
@@ -187,7 +178,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-89
      * @throws \Exception on error
      * @expectedException \Exception
@@ -206,7 +196,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-89
      * @throws \Exception on error
      * @expectedException \Exception
@@ -225,7 +214,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-89
      * @throws \Exception on error
      * @expectedException \Exception
@@ -292,7 +280,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-90
      * @throws \Exception on error
      */
@@ -306,7 +293,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-90
      * @throws \Exception on error
      */
@@ -324,7 +310,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-90
      * @throws \Exception on error
      */
@@ -342,7 +327,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-90
      * @throws \Exception on error
      */
@@ -360,7 +344,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-90
      * @throws \Exception on error
      */
@@ -378,7 +361,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-90
      * @throws \Exception on error
      * @expectedException \Exception
@@ -391,7 +373,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-91
      * @throws \Exception on error
      * @expectedException \Exception
@@ -406,7 +387,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-91
      * @throws \Exception on error
      */
@@ -424,7 +404,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-91
      * @throws \Exception on error
      */
@@ -442,7 +421,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-91
      * @throws \Exception on error
      * @expectedException \Exception
@@ -461,7 +439,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-91
      * @throws \Exception on error
      */
@@ -479,7 +456,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-91
      * @throws \Exception on error
      */
@@ -497,7 +473,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-91
      * @throws \Exception on error
      * @expectedException \Exception
@@ -510,7 +485,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-92
      * @throws \Exception on error
      */
@@ -524,7 +498,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-92
      * @throws \Exception on error
      */
@@ -542,7 +515,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-92
      * @throws \Exception on error
      * @expectedException \Exception
@@ -561,7 +533,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-92
      * @throws \Exception on error
      * @expectedException \Exception
@@ -580,7 +551,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-92
      * @throws \Exception on error
      * @expectedException \Exception
@@ -599,7 +569,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-92
      * @throws \Exception on error
      * @expectedException \Exception
@@ -612,7 +581,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-93
      * @throws \Exception on error
      */
@@ -626,7 +594,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-93
      * @throws \Exception on error
      */
@@ -644,7 +611,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-93
      * @throws \Exception on error
      * @expectedException \Exception
@@ -663,7 +629,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-93
      * @throws \Exception on error
      * @expectedException \Exception
@@ -682,7 +647,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-93
      * @throws \Exception on error
      * @expectedException \Exception
@@ -700,7 +664,6 @@ class ObjectStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-93
      * @throws \Exception on error
      * @expectedException \Exception

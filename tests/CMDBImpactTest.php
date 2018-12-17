@@ -196,7 +196,6 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-71
      * @throws \Exception on error
      */
@@ -226,7 +225,6 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-71
      * @throws \Exception on error
      */
@@ -268,7 +266,6 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-71
      * @throws \Exception on error
      */
@@ -324,7 +321,6 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-71
      * @dataProvider provideInvalidStatus
      * @param int $status

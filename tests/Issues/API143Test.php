@@ -30,9 +30,9 @@ use bheisig\idoitapi\tests\BaseTest;
 
 /**
  * @group issues
- * @group unreleased
  * @group API-143
  * @group open
+ * @group unreleased
  * @see https://i-doit.atlassian.net/browse/API-143
  */
 class API143Test extends BaseTest {

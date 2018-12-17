@@ -30,7 +30,6 @@ use bheisig\idoitapi\Console\Notifications;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
- * @group unreleased
  * @group API-57
  */
 class NotificationsTest extends BaseTest {

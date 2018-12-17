@@ -100,7 +100,6 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-71
      * @throws \Exception on error
      */
@@ -129,7 +128,6 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-71
      * @throws \Exception on error
      */
@@ -157,7 +155,6 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-71
      * @throws \Exception on error
      */
@@ -199,7 +196,6 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-71
      * @dataProvider provideInvalidStatus
      * @param int $status

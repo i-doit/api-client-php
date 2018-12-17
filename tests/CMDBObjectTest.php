@@ -68,7 +68,6 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-84
      * @throws \Exception on error
      */

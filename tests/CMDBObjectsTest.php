@@ -223,7 +223,6 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-83
      * @throws \Exception on error
      */
@@ -273,7 +272,6 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-83
      * @throws \Exception on error
      */
@@ -351,7 +349,6 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @throws \Exception on error
-     * @group unreleased
      * @group API-88
      */
     public function testArchive() {
@@ -371,7 +368,6 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @throws \Exception on error
-     * @group unreleased
      * @group API-89
      */
     public function testDelete() {
@@ -391,7 +387,6 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @throws \Exception on error
-     * @group unreleased
      * @group API-90
      */
     public function testPurge() {
@@ -411,7 +406,6 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @throws \Exception on error
-     * @group unreleased
      * @group API-91
      */
     public function testRecycle() {

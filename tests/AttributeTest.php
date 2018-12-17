@@ -29,7 +29,7 @@ namespace bheisig\idoitapi\tests;
 //use bheisig\idoitapi\CMDBCategoryInfo;
 
 /**
- * @unreleased
+ * @group unreleased
  * @group open
  * @todo These tests won't work at all. Instead create tests for each category explicitly!
  */

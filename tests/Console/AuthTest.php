@@ -30,7 +30,6 @@ use bheisig\idoitapi\Console\Auth;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
- * @group unreleased
  * @group API-57
  */
 class AuthTest extends BaseTest {

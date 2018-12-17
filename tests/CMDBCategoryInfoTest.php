@@ -133,7 +133,6 @@ class CMDBCategoryInfoTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-72
      * @throws \Exception on error
      * @dataProvider provideVirtualCategories

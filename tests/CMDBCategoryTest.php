@@ -31,7 +31,6 @@ use bheisig\idoitapi\CMDBCategory;
 class CMDBCategoryTest extends BaseTest {
 
     /**
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testSaveNewEntryInSingleValueCategory() {
@@ -72,7 +71,6 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testSaveNewEntryInMultiValueCategory() {
@@ -114,7 +112,6 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testSaveExistingEntryInSingleValueCategory() {
@@ -205,7 +202,6 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testSaveExistingEntryInMultiValueCategory() {
@@ -291,7 +287,6 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testSaveAdditionalEntryInMultiValueCategory() {
@@ -376,7 +371,6 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-79
      * @throws \Exception on error
      * @expectedException \Exception
@@ -397,7 +391,6 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-78
      * @throws \Exception on error
      * @expectedException \Exception
@@ -510,7 +503,6 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-99
      * @throws \Exception on error
      */
@@ -587,7 +579,6 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-99
      * @throws \Exception on error
      */
@@ -664,7 +655,6 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-99
      * @throws \Exception on error
      */

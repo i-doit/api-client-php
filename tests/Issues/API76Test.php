@@ -30,7 +30,6 @@ use bheisig\idoitapi\tests\BaseTest;
 
 /**
  * @group issues
- * @group unreleased
  * @group API-76
  * @see https://i-doit.atlassian.net/browse/API-76
  */

@@ -78,7 +78,6 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-32
      * @throws \Exception on error
      */
@@ -129,7 +128,6 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-32
      * @throws \Exception on error
      */
@@ -180,7 +178,6 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-32
      * @throws \Exception on error
      * @expectedException \Exception
@@ -208,7 +205,6 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-32
      * @throws \Exception on error
      * @expectedException \Exception
@@ -227,7 +223,6 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-32
      * @throws \Exception on error
      */

@@ -30,7 +30,6 @@ use bheisig\idoitapi\CheckMKTags;
 
 /**
  * @coversDefaultClass \bheisig\idoitapi\CheckMKTags
- * @group unreleased
  */
 class CheckMKTagsTest extends BaseTest {
 

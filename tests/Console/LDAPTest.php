@@ -30,7 +30,6 @@ use bheisig\idoitapi\Console\LDAP;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
- * @group unreleased
  * @group API-57
  */
 class LDAPTest extends BaseTest {

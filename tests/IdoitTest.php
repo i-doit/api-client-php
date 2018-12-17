@@ -91,7 +91,6 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-55
      * @throws \Exception on error
      */
@@ -137,7 +136,6 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testReadConstants() {

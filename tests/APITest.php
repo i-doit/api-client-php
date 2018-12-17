@@ -217,7 +217,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testRawRequest() {
@@ -240,7 +239,6 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @covers \bheisig\idoitapi\API::getLastRequestHeaders
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testRequestWithAdditionalHeaders() {
@@ -295,7 +293,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      * @dataProvider provideInvalidRequests
      * @param mixed $request Invalid request
@@ -312,7 +309,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      * @dataProvider provideInvalidBatch
      * @param mixed $request Invalid batch request
@@ -331,7 +327,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testRequestWithMissingParameters() {
@@ -367,7 +362,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      * @param mixed $parameters Invalid parameters
      * @dataProvider provideInvalidParameters
@@ -390,7 +384,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @group API-107
      * @throws \Exception on error
      */
@@ -430,7 +423,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @group API-107
      * @throws \Exception on error
      * @param mixed $apiKey Invalid API key
@@ -456,7 +448,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testRequestWithMissingVersionNumber() {
@@ -496,7 +487,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      * @param mixed $versionNumber Invalid version number
      * @dataProvider provideInvalidVersionNumbers
@@ -536,7 +526,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      * @param mixed $identifier Valid identifier
      * @dataProvider provideValidIdentifiers
@@ -575,7 +564,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      * @param mixed $identifier Invalid identifier
      * @dataProvider provideInvalidIdentifiers
@@ -600,7 +588,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testRequestWithMissingMethod() {
@@ -620,6 +607,11 @@ class APITest extends BaseTest {
         $this->assertSame(-32600, $response['error']['code']);
     }
 
+    /**
+     * Provide invalid methods
+     *
+     * @return array
+     */
     public function provideInvalidMethods(): array {
         return [
             'empty string' => [''],
@@ -636,7 +628,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      * @param mixed $method Invalid method
      * @dataProvider provideInvalidMethods
@@ -659,6 +650,11 @@ class APITest extends BaseTest {
         $this->assertSame(-32600, $response['error']['code']);
     }
 
+    /**
+     * Provide unknown methods
+     *
+     * @return array
+     */
     public function provideUnknownMethods() {
         return [
             'random string' => [$this->generateRandomString()],
@@ -670,7 +666,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @throws \Exception on error
      * @param string $method Unknown method
      * @dataProvider provideUnknownMethods
@@ -695,7 +690,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @group API-118
      * @throws \Exception on error
      */
@@ -737,7 +731,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @group API-119
      * @throws \Exception on error
      */
@@ -779,7 +772,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @group API-77
      * @throws \Exception on error
      * @todo At the moment this library expects a JSON string in response body, so this test will fail.
@@ -801,7 +793,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @group API-77
      * @throws \Exception on error
      * @todo At the moment this library expects a JSON string in response body, so this test will fail.
@@ -839,7 +830,6 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @group unreleased
      * @group API-77
      * @throws \Exception on error
      */

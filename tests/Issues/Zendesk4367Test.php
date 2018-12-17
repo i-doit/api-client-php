@@ -30,7 +30,6 @@ use bheisig\idoitapi\tests\BaseTest;
 
 /**
  * @group issues
- * @group unreleased
  * @see https://i-doit.zendesk.com/agent/tickets/4367
  */
 class Zendesk4367Test extends BaseTest {

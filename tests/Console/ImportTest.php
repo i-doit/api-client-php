@@ -30,7 +30,6 @@ use bheisig\idoitapi\Console\Import;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
- * @group unreleased
  * @group API-57
  */
 class ImportTest extends BaseTest {

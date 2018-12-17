@@ -31,7 +31,6 @@ use bheisig\idoitapi\CMDBCategory;
 class CategoryStatusTest extends BaseTest {
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -50,7 +49,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      */
@@ -68,7 +66,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -91,7 +88,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -114,7 +110,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -137,7 +132,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      */
@@ -159,7 +153,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -182,7 +175,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -205,7 +197,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -223,7 +214,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -241,7 +231,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -251,7 +240,6 @@ class CategoryStatusTest extends BaseTest {
 //    }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -261,7 +249,6 @@ class CategoryStatusTest extends BaseTest {
 //    }
 
     /**
-     * @group unreleased
      * @group API-94
      * @throws \Exception on error
      * @expectedException \Exception
@@ -279,7 +266,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -298,7 +284,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      */
@@ -316,7 +301,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -339,7 +323,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      */
@@ -361,7 +344,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -384,7 +366,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -407,7 +388,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -430,7 +410,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -453,7 +432,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -471,7 +449,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -489,7 +466,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -499,7 +475,6 @@ class CategoryStatusTest extends BaseTest {
 //    }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -509,7 +484,6 @@ class CategoryStatusTest extends BaseTest {
 //    }
 
     /**
-     * @group unreleased
      * @group API-95
      * @throws \Exception on error
      * @expectedException \Exception
@@ -527,7 +501,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      */
@@ -545,7 +518,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      */
@@ -563,7 +535,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      * @expectedException \Exception
@@ -586,7 +557,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      */
@@ -608,7 +578,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      * @expectedException \Exception
@@ -631,7 +600,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      */
@@ -653,7 +621,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      * @expectedException \Exception
@@ -676,7 +643,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      * @expectedException \Exception
@@ -699,7 +665,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      * @expectedException \Exception
@@ -717,7 +682,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      * @expectedException \Exception
@@ -735,7 +699,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      * @expectedException \Exception
@@ -745,7 +708,6 @@ class CategoryStatusTest extends BaseTest {
 //    }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      * @expectedException \Exception
@@ -755,7 +717,6 @@ class CategoryStatusTest extends BaseTest {
 //    }
 
     /**
-     * @group unreleased
      * @group API-96
      * @throws \Exception on error
      * @expectedException \Exception
@@ -773,7 +734,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -792,7 +752,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -811,7 +770,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -834,7 +792,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      */
@@ -856,7 +813,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -879,7 +835,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      */
@@ -901,7 +856,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -924,7 +878,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -947,7 +900,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -965,7 +917,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -983,7 +934,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -993,7 +943,6 @@ class CategoryStatusTest extends BaseTest {
 //    }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -1003,7 +952,6 @@ class CategoryStatusTest extends BaseTest {
 //    }
 
     /**
-     * @group unreleased
      * @group API-97
      * @throws \Exception on error
      * @expectedException \Exception
@@ -1021,7 +969,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testClear() {
@@ -1040,7 +987,6 @@ class CategoryStatusTest extends BaseTest {
     }
 
     /**
-     * @group unreleased
      * @throws \Exception on error
      */
     public function testClearEmptyCategory() {

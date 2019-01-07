@@ -55,7 +55,7 @@ class API143Test extends BaseTest {
         $this->isID($entryID);
 
         $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CPU', $entryID);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('frequency', $result);
         $this->assertNull($result['frequency']);
@@ -73,7 +73,7 @@ class API143Test extends BaseTest {
         );
 
         $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CPU', $entryID);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('frequency', $result);
         $this->assertNull($result['frequency']);

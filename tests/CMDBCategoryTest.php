@@ -47,7 +47,7 @@ class CMDBCategoryTest extends BaseTest {
             $attributes
         );
 
-        $this->assertInternalType('int', $entryID);
+        $this->assertIsInt($entryID);
         $this->isID($entryID);
 
         $entries = $this->cmdbCategory->read(
@@ -55,7 +55,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__MODEL'
         );
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(1, $entries);
         $this->assertArrayHasKey(0, $entries);
 
@@ -64,7 +64,7 @@ class CMDBCategoryTest extends BaseTest {
         // Check both dialog+ attributes:
         foreach ($attributes as $attribute => $value) {
             $this->assertArrayHasKey($attribute, $entry);
-            $this->assertInternalType('array', $entry[$attribute]);
+            $this->assertIsArray($entry[$attribute]);
             $this->assertArrayHasKey('title', $entry[$attribute]);
             $this->assertSame($value, $entry[$attribute]['title']);
         }
@@ -92,7 +92,7 @@ class CMDBCategoryTest extends BaseTest {
             $attributes
         );
 
-        $this->assertInternalType('int', $entryID);
+        $this->assertIsInt($entryID);
         $this->isID($entryID);
 
         $entries = $this->cmdbCategory->read(
@@ -100,7 +100,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(1, $entries);
         $this->assertArrayHasKey(0, $entries);
 
@@ -130,7 +130,7 @@ class CMDBCategoryTest extends BaseTest {
             $attributes
         );
 
-        $this->assertInternalType('int', $entryID);
+        $this->assertIsInt($entryID);
         $this->isID($entryID);
 
         $entries = $this->cmdbCategory->read(
@@ -138,7 +138,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__MODEL'
         );
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(1, $entries);
         $this->assertArrayHasKey(0, $entries);
 
@@ -150,7 +150,7 @@ class CMDBCategoryTest extends BaseTest {
 
         foreach ($attributes as $attribute => $value) {
             $this->assertArrayHasKey($attribute, $entry);
-            $this->assertInternalType('array', $entry[$attribute]);
+            $this->assertIsArray($entry[$attribute]);
             $this->assertArrayHasKey('title', $entry[$attribute]);
             $this->assertSame($value, $entry[$attribute]['title']);
         }
@@ -168,7 +168,7 @@ class CMDBCategoryTest extends BaseTest {
             $newAttributes
         );
 
-        $this->assertInternalType('int', $newEntryID);
+        $this->assertIsInt($newEntryID);
         $this->isID($newEntryID);
 
         $entries = $this->cmdbCategory->read(
@@ -176,7 +176,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__MODEL'
         );
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(1, $entries);
         $this->assertArrayHasKey(0, $entries);
 
@@ -189,7 +189,7 @@ class CMDBCategoryTest extends BaseTest {
 
         foreach ($newAttributes as $attribute => $value) {
             $this->assertArrayHasKey($attribute, $newEntry);
-            $this->assertInternalType('array', $newEntry[$attribute]);
+            $this->assertIsArray($newEntry[$attribute]);
             $this->assertArrayHasKey('title', $newEntry[$attribute]);
             $this->assertSame($value, $newEntry[$attribute]['title']);
         }
@@ -225,7 +225,7 @@ class CMDBCategoryTest extends BaseTest {
             $attributes
         );
 
-        $this->assertInternalType('int', $entryID);
+        $this->assertIsInt($entryID);
         $this->isID($entryID);
 
         $entries = $this->cmdbCategory->read(
@@ -233,7 +233,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(1, $entries);
         $this->assertArrayHasKey(0, $entries);
 
@@ -262,7 +262,7 @@ class CMDBCategoryTest extends BaseTest {
             $entryID
         );
 
-        $this->assertInternalType('int', $newEntryID);
+        $this->assertIsInt($newEntryID);
         $this->isID($newEntryID);
 
         $entries = $this->cmdbCategory->read(
@@ -270,7 +270,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(1, $entries);
         $this->assertArrayHasKey(0, $entries);
 
@@ -310,7 +310,7 @@ class CMDBCategoryTest extends BaseTest {
             $firstAttributes
         );
 
-        $this->assertInternalType('int', $firstEntryID);
+        $this->assertIsInt($firstEntryID);
         $this->isID($firstEntryID);
 
         $entries = $this->cmdbCategory->read(
@@ -318,7 +318,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(1, $entries);
         $this->assertArrayHasKey(0, $entries);
 
@@ -346,7 +346,7 @@ class CMDBCategoryTest extends BaseTest {
             $secondAttributes
         );
 
-        $this->assertInternalType('int', $secondEntryID);
+        $this->assertIsInt($secondEntryID);
         $this->isID($secondEntryID);
 
         $entries = $this->cmdbCategory->read(
@@ -354,7 +354,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(2, $entries);
         $this->assertArrayHasKey(1, $entries);
 
@@ -373,9 +373,10 @@ class CMDBCategoryTest extends BaseTest {
     /**
      * @group API-79
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testSaveUnknownAttribute() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -393,9 +394,10 @@ class CMDBCategoryTest extends BaseTest {
     /**
      * @group API-78
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testSaveInvalidAttribute() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -448,10 +450,10 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__MODEL'
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertArrayHasKey(0, $result);
-        $this->assertInternalType('array', $result[0]);
+        $this->assertIsArray($result[0]);
 
         $this->assertArrayHasKey('id', $result[0]);
         $this->isIDAsString($result[0]['id']);
@@ -482,14 +484,14 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount($numberOfEntries, $result);
 
         foreach ($result as $index => $entry) {
-            $this->assertInternalType('int', $index);
+            $this->assertIsInt($index);
             $this->assertGreaterThanOrEqual(0, $index);
 
-            $this->assertInternalType('array', $entry);
+            $this->assertIsArray($entry);
 
             $this->assertArrayHasKey('id', $entry);
             $this->isIDAsString($entry['id']);
@@ -523,7 +525,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount($numberOfEntries, $result);
 
         // Rank the first entry:
@@ -537,10 +539,10 @@ class CMDBCategoryTest extends BaseTest {
             3 // Archived
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertArrayHasKey(0, $result);
-        $this->assertInternalType('array', $result[0]);
+        $this->assertIsArray($result[0]);
 
         $this->assertArrayHasKey('id', $result[0]);
         $this->isIDAsString($result[0]['id']);
@@ -557,15 +559,15 @@ class CMDBCategoryTest extends BaseTest {
             2
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         // Only 2 left:
         $this->assertCount(2, $result);
 
         foreach ($result as $index => $entry) {
-            $this->assertInternalType('int', $index);
+            $this->assertIsInt($index);
             $this->assertGreaterThanOrEqual(0, $index);
 
-            $this->assertInternalType('array', $entry);
+            $this->assertIsArray($entry);
 
             $this->assertArrayHasKey('id', $entry);
             $this->isIDAsString($entry['id']);
@@ -599,7 +601,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount($numberOfEntries, $result);
 
         // Rank the first entry:
@@ -613,10 +615,10 @@ class CMDBCategoryTest extends BaseTest {
             4 // Deleted
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertArrayHasKey(0, $result);
-        $this->assertInternalType('array', $result[0]);
+        $this->assertIsArray($result[0]);
 
         $this->assertArrayHasKey('id', $result[0]);
         $this->isIDAsString($result[0]['id']);
@@ -633,15 +635,15 @@ class CMDBCategoryTest extends BaseTest {
             2
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         // Only 2 left:
         $this->assertCount(2, $result);
 
         foreach ($result as $index => $entry) {
-            $this->assertInternalType('int', $index);
+            $this->assertIsInt($index);
             $this->assertGreaterThanOrEqual(0, $index);
 
-            $this->assertInternalType('array', $entry);
+            $this->assertIsArray($entry);
 
             $this->assertArrayHasKey('id', $entry);
             $this->isIDAsString($entry['id']);
@@ -675,7 +677,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount($numberOfEntries, $result);
 
         // Archive the first one:
@@ -693,14 +695,14 @@ class CMDBCategoryTest extends BaseTest {
             -1 // All
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount($numberOfEntries, $result);
 
         foreach ($result as $index => $entry) {
-            $this->assertInternalType('int', $index);
+            $this->assertIsInt($index);
             $this->assertGreaterThanOrEqual(0, $index);
 
-            $this->assertInternalType('array', $entry);
+            $this->assertIsArray($entry);
 
             $this->assertArrayHasKey('id', $entry);
             $this->isIDAsString($entry['id']);
@@ -729,7 +731,7 @@ class CMDBCategoryTest extends BaseTest {
             $entryID
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -756,7 +758,7 @@ class CMDBCategoryTest extends BaseTest {
             $entryID
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -780,7 +782,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__MODEL'
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
         $this->assertArrayHasKey('id', $result);
 
@@ -792,7 +794,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__IP'
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
         $this->assertArrayHasKey('id', $result);
 
@@ -802,7 +804,7 @@ class CMDBCategoryTest extends BaseTest {
             'C__CATG__ACCESS'
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -861,11 +863,11 @@ class CMDBCategoryTest extends BaseTest {
             ]
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(2, $result);
 
         foreach ($result as $entryID) {
-            $this->assertInternalType('int', $entryID);
+            $this->assertIsInt($entryID);
             $this->assertGreaterThan(0, $entryID);
         }
 
@@ -895,11 +897,11 @@ class CMDBCategoryTest extends BaseTest {
             ]
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(4, $result);
 
         foreach ($result as $entryID) {
-            $this->assertInternalType('int', $entryID);
+            $this->assertIsInt($entryID);
             $this->assertGreaterThan(0, $entryID);
         }
     }
@@ -920,12 +922,12 @@ class CMDBCategoryTest extends BaseTest {
             ['C__CATG__IP', 'C__CATG__MODEL']
         );
 
-        $this->assertInternalType('array', $batchResult);
+        $this->assertIsArray($batchResult);
         $this->assertCount(4, $batchResult);
 
         if (is_array($batchResult)) {
             foreach ($batchResult as $result) {
-                $this->assertInternalType('array', $result);
+                $this->assertIsArray($result);
                 $this->assertNotCount(0, $result);
             }
         }

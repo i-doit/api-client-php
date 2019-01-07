@@ -86,7 +86,7 @@ class CMDBLogbookTest extends BaseTest {
     public function testRead() {
         $result = $this->instance->read();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $this->validateEntries($result);
@@ -117,7 +117,7 @@ class CMDBLogbookTest extends BaseTest {
     public function testReadByDate(string $date) {
         $result = $this->instance->read($date);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $this->validateEntries($result);
@@ -143,7 +143,7 @@ class CMDBLogbookTest extends BaseTest {
     public function testReadWithLimit(int $limit) {
         $result = $this->instance->read(null, $limit);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount($limit, $result);
 
         $this->validateEntries($result);
@@ -157,7 +157,7 @@ class CMDBLogbookTest extends BaseTest {
 
         $result = $this->instance->readByObject($objectID);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $this->validateEntries($result);
@@ -173,7 +173,7 @@ class CMDBLogbookTest extends BaseTest {
 
         $result = $this->instance->readByObject($objectID, $date);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->validateEntries($result);
     }
@@ -188,7 +188,7 @@ class CMDBLogbookTest extends BaseTest {
 
         $result = $this->instance->readByObject($objectID, null, $limit);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->validateEntries($result);
     }
@@ -217,10 +217,10 @@ class CMDBLogbookTest extends BaseTest {
         $this->isIDAsString($entry['logbook_catg_id']);
 
         $this->assertArrayHasKey('comment', $entry);
-        $this->assertInternalType('string', $entry['comment']);
+        $this->assertIsString($entry['comment']);
 
         $this->assertArrayHasKey('description', $entry);
-        $this->assertInternalType('string', $entry['description']);
+        $this->assertIsString($entry['description']);
 
         $this->assertArrayHasKey('changes', $entry);
         if (isset($entry['changes']) && is_array($entry['changes'])) {
@@ -233,17 +233,17 @@ class CMDBLogbookTest extends BaseTest {
                         $this->assertGreaterThanOrEqual(0, $index);
 
                         foreach ($changeSet as $source => $change) {
-                            $this->assertInternalType('string', $source);
+                            $this->assertIsString($source);
                             $this->assertNotEmpty($source);
 
-                            $this->assertInternalType('array', $change);
+                            $this->assertIsArray($change);
                             $this->validateChange($change);
                         }
                         break;
                     case 'string':
                         $this->assertNotEmpty($index);
 
-                        $this->assertInternalType('array', $changeSet);
+                        $this->assertIsArray($changeSet);
                         $this->validateChange($changeSet);
                         break;
                     default:
@@ -256,23 +256,23 @@ class CMDBLogbookTest extends BaseTest {
         $this->isTime($entry['date']);
 
         $this->assertArrayHasKey('username', $entry);
-        $this->assertInternalType('string', $entry['username']);
+        $this->assertIsString($entry['username']);
 
         $this->assertArrayHasKey('event', $entry);
-        $this->assertInternalType('string', $entry['event']);
+        $this->assertIsString($entry['event']);
 
         $this->assertArrayHasKey('object_id', $entry);
         $this->isIDAsString($entry['object_id']);
 
         $this->assertArrayHasKey('object_title', $entry);
-        $this->assertInternalType('string', $entry['object_title']);
+        $this->assertIsString($entry['object_title']);
 
         if (array_key_exists('object_title_static', $entry)) {
-            $this->assertInternalType('string', $entry['object_title_static']);
+            $this->assertIsString($entry['object_title_static']);
         }
 
         $this->assertArrayHasKey('source', $entry);
-        $this->assertInternalType('string', $entry['source']);
+        $this->assertIsString($entry['source']);
 
         $this->assertArrayHasKey('source_constant', $entry);
         $this->isConstant($entry['source_constant']);
@@ -292,7 +292,7 @@ class CMDBLogbookTest extends BaseTest {
         $this->assertCount(2, $change);
 
         $this->assertArrayHasKey('from', $change);
-        $this->assertInternalType('string', $change['from']);
+        $this->assertIsString($change['from']);
 
         $this->assertArrayHasKey('to', $change);
 

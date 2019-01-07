@@ -423,18 +423,18 @@ abstract class BaseTest extends TestCase {
         $this->isIDAsString($object['id']);
 
         $this->assertArrayHasKey('title', $object);
-        $this->assertInternalType('string', $object['title']);
+        $this->assertIsString($object['title']);
         $this->isOneLiner($object['title']);
 
         $this->assertArrayHasKey('sysid', $object);
-        $this->assertInternalType('string', $object['sysid']);
+        $this->assertIsString($object['sysid']);
         $this->isOneLiner($object['sysid']);
 
         $this->assertArrayHasKey('type', $object);
         $this->isConstant($object['type']);
 
         $this->assertArrayHasKey('type_title', $object);
-        $this->assertInternalType('string', $object['type_title']);
+        $this->assertIsString($object['type_title']);
         $this->isOneLiner($object['type_title']);
     }
 
@@ -443,7 +443,7 @@ abstract class BaseTest extends TestCase {
         $this->isIDAsString($dialog['id']);
 
         $this->assertArrayHasKey('title', $dialog);
-        $this->assertInternalType('string', $dialog['title']);
+        $this->assertIsString($dialog['title']);
         $this->isOneLiner($dialog['title']);
 
         // "const" is optional and may be null or empty string.
@@ -464,14 +464,14 @@ abstract class BaseTest extends TestCase {
         // With "cmdb.category.read" we get the translated title:
         if (array_key_exists('title_lang', $dialog)) {
             $this->assertArrayHasKey('title_lang', $dialog);
-            $this->assertInternalType('string', $dialog['title_lang']);
+            $this->assertIsString($dialog['title_lang']);
             $this->isOneLiner($dialog['title_lang']);
         }
 
         // With "cmdb.dialog.read" we get some information about its parent.
         // But is is completely optional:
         if (array_key_exists('parent', $dialog)) {
-            $this->assertInternalType('array', $dialog['parent']);
+            $this->assertIsArray($dialog['parent']);
             $this->assertArrayHasKey('id', $dialog['parent']);
             $this->assertArrayHasKey('const', $dialog['parent']);
             $this->assertArrayHasKey('title', $dialog['parent']);
@@ -496,9 +496,9 @@ abstract class BaseTest extends TestCase {
      */
     protected function isTime(string $time) {
         $timestamp = strtotime($time);
-        $this->assertInternalType('int', $timestamp);
+        $this->assertIsInt($timestamp);
         $formattedTimestamp = date('Y-m-d H:i:s', $timestamp);
-        $this->assertInternalType('string', $formattedTimestamp);
+        $this->assertIsString($formattedTimestamp);
         $this->assertSame($formattedTimestamp, $time);
     }
 
@@ -517,7 +517,7 @@ abstract class BaseTest extends TestCase {
      * @param string $value Positive, numeric string
      */
     protected function isIDAsString(string $value) {
-        $this->assertInternalType('string', $value);
+        $this->assertIsString($value);
         $id = (int) $value;
         $this->assertGreaterThan(0, $id);
     }
@@ -537,7 +537,7 @@ abstract class BaseTest extends TestCase {
         $this->hasValidJSONRPCIdentifier($request, $response);
 
         $this->assertArrayHasKey('jsonrpc', $response, 'Missing JSON-RPC version number');
-        $this->assertInternalType('string', $response['jsonrpc'], 'Invalid JSON-RPC version number');
+        $this->assertIsString($response['jsonrpc'], 'Invalid JSON-RPC version number');
         $this->assertSame('2.0', $response['jsonrpc'], 'Unknown JSON-RPC version number');
 
         $this->assertArrayHasKey('result', $response, 'Result is missing');
@@ -551,31 +551,31 @@ abstract class BaseTest extends TestCase {
         $this->assertArrayHasKey('id', $response, 'Identifier is missing');
 
         $this->assertArrayHasKey('jsonrpc', $response, 'Missing JSON-RPC version number');
-        $this->assertInternalType('string', $response['jsonrpc'], 'Invalid JSON-RPC version number');
+        $this->assertIsString($response['jsonrpc'], 'Invalid JSON-RPC version number');
         $this->assertSame('2.0', $response['jsonrpc'], 'Unknown JSON-RPC version number');
 
         $this->assertArrayNotHasKey('result', $response, '"result" must not exist');
 
         $this->assertArrayHasKey('error', $response, 'Error is missing');
-        $this->assertInternalType('array', $response['error'], 'Error is invalid');
+        $this->assertIsArray($response['error'], 'Error is invalid');
 
         $this->assertArrayHasKey('code', $response['error'], 'Error code is missing');
-        $this->assertInternalType('int', $response['error']['code'], 'Error code is invalid');
+        $this->assertIsInt($response['error']['code'], 'Error code is invalid');
         $this->assertLessThan(0, $response['error']['code'], 'Error code is invalid');
 
         $this->assertArrayHasKey('message', $response['error'], 'Error message is missing');
-        $this->assertInternalType('string', $response['error']['message'], 'Error message is invalid');
+        $this->assertIsString($response['error']['message'], 'Error message is invalid');
         $this->assertNotEmpty($response['error']['message'], 'Error message is empty');
 
         $this->assertArrayHasKey('data', $response['error']);
         if (isset($response['error']['data'])) {
-            $this->assertInternalType('array', $response['error']['data']);
+            $this->assertIsArray($response['error']['data']);
             $this->assertNotCount(0, $response['error']['data']);
 
             foreach ($response['error']['data'] as $key => $value) {
                 // @todo Check whether key is int or string
 
-                $this->assertInternalType('string', $value);
+                $this->assertIsString($value);
             }
         }
     }
@@ -583,24 +583,18 @@ abstract class BaseTest extends TestCase {
     protected function hasValidJSONRPCIdentifier(array $request, array $response) {
         $this->assertArrayHasKey('id', $request, 'Identifier is missing in request');
 
-        $this->assertNotInternalType('boolean', $request['id']);
-        $this->assertNotInternalType('float', $request['id']);
-        $this->assertNotInternalType('double', $request['id']);
-        $this->assertNotInternalType('array', $request['id']);
-        $this->assertNotInternalType('object', $request['id']);
-        $this->assertNotInternalType('callable', $request['id']);
-        $this->assertNotInternalType('resource', $request['id']);
+        $this->assertIsNotBool($request['id']);
+        $this->assertIsNotFloat($request['id']);
+        $this->assertIsNotArray($request['id']);
+        $this->assertIsNotObject($request['id']);
         $this->assertNotNull($request['id']);
 
         $this->assertArrayHasKey('id', $response, 'Identifier is missing in response');
 
-        $this->assertNotInternalType('boolean', $response['id']);
-        $this->assertNotInternalType('float', $response['id']);
-        $this->assertNotInternalType('double', $response['id']);
-        $this->assertNotInternalType('array', $response['id']);
-        $this->assertNotInternalType('object', $response['id']);
-        $this->assertNotInternalType('callable', $response['id']);
-        $this->assertNotInternalType('resource', $response['id']);
+        $this->assertIsNotBool($response['id']);
+        $this->assertIsNotFloat($response['id']);
+        $this->assertIsNotArray($response['id']);
+        $this->assertIsNotObject($response['id']);
         $this->assertNotNull($response['id']);
 
         $this->assertSame($request['id'], $response['id'], 'Identifiers in request and response do not match');
@@ -608,35 +602,35 @@ abstract class BaseTest extends TestCase {
 
     protected function isOutput(array $output) {
         foreach ($output as $lineNumber => $line) {
-            $this->assertInternalType('int', $lineNumber);
+            $this->assertIsInt($lineNumber);
             $this->assertGreaterThanOrEqual(0, $lineNumber);
 
-            $this->assertInternalType('string', $line);
+            $this->assertIsString($line);
         }
     }
 
     protected function isSearchResult(array $result) {
         $this->assertArrayHasKey('documentId', $result);
-        $this->assertInternalType('string', $result['documentId']);
+        $this->assertIsString($result['documentId']);
         $this->isIDAsString($result['documentId']);
 
         $this->assertArrayHasKey('key', $result);
-        $this->assertInternalType('string', $result['key']);
+        $this->assertIsString($result['key']);
 
         $this->assertArrayHasKey('value', $result);
-        $this->assertInternalType('string', $result['value']);
+        $this->assertIsString($result['value']);
 
         $this->assertArrayHasKey('type', $result);
-        $this->assertInternalType('string', $result['type']);
+        $this->assertIsString($result['type']);
 
         $this->assertArrayHasKey('link', $result);
-        $this->assertInternalType('string', $result['link']);
+        $this->assertIsString($result['link']);
 
         $this->assertArrayHasKey('score', $result);
-        $this->assertInternalType('string', $result['score']);
+        $this->assertIsString($result['score']);
 
         $this->assertArrayHasKey('status', $result);
-        $this->assertInternalType('string', $result['status']);
+        $this->assertIsString($result['status']);
     }
 
     protected function isCategoryEntry(array $entry) {

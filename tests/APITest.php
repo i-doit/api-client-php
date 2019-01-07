@@ -145,7 +145,7 @@ class APITest extends BaseTest {
     public function testRequest() {
         $result = $this->api->request('idoit.version');
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
     }
 
@@ -160,14 +160,14 @@ class APITest extends BaseTest {
 
         $count = $this->api->countRequests();
 
-        $this->assertInternalType('integer', $count);
+        $this->assertIsInt($count);
         $this->assertSame(1, $count);
 
         $this->api->request('idoit.version');
 
         $count = $this->api->countRequests();
 
-        $this->assertInternalType('integer', $count);
+        $this->assertIsInt($count);
         $this->assertSame(2, $count);
     }
 
@@ -188,11 +188,11 @@ class APITest extends BaseTest {
             ]
         ]);
 
-        $this->assertInternalType('array', $results);
+        $this->assertIsArray($results);
         $this->assertCount(2, $results);
 
         foreach ($results as $result) {
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertNotCount(0, $result);
         }
     }
@@ -208,10 +208,10 @@ class APITest extends BaseTest {
             ]
         ]);
 
-        $this->assertInternalType('array', $results);
+        $this->assertIsArray($results);
         $this->assertCount(1, $results);
         $this->assertArrayHasKey(0, $results);
-        $this->assertInternalType('array', $results[0]);
+        $this->assertIsArray($results[0]);
         $this->assertNotCount(0, $results[0]);
     }
 
@@ -231,9 +231,9 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isValidResponse($response, $request);
-        $this->assertInternalType('array', $response['result']);
+        $this->assertIsArray($response['result']);
     }
 
     /**
@@ -261,9 +261,9 @@ class APITest extends BaseTest {
         $this->assertContains('X-Test-Header: ABC123', $requestHeaders);
 
         // Additional checks:
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isValidResponse($response, $request);
-        $this->assertInternalType('array', $response['result']);
+        $this->assertIsArray($response['result']);
     }
 
     /**
@@ -300,7 +300,7 @@ class APITest extends BaseTest {
     public function testInvalidRequest($request) {
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
 
         $this->isError($response);
         $this->assertNull($response['id']);
@@ -316,7 +316,7 @@ class APITest extends BaseTest {
     public function testInvalidBatchRequest($request) {
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
 
         foreach ($response as $result) {
             $this->isError($result);
@@ -338,7 +338,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32602, $response['error']['code']);
@@ -376,7 +376,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32602, $response['error']['code']);
@@ -397,7 +397,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32099, $response['error']['code']);
@@ -440,7 +440,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32099, $response['error']['code']);
@@ -461,7 +461,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32600, $response['error']['code']);
@@ -503,7 +503,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32600, $response['error']['code']);
@@ -542,7 +542,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isValidResponse($response, $request);
         $this->hasValidJSONRPCIdentifier($request, $response);
     }
@@ -580,7 +580,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->assertNull($response['id']);
         $this->assertSame(-32603, $response['error']['code']);
@@ -601,7 +601,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32600, $response['error']['code']);
@@ -644,7 +644,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32600, $response['error']['code']);
@@ -682,7 +682,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32601, $response['error']['code']);
@@ -723,7 +723,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->assertNull($response['id']);
         $this->assertSame(-32603, $response['error']['code']);
@@ -764,7 +764,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->assertNull($response['id']);
         $this->assertSame(-32602, $response['error']['code']);
@@ -775,9 +775,10 @@ class APITest extends BaseTest {
      * @group API-77
      * @throws \Exception on error
      * @todo At the moment this library expects a JSON string in response body, so this test will fail.
-     * @expectedException \Exception
      */
     public function testNotification() {
+        $this->expectException(\Exception::class);
+
         $request = [
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
@@ -796,9 +797,10 @@ class APITest extends BaseTest {
      * @group API-77
      * @throws \Exception on error
      * @todo At the moment this library expects a JSON string in response body, so this test will fail.
-     * @expectedException \Exception
      */
     public function testOnlyNotificationsInBatchRequest() {
+        $this->expectException(\Exception::class);
+
         $request = [
             [
                 'jsonrpc' => '2.0',
@@ -862,7 +864,7 @@ class APITest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertCount(2, $response);
 
         $this->assertArrayHasKey(0, $response);
@@ -881,7 +883,7 @@ class APITest extends BaseTest {
     public function testGetLastInfo() {
         $this->api->request('idoit.version');
 
-        $this->assertInternalType('array', $this->api->getLastInfo());
+        $this->assertIsArray($this->api->getLastInfo());
         $this->assertNotCount(0, $this->api->getLastInfo());
     }
 
@@ -893,7 +895,7 @@ class APITest extends BaseTest {
     public function testGetLastResponse() {
         $this->api->request('idoit.version');
 
-        $this->assertInternalType('array', $this->api->getLastResponse());
+        $this->assertIsArray($this->api->getLastResponse());
         $this->assertNotCount(0, $this->api->getLastResponse());
     }
 
@@ -905,7 +907,7 @@ class APITest extends BaseTest {
     public function testGetLastRequestContent() {
         $this->api->request('idoit.version');
 
-        $this->assertInternalType('array', $this->api->getLastRequestContent());
+        $this->assertIsArray($this->api->getLastRequestContent());
         $this->assertNotCount(0, $this->api->getLastRequestContent());
     }
 
@@ -917,7 +919,7 @@ class APITest extends BaseTest {
     public function testGetLastResponseHeaders() {
         $this->api->request('idoit.version');
 
-        $this->assertInternalType('string', $this->api->getLastResponseHeaders());
+        $this->assertIsString($this->api->getLastResponseHeaders());
         $this->assertNotEmpty($this->api->getLastResponseHeaders());
     }
 
@@ -929,7 +931,7 @@ class APITest extends BaseTest {
     public function testGetLastRequestHeaders() {
         $this->api->request('idoit.version');
 
-        $this->assertInternalType('string', $this->api->getLastRequestHeaders());
+        $this->assertIsString($this->api->getLastRequestHeaders());
         $this->assertNotEmpty($this->api->getLastRequestHeaders());
     }
 
@@ -955,10 +957,10 @@ class APITest extends BaseTest {
                 ]
             );
 
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertCount(1, $result);
             $this->assertArrayHasKey(0, $result);
-            $this->assertInternalType('array', $result[0]);
+            $this->assertIsArray($result[0]);
             $this->assertArrayHasKey('title', $result[0]);
             $this->assertSame($translation, $result[0]['title']);
         }
@@ -978,9 +980,9 @@ class APITest extends BaseTest {
                 ]
             );
 
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertArrayHasKey('serial', $result);
-            $this->assertInternalType('array', $result['serial']);
+            $this->assertIsArray($result['serial']);
             $this->assertArrayHasKey('title', $result['serial']);
             $this->assertSame($translation, $result['serial']['title']);
         }

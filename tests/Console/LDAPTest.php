@@ -55,7 +55,7 @@ class LDAPTest extends BaseTest {
     public function testSync() {
         $result = $this->ldap->sync(1);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -66,7 +66,7 @@ class LDAPTest extends BaseTest {
     public function testSyncUnknownConfig() {
         $result = $this->ldap->sync(0);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -76,7 +76,7 @@ class LDAPTest extends BaseTest {
     public function testSyncAll() {
         $result = $this->ldap->syncAll();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -87,7 +87,7 @@ class LDAPTest extends BaseTest {
     public function testSyncDistinguishedNames() {
         $result = $this->ldap->syncDistinguishedNames();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 

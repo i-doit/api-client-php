@@ -53,7 +53,7 @@ class CMDBLocationTreeTest extends BaseTest {
     public function testRead() {
         $result = $this->instance->read($this->getRootLocation());
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
     /**
@@ -62,7 +62,7 @@ class CMDBLocationTreeTest extends BaseTest {
     public function testReadRecursively() {
         $result = $this->instance->readRecursively($this->getRootLocation());
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
 }

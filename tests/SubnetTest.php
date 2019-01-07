@@ -74,7 +74,7 @@ class SubnetTest extends BaseTest {
         // "Global v4"
         $result = $this->instance->load($this->getIPv4Net())->next();
 
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
     }
 
     /**
@@ -84,7 +84,7 @@ class SubnetTest extends BaseTest {
         // "Global v4"
         $result = $this->instance->load($this->getIPv4Net())->isFree($this->generateIPv4Address());
 
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
     }
 
 }

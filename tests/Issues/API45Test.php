@@ -45,26 +45,26 @@ class API45Test extends BaseTest {
         $this->cmdbObject->markAsTemplate($objectID);
 
         $result = $this->cmdbCategory->readFirst($objectID, 'C__CATG__GLOBAL');
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('status', $result);
         // This failed because "status" was null:
-        $this->assertInternalType('array', $result['status']);
+        $this->assertIsArray($result['status']);
 
         $this->assertArrayHasKey('id', $result['status']);
-        $this->assertInternalType('string', $result['status']['id']);
+        $this->assertIsString($result['status']['id']);
         $this->assertSame(6, (int) $result['status']['id']);
 
         $this->assertArrayHasKey('title', $result['status']);
-        $this->assertInternalType('string', $result['status']['title']);
+        $this->assertIsString($result['status']['title']);
         $this->assertSame('Template', $result['status']['title']);
 
         $this->assertArrayHasKey('const', $result['status']);
-        $this->assertInternalType('string', $result['status']['const']);
+        $this->assertIsString($result['status']['const']);
         $this->assertEmpty($result['status']['const']);
 
         $this->assertArrayHasKey('title_lang', $result['status']);
-        $this->assertInternalType('string', $result['status']['title_lang']);
+        $this->assertIsString($result['status']['title_lang']);
         $this->assertSame('LC__CMDB_STATUS__IDOIT_STATUS_TEMPLATE', $result['status']['title_lang']);
     }
 
@@ -78,26 +78,26 @@ class API45Test extends BaseTest {
         $this->cmdbObject->markAsMassChangeTemplate($objectID);
 
         $result = $this->cmdbCategory->readFirst($objectID, 'C__CATG__GLOBAL');
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('status', $result);
         // This failed because "status" was null:
-        $this->assertInternalType('array', $result['status']);
+        $this->assertIsArray($result['status']);
 
         $this->assertArrayHasKey('id', $result['status']);
-        $this->assertInternalType('string', $result['status']['id']);
+        $this->assertIsString($result['status']['id']);
         $this->assertSame(7, (int) $result['status']['id']);
 
         $this->assertArrayHasKey('title', $result['status']);
-        $this->assertInternalType('string', $result['status']['title']);
+        $this->assertIsString($result['status']['title']);
         $this->assertSame('Mass change template', $result['status']['title']);
 
         $this->assertArrayHasKey('const', $result['status']);
-        $this->assertInternalType('string', $result['status']['const']);
+        $this->assertIsString($result['status']['const']);
         $this->assertEmpty($result['status']['const']);
 
         $this->assertArrayHasKey('title_lang', $result['status']);
-        $this->assertInternalType('string', $result['status']['title_lang']);
+        $this->assertIsString($result['status']['title_lang']);
         $this->assertSame('LC__MASS_CHANGE__CHANGE_TEMPLATE', $result['status']['title_lang']);
     }
 
@@ -114,7 +114,7 @@ class API45Test extends BaseTest {
         $this->isID($entryID);
 
         $result = $this->cmdbCategory->readFirst($objectID, 'C__CATG__MODEL');
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -142,7 +142,7 @@ class API45Test extends BaseTest {
             'C__CATG__IP',
             $entryID
         );
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -166,7 +166,7 @@ class API45Test extends BaseTest {
         $this->isID($entryID);
 
         $result = $this->cmdbCategory->readFirst($objectID, 'C__CATG__MODEL');
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -194,7 +194,7 @@ class API45Test extends BaseTest {
             'C__CATG__IP',
             $entryID
         );
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);

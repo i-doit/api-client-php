@@ -54,40 +54,40 @@ class IdoitTest extends BaseTest {
     public function testReadVersion() {
         $result = $this->instance->readVersion();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $this->assertArrayHasKey('login', $result);
-        $this->assertInternalType('array', $result['login']);
+        $this->assertIsArray($result['login']);
 
         $this->assertArrayHasKey('userid', $result['login']);
-        $this->assertInternalType('string', $result['login']['userid']);
+        $this->assertIsString($result['login']['userid']);
 
         $this->assertArrayHasKey('name', $result['login']);
-        $this->assertInternalType('string', $result['login']['name']);
+        $this->assertIsString($result['login']['name']);
 
         $this->assertArrayHasKey('mail', $result['login']);
-        $this->assertInternalType('string', $result['login']['mail']);
+        $this->assertIsString($result['login']['mail']);
         $this->isEmail($result['login']['mail']);
 
         $this->assertArrayHasKey('username', $result['login']);
-        $this->assertInternalType('string', $result['login']['username']);
+        $this->assertIsString($result['login']['username']);
 
         $this->assertArrayHasKey('mandator', $result['login']);
-        $this->assertInternalType('string', $result['login']['mandator']);
+        $this->assertIsString($result['login']['mandator']);
 
         $this->assertArrayHasKey('language', $result['login']);
-        $this->assertInternalType('string', $result['login']['language']);
+        $this->assertIsString($result['login']['language']);
         $this->assertContains($result['login']['language'], ['en', 'de']);
 
         $this->assertArrayHasKey('version', $result);
-        $this->assertInternalType('string', $result['version']);
+        $this->assertIsString($result['version']);
 
         $this->assertArrayHasKey('step', $result);
-        $this->assertInternalType('string', $result['step']);
+        $this->assertIsString($result['step']);
 
         $this->assertArrayHasKey('type', $result);
-        $this->assertInternalType('string', $result['type']);
+        $this->assertIsString($result['type']);
         $this->assertContains($result['type'], ['OPEN', 'PRO']);
     }
 
@@ -98,41 +98,41 @@ class IdoitTest extends BaseTest {
     public function testGetAddOns() {
         $result = $this->instance->getAddOns();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         foreach ($result as $index => $addOn) {
-            $this->assertInternalType('int', $index);
+            $this->assertIsInt($index);
             $this->assertGreaterThanOrEqual(0, $index);
 
-            $this->assertInternalType('array', $addOn);
+            $this->assertIsArray($addOn);
 
             $this->assertArrayHasKey('title', $addOn);
-            $this->assertInternalType('string', $addOn['title']);
+            $this->assertIsString($addOn['title']);
             $this->isOneLiner($addOn['title']);
 
             $this->assertArrayHasKey('key', $addOn);
-            $this->assertInternalType('string', $addOn['key']);
+            $this->assertIsString($addOn['key']);
             $this->isOneLiner($addOn['key']);
 
             $this->assertArrayHasKey('version', $addOn);
-            $this->assertInternalType('string', $addOn['version']);
+            $this->assertIsString($addOn['version']);
             $this->isOneLiner($addOn['version']);
 
             $this->assertArrayHasKey('author', $addOn);
-            $this->assertInternalType('array', $addOn['author']);
+            $this->assertIsArray($addOn['author']);
             $this->assertArrayHasKey('name', $addOn['author']);
-            $this->assertInternalType('string', $addOn['author']['name']);
+            $this->assertIsString($addOn['author']['name']);
             $this->isOneLiner($addOn['author']['name']);
 
             $this->assertArrayHasKey('active', $addOn);
-            $this->assertInternalType('boolean', $addOn['active']);
+            $this->assertIsBool($addOn['active']);
 
             $this->assertArrayHasKey('licensed', $addOn);
-            $this->assertInternalType('boolean', $addOn['licensed']);
+            $this->assertIsBool($addOn['licensed']);
 
             $this->assertArrayHasKey('installed', $addOn);
-            $this->assertInternalType('boolean', $addOn['installed']);
+            $this->assertIsBool($addOn['installed']);
         }
     }
 
@@ -217,7 +217,7 @@ class IdoitTest extends BaseTest {
     public function testReadConstants() {
         $result = $this->instance->readConstants();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $topics = [
@@ -230,7 +230,7 @@ class IdoitTest extends BaseTest {
 
         foreach ($topics as $topic) {
             $this->assertArrayHasKey($topic, $result);
-            $this->assertInternalType('array', $result[$topic]);
+            $this->assertIsArray($result[$topic]);
 
             // Check category constants later:
             if ($topic !== 'categories') {
@@ -239,11 +239,11 @@ class IdoitTest extends BaseTest {
         }
 
         $this->assertArrayHasKey('g', $result['categories']);
-        $this->assertInternalType('array', $result['categories']['g']);
+        $this->assertIsArray($result['categories']['g']);
         $this->validateConstants($result['categories']['g']);
 
         $this->assertArrayHasKey('s', $result['categories']);
-        $this->assertInternalType('array', $result['categories']['s']);
+        $this->assertIsArray($result['categories']['s']);
         $this->validateConstants($result['categories']['s']);
     }
 
@@ -256,10 +256,10 @@ class IdoitTest extends BaseTest {
         $this->assertNotCount(0, $constants);
 
         foreach ($constants as $constant => $value) {
-            $this->assertInternalType('string', $constant);
+            $this->assertIsString($constant);
             $this->isConstant($constant);
 
-            $this->assertInternalType('string', $value);
+            $this->assertIsString($value);
             $this->assertNotEmpty($value);
         }
     }
@@ -275,11 +275,11 @@ class IdoitTest extends BaseTest {
 
         $results = $this->instance->search('demo');
 
-        $this->assertInternalType('array', $results);
+        $this->assertIsArray($results);
         $this->assertNotCount(0, $results);
 
         foreach ($results as $result) {
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->isSearchResult($result);
         }
     }
@@ -290,12 +290,12 @@ class IdoitTest extends BaseTest {
     public function testBatchSearch() {
         $batch = $this->instance->batchSearch(['demo', 'test', 'server']);
 
-        $this->assertInternalType('array', $batch);
+        $this->assertIsArray($batch);
         $this->assertNotCount(0, $batch);
 
         foreach ($batch as $results) {
             foreach ($results as $result) {
-                $this->assertInternalType('array', $result);
+                $this->assertIsArray($result);
                 $this->isSearchResult($result);
             }
         }
@@ -310,10 +310,10 @@ class IdoitTest extends BaseTest {
         $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $objectTitle);
         $results = $this->instance->search($objectTitle);
 
-        $this->assertInternalType('array', $results);
+        $this->assertIsArray($results);
         $this->assertCount(1, $results);
         $this->assertArrayHasKey(0, $results);
-        $this->assertInternalType('array', $results[0]);
+        $this->assertIsArray($results[0]);
         $this->isSearchResult($results[0]);
         $this->assertArrayHasKey('documentId', $results[0]);
         $this->assertSame($objectID, (int) $results[0]['documentId']);

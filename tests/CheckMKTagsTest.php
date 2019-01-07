@@ -62,7 +62,7 @@ class CheckMKTagsTest extends BaseTest {
 
         $result = $this->instance->read($objectID);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertTags($result);
     }
 
@@ -74,29 +74,31 @@ class CheckMKTagsTest extends BaseTest {
 
         $result = $this->instance->read($objectID);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertTags($result);
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testReadByNonExistingObject() {
+        $this->expectException(\Exception::class);
+
         // It's very unlikely that this object exists:
         $objectID = 422300001;
 
         $result = $this->instance->read($objectID);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testReadByBrokenObjectIdentifier() {
+        $this->expectException(\Exception::class);
+
         $objectIDs = [
             -1,
             0
@@ -105,7 +107,7 @@ class CheckMKTagsTest extends BaseTest {
         foreach ($objectIDs as $objectID) {
             $result = $this->instance->read($objectID);
 
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertNotCount(0, $result);
         }
     }
@@ -133,20 +135,21 @@ class CheckMKTagsTest extends BaseTest {
 
         $result = $this->instance->batchRead($objectIDs);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(count($objectIDs), $result);
 
         foreach ($result as $tags) {
-            $this->assertInternalType('array', $tags);
+            $this->assertIsArray($tags);
             $this->assertTags($tags);
         }
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testBatchReadNonExistingObjects() {
+        $this->expectException(\Exception::class);
+
         // It's very unlikely that these objects exist:
         $objectIDs = [
             422300001,
@@ -156,15 +159,16 @@ class CheckMKTagsTest extends BaseTest {
 
         $result = $this->instance->batchRead($objectIDs);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(count($objectIDs), $result);
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testBatchReadBrokenObjectIdentifiers() {
+        $this->expectException(\Exception::class);
+
         $objectIDs = [
             -1,
             0
@@ -172,7 +176,7 @@ class CheckMKTagsTest extends BaseTest {
 
         $result = $this->instance->batchRead($objectIDs);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(count($objectIDs), $result);
     }
 
@@ -186,27 +190,27 @@ class CheckMKTagsTest extends BaseTest {
         $this->isID($tags['objID']);
 
         $this->assertArrayHasKey('tags', $tags);
-        $this->assertInternalType('array', $tags['tags']);
+        $this->assertIsArray($tags['tags']);
         foreach ($tags['tags'] as $tag) {
             $this->assertTag($tag);
         }
 
         $this->assertArrayHasKey('cmdb_tags', $tags);
-        $this->assertInternalType('array', $tags['cmdb_tags']);
+        $this->assertIsArray($tags['cmdb_tags']);
         foreach ($tags['cmdb_tags'] as $tag) {
             $this->assertTag($tag);
         }
 
         $this->assertArrayHasKey('dynamic_tags', $tags);
-        $this->assertInternalType('array', $tags['dynamic_tags']);
+        $this->assertIsArray($tags['dynamic_tags']);
         foreach ($tags['dynamic_tags'] as $tag) {
-            $this->assertInternalType('array', $tag);
+            $this->assertIsArray($tag);
             $this->assertTag($tag);
         }
 
         $this->assertArrayHasKey('description', $tags);
         if (isset($tags['description'])) {
-            $this->assertInternalType('string', $tags['description']);
+            $this->assertIsString($tags['description']);
         }
     }
 
@@ -217,18 +221,18 @@ class CheckMKTagsTest extends BaseTest {
         }
 
         $this->assertArrayHasKey('const', $tag);
-        $this->assertInternalType('string', $tag['const']);
+        $this->assertIsString($tag['const']);
         $this->assertNotEmpty($tag['const']);
 
         $this->assertArrayHasKey('val', $tag);
-        $this->assertInternalType('string', $tag['val']);
+        $this->assertIsString($tag['val']);
         $this->assertNotEmpty($tag['val']);
 
         $this->assertArrayHasKey('sel', $tag);
-        $this->assertInternalType('boolean', $tag['sel']);
+        $this->assertIsBool($tag['sel']);
 
         $this->assertArrayHasKey('group', $tag);
-        $this->assertInternalType('string', $tag['group']);
+        $this->assertIsString($tag['group']);
         $this->assertNotEmpty($tag['group']);
     }
 

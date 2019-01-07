@@ -139,7 +139,7 @@ class AttributeTest extends BaseTest {
      */
     public function testReadEmptyCategories(string $categoryConst) {
 //        $entry = $this->cmdbCategory->readFirst($this->objectID, $categoryConst);
-//        $this->assertInternalType('array', $entry);
+//        $this->assertIsArray($entry);
 //        $this->assertCount(0, $entry, sprintf(
 //            'Entry found for object %s in category %s: %s%s',
 //            $this->objectID,
@@ -164,7 +164,7 @@ class AttributeTest extends BaseTest {
 //            $values
 //        );
 //
-//        $this->assertInternalType('int', $entryID);
+//        $this->assertIsInt($entryID);
 //        $this->assertGreaterThan(0, $entryID);
     }
 

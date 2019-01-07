@@ -102,7 +102,7 @@ class CMDBDialogTest extends BaseTest {
         $this->isID($entryID);
 
         $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $entry = end($result);
@@ -116,7 +116,7 @@ class CMDBDialogTest extends BaseTest {
         $this->assertSame($entryTitle, $entry['title']);
 
         $this->assertArrayHasKey('parent', $entry);
-        $this->assertInternalType('array', $entry['parent']);
+        $this->assertIsArray($entry['parent']);
 
         $this->assertArrayHasKey('id', $entry['parent']);
         $this->isIDAsString($entry['parent']['id']);
@@ -152,7 +152,7 @@ class CMDBDialogTest extends BaseTest {
         $this->isID($entryID);
 
         $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $entry = end($result);
@@ -166,7 +166,7 @@ class CMDBDialogTest extends BaseTest {
         $this->assertSame($entryTitle, $entry['title']);
 
         $this->assertArrayHasKey('parent', $entry);
-        $this->assertInternalType('array', $entry['parent']);
+        $this->assertIsArray($entry['parent']);
 
         $this->assertArrayHasKey('id', $entry['parent']);
         $this->isIDAsString($entry['parent']['id']);
@@ -180,9 +180,10 @@ class CMDBDialogTest extends BaseTest {
     /**
      * @group API-32
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testCreateWithParentIdentifierAsTitle() {
+        $this->expectException(\Exception::class);
+
         $parentTitle = $this->generateRandomString();
 
         $parentID = $this->cmdbDialog->create(
@@ -207,9 +208,10 @@ class CMDBDialogTest extends BaseTest {
     /**
      * @group API-32
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testCreateWithUnknownParent() {
+        $this->expectException(\Exception::class);
+
         $entryTitle = $this->generateRandomString();
 
         // This must fail because parent is unknown:
@@ -233,14 +235,14 @@ class CMDBDialogTest extends BaseTest {
         $this->isID($dialogID);
 
         $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $entry = end($result);
-        $this->assertInternalType('array', $entry);
+        $this->assertIsArray($entry);
         $this->isDialog($entry);
         $this->assertArrayHasKey('parent', $entry);
-        $this->assertInternalType('array', $entry['parent']);
+        $this->assertIsArray($entry['parent']);
         $this->assertArrayHasKey('id', $entry['parent']);
         $this->assertNull($entry['parent']['id']);
         $this->assertArrayHasKey('const', $entry['parent']);
@@ -268,7 +270,7 @@ class CMDBDialogTest extends BaseTest {
             $customAttributeValue
         );
 
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertGreaterThanOrEqual(1, $result);
 
         $values = $this->cmdbDialog->read(
@@ -276,18 +278,18 @@ class CMDBDialogTest extends BaseTest {
             $customAttributeKey
         );
 
-        $this->assertInternalType('array', $values);
+        $this->assertIsArray($values);
         $this->assertNotCount(0, $values);
 
         // Look for new value:
         $found = false;
 
         foreach ($values as $value) {
-            $this->assertInternalType('array', $value);
+            $this->assertIsArray($value);
             $this->assertArrayHasKey('id', $value);
-            $this->assertInternalType('string', $value['id']);
+            $this->assertIsString($value['id']);
             $this->assertArrayHasKey('title', $value);
-            $this->assertInternalType('string', $value['title']);
+            $this->assertIsString($value['title']);
 
             if ($value['title'] === $customAttributeValue) {
                 $found = true;
@@ -318,11 +320,11 @@ class CMDBDialogTest extends BaseTest {
             ]
         ]);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(5, $result);
 
         foreach ($result as $entryID) {
-            $this->assertInternalType('int', $entryID);
+            $this->assertIsInt($entryID);
             $this->assertGreaterThanOrEqual(1, $entryID);
         }
     }
@@ -336,13 +338,13 @@ class CMDBDialogTest extends BaseTest {
             'manufacturer'
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         foreach ($result as $index => $entry) {
-            $this->assertInternalType('int', $index);
+            $this->assertIsInt($index);
             $this->assertGreaterThanOrEqual(0, $index);
 
-            $this->assertInternalType('array', $entry);
+            $this->assertIsArray($entry);
             $this->isDialog($entry);
         }
     }
@@ -359,7 +361,7 @@ class CMDBDialogTest extends BaseTest {
             ]
         ]);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
     }
 

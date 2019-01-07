@@ -63,7 +63,7 @@ class CMDBCategoryInfoTest extends BaseTest {
         foreach ($this->categories as $categoryConst) {
             $result = $this->instance->read($categoryConst);
 
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertNotCount(0, $result);
         }
     }
@@ -74,11 +74,11 @@ class CMDBCategoryInfoTest extends BaseTest {
     public function testBatchRead() {
         $result = $this->instance->batchRead($this->categories);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(count($this->categories), $result);
 
         foreach ($result as $categoryInfo) {
-            $this->assertInternalType('array', $categoryInfo);
+            $this->assertIsArray($categoryInfo);
             $this->assertNotCount(0, $categoryInfo);
         }
     }
@@ -89,25 +89,25 @@ class CMDBCategoryInfoTest extends BaseTest {
     public function testReadAll() {
         $result = $this->instance->readAll();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         foreach ($result as $categoryConst => $categoryInfo) {
-            $this->assertInternalType('string', $categoryConst);
-            $this->assertInternalType('array', $categoryInfo);
+            $this->assertIsString($categoryConst);
+            $this->assertIsArray($categoryInfo);
 
             foreach ($categoryInfo as $attribute => $properties) {
-                $this->assertInternalType('string', $attribute);
-                $this->assertInternalType('array', $properties);
+                $this->assertIsString($attribute);
+                $this->assertIsArray($properties);
             }
         }
     }
 
     public function testGetVirtualCategoryConstants() {
         $categoryConstants = $this->instance->getVirtualCategoryConstants();
-        $this->assertInternalType('array', $categoryConstants);
+        $this->assertIsArray($categoryConstants);
         foreach ($categoryConstants as $categoryConstant) {
-            $this->assertInternalType('string', $categoryConstant);
+            $this->assertIsString($categoryConstant);
             $this->isConstant($categoryConstant);
         }
     }
@@ -151,7 +151,7 @@ class CMDBCategoryInfoTest extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32099, $response['error']['code'], $categoryConstant);

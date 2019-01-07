@@ -60,7 +60,7 @@ class SelectTest extends BaseTest {
 
         $result = $this->instance->find('C__CATG__GLOBAL', 'title', $title);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertSame($objectID, $result[0]);
     }
@@ -75,7 +75,7 @@ class SelectTest extends BaseTest {
             $this->generateRandomString()
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -101,7 +101,7 @@ class SelectTest extends BaseTest {
 
         $result = $this->instance->find('C__CATG__MODEL', 'serial', $serial);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertSame($objectID, $result[0]);
     }
@@ -134,7 +134,7 @@ class SelectTest extends BaseTest {
 
         $result = $this->instance->find('C__CATG__IP', 'hostaddress', $ip);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertSame($objectID, $result[0]);
     }

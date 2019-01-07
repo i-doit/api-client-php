@@ -54,7 +54,7 @@ class ImportTest extends BaseTest {
     public function testImportFromCSVFile() {
         $result = $this->import->importFromCSVFile();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -64,7 +64,7 @@ class ImportTest extends BaseTest {
     public function testListCSVImportProfiles() {
         $result = $this->import->listCSVImportProfiles();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -74,7 +74,7 @@ class ImportTest extends BaseTest {
     public function testImportFromHInventory() {
         $result = $this->import->importFromHInventory();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -84,7 +84,7 @@ class ImportTest extends BaseTest {
     public function testImportFromJDiscDiscovery() {
         $result = $this->import->importFromJDiscDiscovery();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -94,7 +94,7 @@ class ImportTest extends BaseTest {
     public function testTriggerJDiscDiscovery() {
         $result = $this->import->triggerJDiscDiscovery();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -104,7 +104,7 @@ class ImportTest extends BaseTest {
     public function testImportFromOCSInventoryNG() {
         $result = $this->import->importFromOCSInventoryNG();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -114,7 +114,7 @@ class ImportTest extends BaseTest {
     public function testImportFromSyslog() {
         $result = $this->import->importFromSyslog();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -124,7 +124,7 @@ class ImportTest extends BaseTest {
     public function testImportFromXMLFile() {
         $result = $this->import->importFromXMLFile();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 

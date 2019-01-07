@@ -54,7 +54,7 @@ class NotificationsTest extends BaseTest {
     public function testSend() {
         $result = $this->notifications->send();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 

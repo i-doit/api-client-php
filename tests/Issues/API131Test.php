@@ -50,7 +50,7 @@ class API131Test extends BaseTest {
 
         $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
 
-        $this->assertInternalType('array', $entry);
+        $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
         $this->isIDAsString($entry['id']);
         $this->assertArrayHasKey('objID', $entry);
@@ -58,11 +58,11 @@ class API131Test extends BaseTest {
         $this->assertSame($objectID, (int) $entry['objID']);
 
         $this->assertArrayHasKey('first_name', $entry);
-        $this->assertInternalType('string', $entry['first_name']);
+        $this->assertIsString($entry['first_name']);
         $this->assertSame($firstName, $entry['first_name']);
 
         $this->assertArrayHasKey('last_name', $entry);
-        $this->assertInternalType('string', $entry['last_name']);
+        $this->assertIsString($entry['last_name']);
         $this->assertSame($lastName, $entry['last_name']);
 
         // Update by "cmdb.object.update":
@@ -79,7 +79,7 @@ class API131Test extends BaseTest {
 
         $updatedEntry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
 
-        $this->assertInternalType('array', $updatedEntry);
+        $this->assertIsArray($updatedEntry);
         $this->assertArrayHasKey('id', $updatedEntry);
         $this->isIDAsString($updatedEntry['id']);
         $this->assertArrayHasKey('objID', $updatedEntry);
@@ -87,11 +87,11 @@ class API131Test extends BaseTest {
         $this->assertSame($objectID, (int) $updatedEntry['objID']);
 
         $this->assertArrayHasKey('first_name', $updatedEntry);
-        $this->assertInternalType('string', $updatedEntry['first_name']);
+        $this->assertIsString($updatedEntry['first_name']);
         $this->assertSame($newFirstName, $updatedEntry['first_name']);
 
         $this->assertArrayHasKey('last_name', $updatedEntry);
-        $this->assertInternalType('string', $updatedEntry['last_name']);
+        $this->assertIsString($updatedEntry['last_name']);
         $this->assertSame($newLastName, $updatedEntry['last_name']);
 
         // Update by "cmdb.category.update" (go back to old name):
@@ -103,7 +103,7 @@ class API131Test extends BaseTest {
 
         $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
 
-        $this->assertInternalType('array', $entry);
+        $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
         $this->isIDAsString($entry['id']);
         $this->assertArrayHasKey('objID', $entry);
@@ -111,19 +111,19 @@ class API131Test extends BaseTest {
         $this->assertSame($objectID, (int) $entry['objID']);
 
         $this->assertArrayHasKey('first_name', $entry);
-        $this->assertInternalType('string', $entry['first_name']);
+        $this->assertIsString($entry['first_name']);
         $this->assertSame($firstName, $entry['first_name']);
 
         $this->assertArrayHasKey('last_name', $entry);
-        $this->assertInternalType('string', $entry['last_name']);
+        $this->assertIsString($entry['last_name']);
         $this->assertSame($lastName, $entry['last_name']);
 
         $object = $this->cmdbObject->read($objectID);
-        $this->assertInternalType('array', $object);
+        $this->assertIsArray($object);
         $this->assertArrayHasKey('id', $object);
         $this->isID($object['id']);
         $this->assertArrayHasKey('title', $object);
-        $this->assertInternalType('string', $object['title']);
+        $this->assertIsString($object['title']);
         $this->assertSame($title, $object['title']);
     }
 
@@ -140,7 +140,7 @@ class API131Test extends BaseTest {
 
         $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
 
-        $this->assertInternalType('array', $entry);
+        $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
         $this->isIDAsString($entry['id']);
         $this->assertArrayHasKey('objID', $entry);
@@ -148,7 +148,7 @@ class API131Test extends BaseTest {
         $this->assertSame($objectID, (int) $entry['objID']);
 
         $this->assertArrayHasKey('title', $entry);
-        $this->assertInternalType('string', $entry['title']);
+        $this->assertIsString($entry['title']);
         $this->assertSame($title, $entry['title']);
 
         // Update by "cmdb.object.update":
@@ -161,7 +161,7 @@ class API131Test extends BaseTest {
 
         $updatedEntry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
 
-        $this->assertInternalType('array', $updatedEntry);
+        $this->assertIsArray($updatedEntry);
         $this->assertArrayHasKey('id', $updatedEntry);
         $this->isIDAsString($updatedEntry['id']);
         $this->assertArrayHasKey('objID', $updatedEntry);
@@ -169,7 +169,7 @@ class API131Test extends BaseTest {
         $this->assertSame($objectID, (int) $updatedEntry['objID']);
 
         $this->assertArrayHasKey('title', $updatedEntry);
-        $this->assertInternalType('string', $updatedEntry['title']);
+        $this->assertIsString($updatedEntry['title']);
         $this->assertSame($newTitle, $updatedEntry['title']);
 
         // Update by "cmdb.category.update" (go back to old name):
@@ -180,7 +180,7 @@ class API131Test extends BaseTest {
 
         $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
 
-        $this->assertInternalType('array', $entry);
+        $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
         $this->isIDAsString($entry['id']);
         $this->assertArrayHasKey('objID', $entry);
@@ -188,15 +188,15 @@ class API131Test extends BaseTest {
         $this->assertSame($objectID, (int) $entry['objID']);
 
         $this->assertArrayHasKey('title', $entry);
-        $this->assertInternalType('string', $entry['title']);
+        $this->assertIsString($entry['title']);
         $this->assertSame($title, $entry['title']);
 
         $object = $this->cmdbObject->read($objectID);
-        $this->assertInternalType('array', $object);
+        $this->assertIsArray($object);
         $this->assertArrayHasKey('id', $object);
         $this->isID($object['id']);
         $this->assertArrayHasKey('title', $object);
-        $this->assertInternalType('string', $object['title']);
+        $this->assertIsString($object['title']);
         $this->assertSame($title, $object['title']);
     }
 
@@ -213,7 +213,7 @@ class API131Test extends BaseTest {
 
         $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
 
-        $this->assertInternalType('array', $entry);
+        $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
         $this->isIDAsString($entry['id']);
         $this->assertArrayHasKey('objID', $entry);
@@ -221,7 +221,7 @@ class API131Test extends BaseTest {
         $this->assertSame($objectID, (int) $entry['objID']);
 
         $this->assertArrayHasKey('title', $entry);
-        $this->assertInternalType('string', $entry['title']);
+        $this->assertIsString($entry['title']);
         $this->assertSame($title, $entry['title']);
 
         // Update by "cmdb.object.update":
@@ -234,7 +234,7 @@ class API131Test extends BaseTest {
 
         $updatedEntry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
 
-        $this->assertInternalType('array', $updatedEntry);
+        $this->assertIsArray($updatedEntry);
         $this->assertArrayHasKey('id', $updatedEntry);
         $this->isIDAsString($updatedEntry['id']);
         $this->assertArrayHasKey('objID', $updatedEntry);
@@ -242,7 +242,7 @@ class API131Test extends BaseTest {
         $this->assertSame($objectID, (int) $updatedEntry['objID']);
 
         $this->assertArrayHasKey('title', $updatedEntry);
-        $this->assertInternalType('string', $updatedEntry['title']);
+        $this->assertIsString($updatedEntry['title']);
         $this->assertSame($newTitle, $updatedEntry['title']);
 
         // Update by "cmdb.category.update" (go back to old name):
@@ -253,7 +253,7 @@ class API131Test extends BaseTest {
 
         $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
 
-        $this->assertInternalType('array', $entry);
+        $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
         $this->isIDAsString($entry['id']);
         $this->assertArrayHasKey('objID', $entry);
@@ -261,15 +261,15 @@ class API131Test extends BaseTest {
         $this->assertSame($objectID, (int) $entry['objID']);
 
         $this->assertArrayHasKey('title', $entry);
-        $this->assertInternalType('string', $entry['title']);
+        $this->assertIsString($entry['title']);
         $this->assertSame($title, $entry['title']);
 
         $object = $this->cmdbObject->read($objectID);
-        $this->assertInternalType('array', $object);
+        $this->assertIsArray($object);
         $this->assertArrayHasKey('id', $object);
         $this->isID($object['id']);
         $this->assertArrayHasKey('title', $object);
-        $this->assertInternalType('string', $object['title']);
+        $this->assertIsString($object['title']);
         $this->assertSame($title, $object['title']);
     }
 

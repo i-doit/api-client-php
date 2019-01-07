@@ -83,9 +83,9 @@ class API134Test extends BaseTest {
 
         $response = $this->api->rawRequest($request);
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->isValidResponse($response, $request);
-        $this->assertInternalType('array', $response['result']);
+        $this->assertIsArray($response['result']);
 
         $this->assertArrayHasKey('message', $response['result']);
         $this->assertSame($expectedMessage, $response['result']['message']);

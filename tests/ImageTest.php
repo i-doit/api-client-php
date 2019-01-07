@@ -90,7 +90,7 @@ class ImageTest extends BaseTest {
         foreach ($this->files as $filePath => $description) {
             $fileAsString = $this->instance->encode($filePath);
 
-            $this->assertInternalType('string', $fileAsString);
+            $this->assertIsString($fileAsString);
             $this->assertNotEmpty($fileAsString);
         }
     }

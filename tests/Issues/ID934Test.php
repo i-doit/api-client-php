@@ -61,16 +61,14 @@ class ID934Test extends BaseTest {
 
         foreach ($categoryConstants as $oldConstant => $newConstant) {
             $resultOld = $cmdbCategoryInfo->read($newConstant);
-            $this->assertInternalType(
-                'array',
+            $this->assertIsArray(
                 $resultOld,
                 sprintf('Category "%s" has no result', $oldConstant)
             );
             $this->isValidCategoryInfo($oldConstant, $resultOld);
 
             $resultNew = $cmdbCategoryInfo->read($oldConstant);
-            $this->assertInternalType(
-                'array',
+            $this->assertIsArray(
                 $resultNew,
                 sprintf('Category "%s" has no result', $newConstant)
             );

@@ -54,7 +54,7 @@ class LogbookTest extends BaseTest {
     public function testImportFromCSVFile() {
         $result = $this->logbook->archive();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 

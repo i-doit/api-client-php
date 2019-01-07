@@ -61,7 +61,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
 
         $result = $this->cmdbWorkstationComponents->read($person['id']);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         $this->checkResult($result);
@@ -89,7 +89,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
 
         $result = $this->cmdbWorkstationComponents->batchRead([$person1['id'], $person2['id']]);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(2, $result);
 
         $this->checkResult($result);
@@ -109,7 +109,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
 
         $result = $this->cmdbWorkstationComponents->readByEmail($person['email']);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         $this->checkResult($result);
@@ -137,7 +137,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
 
         $result = $this->cmdbWorkstationComponents->readByEmails([$person1['email'], $person2['email']]);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(2, $result);
 
         $this->checkResult($result);
@@ -150,37 +150,37 @@ class CMDBWorkstationComponentsTest extends BaseTest {
      */
     protected function checkResult(array $result) {
         foreach ($result as $person) {
-            $this->assertInternalType('array', $person);
+            $this->assertIsArray($person);
 
             $this->assertArrayHasKey('data', $person);
-            $this->assertInternalType('array', $person['data']);
+            $this->assertIsArray($person['data']);
             $this->assertNotCount(0, $person['data']);
 
             $this->assertArrayHasKey('children', $person);
-            $this->assertInternalType('array', $person['children']);
+            $this->assertIsArray($person['children']);
             $this->assertCount(1, $person['children']);
 
             foreach ($person['children'] as $workstation) {
                 $this->assertArrayHasKey('data', $workstation);
-                $this->assertInternalType('array', $workstation['data']);
+                $this->assertIsArray($workstation['data']);
                 $this->assertNotCount(0, $workstation['data']);
 
                 $this->assertArrayHasKey('children', $workstation);
-                $this->assertInternalType('array', $workstation['children']);
+                $this->assertIsArray($workstation['children']);
                 $this->assertNotCount(0, $workstation['children']);
 
                 foreach ($workstation['children'] as $id => $component) {
-                    $this->assertInternalType('integer', $id);
+                    $this->assertIsInt($id);
                     $this->assertGreaterThan(0, $id);
 
-                    $this->assertInternalType('array', $component);
+                    $this->assertIsArray($component);
 
                     $this->assertArrayHasKey('data', $component);
-                    $this->assertInternalType('array', $component['data']);
+                    $this->assertIsArray($component['data']);
                     $this->assertNotCount(0, $component['data']);
 
                     $this->assertArrayHasKey('children', $component);
-                    $this->assertInternalType('boolean', $component['children']);
+                    $this->assertIsBool($component['children']);
                     $this->assertFalse($component['children']);
                 }
             }

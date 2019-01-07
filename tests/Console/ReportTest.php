@@ -54,7 +54,7 @@ class ReportTest extends BaseTest {
     public function testExport() {
         $result = $this->report->export();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 

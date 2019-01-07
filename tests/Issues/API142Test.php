@@ -83,7 +83,7 @@ class API142Test extends BaseTest {
             ]
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('id', $result);
         $this->isID($result['id']);
 
@@ -317,11 +317,11 @@ class API142Test extends BaseTest {
     protected function searchInCMDBFor(string $attribute, string $value, int $objectID, string $objectTitle) {
         $results = $this->idoit->search($value);
 
-        $this->assertInternalType('array', $results);
+        $this->assertIsArray($results);
 
         $this->assertCount(1, $results);
         $this->assertArrayHasKey(0, $results);
-        $this->assertInternalType('array', $results[0]);
+        $this->assertIsArray($results[0]);
 
         $this->isSearchResult($results[0]);
 

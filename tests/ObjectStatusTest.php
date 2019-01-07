@@ -66,9 +66,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-88
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveArchivedObject() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -84,9 +85,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-88
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -102,9 +104,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-88
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveMassChangeTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -120,9 +123,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-88
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveNonExistingObject() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->generateRandomID();
         $result = $this->cmdbObject->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
@@ -162,9 +166,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-89
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteDeletedObject() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -180,9 +185,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-89
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -198,9 +204,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-89
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteMassChangeTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -216,9 +223,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-89
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteNonExistingObject() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->generateRandomID();
         $result = $this->cmdbObject->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
@@ -363,9 +371,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-90
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testPurgeNonExistingObject() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->generateRandomID();
         $result = $this->cmdbObject->purge($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
@@ -375,9 +384,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-91
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecycleNormalObject() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -423,9 +433,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-91
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecyclePurgedObject() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -475,9 +486,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-91
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecycleNonExistingObject() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->generateRandomID();
         $result = $this->cmdbObject->recycle($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
@@ -517,9 +529,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-92
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testConvertFromArchivedToTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -535,9 +548,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-92
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testConvertFromDeletedToTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -553,9 +567,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-92
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testConvertFromTemplateToTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -571,9 +586,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-92
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testMarkNonExistingObjectAsTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->generateRandomID();
         $result = $this->cmdbObject->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
@@ -613,9 +629,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-93
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testConvertFromArchivedToMassChangeTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -631,9 +648,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-93
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testConvertFromDeletedToMassChangeTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -649,9 +667,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-93
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testConvertFromMassChangeTemplateToMassChangeTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
@@ -666,9 +685,10 @@ class ObjectStatusTest extends BaseTest {
     /**
      * @group API-93
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testMarkNonExistingObjectAsMassChangeTemplate() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->generateRandomID();
         $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
@@ -682,7 +702,7 @@ class ObjectStatusTest extends BaseTest {
      */
     protected function isNormal(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
-        $this->assertInternalType('array', $object);
+        $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
         $this->assertSame(2, (int) $object['status']);
@@ -695,7 +715,7 @@ class ObjectStatusTest extends BaseTest {
      */
     protected function isArchived(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
-        $this->assertInternalType('array', $object);
+        $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
         $this->assertSame(3, (int) $object['status']);
@@ -708,7 +728,7 @@ class ObjectStatusTest extends BaseTest {
      */
     protected function isDeleted(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
-        $this->assertInternalType('array', $object);
+        $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
         $this->assertSame(4, (int) $object['status']);
@@ -731,7 +751,7 @@ class ObjectStatusTest extends BaseTest {
      */
     protected function isTemplate(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
-        $this->assertInternalType('array', $object);
+        $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
         $this->assertSame(6, (int) $object['status']);
@@ -744,7 +764,7 @@ class ObjectStatusTest extends BaseTest {
      */
     protected function isMassChangeTemplate(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
-        $this->assertInternalType('array', $object);
+        $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
         $this->assertSame(7, (int) $object['status']);

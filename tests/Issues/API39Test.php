@@ -66,7 +66,7 @@ class API39Test extends BaseTest {
             'C__CATG__APPLICATION',
             $firstEntryID
         );
-        $this->assertInternalType('array', $firstEntry);
+        $this->assertIsArray($firstEntry);
         $this->validateCategoryEntry($hostID, $firstEntryID, $firstEntry);
 
         $this->hasApplication($primaryOSID, $firstEntry);
@@ -97,7 +97,7 @@ class API39Test extends BaseTest {
             'C__CATG__APPLICATION',
             $secondEntryID
         );
-        $this->assertInternalType('array', $secondEntry);
+        $this->assertIsArray($secondEntry);
         $this->validateCategoryEntry($hostID, $secondEntryID, $secondEntry);
 
         $this->hasApplication($secondaryOSID, $secondEntry);
@@ -129,7 +129,7 @@ class API39Test extends BaseTest {
             'C__CATG__APPLICATION',
             $firstEntryID
         );
-        $this->assertInternalType('array', $firstEntry);
+        $this->assertIsArray($firstEntry);
         $this->validateCategoryEntry($hostID, $firstEntryID, $firstEntry);
 
         $this->hasApplication($primaryOSID, $firstEntry);
@@ -142,7 +142,7 @@ class API39Test extends BaseTest {
             'C__CATG__APPLICATION',
             $secondEntryID
         );
-        $this->assertInternalType('array', $secondEntry);
+        $this->assertIsArray($secondEntry);
         $this->validateCategoryEntry($hostID, $secondEntryID, $secondEntry);
         $this->hasApplication($secondaryOSID, $secondEntry);
         $this->hasPriority(1, $secondEntry);
@@ -159,7 +159,7 @@ class API39Test extends BaseTest {
 
     protected function hasApplication(int $applicationID, array $entry) {
         $this->assertArrayHasKey('application', $entry);
-        $this->assertInternalType('array', $entry['application']);
+        $this->assertIsArray($entry['application']);
         $this->assertArrayHasKey('id', $entry['application']);
         $this->isIDAsString($entry['application']['id']);
         $this->assertSame($applicationID, (int) $entry['application']['id']);
@@ -167,22 +167,22 @@ class API39Test extends BaseTest {
 
     protected function hasPriority(int $priority, array $entry) {
         $this->assertArrayHasKey('application_priority', $entry);
-        $this->assertInternalType('array', $entry['application_priority']);
+        $this->assertIsArray($entry['application_priority']);
 
         $this->assertArrayHasKey('id', $entry['application_priority']);
         $this->isIDAsString($entry['application_priority']['id']);
         $this->assertSame($priority, (int) $entry['application_priority']['id']);
 
         $this->assertArrayHasKey('title', $entry['application_priority']);
-        $this->assertInternalType('string', $entry['application_priority']['title']);
+        $this->assertIsString($entry['application_priority']['title']);
         $this->isOneLiner($entry['application_priority']['title']);
 
         $this->assertArrayHasKey('const', $entry['application_priority']);
-        $this->assertInternalType('string', $entry['application_priority']['const']);
+        $this->assertIsString($entry['application_priority']['const']);
         $this->isConstant($entry['application_priority']['const']);
 
         $this->assertArrayHasKey('title_lang', $entry['application_priority']);
-        $this->assertInternalType('string', $entry['application_priority']['title_lang']);
+        $this->assertIsString($entry['application_priority']['title_lang']);
         $this->isOneLiner($entry['application_priority']['title_lang']);
     }
 

@@ -50,7 +50,7 @@ class Zendesk4367Test extends BaseTest {
             'assigned_version' => $versionID
         ]);
 
-        $this->assertInternalType('int', $entryID);
+        $this->assertIsInt($entryID);
         $this->assertGreaterThan(0, $entryID);
     }
 

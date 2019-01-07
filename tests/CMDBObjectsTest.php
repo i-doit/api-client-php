@@ -61,11 +61,11 @@ class CMDBObjectsTest extends BaseTest {
             ]
         );
 
-        $this->assertInternalType('array', $objectIDs);
+        $this->assertIsArray($objectIDs);
         $this->assertCount(3, $objectIDs);
 
         foreach ($objectIDs as $objectID) {
-            $this->assertInternalType('int', $objectID);
+            $this->assertIsInt($objectID);
             $this->isID($objectID);
         }
     }
@@ -77,7 +77,7 @@ class CMDBObjectsTest extends BaseTest {
     public function testRead() {
         $objects = $this->instance->read();
 
-        $this->assertInternalType('array', $objects);
+        $this->assertIsArray($objects);
         $this->assertNotCount(0, $objects);
 
         foreach ($objects as $object) {
@@ -95,31 +95,31 @@ class CMDBObjectsTest extends BaseTest {
         $this->isID($object['id']);
 
         $this->assertArrayHasKey('title', $object);
-        $this->assertInternalType('string', $object['title']);
+        $this->assertIsString($object['title']);
         $this->assertNotEmpty($object['title']);
 
         $this->assertArrayHasKey('sysid', $object);
-        $this->assertInternalType('string', $object['sysid']);
+        $this->assertIsString($object['sysid']);
         $this->assertNotEmpty($object['sysid']);
 
         $this->assertArrayHasKey('type', $object);
         $this->isID($object['type']);
 
         $this->assertArrayHasKey('created', $object);
-        $this->assertInternalType('string', $object['created']);
+        $this->assertIsString($object['created']);
         $this->isTime($object['created']);
 
         if (array_key_exists('updated', $object)) {
-            $this->assertInternalType('string', $object['updated']);
+            $this->assertIsString($object['updated']);
             $this->isTime($object['updated']);
         }
 
         $this->assertArrayHasKey('type_title', $object);
-        $this->assertInternalType('string', $object['type_title']);
+        $this->assertIsString($object['type_title']);
         $this->assertNotEmpty($object['type_title']);
 
         $this->assertArrayHasKey('type_group_title', $object);
-        $this->assertInternalType('string', $object['type_group_title']);
+        $this->assertIsString($object['type_group_title']);
         $this->assertNotEmpty($object['type_group_title']);
 
         $this->assertArrayHasKey('status', $object);
@@ -130,11 +130,11 @@ class CMDBObjectsTest extends BaseTest {
         $this->isID($object['cmdb_status']);
 
         $this->assertArrayHasKey('cmdb_status_title', $object);
-        $this->assertInternalType('string', $object['cmdb_status_title']);
+        $this->assertIsString($object['cmdb_status_title']);
         $this->assertNotEmpty($object['cmdb_status_title']);
 
         $this->assertArrayHasKey('image', $object);
-        $this->assertInternalType('string', $object['image']);
+        $this->assertIsString($object['image']);
         $this->assertNotEmpty($object['image']);
     }
 
@@ -144,7 +144,7 @@ class CMDBObjectsTest extends BaseTest {
     public function testReadSome() {
         $objects = $this->instance->read([], 10, 0, 'title', CMDBObjects::SORT_DESCENDING);
 
-        $this->assertInternalType('array', $objects);
+        $this->assertIsArray($objects);
         $this->assertCount(10, $objects);
 
         foreach ($objects as $object) {
@@ -166,7 +166,7 @@ class CMDBObjectsTest extends BaseTest {
 
         $objects = $this->instance->readByIDs($objectIDs);
 
-        $this->assertInternalType('array', $objects);
+        $this->assertIsArray($objects);
         $this->assertCount(3, $objects);
 
         foreach ($objects as $object) {
@@ -180,7 +180,7 @@ class CMDBObjectsTest extends BaseTest {
     public function testReadByType() {
         $objects = $this->instance->readByType('C__OBJTYPE__PERSON');
 
-        $this->assertInternalType('array', $objects);
+        $this->assertIsArray($objects);
         $this->assertNotCount(0, $objects);
 
         foreach ($objects as $object) {
@@ -194,11 +194,11 @@ class CMDBObjectsTest extends BaseTest {
     public function testReadArchived() {
         $objects = $this->instance->readArchived();
 
-        $this->assertInternalType('array', $objects);
+        $this->assertIsArray($objects);
 
         $objects = $this->instance->readArchived('C__OBJTYPE__PERSON');
 
-        $this->assertInternalType('array', $objects);
+        $this->assertIsArray($objects);
 
         foreach ($objects as $object) {
             $this->validateObject($object);
@@ -211,11 +211,11 @@ class CMDBObjectsTest extends BaseTest {
     public function testReadDeleted() {
         $objects = $this->instance->readDeleted();
 
-        $this->assertInternalType('array', $objects);
+        $this->assertIsArray($objects);
 
         $objects = $this->instance->readDeleted('C__OBJTYPE__PERSON');
 
-        $this->assertInternalType('array', $objects);
+        $this->assertIsArray($objects);
 
         foreach ($objects as $object) {
             $this->validateObject($object);
@@ -242,29 +242,29 @@ class CMDBObjectsTest extends BaseTest {
 
         $result = $this->cmdbObjects->read(['ids' => [$objectID]], null, null, null, null, $categoryConstants);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertArrayHasKey(0, $result);
-        $this->assertInternalType('array', $result[0]);
+        $this->assertIsArray($result[0]);
         $this->validateObject($result[0]);
         $this->assertSame($objectID, $result[0]['id']);
 
         $this->assertArrayHasKey('categories', $result[0]);
-        $this->assertInternalType('array', $result[0]['categories']);
+        $this->assertIsArray($result[0]['categories']);
         $this->assertCount(3, $result[0]['categories']);
 
         foreach ($result[0]['categories'] as $categoryConstant => $entries) {
-            $this->assertInternalType('string', $categoryConstant);
+            $this->assertIsString($categoryConstant);
             $this->assertContains($categoryConstant, $categoryConstants);
 
-            $this->assertInternalType('array', $entries);
+            $this->assertIsArray($entries);
             $this->assertNotCount(0, $entries);
 
             foreach ($entries as $index => $entry) {
-                $this->assertInternalType('int', $index);
+                $this->assertIsInt($index);
                 $this->assertGreaterThanOrEqual(0, $index);
 
-                $this->assertInternalType('array', $entry);
+                $this->assertIsArray($entry);
                 $this->isCategoryEntry($entry);
                 $this->assertSame($objectID, (int) $entry['objID']);
             }
@@ -285,33 +285,33 @@ class CMDBObjectsTest extends BaseTest {
 
         $result = $this->cmdbObjects->read(['ids' => [$objectID]], null, null, null, null, true);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertArrayHasKey(0, $result);
-        $this->assertInternalType('array', $result[0]);
+        $this->assertIsArray($result[0]);
         $this->validateObject($result[0]);
         $this->assertSame($objectID, $result[0]['id']);
 
         $this->assertArrayHasKey('categories', $result[0]);
-        $this->assertInternalType('array', $result[0]['categories']);
+        $this->assertIsArray($result[0]['categories']);
         $this->assertGreaterThanOrEqual(3, count($result[0]['categories']));
 
         $categoryInfo = new CMDBCategoryInfo($this->api);
         $blacklistedCategoryConstants = $categoryInfo->getVirtualCategoryConstants();
 
         foreach ($result[0]['categories'] as $categoryConstant => $entries) {
-            $this->assertInternalType('string', $categoryConstant);
+            $this->assertIsString($categoryConstant);
             $this->isConstant($categoryConstant);
 
             $this->assertNotContains($categoryConstant, $blacklistedCategoryConstants);
 
-            $this->assertInternalType('array', $entries);
+            $this->assertIsArray($entries);
 
             foreach ($entries as $index => $entry) {
-                $this->assertInternalType('int', $index);
+                $this->assertIsInt($index);
                 $this->assertGreaterThanOrEqual(0, $index);
 
-                $this->assertInternalType('array', $entry);
+                $this->assertIsArray($entry);
                 $this->isCategoryEntry($entry);
 
                 if ($categoryConstant === 'C__CATG__RELATION') {
@@ -442,7 +442,7 @@ class CMDBObjectsTest extends BaseTest {
 
         $objectID = $this->instance->getID($uniqueTitle);
 
-        $this->assertInternalType('int', $objectID);
+        $this->assertIsInt($objectID);
         $this->assertSame($objectIDs[0], $objectID);
     }
 

@@ -52,13 +52,13 @@ class API112Test extends BaseTest {
 
         $ipList = $this->cmdbCategory->read($subnetID, 'C__CATS__NET_IP_ADDRESSES');
 
-        $this->assertInternalType('array', $ipList);
+        $this->assertIsArray($ipList);
 
         // This failed because there were more entries in list than expected:
         $this->assertCount($amount, $ipList);
 
         foreach ($ipList as $ipAddress) {
-            $this->assertInternalType('array', $ipAddress);
+            $this->assertIsArray($ipAddress);
 
             $this->assertArrayHasKey('objID', $ipAddress);
             $objID = (int) $ipAddress['objID'];
@@ -66,7 +66,7 @@ class API112Test extends BaseTest {
 
             // This failed because of wrong object relations:
             $this->assertArrayHasKey('object', $ipAddress);
-            $this->assertInternalType('array', $ipAddress['object']);
+            $this->assertIsArray($ipAddress['object']);
             $this->assertArrayHasKey('id', $ipAddress['object']);
             $id = (int) $ipAddress['object']['id'];
             $this->assertContains($id, $objectIDs);

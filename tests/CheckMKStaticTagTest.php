@@ -56,7 +56,7 @@ class CheckMKStaticTagTest extends BaseTest {
             $this->generateRandomString()
         );
 
-        $this->assertInternalType('int', $id);
+        $this->assertIsInt($id);
         $this->assertGreaterThan(0, $id);
     }
 
@@ -72,7 +72,7 @@ class CheckMKStaticTagTest extends BaseTest {
             $this->generateDescription()
         );
 
-        $this->assertInternalType('int', $id);
+        $this->assertIsInt($id);
         $this->assertGreaterThan(0, $id);
     }
 
@@ -91,7 +91,7 @@ class CheckMKStaticTagTest extends BaseTest {
                 $title
             );
 
-            $this->assertInternalType('int', $id);
+            $this->assertIsInt($id);
             $this->assertGreaterThan(0, $id);
             $this->assertNotContains($id, $ids);
 
@@ -116,11 +116,11 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $ids = $this->instance->batchCreate($tags);
 
-        $this->assertInternalType('array', $ids);
+        $this->assertIsArray($ids);
         $this->assertCount($amount, $ids);
 
         foreach ($ids as $id) {
-            $this->assertInternalType('int', $id);
+            $this->assertIsInt($id);
             $this->assertGreaterThan(0, $id);
         }
     }
@@ -140,33 +140,33 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $tags = $this->instance->read();
 
-        $this->assertInternalType('array', $tags);
+        $this->assertIsArray($tags);
         $this->assertNotCount(0, $tags);
 
         foreach ($tags as $tag) {
-            $this->assertInternalType('array', $tag);
+            $this->assertIsArray($tag);
 
             $this->assertArrayHasKey('id', $tag);
-            $this->assertInternalType('int', $tag['id']);
+            $this->assertIsInt($tag['id']);
             $this->assertGreaterThan(0, $tag['id']);
 
             $this->assertArrayHasKey('tag', $tag);
-            $this->assertInternalType('string', $tag['tag']);
+            $this->assertIsString($tag['tag']);
             $this->assertNotEmpty($tag['tag']);
 
             $this->assertArrayHasKey('title', $tag);
-            $this->assertInternalType('string', $tag['title']);
+            $this->assertIsString($tag['title']);
             $this->assertNotEmpty($tag['title']);
 
             $this->assertArrayHasKey('group', $tag);
             // 'group' is null or array
 
             $this->assertArrayHasKey('export', $tag);
-            $this->assertInternalType('bool', $tag['export']);
+            $this->assertIsBool($tag['export']);
 
             // Description is totally optional:
             if (array_key_exists('description', $tag)) {
-                $this->assertInternalType('string', $tag['description']);
+                $this->assertIsString($tag['description']);
             }
         }
     }
@@ -180,7 +180,7 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $result = $this->instance->read();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -199,11 +199,11 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $tags = $this->instance->readByID($id);
 
-        $this->assertInternalType('array', $tags);
+        $this->assertIsArray($tags);
         $this->assertCount(1, $tags);
 
         $this->assertArrayHasKey(0, $tags);
-        $this->assertInternalType('array', $tags[0]);
+        $this->assertIsArray($tags[0]);
 
         $this->assertSame($id, $tags[0]['id']);
         $this->assertSame($tag, $tags[0]['tag']);
@@ -211,15 +211,15 @@ class CheckMKStaticTagTest extends BaseTest {
         $this->assertSame($export, $tags[0]['export']);
         $this->assertSame($description, $tags[0]['description']);
 
-        $this->assertInternalType('array', $tags[0]['group']);
+        $this->assertIsArray($tags[0]['group']);
         $this->assertArrayHasKey('id', $tags[0]['group']);
-        $this->assertInternalType('int', $tags[0]['group']['id']);
+        $this->assertIsInt($tags[0]['group']['id']);
         $this->assertArrayHasKey('title', $tags[0]['group']);
-        $this->assertInternalType('string', $tags[0]['group']['title']);
+        $this->assertIsString($tags[0]['group']['title']);
         $this->assertArrayHasKey('const', $tags[0]['group']);
         // 'const' is null or string
         $this->assertArrayHasKey('title_lang', $tags[0]['group']);
-        $this->assertInternalType('string', $tags[0]['group']['title_lang']);
+        $this->assertIsString($tags[0]['group']['title_lang']);
         $this->assertSame($group, $tags[0]['group']['title']);
     }
 
@@ -232,7 +232,7 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $result = $this->instance->readByID($id);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -255,7 +255,7 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $result = $this->instance->readByIDs($ids);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount($amount, $result);
     }
 
@@ -272,7 +272,7 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $result = $this->instance->readByIDs($ids);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -289,7 +289,7 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $result = $this->instance->readByTag($tag);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertSame($tag, $result[0]['tag']);
         $this->assertSame($id, $result[0]['id']);
@@ -303,7 +303,7 @@ class CheckMKStaticTagTest extends BaseTest {
 
         $result = $this->instance->readByTag($tag);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -342,7 +342,7 @@ class CheckMKStaticTagTest extends BaseTest {
         $alteredTag = $this->instance->readByID($id);
 
         $this->assertArrayHasKey(0, $alteredTag);
-        $this->assertInternalType('array', $alteredTag[0]);
+        $this->assertIsArray($alteredTag[0]);
 
         foreach ($alteredTag[0] as $key => $value) {
             if ($key === 'id') {
@@ -354,10 +354,11 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testUpdateNonExisting() {
+        $this->expectException(\Exception::class);
+
         // It is unlikely to produce such high IDs but this *could* fail:
         $id = 99999999;
 

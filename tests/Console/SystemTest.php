@@ -54,7 +54,7 @@ class SystemTest extends BaseTest {
     public function testPurgeUnfinishedObjects() {
         $result = $this->system->purgeUnfinishedObjects();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -64,7 +64,7 @@ class SystemTest extends BaseTest {
     public function testPurgeArchivedObjects() {
         $result = $this->system->purgeArchivedObjects();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -74,7 +74,7 @@ class SystemTest extends BaseTest {
     public function testPurgeDeletedObjects() {
         $result = $this->system->purgeDeletedObjects();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 

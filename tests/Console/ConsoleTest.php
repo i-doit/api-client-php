@@ -50,12 +50,13 @@ class ConsoleTest extends BaseTest {
 
     /**
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testExecuteNothing() {
+        $this->expectException(\Exception::class);
+
         $result = $this->console->execute('');
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
     /**
@@ -69,20 +70,21 @@ class ConsoleTest extends BaseTest {
             ]
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
     /**
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testExecuteUnknownCommand() {
+        $this->expectException(\Exception::class);
+
         $result = $this->console->execute(
             'console.commands.' . $this->generateRandomString()
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
     /**
@@ -102,13 +104,14 @@ class ConsoleTest extends BaseTest {
 
     /**
      * @dataProvider provideBlacklistedCommands
-     * @expectedException \RuntimeException
      * @param string $blacklistedCommand Blacklisted command
      * @throws \Exception on error
      */
     public function testExecuteBlacklistedCommand(string $blacklistedCommand) {
+        $this->expectException(\RuntimeException::class);
+
         $result = $this->console->execute($blacklistedCommand);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
 }

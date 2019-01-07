@@ -54,7 +54,7 @@ class AuthTest extends BaseTest {
     public function testCleanup() {
         $result = $this->auth->cleanup();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 

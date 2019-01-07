@@ -57,11 +57,11 @@ class API140Test extends BaseTest {
         // This was pretty slow:
         $results = $this->cmdbCategory->batchRead([$objectID], $categoryConsts);
 
-        $this->assertInternalType('array', $results);
+        $this->assertIsArray($results);
         $this->assertCount($amount, $results);
 
         foreach ($results as $result) {
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertCount(1, $result);
         }
     }

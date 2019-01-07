@@ -58,7 +58,7 @@ class API42Test extends BaseTest {
             'C__CATG__CONNECTOR',
             $connectorAID
         );
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -69,7 +69,7 @@ class API42Test extends BaseTest {
         $this->assertSame($objectID, (int) $result['objID']);
 
         $this->assertArrayHasKey('cable_connection', $result);
-        $this->assertInternalType('array', $result['cable_connection']);
+        $this->assertIsArray($result['cable_connection']);
         $this->assertCount(0, $result['cable_connection']);
 
         // Add 2nd connector:
@@ -88,7 +88,7 @@ class API42Test extends BaseTest {
             'C__CATG__CONNECTOR',
             $connectorBID
         );
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -99,7 +99,7 @@ class API42Test extends BaseTest {
         $this->assertSame($objectID, (int) $result['objID']);
 
         $this->assertArrayHasKey('cable_connection', $result);
-        $this->assertInternalType('array', $result['cable_connection']);
+        $this->assertIsArray($result['cable_connection']);
         $this->assertCount(0, $result['cable_connection']);
 
         // Combine both connectors:
@@ -118,7 +118,7 @@ class API42Test extends BaseTest {
             'C__CATG__CONNECTOR',
             $connectorAID
         );
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -129,7 +129,7 @@ class API42Test extends BaseTest {
         $this->assertSame($objectID, (int) $result['objID']);
 
         $this->assertArrayHasKey('cable_connection', $result);
-        $this->assertInternalType('array', $result['cable_connection']);
+        $this->assertIsArray($result['cable_connection']);
         // This failed because an object was accidently assigned:
         $this->assertCount(0, $result['cable_connection']);
 
@@ -139,7 +139,7 @@ class API42Test extends BaseTest {
             'C__CATG__CONNECTOR',
             $connectorBID
         );
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -150,7 +150,7 @@ class API42Test extends BaseTest {
         $this->assertSame($objectID, (int) $result['objID']);
 
         $this->assertArrayHasKey('cable_connection', $result);
-        $this->assertInternalType('array', $result['cable_connection']);
+        $this->assertIsArray($result['cable_connection']);
         // This failed because an object was accidently assigned:
         $this->assertCount(0, $result['cable_connection']);
     }

@@ -98,7 +98,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     public function testBatchReadByIdentifier() {
         $batchResult = $this->instance->batchReadByID($this->objectTypeIDs);
 
-        $this->assertInternalType('array', $batchResult);
+        $this->assertIsArray($batchResult);
         $this->assertNotCount(0, $batchResult);
 
         foreach ($batchResult as $categories) {
@@ -112,7 +112,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     public function testBatchReadByConstant() {
         $batchResult = $this->instance->batchReadByConst($this->objectTypeConsts);
 
-        $this->assertInternalType('array', $batchResult);
+        $this->assertIsArray($batchResult);
         $this->assertNotCount(0, $batchResult);
 
         foreach ($batchResult as $categories) {
@@ -126,10 +126,10 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
      * @param array $categories
      */
     protected function checkAssignedCategories(array $categories) {
-        $this->assertInternalType('array', $categories);
+        $this->assertIsArray($categories);
 
         foreach ($categories as $category) {
-            $this->assertInternalType('array', $category);
+            $this->assertIsArray($category);
             $this->assertNotCount(0, $category);
         }
     }

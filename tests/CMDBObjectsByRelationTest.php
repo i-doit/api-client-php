@@ -62,15 +62,15 @@ class CMDBObjectsByRelationTest extends BaseTest {
             $relationType
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         $first = end($result);
 
         $this->assertArrayHasKey('data', $first);
-        $this->assertInternalType('array', $first['data']);
+        $this->assertIsArray($first['data']);
         $this->assertArrayHasKey('children', $first);
-        $this->assertInternalType('boolean', $first['children']);
+        $this->assertIsBool($first['children']);
     }
 
     /**
@@ -88,15 +88,15 @@ class CMDBObjectsByRelationTest extends BaseTest {
             $relationType
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         $first = end($result);
 
         $this->assertArrayHasKey('data', $first);
-        $this->assertInternalType('array', $first['data']);
+        $this->assertIsArray($first['data']);
         $this->assertArrayHasKey('children', $first);
-        $this->assertInternalType('boolean', $first['children']);
+        $this->assertIsBool($first['children']);
     }
 
     /**
@@ -116,15 +116,15 @@ class CMDBObjectsByRelationTest extends BaseTest {
             2
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         $first = end($result);
 
         $this->assertArrayHasKey('data', $first);
-        $this->assertInternalType('array', $first['data']);
+        $this->assertIsArray($first['data']);
         $this->assertArrayHasKey('children', $first);
-        $this->assertInternalType('boolean', $first['children']);
+        $this->assertIsBool($first['children']);
     }
 
     /**
@@ -143,15 +143,15 @@ class CMDBObjectsByRelationTest extends BaseTest {
             3
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         $first = end($result);
 
         $this->assertArrayHasKey('data', $first);
-        $this->assertInternalType('array', $first['data']);
+        $this->assertIsArray($first['data']);
         $this->assertArrayHasKey('children', $first);
-        $this->assertInternalType('boolean', $first['children']);
+        $this->assertIsBool($first['children']);
     }
 
     /**
@@ -170,15 +170,15 @@ class CMDBObjectsByRelationTest extends BaseTest {
             4
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         $first = end($result);
 
         $this->assertArrayHasKey('data', $first);
-        $this->assertInternalType('array', $first['data']);
+        $this->assertIsArray($first['data']);
         $this->assertArrayHasKey('children', $first);
-        $this->assertInternalType('boolean', $first['children']);
+        $this->assertIsBool($first['children']);
     }
 
     /**
@@ -199,10 +199,11 @@ class CMDBObjectsByRelationTest extends BaseTest {
      * @group API-71
      * @dataProvider provideInvalidStatus
      * @param int $status
-     * @expectedException \RuntimeException
      * @throws \Exception on error
      */
     public function testFilterByInvalidStatus(int $status) {
+        $this->expectException(\RuntimeException::class);
+
         $hostID = $this->createServer();
         $admin = $this->createPerson();
         $this->addContact($hostID, $admin['id'], 1);

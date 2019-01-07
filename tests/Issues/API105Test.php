@@ -58,9 +58,9 @@ class API105Test extends BaseTest {
         ]);
         $entries = $this->cmdbCategory->read($hostID, 'C__CATG__OPERATING_SYSTEM');
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertArrayHasKey(0, $entries);
-        $this->assertInternalType('array', $entries[0]);
+        $this->assertIsArray($entries[0]);
 
         $origEntry = $entries[0];
         $this->checkEntry($origEntry, $osID, $versionID, $variantID);
@@ -81,9 +81,9 @@ class API105Test extends BaseTest {
         ]);
         $entries = $this->cmdbCategory->read($hostID, 'C__CATG__OPERATING_SYSTEM');
 
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertArrayHasKey(0, $entries);
-        $this->assertInternalType('array', $entries[0]);
+        $this->assertIsArray($entries[0]);
 
         $updatedEntry = $entries[0];
         $this->checkEntry($updatedEntry, $osID, $versionID, $variantID);
@@ -102,21 +102,21 @@ class API105Test extends BaseTest {
         $this->isIDAsString($entry['objID']);
 
         $this->assertArrayHasKey('application', $entry);
-        $this->assertInternalType('array', $entry['application']);
+        $this->assertIsArray($entry['application']);
         $this->assertArrayHasKey('id', $entry['application']);
         $this->isIDAsString($entry['application']['id']);
         $id = (int) $entry['application']['id'];
         $this->assertSame($appID, $id);
 
         $this->assertArrayHasKey('assigned_version', $entry);
-        $this->assertInternalType('array', $entry['assigned_version']);
+        $this->assertIsArray($entry['assigned_version']);
         $this->assertArrayHasKey('ref_id', $entry['assigned_version']);
         $this->isIDAsString($entry['assigned_version']['ref_id']);
         $refID = (int) $entry['assigned_version']['ref_id'];
         $this->assertSame($versionID, $refID);
 
         $this->assertArrayHasKey('assigned_variant', $entry);
-        $this->assertInternalType('array', $entry['assigned_variant']);
+        $this->assertIsArray($entry['assigned_variant']);
         $this->assertArrayHasKey('ref_id', $entry['assigned_variant']);
         $this->isIDAsString($entry['assigned_variant']['ref_id']);
         $refID = (int) $entry['assigned_variant']['ref_id'];

@@ -53,7 +53,7 @@ class CMDBReportsTest extends BaseTest {
     public function testListReports() {
         $result = $this->instance->listReports();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
     }
 
@@ -70,7 +70,7 @@ class CMDBReportsTest extends BaseTest {
 
             $result = $this->instance->read($reportID);
 
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
         }
     }
 
@@ -90,7 +90,7 @@ class CMDBReportsTest extends BaseTest {
         if (count($reportIDs) > 0) {
             $result = $this->instance->batchRead($reportIDs);
 
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
         }
     }
 

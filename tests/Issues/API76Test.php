@@ -49,7 +49,7 @@ class API76Test extends BaseTest {
         $this->isID($entryID);
 
         $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__IP', $entryID);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         // This failed because these arrays share the same content:
         $this->assertArrayHasKey('ipv4_address', $result);

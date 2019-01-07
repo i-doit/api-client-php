@@ -54,7 +54,7 @@ class API130Test extends BaseTest {
             'application' => $applicationID,
             'assigned_license' => $licenseKeyID
         ]);
-        $this->assertInternalType('int', $entryID);
+        $this->assertIsInt($entryID);
         $this->assertGreaterThan(0, $entryID);
     }
 

@@ -55,7 +55,7 @@ class MonitoringLivestatusTest extends BaseTest {
             $this->generateRandomString()
         );
 
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertGreaterThan(0, $result);
 
         $result = $this->instance->createTCPConnection(
@@ -63,7 +63,7 @@ class MonitoringLivestatusTest extends BaseTest {
             $this->generateIPv4Address()
         );
 
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertGreaterThan(0, $result);
 
         $result = $this->instance->createTCPConnection(
@@ -72,7 +72,7 @@ class MonitoringLivestatusTest extends BaseTest {
             1234
         );
 
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertGreaterThan(0, $result);
 
         $result = $this->instance->createTCPConnection(
@@ -82,7 +82,7 @@ class MonitoringLivestatusTest extends BaseTest {
             false
         );
 
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertGreaterThan(0, $result);
     }
 
@@ -95,7 +95,7 @@ class MonitoringLivestatusTest extends BaseTest {
             '/var/run/livestatus'
         );
 
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertGreaterThan(0, $result);
 
         $result = $this->instance->createUNIXSocketConnection(
@@ -104,7 +104,7 @@ class MonitoringLivestatusTest extends BaseTest {
             false
         );
 
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertGreaterThan(0, $result);
     }
 
@@ -123,38 +123,38 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $result = $this->instance->read();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         foreach ($result as $instance) {
             $this->assertArrayHasKey('id', $instance);
-            $this->assertInternalType('int', $instance['id']);
+            $this->assertIsInt($instance['id']);
             $this->assertGreaterThan(0, $instance['id']);
 
             $this->assertArrayHasKey('title', $instance);
-            $this->assertInternalType('string', $instance['title']);
+            $this->assertIsString($instance['title']);
 
             $this->assertArrayHasKey('active', $instance);
-            $this->assertInternalType('bool', $instance['active']);
+            $this->assertIsBool($instance['active']);
 
             $this->assertArrayHasKey('connection', $instance);
-            $this->assertInternalType('string', $instance['connection']);
+            $this->assertIsString($instance['connection']);
 
             $this->assertContains($instance['connection'], ['tcp', 'unix']);
 
             switch ($instance['connection']) {
                 case 'tcp':
                     $this->assertArrayHasKey('address', $instance);
-                    $this->assertInternalType('string', $instance['address']);
+                    $this->assertIsString($instance['address']);
 
                     $this->assertArrayHasKey('port', $instance);
-                    $this->assertInternalType('int', $instance['port']);
+                    $this->assertIsInt($instance['port']);
                     $this->assertGreaterThan(0, $instance['port']);
                     $this->assertLessThanOrEqual(65535, $instance['port']);
                     break;
                 case 'unix':
                     $this->assertArrayHasKey('path', $instance);
-                    $this->assertInternalType('string', $instance['path']);
+                    $this->assertIsString($instance['path']);
                     break;
             }
         }
@@ -169,7 +169,7 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $result = $this->instance->read();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -185,11 +185,11 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $result = $this->instance->readByID($id);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         $this->assertArrayHasKey(0, $result);
-        $this->assertInternalType('array', $result[0]);
+        $this->assertIsArray($result[0]);
 
         $this->assertSame($id, $result[0]['id']);
         $this->assertSame($title, $result[0]['title']);
@@ -204,7 +204,7 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $result = $this->instance->readByID($id);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -223,7 +223,7 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $result = $this->instance->readByIDs($ids);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount($amount, $result);
     }
 
@@ -240,7 +240,7 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $result = $this->instance->readByIDs($ids);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -256,7 +256,7 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $result = $this->instance->readByTitle($title);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertSame($title, $result[0]['title']);
         $this->assertSame($id, $result[0]['id']);
@@ -270,7 +270,7 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $result = $this->instance->readByTitle($title);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -308,7 +308,7 @@ class MonitoringLivestatusTest extends BaseTest {
 
         $alteredInstance = $this->instance->readByID($id);
 
-        $this->assertInternalType('array', $alteredInstance);
+        $this->assertIsArray($alteredInstance);
         $this->assertCount(1, $alteredInstance);
         $this->assertSame($id, $alteredInstance[0]['id']);
 
@@ -319,10 +319,11 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @expectedException \Exception
      * @throws \Exception on error
      */
     public function testUpdateNonExisting() {
+        $this->expectException(\Exception::class);
+
         // It is unlikely to produce such high IDs but this *could* fail:
         $id = 99999999;
 

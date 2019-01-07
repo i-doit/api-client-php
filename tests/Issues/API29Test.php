@@ -66,7 +66,7 @@ class API29Test extends BaseTest {
         // This is a little overhead, because one role would be enough…
         foreach ($roles as $role) {
             // 1st test: Check whether defined roles are suitable:
-            $this->assertInternalType('array', $role);
+            $this->assertIsArray($role);
 
             $this->assertArrayHasKey('id', $role);
             $this->isIDAsString($role['id']);
@@ -82,7 +82,7 @@ class API29Test extends BaseTest {
 
             $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
 
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertArrayHasKey('id', $result);
             $this->isIDAsString($result['id']);
             $this->assertSame($entryID, (int) $result['id']);
@@ -90,7 +90,7 @@ class API29Test extends BaseTest {
             $this->isIDAsString($result['objID']);
             $this->assertSame($objectID, (int) $result['objID']);
             $this->assertArrayHasKey('contact_object', $result);
-            $this->assertInternalType('array', $result['contact_object']);
+            $this->assertIsArray($result['contact_object']);
             $this->isAssignedObject($result['contact_object']);
             $this->assertSame($personID, (int) $result['contact_object']['id']);
 
@@ -109,7 +109,7 @@ class API29Test extends BaseTest {
 
             $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
 
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertArrayHasKey('id', $result);
             $this->isIDAsString($result['id']);
             $this->assertSame($entryID, (int) $result['id']);
@@ -117,7 +117,7 @@ class API29Test extends BaseTest {
             $this->isIDAsString($result['objID']);
             $this->assertSame($objectID, (int) $result['objID']);
             $this->assertArrayHasKey('contact_object', $result);
-            $this->assertInternalType('array', $result['contact_object']);
+            $this->assertIsArray($result['contact_object']);
             $this->isAssignedObject($result['contact_object']);
             $this->assertSame($personID, (int) $result['contact_object']['id']);
 
@@ -136,7 +136,7 @@ class API29Test extends BaseTest {
 
             $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
 
-            $this->assertInternalType('array', $result);
+            $this->assertIsArray($result);
             $this->assertArrayHasKey('id', $result);
             $this->isIDAsString($result['id']);
             $this->assertSame($entryID, (int) $result['id']);
@@ -144,7 +144,7 @@ class API29Test extends BaseTest {
             $this->isIDAsString($result['objID']);
             $this->assertSame($objectID, (int) $result['objID']);
             $this->assertArrayHasKey('contact_object', $result);
-            $this->assertInternalType('array', $result['contact_object']);
+            $this->assertIsArray($result['contact_object']);
             $this->isAssignedObject($result['contact_object']);
             $this->assertSame($personID, (int) $result['contact_object']['id']);
 

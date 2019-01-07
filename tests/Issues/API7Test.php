@@ -56,7 +56,7 @@ class API7Test extends BaseTest {
 
         // …and verify network port:
         $portA = $this->cmdbCategory->readOneByID($switchAID, $categoryConstant, $portAID);
-        $this->assertInternalType('array', $portA);
+        $this->assertIsArray($portA);
         $this->assertArrayHasKey('id', $portA);
         $this->isIDAsString($portA['id']);
         $this->assertSame($portAID, (int) $portA['id']);
@@ -82,7 +82,7 @@ class API7Test extends BaseTest {
 
         //…and verify network port:
         $portB = $this->cmdbCategory->readOneByID($switchBID, $categoryConstant, $portBID);
-        $this->assertInternalType('array', $portB);
+        $this->assertIsArray($portB);
         $this->assertArrayHasKey('id', $portB);
         $this->isIDAsString($portB['id']);
         $this->assertSame($portBID, (int) $portB['id']);
@@ -103,10 +103,10 @@ class API7Test extends BaseTest {
         // …and verify connection between them on switch A…
         $portsA = $this->cmdbCategory->read($switchAID, $categoryConstant);
 
-        $this->assertInternalType('array', $portA);
+        $this->assertIsArray($portA);
         $this->assertCount(1, $portsA);
         $this->assertArrayHasKey(0, $portsA);
-        $this->assertInternalType('array', $portsA[0]);
+        $this->assertIsArray($portsA[0]);
         $this->assertArrayHasKey('id', $portsA[0]);
         $this->isIDAsString($portsA[0]['id']);
         $this->assertSame($portAID, (int) $portsA[0]['id']);
@@ -119,31 +119,31 @@ class API7Test extends BaseTest {
         $this->isIDAsString($portsA[0]['connector']);
         $this->assertSame($portA['connector'], $portsA[0]['connector']);
         $this->assertArrayHasKey('assigned_connector', $portsA[0]);
-        $this->assertInternalType('array', $portsA[0]['assigned_connector']);
+        $this->assertIsArray($portsA[0]['assigned_connector']);
         $this->assertArrayHasKey(0, $portsA[0]['assigned_connector']);
-        $this->assertInternalType('array', $portsA[0]['assigned_connector'][0]);
+        $this->assertIsArray($portsA[0]['assigned_connector'][0]);
         $this->assertArrayHasKey('name', $portsA[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $portsA[0]['assigned_connector'][0]['name']);
+        $this->assertIsString($portsA[0]['assigned_connector'][0]['name']);
         $this->assertSame($portBTitle, $portsA[0]['assigned_connector'][0]['name']);
         $this->assertArrayHasKey('id', $portsA[0]['assigned_connector'][0]);
         $this->isIDAsString($portsA[0]['assigned_connector'][0]['id']);
         $this->assertSame($switchBID, (int) $portsA[0]['assigned_connector'][0]['id']);
         $this->assertArrayHasKey('title', $portsA[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $portsA[0]['assigned_connector'][0]['title']);
+        $this->assertIsString($portsA[0]['assigned_connector'][0]['title']);
         $this->assertSame($switchBTitle, $portsA[0]['assigned_connector'][0]['title']);
         $this->assertArrayHasKey('type', $portsA[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $portsA[0]['assigned_connector'][0]['type']);
+        $this->assertIsString($portsA[0]['assigned_connector'][0]['type']);
         $this->assertSame($objectType, $portsA[0]['assigned_connector'][0]['type']);
         $this->assertArrayHasKey('assigned_category', $portsA[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $portsA[0]['assigned_connector'][0]['assigned_category']);
+        $this->assertIsString($portsA[0]['assigned_connector'][0]['assigned_category']);
         $this->assertSame($categoryConstant, $portsA[0]['assigned_connector'][0]['assigned_category']);
 
         $connectorsA = $this->cmdbCategory->read($switchAID, 'C__CATG__CONNECTOR');
 
-        $this->assertInternalType('array', $connectorsA);
+        $this->assertIsArray($connectorsA);
         $this->assertCount(1, $connectorsA);
         $this->assertArrayHasKey(0, $connectorsA);
-        $this->assertInternalType('array', $connectorsA[0]);
+        $this->assertIsArray($connectorsA[0]);
         $this->assertArrayHasKey('id', $connectorsA[0]);
         $this->isIDAsString($connectorsA[0]['id']);
         $this->assertSame($portA['connector'], $connectorsA[0]['id']);
@@ -151,36 +151,36 @@ class API7Test extends BaseTest {
         $this->isIDAsString($connectorsA[0]['objID']);
         $this->assertSame($switchAID, (int) $connectorsA[0]['objID']);
         $this->assertArrayHasKey('assigned_category', $connectorsA[0]);
-        $this->assertInternalType('array', $connectorsA[0]['assigned_category']);
+        $this->assertIsArray($connectorsA[0]['assigned_category']);
         $this->assertArrayHasKey('value', $connectorsA[0]['assigned_category']);
         $this->isIDAsString($connectorsA[0]['assigned_category']['value']);
         $this->assertArrayHasKey('assigned_connector', $connectorsA[0]);
-        $this->assertInternalType('array', $connectorsA[0]['assigned_connector']);
+        $this->assertIsArray($connectorsA[0]['assigned_connector']);
         $this->assertArrayHasKey(0, $connectorsA[0]['assigned_connector']);
-        $this->assertInternalType('array', $connectorsA[0]['assigned_connector'][0]);
+        $this->assertIsArray($connectorsA[0]['assigned_connector'][0]);
         $this->assertArrayHasKey('name', $connectorsA[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $connectorsA[0]['assigned_connector'][0]['name']);
+        $this->assertIsString($connectorsA[0]['assigned_connector'][0]['name']);
         $this->assertSame($portBTitle, $connectorsA[0]['assigned_connector'][0]['name']);
         $this->assertArrayHasKey('id', $connectorsA[0]['assigned_connector'][0]);
         $this->isIDAsString($connectorsA[0]['assigned_connector'][0]['id']);
         $this->assertSame($switchBID, (int) $connectorsA[0]['assigned_connector'][0]['id']);
         $this->assertArrayHasKey('title', $connectorsA[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $connectorsA[0]['assigned_connector'][0]['title']);
+        $this->assertIsString($connectorsA[0]['assigned_connector'][0]['title']);
         $this->assertSame($switchBTitle, $connectorsA[0]['assigned_connector'][0]['title']);
         $this->assertArrayHasKey('type', $connectorsA[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $connectorsA[0]['assigned_connector'][0]['type']);
+        $this->assertIsString($connectorsA[0]['assigned_connector'][0]['type']);
         $this->assertSame($objectType, $connectorsA[0]['assigned_connector'][0]['type']);
         $this->assertArrayHasKey('assigned_category', $connectorsA[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $connectorsA[0]['assigned_connector'][0]['assigned_category']);
+        $this->assertIsString($connectorsA[0]['assigned_connector'][0]['assigned_category']);
         $this->assertSame($categoryConstant, $connectorsA[0]['assigned_connector'][0]['assigned_category']);
 
         // …and switch B:
         $portsB = $this->cmdbCategory->read($switchBID, $categoryConstant);
 
-        $this->assertInternalType('array', $portB);
+        $this->assertIsArray($portB);
         $this->assertCount(1, $portsB);
         $this->assertArrayHasKey(0, $portsB);
-        $this->assertInternalType('array', $portsB[0]);
+        $this->assertIsArray($portsB[0]);
         $this->assertArrayHasKey('id', $portsB[0]);
         $this->isIDAsString($portsB[0]['id']);
         $this->assertSame($portBID, (int) $portsB[0]['id']);
@@ -193,31 +193,31 @@ class API7Test extends BaseTest {
         $this->isIDAsString($portsB[0]['connector']);
         $this->assertSame($portB['connector'], $portsB[0]['connector']);
         $this->assertArrayHasKey('assigned_connector', $portsB[0]);
-        $this->assertInternalType('array', $portsB[0]['assigned_connector']);
+        $this->assertIsArray($portsB[0]['assigned_connector']);
         $this->assertArrayHasKey(0, $portsB[0]['assigned_connector']);
-        $this->assertInternalType('array', $portsB[0]['assigned_connector'][0]);
+        $this->assertIsArray($portsB[0]['assigned_connector'][0]);
         $this->assertArrayHasKey('name', $portsB[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $portsB[0]['assigned_connector'][0]['name']);
+        $this->assertIsString($portsB[0]['assigned_connector'][0]['name']);
         $this->assertSame($portATitle, $portsB[0]['assigned_connector'][0]['name']);
         $this->assertArrayHasKey('id', $portsB[0]['assigned_connector'][0]);
         $this->isIDAsString($portsB[0]['assigned_connector'][0]['id']);
         $this->assertSame($switchAID, (int) $portsB[0]['assigned_connector'][0]['id']);
         $this->assertArrayHasKey('title', $portsB[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $portsB[0]['assigned_connector'][0]['title']);
+        $this->assertIsString($portsB[0]['assigned_connector'][0]['title']);
         $this->assertSame($switchATitle, $portsB[0]['assigned_connector'][0]['title']);
         $this->assertArrayHasKey('type', $portsB[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $portsB[0]['assigned_connector'][0]['type']);
+        $this->assertIsString($portsB[0]['assigned_connector'][0]['type']);
         $this->assertSame($objectType, $portsB[0]['assigned_connector'][0]['type']);
         $this->assertArrayHasKey('assigned_category', $portsB[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $portsB[0]['assigned_connector'][0]['assigned_category']);
+        $this->assertIsString($portsB[0]['assigned_connector'][0]['assigned_category']);
         $this->assertSame($categoryConstant, $portsB[0]['assigned_connector'][0]['assigned_category']);
 
         $connectorsB = $this->cmdbCategory->read($switchBID, 'C__CATG__CONNECTOR');
 
-        $this->assertInternalType('array', $connectorsB);
+        $this->assertIsArray($connectorsB);
         $this->assertCount(1, $connectorsB);
         $this->assertArrayHasKey(0, $connectorsB);
-        $this->assertInternalType('array', $connectorsB[0]);
+        $this->assertIsArray($connectorsB[0]);
         $this->assertArrayHasKey('id', $connectorsB[0]);
         $this->isIDAsString($connectorsB[0]['id']);
         $this->assertSame($portB['connector'], $connectorsB[0]['id']);
@@ -225,27 +225,27 @@ class API7Test extends BaseTest {
         $this->isIDAsString($connectorsB[0]['objID']);
         $this->assertSame($switchBID, (int) $connectorsB[0]['objID']);
         $this->assertArrayHasKey('assigned_category', $connectorsB[0]);
-        $this->assertInternalType('array', $connectorsB[0]['assigned_category']);
+        $this->assertIsArray($connectorsB[0]['assigned_category']);
         $this->assertArrayHasKey('value', $connectorsB[0]['assigned_category']);
         $this->isIDAsString($connectorsB[0]['assigned_category']['value']);
         $this->assertArrayHasKey('assigned_connector', $connectorsB[0]);
-        $this->assertInternalType('array', $connectorsB[0]['assigned_connector']);
+        $this->assertIsArray($connectorsB[0]['assigned_connector']);
         $this->assertArrayHasKey(0, $connectorsB[0]['assigned_connector']);
-        $this->assertInternalType('array', $connectorsB[0]['assigned_connector'][0]);
+        $this->assertIsArray($connectorsB[0]['assigned_connector'][0]);
         $this->assertArrayHasKey('name', $connectorsB[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $connectorsB[0]['assigned_connector'][0]['name']);
+        $this->assertIsString($connectorsB[0]['assigned_connector'][0]['name']);
         $this->assertSame($portATitle, $connectorsB[0]['assigned_connector'][0]['name']);
         $this->assertArrayHasKey('id', $connectorsB[0]['assigned_connector'][0]);
         $this->isIDAsString($connectorsB[0]['assigned_connector'][0]['id']);
         $this->assertSame($switchAID, (int) $connectorsB[0]['assigned_connector'][0]['id']);
         $this->assertArrayHasKey('title', $connectorsB[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $connectorsB[0]['assigned_connector'][0]['title']);
+        $this->assertIsString($connectorsB[0]['assigned_connector'][0]['title']);
         $this->assertSame($switchATitle, $connectorsB[0]['assigned_connector'][0]['title']);
         $this->assertArrayHasKey('type', $connectorsB[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $connectorsB[0]['assigned_connector'][0]['type']);
+        $this->assertIsString($connectorsB[0]['assigned_connector'][0]['type']);
         $this->assertSame($objectType, $connectorsB[0]['assigned_connector'][0]['type']);
         $this->assertArrayHasKey('assigned_category', $connectorsB[0]['assigned_connector'][0]);
-        $this->assertInternalType('string', $connectorsB[0]['assigned_connector'][0]['assigned_category']);
+        $this->assertIsString($connectorsB[0]['assigned_connector'][0]['assigned_category']);
         $this->assertSame($categoryConstant, $connectorsB[0]['assigned_connector'][0]['assigned_category']);
     }
 

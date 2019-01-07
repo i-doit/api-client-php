@@ -53,7 +53,7 @@ class CMDBObjectTypesTest extends BaseTest {
     public function testRead() {
         $result = $this->instance->read();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
     }
 
@@ -63,7 +63,7 @@ class CMDBObjectTypesTest extends BaseTest {
     public function testReadOne() {
         $result = $this->instance->readOne('C__OBJTYPE__SERVER');
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
     }
 
@@ -76,7 +76,7 @@ class CMDBObjectTypesTest extends BaseTest {
             'C__OBJTYPE__VIRTUAL_SERVER'
         ]);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
     }
 
@@ -86,7 +86,7 @@ class CMDBObjectTypesTest extends BaseTest {
     public function testReadByTitle() {
         $result = $this->instance->readByTitle('LC__CMDB__OBJTYPE__SERVER');
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
     }
 

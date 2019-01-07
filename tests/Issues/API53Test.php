@@ -38,9 +38,10 @@ class API53Test extends BaseTest {
 
     /**
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testIssue() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -59,7 +60,7 @@ class API53Test extends BaseTest {
             ]
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
 }

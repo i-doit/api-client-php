@@ -68,7 +68,7 @@ class CMDBImpactTest extends BaseTest {
             $relationType
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         foreach ($result as $relation) {
@@ -99,7 +99,7 @@ class CMDBImpactTest extends BaseTest {
             $relationType
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         foreach ($result as $relation) {
@@ -131,7 +131,7 @@ class CMDBImpactTest extends BaseTest {
             $relationTypes
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         // Only user has an impact:
         $this->assertCount(1, $result);
 
@@ -156,10 +156,12 @@ class CMDBImpactTest extends BaseTest {
      * @dataProvider provideInvalidRelationTypeIdentifiers
      * @param int $invalidRelationType
      * @throws \Exception on error
-     * @expectedException \RuntimeException
      */
     public function readByInvalidRelationTypeIdentifier(int $invalidRelationType) {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
+
         $this->instance->readByID(
             $objectID,
             $invalidRelationType
@@ -184,9 +186,10 @@ class CMDBImpactTest extends BaseTest {
      * @dataProvider provideInvalidRelationsTypeConstants
      * @param string $invalidRelationType
      * @throws \Exception on error
-     * @expectedException \RuntimeException
      */
     public function readByInvalidRelationTypeConstants(string $invalidRelationType) {
+        $this->expectException(\RuntimeException::class);
+
         $objectID = $this->createServer();
 
         $this->instance->readByConst(
@@ -214,7 +217,7 @@ class CMDBImpactTest extends BaseTest {
             2
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         foreach ($result as $relation) {
@@ -245,7 +248,7 @@ class CMDBImpactTest extends BaseTest {
             3
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         foreach ($result as $relation) {
@@ -261,7 +264,7 @@ class CMDBImpactTest extends BaseTest {
             2
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -286,7 +289,7 @@ class CMDBImpactTest extends BaseTest {
             4
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
 
         foreach ($result as $relation) {
@@ -302,7 +305,7 @@ class CMDBImpactTest extends BaseTest {
             2
         );
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -324,10 +327,11 @@ class CMDBImpactTest extends BaseTest {
      * @group API-71
      * @dataProvider provideInvalidStatus
      * @param int $status
-     * @expectedException \RuntimeException
      * @throws \Exception on error
      */
     public function testFilterByInvalidStatus(int $status) {
+        $this->expectException(\RuntimeException::class);
+
         $relationType = 'C__RELATION_TYPE__CLUSTER_MEMBERSHIPS';
 
         $hostID = $this->createServer();
@@ -360,33 +364,33 @@ class CMDBImpactTest extends BaseTest {
         $this->isID($relation['id']);
 
         $this->assertArrayHasKey('data', $relation);
-        $this->assertInternalType('array', $relation['data']);
+        $this->assertIsArray($relation['data']);
 
         $this->assertArrayHasKey('relation', $relation['data']);
-        $this->assertInternalType('array', $relation['data']['relation']);
+        $this->assertIsArray($relation['data']['relation']);
 
         $this->assertArrayHasKey('type', $relation['data']['relation']);
-        $this->assertInternalType('string', $relation['data']['relation']['type']);
+        $this->assertIsString($relation['data']['relation']['type']);
         $this->isOneLiner($relation['data']['relation']['type']);
 
         $this->assertArrayHasKey('text', $relation['data']['relation']);
-        $this->assertInternalType('string', $relation['data']['relation']['text']);
+        $this->assertIsString($relation['data']['relation']['text']);
         $this->isOneLiner($relation['data']['relation']['text']);
 
         $this->assertArrayHasKey('color', $relation['data']);
-        $this->assertInternalType('string', $relation['data']['color']);
+        $this->assertIsString($relation['data']['color']);
         $this->isOneLiner($relation['data']['color']);
 
         $this->assertArrayHasKey('statusColor', $relation['data']);
-        $this->assertInternalType('string', $relation['data']['statusColor']);
+        $this->assertIsString($relation['data']['statusColor']);
         $this->isOneLiner($relation['data']['statusColor']);
 
         $this->assertArrayHasKey('objTypeID', $relation['data']);
-        $this->assertInternalType('integer', $relation['data']['objTypeID']);
+        $this->assertIsInt($relation['data']['objTypeID']);
         $this->isID($relation['data']['objTypeID']);
 
         $this->assertArrayHasKey('objectType', $relation['data']);
-        $this->assertInternalType('string', $relation['data']['objectType']);
+        $this->assertIsString($relation['data']['objectType']);
         $this->isOneLiner($relation['data']['objectType']);
 
         $this->assertArrayHasKey('objID', $relation['data']);

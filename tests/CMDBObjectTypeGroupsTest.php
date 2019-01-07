@@ -53,42 +53,42 @@ class CMDBObjectTypeGroupsTest extends BaseTest {
     public function testRead() {
         $result = $this->instance->read();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->read(CMDBObjectTypeGroups::ORDER_BY_CONSTANT);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->read(CMDBObjectTypeGroups::ORDER_BY_ID);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->read(CMDBObjectTypeGroups::ORDER_BY_STATUS);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->read(CMDBObjectTypeGroups::ORDER_BY_TITLE);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->read(null, CMDBObjectTypeGroups::SORT_ASCENDING);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->read(null, CMDBObjectTypeGroups::SORT_DESCENDING);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
         $result = $this->instance->read(null, null, 1);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(1, $result);
     }
 

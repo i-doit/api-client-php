@@ -54,7 +54,7 @@ class API104Test extends BaseTest {
         $result = $this->cmdbCategory->readOneByID($hostID, 'C__CATG__IP', $entryID);
         $this->assertArrayHasKey('zone', $result);
         // Now it's an associative array in PHP/object in JSON:
-        $this->assertInternalType('array', $result['zone']);
+        $this->assertIsArray($result['zone']);
         $this->isAssignedObject($result['zone']);
     }
 

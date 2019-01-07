@@ -54,7 +54,7 @@ class SearchTest extends BaseTest {
     public function testCreateIndex() {
         $result = $this->search->createIndex();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -64,7 +64,7 @@ class SearchTest extends BaseTest {
     public function testUpdateIndex() {
         $result = $this->search->updateIndex();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 
@@ -81,7 +81,7 @@ class SearchTest extends BaseTest {
 
         $result = $this->search->query($title);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->isOutput($result);
     }
 

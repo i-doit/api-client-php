@@ -43,9 +43,9 @@ class API127Test extends BaseTest {
         $entryID = $this->addIPv4($objectID);
 
         $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__IP', $entryID);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertArrayHasKey('ipv4_address', $result);
-        $this->assertInternalType('array', $result['ipv4_address']);
+        $this->assertIsArray($result['ipv4_address']);
         // This failed because of an empty PHP array/JSON object:
         $this->assertArrayHasKey('id', $result['ipv4_address']);
         $this->assertArrayHasKey('type', $result['ipv4_address']);

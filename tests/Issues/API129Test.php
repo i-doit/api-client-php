@@ -40,19 +40,19 @@ class API129Test extends BaseTest {
      */
     public function testIssue() {
         $serverID = $this->cmdbObject->create('C__OBJTYPE__SERVER', 'My little server');
-        $this->assertInternalType('int', $serverID);
+        $this->assertIsInt($serverID);
         $this->assertGreaterThan(0, $serverID);
 
         $rmcID = $this->cmdbObject->create('C__OBJTYPE__RM_CONTROLLER', 'RMC for my little server');
-        $this->assertInternalType('int', $rmcID);
+        $this->assertIsInt($rmcID);
         $this->assertGreaterThan(0, $rmcID);
 
         $entryID = $this->cmdbCategory->create($serverID, 'C__CATG__RM_CONTROLLER', ['connected_object' => $rmcID]);
-        $this->assertInternalType('int', $entryID);
+        $this->assertIsInt($entryID);
         $this->assertGreaterThan(0, $entryID);
 
         $assignedController = $this->cmdbCategory->readOneByID($serverID, 'C__CATG__RM_CONTROLLER', $entryID);
-        $this->assertInternalType('array', $assignedController);
+        $this->assertIsArray($assignedController);
         $this->assertArrayHasKey('id', $assignedController);
         $id = (int) $assignedController['id'];
         $this->assertGreaterThan(0, $id);
@@ -61,20 +61,20 @@ class API129Test extends BaseTest {
         $this->assertGreaterThan(0, $objID);
         $this->assertSame($serverID, $objID);
         $this->assertArrayHasKey('connected_object', $assignedController);
-        $this->assertInternalType('array', $assignedController['connected_object']);
+        $this->assertIsArray($assignedController['connected_object']);
         $this->assertArrayHasKey('id', $assignedController['connected_object']);
         $connectedObject = (int) $assignedController['connected_object']['id'];
         $this->assertGreaterThan(0, $connectedObject);
         $this->assertSame($rmcID, $connectedObject);
 
         $assignedObjects = $this->cmdbCategory->read($rmcID, 'C__CATG__RM_CONTROLLER_BACKWARD');
-        $this->assertInternalType('array', $assignedObjects);
+        $this->assertIsArray($assignedObjects);
         $this->assertCount(1, $assignedObjects);
         $this->assertArrayHasKey(0, $assignedObjects);
-        $this->assertInternalType('array', $assignedObjects[0]);
+        $this->assertIsArray($assignedObjects[0]);
         $this->assertArrayHasKey('connected_object', $assignedObjects[0]);
         // This failed because 'connected_object' is null:
-        $this->assertInternalType('array', $assignedObjects[0]['connected_object']);
+        $this->assertIsArray($assignedObjects[0]['connected_object']);
         $this->assertArrayHasKey('id', $assignedObjects[0]['connected_object']);
         $connectedObject = (int) $assignedObjects[0]['connected_object']['id'];
         $this->assertGreaterThan(0, $connectedObject);

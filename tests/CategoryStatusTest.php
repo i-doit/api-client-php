@@ -33,9 +33,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -68,9 +69,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveAlreadyArchivedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -90,9 +92,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveAlreadyArchivedEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -112,9 +115,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveDeletedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -155,9 +159,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchivePurgedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -177,9 +182,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchivePurgedEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -199,9 +205,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveNonExistingSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -216,9 +223,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveNonExistingEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -233,27 +241,28 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
 //    public function testArchiveEmptySingleValueCategory() {
 //        // @todo Not testable because we need an entry ID!
+//        $this->expectException(\Exception::class);
 //    }
 
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
 //    public function testArchiveUnknownEntryInMultiValueCategory() {
 //        // @todo Not testable because we need an entry ID!
+//        $this->expectException(\Exception::class);
 //    }
 
     /**
      * @group API-94
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testArchiveEntryInUnknownCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -268,9 +277,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -303,9 +313,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteArchivedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -346,9 +357,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteAlreadyDeletedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -368,9 +380,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteAlreadyDeletedEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -390,9 +403,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeletePurgedSingleValue() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -412,9 +426,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeletePurgedEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -434,9 +449,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteNonExistingSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -451,9 +467,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteNonExistingEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -468,27 +485,28 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
 //    public function testDeleteEmptySingleValueCategory() {
 //        // @todo Not testable because we need an entry ID!
+//        $this->expectException(\Exception::class);
 //    }
 
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
 //    public function testDeleteUnknownEntryInMultiValueCategory() {
 //        // @todo Not testable because we need an entry ID!
+//        $this->expectException(\Exception::class);
 //    }
 
     /**
      * @group API-95
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testDeleteEntryInUnknownCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -537,9 +555,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-96
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testPurgeArchivedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -580,9 +599,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-96
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testPurgeDeletedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -623,9 +643,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-96
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testPurgeAlreadyPurgedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -645,9 +666,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-96
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testPurgeAlreadyPurgedEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -667,9 +689,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-96
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testPurgeNonExistingSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -684,9 +707,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-96
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testPurgeNonExistingEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -701,27 +725,28 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-96
      * @throws \Exception on error
-     * @expectedException \Exception
      */
 //    public function testPurgeEmptySingleValueCategory() {
 //        // @todo Not testable because we need an entry ID!
+//        $this->expectException(\Exception::class);
 //    }
 
     /**
      * @group API-96
      * @throws \Exception on error
-     * @expectedException \Exception
      */
 //    public function testPurgeUnknownEntryInMultiValueCategory() {
 //        // @todo Not testable because we need an entry ID!
+//        $this->expectException(\Exception::class);
 //    }
 
     /**
      * @group API-96
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testPurgeEntryInUnknownCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -736,9 +761,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecycleSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -754,9 +780,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecycleEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -772,9 +799,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecycleArchivedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -815,9 +843,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecycleDeletedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -858,9 +887,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecyclePurgedSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -880,9 +910,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecyclePurgedEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -902,9 +933,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecycleNonExistingSingleValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -919,9 +951,10 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecycleNonExistingEntryInMultiValueCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -936,27 +969,28 @@ class CategoryStatusTest extends BaseTest {
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
 //    public function testRecycleEmptySingleValueCategory() {
 //        // @todo Not testable because we need an entry ID!
+//        $this->expectException(\Exception::class);
 //    }
 
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
 //    public function testRecycleUnknownEntryInMultiValueCategory() {
 //        // @todo Not testable because we need an entry ID!
+//        $this->expectException(\Exception::class);
 //    }
 
     /**
      * @group API-97
      * @throws \Exception on error
-     * @expectedException \Exception
      */
     public function testRecycleEntryInUnknownCategory() {
+        $this->expectException(\Exception::class);
+
         $objectID = $this->createServer();
         $this->isID($objectID);
 
@@ -982,7 +1016,7 @@ class CategoryStatusTest extends BaseTest {
             'C__CATG__CONTACT'
         ]);
 
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertSame(3, $result);
     }
 
@@ -997,7 +1031,7 @@ class CategoryStatusTest extends BaseTest {
             'C__CATG__CONTACT'
         ]);
 
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertSame(0, $result);
     }
 
@@ -1111,7 +1145,7 @@ class CategoryStatusTest extends BaseTest {
      */
     protected function isNormal(int $objectID, string $categoryConstant, int $entryID) {
         $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 2);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -1135,7 +1169,7 @@ class CategoryStatusTest extends BaseTest {
      */
     protected function isArchived(int $objectID, string $categoryConstant, int $entryID) {
         $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 3);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -1159,7 +1193,7 @@ class CategoryStatusTest extends BaseTest {
      */
     protected function isDeleted(int $objectID, string $categoryConstant, int $entryID) {
         $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 4);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
         $this->isIDAsString($result['id']);
@@ -1182,7 +1216,7 @@ class CategoryStatusTest extends BaseTest {
     protected function isNotAvailable(int $objectID, string $categoryConstant, int $entryID) {
         $this->expectException(\Exception::class);
         $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
 }

@@ -649,4 +649,10 @@ abstract class BaseTest extends TestCase {
         $this->isIDAsString($entry['objID']);
     }
 
+    protected function isEmail(string $email) {
+        $filter = filter_var($email, FILTER_VALIDATE_EMAIL);
+        $this->assertIsString($filter);
+        $this->assertSame($filter, $email);
+    }
+
 }

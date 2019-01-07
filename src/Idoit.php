@@ -58,6 +58,17 @@ class Idoit extends Request {
     }
 
     /**
+     * Read license information
+     *
+     * @return array Associative array
+     *
+     * @throws \Exception on error
+     */
+    public function getLicense() {
+        return $this->api->request('idoit.license.read');
+    }
+
+    /**
      * Read list of defined constants
      *
      * @return array Associative array

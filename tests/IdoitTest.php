@@ -68,6 +68,7 @@ class IdoitTest extends BaseTest {
 
         $this->assertArrayHasKey('mail', $result['login']);
         $this->assertInternalType('string', $result['login']['mail']);
+        $this->isEmail($result['login']['mail']);
 
         $this->assertArrayHasKey('username', $result['login']);
         $this->assertInternalType('string', $result['login']['username']);
@@ -133,6 +134,81 @@ class IdoitTest extends BaseTest {
             $this->assertArrayHasKey('installed', $addOn);
             $this->assertInternalType('boolean', $addOn['installed']);
         }
+    }
+
+    /**
+     * @group API-101
+     * @throws \Exception on error
+     */
+    public function testReadLicense() {
+        $result = $this->instance->getLicense();
+
+        $this->assertIsArray($result);
+        $this->assertNotCount(0, $result);
+
+        $this->assertArrayHasKey('id', $result);
+        $this->assertIsInt($result['id']);
+        $this->isID($result['id']);
+
+        $this->assertArrayHasKey('organization', $result);
+        $this->assertIsString($result['organization']);
+        $this->isOneLiner($result['organization']);
+
+        $this->assertArrayHasKey('email', $result);
+        $this->assertIsString($result['email']);
+        $this->isEmail($result['email']);
+
+        $this->assertArrayHasKey('registrationDate', $result);
+        $this->assertIsString($result['registrationDate']);
+        $this->isTime($result['registrationDate']);
+
+        $this->assertArrayHasKey('expiryDate', $result);
+        $this->assertIsString($result['expiryDate']);
+        $this->isTime($result['expiryDate']);
+
+        $this->assertArrayHasKey('installationDate', $result);
+        $this->assertIsString($result['installationDate']);
+        $this->isTime($result['installationDate']);
+
+        $registrationDate = strtotime($result['registrationDate']);
+        $installationDate = strtotime($result['installationDate']);
+        $expiryDate = strtotime($result['expiryDate']);
+
+        $this->assertGreaterThan(0, $registrationDate);
+        $this->assertGreaterThanOrEqual($registrationDate, $installationDate);
+        $this->assertGreaterThanOrEqual($installationDate, $expiryDate);
+
+        $this->assertArrayHasKey('type', $result);
+        $this->assertIsString($result['type']);
+        $this->assertSame('Client', $result['type']);
+
+        $this->assertArrayHasKey('objectCapacity', $result);
+        $this->assertIsArray($result['objectCapacity']);
+
+        $this->assertArrayHasKey('total', $result['objectCapacity']);
+        $this->assertIsInt($result['objectCapacity']['total']);
+        $this->assertGreaterThan(0, $result['objectCapacity']['total']);
+
+        $this->assertArrayHasKey('inUse', $result['objectCapacity']);
+        $this->assertIsInt($result['objectCapacity']['inUse']);
+        $this->assertGreaterThanOrEqual(0, $result['objectCapacity']['inUse']);
+
+        $this->assertArrayHasKey('unlimited', $result['objectCapacity']);
+        $this->assertIsBool($result['objectCapacity']['unlimited']);
+
+        $this->assertArrayHasKey('modules', $result);
+        $this->assertIsArray($result['modules']);
+
+        foreach ($result['modules'] as $index => $addOnKey) {
+            $this->assertIsInt($index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertIsString($addOnKey);
+            $this->isOneLiner($addOnKey);
+        }
+
+        $this->assertArrayHasKey('valid', $result);
+        $this->assertIsBool($result['valid']);
     }
 
     /**

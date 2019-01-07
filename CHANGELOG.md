@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ##  [Unreleased]
 
-_tbd_
+
+### Added
+
+-   `Idoit::getLicense()`: Read license information
 
 
 ##  [0.7] – 2018-12-17

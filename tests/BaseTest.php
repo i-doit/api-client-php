@@ -108,8 +108,8 @@ abstract class BaseTest extends TestCase {
         ];
 
         if (getenv('USERNAME') !== false && getenv('PASSWORD') !== false) {
-            $config['username'] = getenv('USERNAME');
-            $config['password'] = getenv('PASSWORD');
+            $config[API::USERNAME] = getenv('USERNAME');
+            $config[API::PASSWORD] = getenv('PASSWORD');
         }
 
         $this->api = new API($config);

@@ -40,6 +40,16 @@ class API {
     const PORT = 'port';
 
     /**
+     * Lowest allowed port number:
+     */
+    const PORT_MIN = 1;
+
+    /**
+     * Highest allowed port number
+     */
+    const PORT_MAX = 65535;
+
+    /**
      * Configuration: API key
      */
     const KEY = 'key';
@@ -782,10 +792,12 @@ class API {
                 $value = $config[$key];
             }
 
-            if (!is_int($value) || $value < 1 || $value > 65535) {
+            if (!is_int($value) || $value < self::PORT_MIN || $value > self::PORT_MAX) {
                 throw new \DomainException(sprintf(
-                    'Configuration setting "%s" is not a valid port number between 1 and 65535.',
-                    $key
+                    'Configuration setting "%s" is not a valid port number between %s and %s.',
+                    $key,
+                    self::PORT_MIN,
+                    self::PORT_MAX
                 ));
             }
         };

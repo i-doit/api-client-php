@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 -   `Idoit::getLicense()`: Read license information
+-   Configuration option `API::BYPASS_SECURE_CONNECTION`: Disable security-related cURL options (boolean)
 
 
 ##  [0.7] – 2018-12-17

@@ -89,34 +89,36 @@ The API client library class requires a configuration:
 use bheisig\idoitapi\API;
 
 $api = new API([
-    'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'port' => 443,
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin',
-    'language' => 'en',
-    'proxy' => [
-        'active' => false,
-        'type' => 'HTTP', // 'HTTP' or 'SOCKS5'
-        'host' => 'proxy.example.net',
-        'port' => 8080,
-        'username' => '',
-        'password' => ''
-    ]
+    API::URL => 'https://demo.i-doit.com/src/jsonrpc.php',
+    API::PORT => 443,
+    API::KEY => 'c1ia5q',
+    API::USERNAME => 'admin',
+    API::PASSWORD => 'admin',
+    API::LANGUAGE => 'en',
+    API::PROXY => [
+        API::PROXY_ACTIVE => false,
+        API::PROXY_TYPE => 'HTTP', // 'HTTP' or 'SOCKS5'
+        API::PROXY_HOST => 'proxy.example.net',
+        API::PROXY_PORT => 8080,
+        API::PROXY_USERNAME => '',
+        API::PROXY_PASSWORD => ''
+    ],
+    API::BYPASS_SECURE_CONNECTION => false
 ]);
 ~~~
 
-*   `url`: URL to i-doit's API, probably the base URL appended by `src/jsonrpc.php`
-*   `port`: optional port on which the Web server listens; if not set port 80 will be used for HTTP and 443 for HTTPS
-*   `key`: API key
-*   `username` and `password`: optional credentials if needed, otherwise `System API` user will be used
-*   `language`: requests to and responses from i-doit will be translated to this language (`de` and `en` supported); this is optional; defaults to user's prefered language
-*   `proxy`: use a proxy between client and server
-    *   `active`: if `true` proxy settings will be used
-    *   `type`: use a HTTP or a SOCKS5 proxy
-    *   `host`: FQDN or IP address to proxy
-    *   `port`: port on which the proxy server listens
-    *   `username` and `password`: optional credentials used to authenticate against the proxy
+*   `API::URL`: URL to i-doit's API, probably the base URL appended by `src/jsonrpc.php`
+*   `API::PORT`: optional port on which the Web server listens; if not set port 80 will be used for HTTP and 443 for HTTPS
+*   `API::KEY`: API key
+*   `API::USERNAME` and `API::PASSWORD`: optional credentials if needed, otherwise `System API` user will be used
+*   `API::LANGUAGE`: requests to and responses from i-doit will be translated to this language (`de` and `en` supported); this is optional; defaults to user's prefered language
+*   `API::PROXY`: use a proxy between client and server
+    *   `API::PROXY_ACTIVE`: if `true` proxy settings will be used
+    *   `API::PROXY_TYPE`: use a HTTP (`API::PROXY_TYPE_HTTP`) or a SOCKS5 (`API::PROXY_TYPE_SOCKS5`) proxy
+    *   `API::PROXY_HOST`: FQDN or IP address to proxy
+    *   `API::PROXY_PORT`: port on which the proxy server listens
+    *   `API::PROXY_USERNAME` and `API::PROXY_PASSWORD`: optional credentials used to authenticate against the proxy
+*   `API::BYPASS_SECURE_CONNECTION`: Set to `true` to disable security-related cURL options; defaults to `false`; do not set this in production! 
 
 
 ##  Examples
@@ -130,10 +132,10 @@ use bheisig\idoitapi\Idoit;
 require_once 'vendor/autoload.php';
 
 $api = new API([
-    'url' => 'https://demo.i-doit.com/src/jsonrpc.php',
-    'key' => 'c1ia5q',
-    'username' => 'admin',
-    'password' => 'admin'
+    API::URL => 'https://demo.i-doit.com/src/jsonrpc.php',
+    API::KEY => 'c1ia5q',
+    API::USERNAME => 'admin',
+    API::PASSWORD => 'admin'
 ]);
 
 $request = new Idoit($api);

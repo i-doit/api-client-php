@@ -85,6 +85,16 @@ class API {
     const PROXY_TYPE = 'type';
 
     /**
+     * HTTP proxy
+     */
+    const PROXY_TYPE_HTTP = 'HTTP';
+
+    /**
+     * SOCKS5 proxy
+     */
+    const PROXY_TYPE_SOCKS5 = 'SOCKS5';
+
+    /**
      * Configuration: Proxy host
      */
     const PROXY_HOST = 'host';
@@ -103,6 +113,11 @@ class API {
      * Configuration: Proxy password
      */
     const PROXY_PASSWORD = 'password';
+
+    /**
+     * Configuration: Disable security-related cURL options
+     */
+    const BYPASS_SECURE_CONNECTION = 'bypassSecureConnection';
 
     /**
      * Configuration
@@ -245,10 +260,6 @@ class API {
             CURLOPT_REDIR_PROTOCOLS => (CURLPROTO_HTTP | CURLPROTO_HTTPS),
             CURLOPT_ENCODING => 'application/json',
             CURLOPT_URL => $this->config[self::URL],
-            CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_SSL_VERIFYHOST => 2,
-            // TLS 1.2:
-            CURLOPT_SSLVERSION => 6,
             // In seconds:
             CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_HTTPHEADER => [
@@ -275,10 +286,10 @@ class API {
             }
 
             switch ($this->config[self::PROXY][self::PROXY_TYPE]) {
-                case 'HTTP':
+                case self::PROXY_TYPE_HTTP:
                     $this->options[CURLOPT_PROXYTYPE] = CURLPROXY_HTTP;
                     break;
-                case 'SOCKS5':
+                case self::PROXY_TYPE_SOCKS5:
                     $this->options[CURLOPT_PROXYTYPE] = CURLPROXY_SOCKS5;
                     break;
                 default:
@@ -287,6 +298,16 @@ class API {
                         $this->config[self::PROXY][self::PROXY_TYPE]
                     ));
             }
+        }
+
+        if ($this->config[self::BYPASS_SECURE_CONNECTION] === true) {
+            $this->options[CURLOPT_SSL_VERIFYPEER] = false;
+            $this->options[CURLOPT_SSL_VERIFYHOST] = 0;
+            $this->options[CURLOPT_SSLVERSION] = CURL_SSLVERSION_DEFAULT;
+        } else {
+            $this->options[CURLOPT_SSL_VERIFYPEER] = true;
+            $this->options[CURLOPT_SSL_VERIFYHOST] = 2;
+            $this->options[CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_2;
         }
     }
 
@@ -921,6 +942,21 @@ class API {
                     throw new \DomainException('There is no proxy username.');
                 }
             }
+        }
+
+        /**
+         * Bypass secure connection
+         */
+
+        if (array_key_exists(self::BYPASS_SECURE_CONNECTION, $this->config)) {
+            if (!is_bool($this->config[self::BYPASS_SECURE_CONNECTION])) {
+                throw new \DomainException(sprintf(
+                    'Set "%s" to true to disable security-related cURL options, otherwise false to enable them',
+                    self::BYPASS_SECURE_CONNECTION
+                ));
+            }
+        } else {
+            $this->config[self::BYPASS_SECURE_CONNECTION] = false;
         }
 
         return true;

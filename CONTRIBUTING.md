@@ -142,6 +142,7 @@ This project comes with some useful composer scripts:
 | `composer phpcs`              | Detect violations of defined coding standards             |
 | `composer phploc`             | Print source code statistics                              |
 | `composer phpmd`              | Detect mess in source code                                |
+| `composer phpmnd`             | Detect magic numbers in source code                       |
 | `composer phpstan`            | Analyze source code                                       |
 | `composer phpunit`            | Perform unit tests                                        |
 | `composer phpunit-unreleased` | Perform unit tests for unreleased features                |

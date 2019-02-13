@@ -68,7 +68,6 @@ class CheckMKStaticTagTest extends BaseTest {
             $this->generateRandomString(),
             $this->generateRandomString(),
             $this->generateRandomString(),
-            false,
             $this->generateDescription()
         );
 
@@ -133,10 +132,9 @@ class CheckMKStaticTagTest extends BaseTest {
         $tag = $this->generateRandomString();
         $title = $this->generateRandomString();
         $group = $this->generateRandomString();
-        $export = false;
         $description = $this->generateDescription();
 
-        $this->instance->create($tag, $title, $group, $export, $description);
+        $this->instance->create($tag, $title, $group, $description);
 
         $tags = $this->instance->read();
 
@@ -160,9 +158,6 @@ class CheckMKStaticTagTest extends BaseTest {
 
             $this->assertArrayHasKey('group', $tag);
             // 'group' is null or array
-
-            $this->assertArrayHasKey('export', $tag);
-            $this->assertIsBool($tag['export']);
 
             // Description is totally optional:
             if (array_key_exists('description', $tag)) {
@@ -192,10 +187,9 @@ class CheckMKStaticTagTest extends BaseTest {
         $tag = $this->generateRandomString();
         $title = $this->generateRandomString();
         $group = $this->generateRandomString();
-        $export = false;
         $description = $this->generateDescription();
 
-        $id = $this->instance->create($tag, $title, $group, $export, $description);
+        $id = $this->instance->create($tag, $title, $group, $description);
 
         $tags = $this->instance->readByID($id);
 
@@ -208,7 +202,6 @@ class CheckMKStaticTagTest extends BaseTest {
         $this->assertSame($id, $tags[0]['id']);
         $this->assertSame($tag, $tags[0]['tag']);
         $this->assertSame($title, $tags[0]['title']);
-        $this->assertSame($export, $tags[0]['export']);
         $this->assertSame($description, $tags[0]['description']);
 
         $this->assertIsArray($tags[0]['group']);
@@ -315,23 +308,20 @@ class CheckMKStaticTagTest extends BaseTest {
             'tag' => $this->generateRandomString(),
             'title' => $this->generateRandomString(),
             'group' => $this->generateRandomString(),
-            'export' => false,
             'description' => $this->generateDescription()
         ];
 
         $id = $this->instance->create(
-            (string) $orig['tag'],
-            (string) $orig['title'],
-            (string) $orig['group'],
-            (bool) $orig['export'],
-            (string) $orig['description']
+            $orig['tag'],
+            $orig['title'],
+            $orig['group'],
+            $orig['description']
         );
 
         $altered = [
             'tag' => $this->generateRandomString(),
             'title' => $this->generateRandomString(),
             'group' => $this->generateRandomString(),
-            'export' => true,
             'description' => $this->generateRandomString()
         ];
 
@@ -366,7 +356,6 @@ class CheckMKStaticTagTest extends BaseTest {
             'tag' => $this->generateRandomString(),
             'title' => $this->generateRandomString(),
             'group' => $this->generateRandomString(),
-            'export' => false,
             'description' => $this->generateDescription()
         ];
 

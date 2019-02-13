@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -   Configuration option `API::BYPASS_SECURE_CONNECTION`: Disable security-related cURL options (boolean)
 
 
+### Changed
+
+-   `CheckMKStaticTag`: Remove parameter `export` from static tags (not available any more in add-on "Check_MK 2")
+
+
 ##  [0.7] – 2018-12-17
 
 This release comes with new features and tons of unit tests. To get the full experience, please update your i-doit to version >= 1.11.2 and API add-on to version >= 1.10.

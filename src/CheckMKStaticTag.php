@@ -35,19 +35,17 @@ class CheckMKStaticTag extends Request {
      * @param string $tag Tag
      * @param string $title Name
      * @param string $group Optional associated host group
-     * @param bool $export Let it be exportable; defaults to true
      * @param string $description Optional description
      *
      * @return int Identifier
      *
      * @throws \Exception on error
      */
-    public function create($tag, $title, $group = null, $export = true, $description = null) {
+    public function create($tag, $title, $group = null, $description = null) {
         $params = [
             'data' => [
                 'tag' => $tag,
-                'title' => $title,
-                'export' => $export
+                'title' => $title
             ]
         ];
 
@@ -83,7 +81,7 @@ class CheckMKStaticTag extends Request {
      *
      * @param array $tags List of tags;
      * required attributes per tag: "tag", "title";
-     * optional attributes per tag: "group", "export", "description"
+     * optional attributes per tag: "group", "description"
      *
      * @return array List of identifiers as integers
      *
@@ -205,7 +203,7 @@ class CheckMKStaticTag extends Request {
      *
      * @param int $id Identifier
      * @param array $tag Tag attributes which can be altered:
-     * "tag", "title", "group", "export", "description"
+     * "tag", "title", "group", "description"
      *
      * @return self Returns itself
      *

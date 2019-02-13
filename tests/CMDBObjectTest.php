@@ -27,6 +27,8 @@ declare(strict_types=1);
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBObject;
+use bheisig\idoitapi\CMDBObjectTypes;
+use bheisig\idoitapi\CMDBCategoryInfo;
 
 /**
  * @coversDefaultClass \bheisig\idoitapi\CMDBObject
@@ -45,6 +47,23 @@ class CMDBObjectTest extends BaseTest {
 
         $this->assertIsInt($objectID);
         $this->isID($objectID);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testCreateObjectForEveryType() {
+        $objectTypeConstants = array_map(
+            function($type) {
+                return $type['const'];
+            },
+            (new CMDBObjectTypes($this->api))->read()
+        );
+
+        foreach ($objectTypeConstants as $objectTypeConstant) {
+            $objectID = $this->cmdbObject->create($objectTypeConstant, $this->generateRandomString());
+            $this->isID($objectID);
+        }
     }
 
     /**
@@ -166,6 +185,13 @@ class CMDBObjectTest extends BaseTest {
         $this->isObject($result);
     }
 
+    /**
+     * Validate common information about an object
+     *
+     * Note: There are differences between an object read by cmdb.object.read and read by cmdb.objects.read :-(
+     *
+     * @param array $object Common information about an object
+     */
     protected function isObject(array $object) {
         $requiredKeys = [
             'id',
@@ -252,6 +278,68 @@ class CMDBObjectTest extends BaseTest {
 
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
+    }
+
+    /**
+     * @group new
+     * @throws \Exception on error
+     */
+    public function testReadAll() {
+        $objectIDs = array_map(
+            function ($object) {
+                return $object['id'];
+            },
+            $this->cmdbObjects->read()
+        );
+
+        $categoryInfo = new CMDBCategoryInfo($this->api);
+        $blacklistedCategoryConstants = $categoryInfo->getVirtualCategoryConstants();
+
+        foreach ($objectIDs as $objectID) {
+            $result = $this->cmdbObject->readAll($objectID);
+
+            $this->assertIsArray($result);
+            $this->isObject($result[0]);
+            $this->assertSame($objectID, $result['id']);
+
+            if (!array_key_exists('categories', $result)) {
+                continue;
+            }
+
+            $this->assertIsArray($result['categories']);
+
+            foreach ($result['categories'] as $categoryConstant => $entries) {
+                $this->assertIsString($categoryConstant);
+                $this->isConstant($categoryConstant);
+
+                $this->assertNotContains($categoryConstant, $blacklistedCategoryConstants);
+
+                $this->assertIsArray($entries);
+
+                foreach ($entries as $index => $entry) {
+                    $this->assertIsInt($index);
+                    $this->assertGreaterThanOrEqual(0, $index);
+
+                    $this->assertIsArray($entry);
+                    $this->isCategoryEntry($entry);
+
+                    if ($categoryConstant === 'C__CATG__RELATION') {
+                        continue;
+                    }
+
+                    $this->assertSame($objectID, (int) $entry['objID']);
+                }
+            }
+        }
+    }
+
+    /**
+     * @group new
+     * @throws \Exception on error
+     */
+    public function testReadAllFromNonExistingObject() {
+        $this->expectException(\RuntimeException::class);
+        $this->cmdbObject->readAll($this->generateRandomID());
     }
 
     /**

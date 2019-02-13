@@ -278,6 +278,8 @@ class CMDBObject extends Request {
      * @return array Multi-dimensional array
      *
      * @throws \Exception on error
+     *
+     * @deprecated This method is pretty slow. Use readAll() instead!
      */
     public function load($objectID) {
         $object = $this->read($objectID);
@@ -350,6 +352,35 @@ class CMDBObject extends Request {
         }
 
         return $object;
+    }
+
+    /**
+     * Read all information about object including category entries
+     *
+     * @param int $objectID Object identifier
+     *
+     * @return array Multi-dimensional array
+     *
+     * @throws \Exception on error
+     */
+    public function readAll($objectID) {
+        $objects = (new CMDBObjects($this->api))
+            ->read(['ids' => [$objectID]], null, null, null, null, true);
+
+        switch (count($objects)) {
+            case 0:
+                throw new \RuntimeException(sprintf(
+                    'Object not found by identifier %s',
+                    $objectID
+                ));
+            case 1:
+                return end($objects);
+            default:
+                throw new \RuntimeException(sprintf(
+                    'Found multiple objects by identifier %s',
+                    $objectID
+                ));
+        }
     }
 
     /**

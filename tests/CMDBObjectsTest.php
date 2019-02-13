@@ -81,61 +81,8 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertNotCount(0, $objects);
 
         foreach ($objects as $object) {
-            $this->validateObject($object);
+            $this->isObject($object);
         }
-    }
-
-    /**
-     * Validate common information about an object
-     *
-     * @param array $object Common information about an object
-     */
-    protected function validateObject(array $object) {
-        $this->assertArrayHasKey('id', $object);
-        $this->isID($object['id']);
-
-        $this->assertArrayHasKey('title', $object);
-        $this->assertIsString($object['title']);
-        $this->assertNotEmpty($object['title']);
-
-        $this->assertArrayHasKey('sysid', $object);
-        $this->assertIsString($object['sysid']);
-        $this->assertNotEmpty($object['sysid']);
-
-        $this->assertArrayHasKey('type', $object);
-        $this->isID($object['type']);
-
-        $this->assertArrayHasKey('created', $object);
-        $this->assertIsString($object['created']);
-        $this->isTime($object['created']);
-
-        if (array_key_exists('updated', $object)) {
-            $this->assertIsString($object['updated']);
-            $this->isTime($object['updated']);
-        }
-
-        $this->assertArrayHasKey('type_title', $object);
-        $this->assertIsString($object['type_title']);
-        $this->assertNotEmpty($object['type_title']);
-
-        $this->assertArrayHasKey('type_group_title', $object);
-        $this->assertIsString($object['type_group_title']);
-        $this->assertNotEmpty($object['type_group_title']);
-
-        $this->assertArrayHasKey('status', $object);
-        $this->isID($object['status']);
-        $this->assertContains($object['status'], $this->conditions);
-
-        $this->assertArrayHasKey('cmdb_status', $object);
-        $this->isID($object['cmdb_status']);
-
-        $this->assertArrayHasKey('cmdb_status_title', $object);
-        $this->assertIsString($object['cmdb_status_title']);
-        $this->assertNotEmpty($object['cmdb_status_title']);
-
-        $this->assertArrayHasKey('image', $object);
-        $this->assertIsString($object['image']);
-        $this->assertNotEmpty($object['image']);
     }
 
     /**
@@ -148,7 +95,7 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertCount(10, $objects);
 
         foreach ($objects as $object) {
-            $this->validateObject($object);
+            $this->isObject($object);
         }
     }
 
@@ -170,7 +117,7 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertCount(3, $objects);
 
         foreach ($objects as $object) {
-            $this->validateObject($object);
+            $this->isObject($object);
         }
     }
 
@@ -184,7 +131,7 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertNotCount(0, $objects);
 
         foreach ($objects as $object) {
-            $this->validateObject($object);
+            $this->isObject($object);
         }
     }
 
@@ -201,7 +148,7 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertIsArray($objects);
 
         foreach ($objects as $object) {
-            $this->validateObject($object);
+            $this->isObject($object);
         }
     }
 
@@ -218,7 +165,7 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertIsArray($objects);
 
         foreach ($objects as $object) {
-            $this->validateObject($object);
+            $this->isObject($object);
         }
     }
 
@@ -246,7 +193,7 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertCount(1, $result);
         $this->assertArrayHasKey(0, $result);
         $this->assertIsArray($result[0]);
-        $this->validateObject($result[0]);
+        $this->isObject($result[0]);
         $this->assertSame($objectID, $result[0]['id']);
 
         $this->assertArrayHasKey('categories', $result[0]);
@@ -289,7 +236,7 @@ class CMDBObjectsTest extends BaseTest {
         $this->assertCount(1, $result);
         $this->assertArrayHasKey(0, $result);
         $this->assertIsArray($result[0]);
-        $this->validateObject($result[0]);
+        $this->isObject($result[0]);
         $this->assertSame($objectID, $result[0]['id']);
 
         $this->assertArrayHasKey('categories', $result[0]);

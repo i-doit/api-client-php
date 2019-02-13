@@ -13,11 +13,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 -   `Idoit::getLicense()`: Read license information
 -   Configuration option `API::BYPASS_SECURE_CONNECTION`: Disable security-related cURL options (boolean)
+-   `CMDBObject::readAll()`: Read all information about object including category entries
 
 
 ### Changed
 
 -   `CheckMKStaticTag`: Remove parameter `export` from static tags (not available any more in add-on "Check_MK 2")
+-   `CMDBObject::load()` is deprecated, because it is pretty slow. Use `CMDBObject::readAll()` instead!
 
 
 ##  [0.7] – 2018-12-17

@@ -430,6 +430,59 @@ abstract class BaseTest extends TestCase {
         return date('Y-m-d');
     }
 
+    /**
+     * Validate common information about an object
+     *
+     * @param array $object Common information about an object
+     */
+    protected function isObject(array $object) {
+        $this->assertArrayHasKey('id', $object);
+        $this->isID($object['id']);
+
+        $this->assertArrayHasKey('title', $object);
+        $this->assertIsString($object['title']);
+        $this->assertNotEmpty($object['title']);
+
+        $this->assertArrayHasKey('sysid', $object);
+        $this->assertIsString($object['sysid']);
+        $this->assertNotEmpty($object['sysid']);
+
+        $this->assertArrayHasKey('type', $object);
+        $this->isID($object['type']);
+
+        $this->assertArrayHasKey('created', $object);
+        $this->assertIsString($object['created']);
+        $this->isTime($object['created']);
+
+        if (array_key_exists('updated', $object)) {
+            $this->assertIsString($object['updated']);
+            $this->isTime($object['updated']);
+        }
+
+        $this->assertArrayHasKey('type_title', $object);
+        $this->assertIsString($object['type_title']);
+        $this->assertNotEmpty($object['type_title']);
+
+        $this->assertArrayHasKey('type_group_title', $object);
+        $this->assertIsString($object['type_group_title']);
+        $this->assertNotEmpty($object['type_group_title']);
+
+        $this->assertArrayHasKey('status', $object);
+        $this->isID($object['status']);
+        $this->assertContains($object['status'], $this->conditions);
+
+        $this->assertArrayHasKey('cmdb_status', $object);
+        $this->isID($object['cmdb_status']);
+
+        $this->assertArrayHasKey('cmdb_status_title', $object);
+        $this->assertIsString($object['cmdb_status_title']);
+        $this->assertNotEmpty($object['cmdb_status_title']);
+
+        $this->assertArrayHasKey('image', $object);
+        $this->assertIsString($object['image']);
+        $this->assertNotEmpty($object['image']);
+    }
+
     protected function isAssignedObject(array $object) {
         $this->assertArrayHasKey('id', $object);
         $this->isIDAsString($object['id']);

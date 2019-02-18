@@ -1,6 +1,6 @@
 {
     "name": "bheisig/idoitapi",
-    "version": "0.7",
+    "version": "0.8-dev",
     "description": "Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API",
     "type": "library",
     "keywords": ["i-doit", "cmdb", "it documentation", "api", "json-rpc"],
@@ -76,7 +76,6 @@
         "paratest": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./tests/phpunit.xml ./tests/",
         "phpcpd": "./vendor/bin/phpcpd src/",
         "phpcs": "./vendor/bin/phpcs --extensions=php --standard=PSR1,PSR2 --exclude=PSR2.Classes.ClassDeclaration,Squiz.Functions.MultiLineFunctionDeclaration src/ tests/",
-        "phpdox": "phpdox",
         "phploc": "./vendor/bin/phploc --exclude=vendor --exclude=docs --exclude=build .",
         "phpmd": "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
         "phpmnd": "./vendor/bin/phpmnd src/ --non-zero-exit-on-violation",
@@ -104,7 +103,6 @@
         "paratest": "Perform unit tests in parallel",
         "phpcpd": "Detect copy/paste in source code",
         "phpcs": "Detect violations of defined coding standards",
-        "phpdox": "Create source code documentation",
         "phploc": "Print source code statistics",
         "phpstan": "Analyze source code",
         "phpmnd": "Detect magic numbers in source code",

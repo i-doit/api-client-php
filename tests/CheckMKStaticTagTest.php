@@ -52,7 +52,6 @@ class CheckMKStaticTagTest extends BaseTest {
      */
     public function testCreateMinimal() {
         $id = $this->instance->create(
-            $this->generateRandomString(),
             $this->generateRandomString()
         );
 
@@ -79,15 +78,15 @@ class CheckMKStaticTagTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testCreateDublicate() {
-        $tag = $this->generateRandomString();
         $title = $this->generateRandomString();
+        $tag = $this->generateRandomString();
 
         $ids = [];
 
         for ($i = 0; $i < 2; $i++) {
             $id = $this->instance->create(
-                $tag,
-                $title
+                $title,
+                $tag
             );
 
             $this->assertIsInt($id);
@@ -101,15 +100,42 @@ class CheckMKStaticTagTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
-    public function testBatchCreate() {
+    public function testSimpleBatchCreate() {
         $tags = [];
 
         $amount = 3;
 
         for ($i = 0; $i < $amount; $i++) {
             $tags[] = [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
+            ];
+        }
+
+        $ids = $this->instance->batchCreate($tags);
+
+        $this->assertIsArray($ids);
+        $this->assertCount($amount, $ids);
+
+        foreach ($ids as $id) {
+            $this->assertIsInt($id);
+            $this->assertGreaterThan(0, $id);
+        }
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testExtendedBatchCreate() {
+        $tags = [];
+
+        $amount = 3;
+
+        for ($i = 0; $i < $amount; $i++) {
+            $tags[] = [
+                'title' => $this->generateRandomString(),
+                'tag' => $this->generateRandomString(),
+                'group' => $this->generateRandomString(),
+                'description' => $this->generateRandomString()
             ];
         }
 
@@ -129,12 +155,12 @@ class CheckMKStaticTagTest extends BaseTest {
      */
     public function testReadExisting() {
         // We need at least 1 host tag:
-        $tag = $this->generateRandomString();
         $title = $this->generateRandomString();
+        $tag = $this->generateRandomString();
         $group = $this->generateRandomString();
         $description = $this->generateDescription();
 
-        $this->instance->create($tag, $title, $group, $description);
+        $this->instance->create($title, $tag, $group, $description);
 
         $tags = $this->instance->read();
 
@@ -143,26 +169,7 @@ class CheckMKStaticTagTest extends BaseTest {
 
         foreach ($tags as $tag) {
             $this->assertIsArray($tag);
-
-            $this->assertArrayHasKey('id', $tag);
-            $this->assertIsInt($tag['id']);
-            $this->assertGreaterThan(0, $tag['id']);
-
-            $this->assertArrayHasKey('tag', $tag);
-            $this->assertIsString($tag['tag']);
-            $this->assertNotEmpty($tag['tag']);
-
-            $this->assertArrayHasKey('title', $tag);
-            $this->assertIsString($tag['title']);
-            $this->assertNotEmpty($tag['title']);
-
-            $this->assertArrayHasKey('group', $tag);
-            // 'group' is null or array
-
-            // Description is totally optional:
-            if (array_key_exists('description', $tag)) {
-                $this->assertIsString($tag['description']);
-            }
+            $this->isStaticTag($tag);
         }
     }
 
@@ -184,12 +191,12 @@ class CheckMKStaticTagTest extends BaseTest {
      */
     public function testReadByExistingIdentifier() {
         // We need at least 1 host tag:
-        $tag = $this->generateRandomString();
         $title = $this->generateRandomString();
+        $tag = $this->generateRandomString();
         $group = $this->generateRandomString();
         $description = $this->generateDescription();
 
-        $id = $this->instance->create($tag, $title, $group, $description);
+        $id = $this->instance->create($title, $tag, $group, $description);
 
         $tags = $this->instance->readByID($id);
 
@@ -200,8 +207,8 @@ class CheckMKStaticTagTest extends BaseTest {
         $this->assertIsArray($tags[0]);
 
         $this->assertSame($id, $tags[0]['id']);
-        $this->assertSame($tag, $tags[0]['tag']);
         $this->assertSame($title, $tags[0]['title']);
+        $this->assertSame($tag, $tags[0]['tag']);
         $this->assertSame($description, $tags[0]['description']);
 
         $this->assertIsArray($tags[0]['group']);
@@ -239,7 +246,6 @@ class CheckMKStaticTagTest extends BaseTest {
 
         for ($i = 0; $i < $amount; $i++) {
             $tags[] = [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ];
         }
@@ -305,22 +311,22 @@ class CheckMKStaticTagTest extends BaseTest {
      */
     public function testUpdateExisting() {
         $orig = [
-            'tag' => $this->generateRandomString(),
             'title' => $this->generateRandomString(),
+            'tag' => $this->generateRandomString(),
             'group' => $this->generateRandomString(),
             'description' => $this->generateDescription()
         ];
 
         $id = $this->instance->create(
-            $orig['tag'],
             $orig['title'],
+            $orig['tag'],
             $orig['group'],
             $orig['description']
         );
 
         $altered = [
-            'tag' => $this->generateRandomString(),
             'title' => $this->generateRandomString(),
+            'tag' => $this->generateRandomString(),
             'group' => $this->generateRandomString(),
             'description' => $this->generateRandomString()
         ];
@@ -353,8 +359,8 @@ class CheckMKStaticTagTest extends BaseTest {
         $id = 99999999;
 
         $tag = [
-            'tag' => $this->generateRandomString(),
             'title' => $this->generateRandomString(),
+            'tag' => $this->generateRandomString(),
             'group' => $this->generateRandomString(),
             'description' => $this->generateDescription()
         ];
@@ -368,7 +374,6 @@ class CheckMKStaticTagTest extends BaseTest {
      */
     public function testDeleteExisting() {
         $id = $this->instance->create(
-            $this->generateRandomString(),
             $this->generateRandomString()
         );
 
@@ -382,7 +387,6 @@ class CheckMKStaticTagTest extends BaseTest {
      */
     public function testDeleteDeletedOne() {
         $id = $this->instance->create(
-            $this->generateRandomString(),
             $this->generateRandomString()
         );
 
@@ -414,15 +418,12 @@ class CheckMKStaticTagTest extends BaseTest {
     public function testBatchDeleteExisting() {
         $ids = $this->instance->batchCreate([
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ],
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ],
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ]
         ]);
@@ -438,15 +439,12 @@ class CheckMKStaticTagTest extends BaseTest {
     public function testBatchDeleteDeletedOnes() {
         $ids = $this->instance->batchCreate([
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ],
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ],
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ]
         ]);
@@ -481,15 +479,12 @@ class CheckMKStaticTagTest extends BaseTest {
     public function testDeleteAllExisting() {
         $this->instance->batchCreate([
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ],
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ],
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ]
         ]);
@@ -505,15 +500,12 @@ class CheckMKStaticTagTest extends BaseTest {
     public function testDeleteAllNonExisting() {
         $this->instance->batchCreate([
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ],
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ],
             [
-                'tag' => $this->generateRandomString(),
                 'title' => $this->generateRandomString()
             ]
         ]);
@@ -522,6 +514,29 @@ class CheckMKStaticTagTest extends BaseTest {
         $result = $this->instance->deleteAll();
 
         $this->assertInstanceOf(CheckMKStaticTag::class, $result);
+    }
+
+    protected function isStaticTag(array $tag) {
+        $this->assertArrayHasKey('id', $tag);
+        $this->assertIsInt($tag['id']);
+        $this->assertGreaterThan(0, $tag['id']);
+
+        $this->assertArrayHasKey('title', $tag);
+        $this->assertIsString($tag['title']);
+        $this->assertNotEmpty($tag['title']);
+
+        if (array_key_exists('tag', $tag)) {
+            $this->assertIsString($tag['tag']);
+            $this->assertNotEmpty($tag['tag']);
+        }
+
+        $this->assertArrayHasKey('group', $tag);
+        // 'group' is null or array
+
+        // Description is totally optional:
+        if (array_key_exists('description', $tag)) {
+            $this->assertIsString($tag['description']);
+        }
     }
 
 }

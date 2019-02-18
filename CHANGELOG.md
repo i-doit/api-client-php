@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+-   `CheckMKStaticTag::create()`, `CheckMKStaticTag::batchCreate()`: Do not require parameter `tag` anymore
 -   `CheckMKStaticTag`: Remove parameter `export` from static tags (not available any more in add-on "Check_MK 2")
 -   `CMDBObject::load()` is deprecated, because it is pretty slow. Use `CMDBObject::readAll()` instead!
 

@@ -32,7 +32,7 @@ class CheckMKStaticTag extends Request {
     /**
      * Create a new static host tag
      *
-     * @param string $tag Tag
+     * @param string $tag Tag ID
      * @param string $title Name
      * @param string $group Optional associated host group
      * @param string $description Optional description
@@ -41,13 +41,16 @@ class CheckMKStaticTag extends Request {
      *
      * @throws \Exception on error
      */
-    public function create($tag, $title, $group = null, $description = null) {
+    public function create($title, $tag = null, $group = null, $description = null) {
         $params = [
             'data' => [
-                'tag' => $tag,
                 'title' => $title
             ]
         ];
+
+        if (isset($tag)) {
+            $params['data']['tag'] = $tag;
+        }
 
         if (isset($group)) {
             $params['data']['group'] = $group;
@@ -80,8 +83,8 @@ class CheckMKStaticTag extends Request {
      * Create one or more static host tags
      *
      * @param array $tags List of tags;
-     * required attributes per tag: "tag", "title";
-     * optional attributes per tag: "group", "description"
+     * required attributes per tag: "title";
+     * optional attributes per tag: "tag" (tag ID), "group", "description"
      *
      * @return array List of identifiers as integers
      *
@@ -90,7 +93,7 @@ class CheckMKStaticTag extends Request {
     public function batchCreate(array $tags) {
         $requests = [];
 
-        $required = ['tag', 'title'];
+        $required = ['title'];
 
         foreach ($tags as $data) {
             foreach ($required as $attribute) {

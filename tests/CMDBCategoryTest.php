@@ -718,6 +718,170 @@ class CMDBCategoryTest extends BaseTest {
     /**
      * @throws \Exception on error
      */
+    public function testReadNormalEntryInMultiValueCategoryWithMixedStates() {
+        // Create data:
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $numberOfEntries = 3;
+        $entryIDs = [];
+
+        for ($index = 0; $index < $numberOfEntries; $index++) {
+            $entryIDs[] = $entryID = $this->addIPv4($objectID);
+            $this->isID($entryID);
+        }
+
+        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
+        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
+
+        // Run tests:
+        $result = $this->cmdbCategory->read($objectID, 'C__CATG__IP', 2);
+
+        $this->assertIsArray($result);
+        $this->assertCount(1, $result);
+
+        foreach ($result as $index => $entry) {
+            $this->assertIsInt($index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertIsArray($entry);
+
+            $this->assertArrayHasKey('id', $entry);
+            $this->isIDAsString($entry['id']);
+            $this->assertSame($entryIDs[0], (int) $entry['id']);
+
+            $this->assertArrayHasKey('objID', $entry);
+            $this->isIDAsString($entry['objID']);
+            $this->assertSame($objectID, (int) $entry['objID']);
+        }
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testReadArchivedEntryInMultiValueCategoryWithMixedStates() {
+        // Create data:
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $numberOfEntries = 3;
+        $entryIDs = [];
+
+        for ($index = 0; $index < $numberOfEntries; $index++) {
+            $entryIDs[] = $entryID = $this->addIPv4($objectID);
+            $this->isID($entryID);
+        }
+
+        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
+        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
+
+        // Run tests:
+        $result = $this->cmdbCategory->read($objectID, 'C__CATG__IP', 3);
+
+        $this->assertIsArray($result);
+        $this->assertCount(1, $result);
+
+        foreach ($result as $index => $entry) {
+            $this->assertIsInt($index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertIsArray($entry);
+
+            $this->assertArrayHasKey('id', $entry);
+            $this->isIDAsString($entry['id']);
+            $this->assertSame($entryIDs[1], (int) $entry['id']);
+
+            $this->assertArrayHasKey('objID', $entry);
+            $this->isIDAsString($entry['objID']);
+            $this->assertSame($objectID, (int) $entry['objID']);
+        }
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testReadDeletedEntryInMultiValueCategoryWithMixedStates() {
+        // Create data:
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $numberOfEntries = 3;
+        $entryIDs = [];
+
+        for ($index = 0; $index < $numberOfEntries; $index++) {
+            $entryIDs[] = $entryID = $this->addIPv4($objectID);
+            $this->isID($entryID);
+        }
+
+        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
+        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
+
+        // Run tests:
+        $result = $this->cmdbCategory->read($objectID, 'C__CATG__IP', 4);
+
+        $this->assertIsArray($result);
+        $this->assertCount(1, $result);
+
+        foreach ($result as $index => $entry) {
+            $this->assertIsInt($index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertIsArray($entry);
+
+            $this->assertArrayHasKey('id', $entry);
+            $this->isIDAsString($entry['id']);
+            $this->assertSame($entryIDs[2], (int) $entry['id']);
+
+            $this->assertArrayHasKey('objID', $entry);
+            $this->isIDAsString($entry['objID']);
+            $this->assertSame($objectID, (int) $entry['objID']);
+        }
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testReadNormalEntriesInMultiValueCategoryWithMixedStates() {
+        // Create data:
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $numberOfEntries = 3;
+        $entryIDs = [];
+
+        for ($index = 0; $index < $numberOfEntries; $index++) {
+            $entryIDs[] = $entryID = $this->addIPv4($objectID);
+            $this->isID($entryID);
+        }
+
+        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
+        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
+
+        // Run tests:
+        $result = $this->cmdbCategory->read($objectID, 'C__CATG__IP');
+
+        $this->assertIsArray($result);
+        $this->assertCount(1, $result);
+
+        foreach ($result as $index => $entry) {
+            $this->assertIsInt($index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertIsArray($entry);
+
+            $this->assertArrayHasKey('id', $entry);
+            $this->isIDAsString($entry['id']);
+            $this->assertSame($entryIDs[0], (int) $entry['id']);
+
+            $this->assertArrayHasKey('objID', $entry);
+            $this->isIDAsString($entry['objID']);
+            $this->assertSame($objectID, (int) $entry['objID']);
+        }
+    }
+
+    /**
+     * @throws \Exception on error
+     */
     public function testReadOneSingleValueCategoryByItsIdentifier() {
         $objectID = $this->createServer();
         $this->isID($objectID);

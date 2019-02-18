@@ -429,12 +429,19 @@ class CMDBCategory extends Request {
      *
      * @param array $objectIDs List of object identifiers as integers
      * @param array $categoryConsts List of category constants as strings
+     * @param int $status Filter entries by status:
+     * 2 = normal;
+     * 3 = archived;
+     * 4 = deleted,
+     * -1 = combination of all;
+     * defaults to: 2 = normal;
+     * note: a status != 2 is only suitable for multi-value categories
      *
      * @return array Indexed array of result sets (for both single- and multi-valued categories)
      *
      * @throws \Exception on error
      */
-    public function batchRead(array $objectIDs, array $categoryConsts) {
+    public function batchRead(array $objectIDs, array $categoryConsts, $status = 2) {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {
@@ -443,7 +450,8 @@ class CMDBCategory extends Request {
                     'method' => 'cmdb.category.read',
                     'params' => [
                         'objID' => $objectID,
-                        'category' => $categoryConst
+                        'category' => $categoryConst,
+                        'status' => $status
                     ]
                 ];
             }

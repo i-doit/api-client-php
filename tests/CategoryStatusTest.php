@@ -1006,11 +1006,13 @@ class CategoryStatusTest extends BaseTest {
      * @throws \Exception on error
      */
     public function testClear() {
+        // Create data:
         $objectID = $this->createServer();
         $this->addIPv4($objectID);
         $this->addIPv4($objectID);
         $this->addContact($objectID, 9, 1);
 
+        // Run tests:
         $result = $this->cmdbCategory->clear($objectID, [
             'C__CATG__IP',
             'C__CATG__CONTACT'
@@ -1018,6 +1020,49 @@ class CategoryStatusTest extends BaseTest {
 
         $this->assertIsInt($result);
         $this->assertSame(3, $result);
+
+        // Check:
+        $entries = $this->cmdbCategory->read($objectID, 'C__CATG__IP', 2);
+
+        $this->assertIsArray($entries);
+        $this->assertCount(0, $entries);
+
+        $entries = $this->cmdbCategory->read($objectID, 'C__CATG__CONTACT', 2);
+
+        $this->assertIsArray($entries);
+        $this->assertCount(0, $entries);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testClearWithMixedStates() {
+        // Create data:
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $numberOfEntries = 3;
+        $entryIDs = [];
+
+        for ($index = 0; $index < $numberOfEntries; $index++) {
+            $entryIDs[] = $entryID = $this->addIPv4($objectID);
+            $this->isID($entryID);
+        }
+
+        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
+        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
+
+        // Run tests:
+        $result = $this->cmdbCategory->clear($objectID, ['C__CATG__IP']);
+
+        $this->assertIsInt($result);
+        $this->assertSame(1, $result);
+
+        // Check:
+        $entries = $this->cmdbCategory->read($objectID, 'C__CATG__IP', 2);
+
+        $this->assertIsArray($entries);
+        $this->assertCount(0, $entries);
     }
 
     /**

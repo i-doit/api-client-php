@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -   `Idoit::getLicense()`: Read license information
 -   Configuration option `API::BYPASS_SECURE_CONNECTION`: Disable security-related cURL options (boolean)
 -   `CMDBObject::readAll()`: Read all information about object including category entries
+-   `CMDBCategory::batchRead()`: Add new optional parameter "status"
 
 
 ### Changed

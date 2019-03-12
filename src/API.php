@@ -129,7 +129,7 @@ class API {
     /**
      * cURL resource
      *
-     * @var resource|null
+     * @var resource
      */
     protected $resource;
 
@@ -204,7 +204,11 @@ class API {
         $composerFile = __DIR__ . '/../composer.json';
 
         if (is_readable($composerFile)) {
-            $this->composer = json_decode(file_get_contents($composerFile), true);
+            $composerFileContent = file_get_contents($composerFile);
+
+            if ($composerFileContent !== false) {
+                $this->composer = json_decode($composerFileContent, true);
+            }
         }
 
         $this->setCURLOptions();
@@ -343,7 +347,7 @@ class API {
 
         curl_close($this->resource);
 
-        $this->resource = null;
+        unset($this->resource);
 
         return $this;
     }
@@ -567,6 +571,8 @@ class API {
                         $this->lastInfo['http_code']
                     ));
             }
+        } elseif (!is_string($responseString)) {
+            throw new \RuntimeException('No content from Web server');
         }
 
         $headerLength = curl_getinfo($this->resource, CURLINFO_HEADER_SIZE);

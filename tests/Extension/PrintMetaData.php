@@ -58,6 +58,9 @@ final class PrintMetaData implements BeforeFirstTestHook {
      */
     protected $apiInfo = [];
 
+    /**
+     * @throws \Exception on error
+     */
     public function executeBeforeFirstTest(): void {
         $this
             ->loadEnvironment()
@@ -79,10 +82,19 @@ final class PrintMetaData implements BeforeFirstTestHook {
 
     /**
      * @return self Returns itself
+     *
+     * @throws \Exception on error
      */
     protected function loadComposer(): self {
         $composerFile = __DIR__ . '/../../composer.json';
-        $this->composer = json_decode(file_get_contents($composerFile), true);
+        $composerFileContent = file_get_contents($composerFile);
+        if (!is_string($composerFileContent)) {
+            throw new \Exception(sprintf(
+                'Unable to read file "%s"',
+                $composerFile
+            ));
+        }
+        $this->composer = json_decode($composerFileContent, true);
         return $this;
     }
 

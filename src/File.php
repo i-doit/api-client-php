@@ -165,14 +165,16 @@ class File extends Request {
             ));
         }
 
-        $fileAsString = base64_encode(file_get_contents($filePath));
+        $fileContent = file_get_contents($filePath);
 
-        if ($fileAsString === false) {
-            throw new \BadMethodCallException(sprintf(
-                'Cannot convert file "%s" to base64 string',
+        if (!is_string($fileContent)) {
+            throw new \RuntimeException(sprintf(
+                'Unable to read from file "%s"',
                 $filePath
             ));
         }
+
+        $fileAsString = base64_encode($fileContent);
 
         return $fileAsString;
     }

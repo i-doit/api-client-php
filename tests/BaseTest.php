@@ -91,7 +91,11 @@ abstract class BaseTest extends TestCase {
         $composerFile = __DIR__ . '/../composer.json';
 
         if (is_readable($composerFile)) {
-            self::$composer = json_decode(file_get_contents($composerFile), true);
+            $composerFileContent = file_get_contents($composerFile);
+
+            if (is_string($composerFileContent)) {
+                self::$composer = json_decode($composerFileContent, true);
+            }
         }
     }
 
@@ -562,9 +566,11 @@ abstract class BaseTest extends TestCase {
     protected function isTime(string $time) {
         $timestamp = strtotime($time);
         $this->assertIsInt($timestamp);
-        $formattedTimestamp = date('Y-m-d H:i:s', $timestamp);
-        $this->assertIsString($formattedTimestamp);
-        $this->assertSame($formattedTimestamp, $time);
+        if (is_int($timestamp)) {
+            $formattedTimestamp = date('Y-m-d H:i:s', $timestamp);
+            $this->assertIsString($formattedTimestamp);
+            $this->assertSame($formattedTimestamp, $time);
+        }
     }
 
     /**

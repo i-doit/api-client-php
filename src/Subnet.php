@@ -70,19 +70,36 @@ class Subnet extends Request {
         $category = new CMDBCategory($this->api);
         $netInfo = $category->read($objectID, 'C__CATS__NET');
 
-        if (count($netInfo) === 0) {
+        if (count($netInfo) !== 1 ||
+            !array_key_exists(0, $netInfo) ||
+            !is_array($netInfo[0])) {
             throw new \RuntimeException(sprintf(
                 'Nothing found for object identifier %s',
                 $objectID
             ));
         }
 
-        if ($netInfo[0]['type']['const'] !== 'C__CATS_NET_TYPE__IPV4') {
+        if (!array_key_exists('type', $netInfo[0]) ||
+            !is_array($netInfo[0]['type']) ||
+            !array_key_exists('const', $netInfo[0]['type']) ||
+            !is_string($netInfo[0]['type']['const']) ||
+            $netInfo[0]['type']['const'] !== 'C__CATS_NET_TYPE__IPV4') {
             throw new \RuntimeException('Works only for IPv4');
         }
 
-        $this->first = ip2long($netInfo[0]['range_from']);
-        $this->last = ip2long($netInfo[0]['range_to']);
+        if (!array_key_exists('range_from', $netInfo[0]) ||
+            !is_string($netInfo[0]['range_from']) ||
+            !array_key_exists('range_to', $netInfo[0]) ||
+            !is_string($netInfo[0]['range_to'])) {
+            throw new \RuntimeException(sprintf(
+                'Subnet #%s has no IP address range',
+                $objectID
+            ));
+        }
+
+        $this->first = $this->convertIPv4Address($netInfo[0]['range_from']);
+        $this->last = $this->convertIPv4Address($netInfo[0]['range_to']);
+
         $takenIPAddresses = $category->read($objectID, 'C__CATS__NET_IP_ADDRESSES');
 
         foreach ($takenIPAddresses as $takenIPAddress) {
@@ -152,7 +169,7 @@ class Subnet extends Request {
             throw new \BadMethodCallException('You need to call method "load()" first.');
         }
 
-        $longIP = ip2long($ipAddress);
+        $longIP = $this->convertIPv4Address($ipAddress);
 
         return ! $this->isUsed($longIP);
     }
@@ -163,10 +180,12 @@ class Subnet extends Request {
      * @param int $longIP IPv4 address converted to long integer
      *
      * @return bool
+     *
+     * @throws \Exception on error
      */
     protected function isUsed($longIP) {
         foreach ($this->taken as $taken) {
-            $takenIPLong = ip2long($taken);
+            $takenIPLong = $this->convertIPv4Address($taken);
 
             if ($takenIPLong === $longIP) {
                 return true;
@@ -174,6 +193,28 @@ class Subnet extends Request {
         }
 
         return false;
+    }
+
+    /**
+     * Convert IPv4 address to integer
+     *
+     * @param string $ipv4Address IPv4 address
+     *
+     * @return int
+     *
+     * @throws \Exception on error
+     */
+    protected function convertIPv4Address($ipv4Address) {
+        $longIP = ip2long($ipv4Address);
+
+        if (!is_int($longIP)) {
+            throw new \RuntimeException(sprintf(
+                'Unable to convert IP address "%s"',
+                $ipv4Address
+            ));
+        }
+
+        return $longIP;
     }
 
 }

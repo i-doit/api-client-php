@@ -409,7 +409,7 @@ class APITest extends BaseTest {
     public function provideInvalidAPIKeys(): array {
         return [
             'null' => [null],
-            'object' => [new \StdClass()],
+            'object' => [new \stdClass()],
             'empty array' => [[]],
             'positive integer' => [23],
             'negative integer' => [-42],
@@ -473,7 +473,7 @@ class APITest extends BaseTest {
     public function provideInvalidVersionNumbers() {
         return [
             'null' => [null],
-            'object' => [new \StdClass()],
+            'object' => [new \stdClass()],
             'empty array' => [[]],
             'positive integer' => [23],
             'negative integer' => [-42],
@@ -553,7 +553,7 @@ class APITest extends BaseTest {
     public function provideInvalidIdentifiers(): array {
         return [
             'null' => [null],
-            'object' => [new \StdClass()],
+            'object' => [new \stdClass()],
             'empty array' => [[]],
             'float' => [123.456],
             'true' => [true],
@@ -616,7 +616,7 @@ class APITest extends BaseTest {
         return [
             'empty string' => [''],
             'null' => [null],
-            'object' => [new \StdClass()],
+            'object' => [new \stdClass()],
             'empty array' => [[]],
             'positive integer' => [23],
             'negative integer' => [-42],

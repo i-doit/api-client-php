@@ -124,7 +124,13 @@ class CMDBCategoryInfo extends Request {
 
         $categories = $this->batchRead($cleanCategoryConstants);
 
-        return array_combine($cleanCategoryConstants, $categories);
+        $combinedArray = array_combine($cleanCategoryConstants, $categories);
+
+        if (!is_array($combinedArray)) {
+            throw new \RuntimeException('Unable to restructure result');
+        }
+
+        return $combinedArray;
     }
 
     /**

@@ -106,14 +106,16 @@ class Image extends Request {
             ));
         }
 
-        $imageAsString = base64_encode(file_get_contents($filePath));
+        $fileContent = file_get_contents($filePath);
 
-        if ($imageAsString === false) {
-            throw new \BadMethodCallException(sprintf(
-                'Cannot convert image "%s" to base64 string',
+        if (!is_string($fileContent)) {
+            throw new \RuntimeException(sprintf(
+                'Unable to read from file "%s"',
                 $filePath
             ));
         }
+
+        $imageAsString = base64_encode($fileContent);
 
         return $imageAsString;
     }

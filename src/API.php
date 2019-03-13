@@ -347,8 +347,6 @@ class API {
 
         curl_close($this->resource);
 
-        unset($this->resource);
-
         return $this;
     }
 

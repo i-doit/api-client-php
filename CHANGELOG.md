@@ -24,6 +24,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -   `CMDBObject::load()` is deprecated, because it is pretty slow. Use `CMDBObject::readAll()` instead!
 
 
+### Fixed
+
+-   `API::disconnect()`: Let `curl_close()` delete resource is enough
+
+
 ##  [0.7] – 2018-12-17
 
 This release comes with new features and tons of unit tests. To get the full experience, please update your i-doit to version >= 1.11.2 and API add-on to version >= 1.10.

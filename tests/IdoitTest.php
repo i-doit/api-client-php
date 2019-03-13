@@ -68,7 +68,9 @@ class IdoitTest extends BaseTest {
 
         $this->assertArrayHasKey('mail', $result['login']);
         $this->assertIsString($result['login']['mail']);
-        $this->isEmail($result['login']['mail']);
+        if (strlen($result['login']['mail']) > 0) {
+            $this->isEmail($result['login']['mail']);
+        }
 
         $this->assertArrayHasKey('username', $result['login']);
         $this->assertIsString($result['login']['username']);

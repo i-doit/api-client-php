@@ -27,6 +27,7 @@ declare(strict_types=1);
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBObject;
+use bheisig\idoitapi\CMDBObjects;
 use bheisig\idoitapi\CMDBObjectTypes;
 use bheisig\idoitapi\CMDBCategoryInfo;
 
@@ -182,7 +183,7 @@ class CMDBObjectTest extends BaseTest {
         $result = $this->cmdbObject->read($objectID);
 
         $this->assertIsArray($result);
-        $this->isObject($result);
+        $this->isOneObject($result);
     }
 
     /**
@@ -192,7 +193,7 @@ class CMDBObjectTest extends BaseTest {
      *
      * @param array $object Common information about an object
      */
-    protected function isObject(array $object) {
+    protected function isOneObject(array $object) {
         $requiredKeys = [
             'id',
             'title',
@@ -281,7 +282,6 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @group new
      * @throws \Exception on error
      */
     public function testReadAll() {
@@ -289,7 +289,8 @@ class CMDBObjectTest extends BaseTest {
             function ($object) {
                 return $object['id'];
             },
-            $this->cmdbObjects->read()
+            // No, do not test every single object, but some recently created ones:
+            $this->cmdbObjects->read([], 10, 0, 'id', CMDBObjects::SORT_DESCENDING)
         );
 
         $categoryInfo = new CMDBCategoryInfo($this->api);
@@ -299,7 +300,7 @@ class CMDBObjectTest extends BaseTest {
             $result = $this->cmdbObject->readAll($objectID);
 
             $this->assertIsArray($result);
-            $this->isObject($result[0]);
+            $this->isObject($result);
             $this->assertSame($objectID, $result['id']);
 
             if (!array_key_exists('categories', $result)) {
@@ -334,7 +335,6 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @group new
      * @throws \Exception on error
      */
     public function testReadAllFromNonExistingObject() {

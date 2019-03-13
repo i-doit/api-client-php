@@ -170,7 +170,7 @@ abstract class BaseTest extends TestCase {
             $firstName . ' ' . $lastName
         );
 
-        $this->cmdbCategory->create(
+        $this->cmdbCategory->save(
             $personID,
             'C__CATG__MAIL_ADDRESSES',
             [
@@ -708,7 +708,16 @@ abstract class BaseTest extends TestCase {
         $this->assertGreaterThanOrEqual(3, count($entry));
 
         $this->assertArrayHasKey('id', $entry);
-        $this->isIDAsString($entry['id']);
+
+        // @todo Old vs. new behavior:
+        switch (gettype($entry['id'])) {
+            case 'int':
+                $this->assertGreaterThan(0, $entry['id']);
+                break;
+            case 'string':
+                $this->assertGreaterThan(0, (int) $entry['id']);
+                break;
+        }
 
         $this->assertArrayHasKey('objID', $entry);
         $this->isIDAsString($entry['objID']);

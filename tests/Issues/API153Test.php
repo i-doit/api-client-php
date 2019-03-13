@@ -32,8 +32,6 @@ use bheisig\idoitapi\API;
 /**
  * @group issues
  * @group API-153
- * @group open
- * @group unreleased
  * @see https://i-doit.atlassian.net/browse/API-153
  */
 class API153Test extends BaseTest {

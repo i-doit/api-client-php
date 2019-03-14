@@ -42,11 +42,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -59,11 +59,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -78,15 +78,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -101,15 +101,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -124,15 +124,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -145,15 +145,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -168,7 +168,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -176,7 +176,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -191,7 +191,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -199,7 +199,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -217,7 +217,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -235,7 +235,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -271,7 +271,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__UNKNOWN', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__UNKNOWN', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__UNKNOWN', $entryID);
     }
 
     /**
@@ -286,11 +286,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -303,11 +303,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -322,15 +322,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -343,15 +343,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -366,15 +366,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -389,15 +389,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -412,7 +412,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -420,7 +420,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -435,7 +435,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -443,7 +443,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -461,7 +461,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -479,7 +479,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -515,7 +515,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__UNKNOWN', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__UNKNOWN', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__UNKNOWN', $entryID);
     }
 
     /**
@@ -528,7 +528,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -545,7 +545,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -564,11 +564,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -585,11 +585,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -608,11 +608,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -629,11 +629,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -652,7 +652,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -675,7 +675,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -770,11 +770,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -789,11 +789,11 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -808,15 +808,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -829,15 +829,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -852,15 +852,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -873,15 +873,15 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -896,7 +896,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -904,7 +904,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -919,7 +919,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->purge($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -927,7 +927,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -945,7 +945,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__MODEL', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__MODEL', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__MODEL', $entryID);
     }
 
     /**
@@ -963,7 +963,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -999,7 +999,7 @@ class CategoryStatusTest extends BaseTest {
 
         $result = $this->cmdbCategory->recycle($objectID, 'C__CATG__UNKNOWN', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
-        $this->isNormal($objectID, 'C__CATG__UNKNOWN', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__UNKNOWN', $entryID);
     }
 
     /**
@@ -1089,7 +1089,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $result = $this->cmdbCategory->quickPurge($objectID, 'C__CATG__IP', $entryID);
         $this->assertInstanceOf(CMDBCategory::class, $result);
@@ -1105,7 +1105,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $roundsNeeded = 1;
 
@@ -1120,7 +1120,7 @@ class CategoryStatusTest extends BaseTest {
             );
         }
 
-        $this->isArchived($objectID, 'C__CATG__IP', $entryID);
+        $this->isArchivedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -1132,7 +1132,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $roundsNeeded = 2;
 
@@ -1147,7 +1147,7 @@ class CategoryStatusTest extends BaseTest {
             );
         }
 
-        $this->isDeleted($objectID, 'C__CATG__IP', $entryID);
+        $this->isDeletedEntry($objectID, 'C__CATG__IP', $entryID);
     }
 
     /**
@@ -1159,7 +1159,7 @@ class CategoryStatusTest extends BaseTest {
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
-        $this->isNormal($objectID, 'C__CATG__IP', $entryID);
+        $this->isNormalEntry($objectID, 'C__CATG__IP', $entryID);
 
         $roundsNeeded = 3;
 
@@ -1175,93 +1175,6 @@ class CategoryStatusTest extends BaseTest {
         }
 
         $this->isNotAvailable($objectID, 'C__CATG__IP', $entryID);
-    }
-
-    /**
-     * Has category entry status "normal" (2)?
-     *
-     * If entry has another status this method will throw an \Exception.
-     *
-     * @param int $objectID Object identifier
-     * @param string $categoryConstant Category constant
-     * @param int $entryID Entry identifier
-     *
-     * @throws \Exception on error
-     */
-    protected function isNormal(int $objectID, string $categoryConstant, int $entryID) {
-        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 2);
-        $this->assertIsArray($result);
-
-        $this->assertArrayHasKey('id', $result);
-        $this->isIDAsString($result['id']);
-        $this->assertSame($entryID, (int) $result['id']);
-
-        $this->assertArrayHasKey('objID', $result);
-        $this->isIDAsString($result['objID']);
-        $this->assertSame($objectID, (int) $result['objID']);
-    }
-
-    /**
-     * Has category entry status "archived" (3)?
-     *
-     * If entry has another status this method will throw an \Exception.
-     *
-     * @param int $objectID Object identifier
-     * @param string $categoryConstant Category constant
-     * @param int $entryID Entry identifier
-     *
-     * @throws \Exception on error
-     */
-    protected function isArchived(int $objectID, string $categoryConstant, int $entryID) {
-        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 3);
-        $this->assertIsArray($result);
-
-        $this->assertArrayHasKey('id', $result);
-        $this->isIDAsString($result['id']);
-        $this->assertSame($entryID, (int) $result['id']);
-
-        $this->assertArrayHasKey('objID', $result);
-        $this->isIDAsString($result['objID']);
-        $this->assertSame($objectID, (int) $result['objID']);
-    }
-
-    /**
-     * Has category entry status "deleted" (4)?
-     *
-     * If entry has another status this method will throw an \Exception.
-     *
-     * @param int $objectID Object identifier
-     * @param string $categoryConstant Category constant
-     * @param int $entryID Entry identifier
-     *
-     * @throws \Exception on error
-     */
-    protected function isDeleted(int $objectID, string $categoryConstant, int $entryID) {
-        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 4);
-        $this->assertIsArray($result);
-
-        $this->assertArrayHasKey('id', $result);
-        $this->isIDAsString($result['id']);
-        $this->assertSame($entryID, (int) $result['id']);
-
-        $this->assertArrayHasKey('objID', $result);
-        $this->isIDAsString($result['objID']);
-        $this->assertSame($objectID, (int) $result['objID']);
-    }
-
-    /**
-     * Is category entry not available?
-     *
-     * @param int $objectID Object identifier
-     * @param string $categoryConstant Category constant
-     * @param int $entryID Entry identifier
-     *
-     * @throws \Exception on error
-     */
-    protected function isNotAvailable(int $objectID, string $categoryConstant, int $entryID) {
-        $this->expectException(\Exception::class);
-        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID);
-        $this->assertIsArray($result);
     }
 
 }

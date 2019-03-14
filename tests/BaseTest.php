@@ -804,4 +804,91 @@ abstract class BaseTest extends TestCase {
         $this->assertSame(7, (int) $object['status']);
     }
 
+    /**
+     * Has category entry status "normal" (2)?
+     *
+     * If entry has another status this method will throw an \Exception.
+     *
+     * @param int $objectID Object identifier
+     * @param string $categoryConstant Category constant
+     * @param int $entryID Entry identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isNormalEntry(int $objectID, string $categoryConstant, int $entryID) {
+        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 2);
+        $this->assertIsArray($result);
+
+        $this->assertArrayHasKey('id', $result);
+        $this->isIDAsString($result['id']);
+        $this->assertSame($entryID, (int) $result['id']);
+
+        $this->assertArrayHasKey('objID', $result);
+        $this->isIDAsString($result['objID']);
+        $this->assertSame($objectID, (int) $result['objID']);
+    }
+
+    /**
+     * Has category entry status "archived" (3)?
+     *
+     * If entry has another status this method will throw an \Exception.
+     *
+     * @param int $objectID Object identifier
+     * @param string $categoryConstant Category constant
+     * @param int $entryID Entry identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isArchivedEntry(int $objectID, string $categoryConstant, int $entryID) {
+        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 3);
+        $this->assertIsArray($result);
+
+        $this->assertArrayHasKey('id', $result);
+        $this->isIDAsString($result['id']);
+        $this->assertSame($entryID, (int) $result['id']);
+
+        $this->assertArrayHasKey('objID', $result);
+        $this->isIDAsString($result['objID']);
+        $this->assertSame($objectID, (int) $result['objID']);
+    }
+
+    /**
+     * Has category entry status "deleted" (4)?
+     *
+     * If entry has another status this method will throw an \Exception.
+     *
+     * @param int $objectID Object identifier
+     * @param string $categoryConstant Category constant
+     * @param int $entryID Entry identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isDeletedEntry(int $objectID, string $categoryConstant, int $entryID) {
+        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 4);
+        $this->assertIsArray($result);
+
+        $this->assertArrayHasKey('id', $result);
+        $this->isIDAsString($result['id']);
+        $this->assertSame($entryID, (int) $result['id']);
+
+        $this->assertArrayHasKey('objID', $result);
+        $this->isIDAsString($result['objID']);
+        $this->assertSame($objectID, (int) $result['objID']);
+    }
+
+    /**
+     * Is category entry not available?
+     *
+     * @param int $objectID Object identifier
+     * @param string $categoryConstant Category constant
+     * @param int $entryID Entry identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isNotAvailable(int $objectID, string $categoryConstant, int $entryID) {
+        $this->expectException(\Exception::class);
+        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID);
+        $this->assertIsArray($result);
+    }
+
 }

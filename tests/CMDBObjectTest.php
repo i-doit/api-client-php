@@ -77,14 +77,95 @@ class CMDBObjectTest extends BaseTest {
             $this->generateRandomString(),
             [
                 'category' => 'Test',
-                'purpose' => 'for reasons',
                 'cmdb_status' => 9,
-                'description' => $this->generateDescription()
+                'description' => $this->generateDescription(),
+                'purpose' => 'for reasons',
+                'sysid' => $this->generateRandomString()
             ]
         );
 
         $this->assertIsInt($objectID);
         $this->isID($objectID);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testCreateNormalObject() {
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $this->generateRandomString(),
+            [
+                'status' => 2
+            ]
+        );
+
+        $this->isID($objectID);
+        $this->isNormal($objectID);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testCreateArchivedObject() {
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $this->generateRandomString(),
+            [
+                'status' => 3
+            ]
+        );
+
+        $this->isID($objectID);
+        $this->isArchived($objectID);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testCreateDeletedObject() {
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $this->generateRandomString(),
+            [
+                'status' => 4
+            ]
+        );
+
+        $this->isID($objectID);
+        $this->isDeleted($objectID);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testCreateTemplate() {
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $this->generateRandomString(),
+            [
+                'status' => 6
+            ]
+        );
+
+        $this->isID($objectID);
+        $this->isTemplate($objectID);
+    }
+
+    /**
+     * @throws \Exception on error
+     */
+    public function testCreateMassChangeTemplate() {
+        $objectID = $this->cmdbObject->create(
+            'C__OBJTYPE__SERVER',
+            $this->generateRandomString(),
+            [
+                'status' => 7
+            ]
+        );
+
+        $this->isID($objectID);
+        $this->isMassChangeTemplate($objectID);
     }
 
     /**

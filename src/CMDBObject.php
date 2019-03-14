@@ -34,8 +34,14 @@ class CMDBObject extends Request {
      *
      * @param int|string $type Object type identifier or its constant
      * @param string $title Object title
-     * @param array $attributes (Optional) additional common attributes
-     * ('category', 'purpose', 'cmdb_status', 'description')
+     * @param array $attributes (Optional) additional common attributes:
+     *                          string|int "category",
+     *                          string|int "cmdb_status",
+     *                          0|1 "defaultTemplate",
+     *                          string "description",
+     *                          string|int "purpose",
+     *                          int "status",
+     *                          string "sysid"
      *
      * @return int Object identifier
      *
@@ -65,8 +71,14 @@ class CMDBObject extends Request {
      * @param array $categories Also create category entries;
      * set category constant (string) as key and
      * one (array of attributes) entry or even several entries (array of arrays) as value
-     * @param array $attributes (Optional) additional common attributes
-     * ('category', 'purpose', 'cmdb_status', 'description')
+     * @param array $attributes (Optional) additional common attributes:
+     *                          string|int "category",
+     *                          string|int "cmdb_status",
+     *                          0|1 "defaultTemplate",
+     *                          string "description",
+     *                          string|int "purpose",
+     *                          int "status",
+     *                          string "sysid"
      *
      * @return array Result with object identifier ('id') and
      * key-value pairs of category constants and array of category entry identifiers as integers

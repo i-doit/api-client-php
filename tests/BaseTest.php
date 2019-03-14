@@ -729,4 +729,79 @@ abstract class BaseTest extends TestCase {
         $this->assertSame($filter, $email);
     }
 
+    /**
+     * @param int $objectID Object identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isNormal(int $objectID) {
+        $object = $this->cmdbObject->read($objectID);
+        $this->assertIsArray($object);
+
+        $this->assertArrayHasKey('status', $object);
+        $this->assertSame(2, (int) $object['status']);
+    }
+
+    /**
+     * @param int $objectID Object identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isArchived(int $objectID) {
+        $object = $this->cmdbObject->read($objectID);
+        $this->assertIsArray($object);
+
+        $this->assertArrayHasKey('status', $object);
+        $this->assertSame(3, (int) $object['status']);
+    }
+
+    /**
+     * @param int $objectID Object identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isDeleted(int $objectID) {
+        $object = $this->cmdbObject->read($objectID);
+        $this->assertIsArray($object);
+
+        $this->assertArrayHasKey('status', $object);
+        $this->assertSame(4, (int) $object['status']);
+    }
+
+    /**
+     * @param int $objectID Object identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isPurged(int $objectID) {
+        $result = $this->cmdbObject->read($objectID);
+        $this->assertCount(0, $result);
+    }
+
+    /**
+     * @param int $objectID Object identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isTemplate(int $objectID) {
+        $object = $this->cmdbObject->read($objectID);
+        $this->assertIsArray($object);
+
+        $this->assertArrayHasKey('status', $object);
+        $this->assertSame(6, (int) $object['status']);
+    }
+
+    /**
+     * @param int $objectID Object identifier
+     *
+     * @throws \Exception on error
+     */
+    protected function isMassChangeTemplate(int $objectID) {
+        $object = $this->cmdbObject->read($objectID);
+        $this->assertIsArray($object);
+
+        $this->assertArrayHasKey('status', $object);
+        $this->assertSame(7, (int) $object['status']);
+    }
+
 }

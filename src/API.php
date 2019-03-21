@@ -268,7 +268,7 @@ class API {
             CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_HTTPHEADER => [
                 'Content-Type: application/json',
-                'Expect: 100-continue'
+                'Expect:'
             ]
         ];
 

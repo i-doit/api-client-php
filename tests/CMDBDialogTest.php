@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CMDBDialog;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\CMDBDialog;
 class CMDBDialogTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBDialog
+     * @var CMDBDialog
      */
     protected $cmdbDialog;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreate() {
         $entryTitle = $this->generateRandomString();
@@ -79,7 +80,7 @@ class CMDBDialogTest extends BaseTest {
 
     /**
      * @group API-32
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateWithParentTitle() {
         $parentTitle = $this->generateRandomString();
@@ -129,7 +130,7 @@ class CMDBDialogTest extends BaseTest {
 
     /**
      * @group API-32
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateWithParentIdentifier() {
         $parentTitle = $this->generateRandomString();
@@ -179,10 +180,10 @@ class CMDBDialogTest extends BaseTest {
 
     /**
      * @group API-32
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateWithParentIdentifierAsTitle() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $parentTitle = $this->generateRandomString();
 
@@ -207,10 +208,10 @@ class CMDBDialogTest extends BaseTest {
 
     /**
      * @group API-32
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateWithUnknownParent() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $entryTitle = $this->generateRandomString();
 
@@ -226,7 +227,7 @@ class CMDBDialogTest extends BaseTest {
 
     /**
      * @group API-32
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateWithoutParent() {
         $value = $this->generateRandomString();
@@ -252,7 +253,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @todo There must exist a custom category before the tests are running
      * because it's not possible to create custom categories via API.
      */
@@ -303,7 +304,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchCreate() {
         $result = $this->cmdbDialog->batchCreate([
@@ -330,7 +331,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRead() {
         $result = $this->cmdbDialog->read(
@@ -350,7 +351,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchRead() {
         $result = $this->cmdbDialog->batchRead([
@@ -366,7 +367,7 @@ class CMDBDialogTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDelete() {
         $entryTitle = $this->generateRandomString();

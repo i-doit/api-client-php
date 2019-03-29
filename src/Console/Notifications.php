@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi\Console;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'console.notifications'
  */
@@ -34,7 +36,7 @@ class Notifications extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function send() {
         return $this->execute(

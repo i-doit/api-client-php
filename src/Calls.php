@@ -32,7 +32,7 @@ interface Calls {
     /**
      * Constructor
      *
-     * @param \bheisig\idoitapi\API $api API client
+     * @param API $api API client
      */
     public function __construct(API $api);
 

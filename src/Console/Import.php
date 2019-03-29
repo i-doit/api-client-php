@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi\Console;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'console.import'
  */
@@ -36,7 +38,7 @@ class Import extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function importFromCSVFile(array $options = []) {
         return $this->execute(
@@ -50,7 +52,7 @@ class Import extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function listCSVImportProfiles() {
         return $this->execute(
@@ -65,7 +67,7 @@ class Import extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function importFromHInventory(array $options = []) {
         return $this->execute(
@@ -81,7 +83,7 @@ class Import extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function importFromJDiscDiscovery(array $options = []) {
         return $this->execute(
@@ -97,7 +99,7 @@ class Import extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function triggerJDiscDiscovery(array $options = []) {
         return $this->execute(
@@ -113,7 +115,7 @@ class Import extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function importFromOCSInventoryNG(array $options = []) {
         return $this->execute(
@@ -129,7 +131,7 @@ class Import extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function importFromSyslog(array $options = []) {
         return $this->execute(
@@ -145,7 +147,7 @@ class Import extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function importFromXMLFile(array $options = []) {
         return $this->execute(

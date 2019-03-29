@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 use bheisig\idoitapi\API;
 
@@ -39,7 +40,7 @@ class API153Test extends BaseTest {
     /**
      * Reset setup to manipulate username/password
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         // Do nothing.
@@ -98,7 +99,7 @@ class API153Test extends BaseTest {
      * @param string $username Username
      * @param string $password Password
      * @dataProvider provideCredentials
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFaultyCredentials(string $username, string $password) {
         if (empty($username)) {
@@ -139,7 +140,7 @@ class API153Test extends BaseTest {
     /**
      * @param string $apiKey API key
      * @dataProvider provideAPIKeys
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFaultyKey(string $apiKey) {
         $config = [

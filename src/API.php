@@ -24,6 +24,11 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \BadMethodCallException;
+use \DomainException;
+use \RuntimeException;
+
 /**
  * API client
  */
@@ -194,7 +199,7 @@ class API {
      *
      * @param array $config Associative multi-dimensional array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function __construct($config) {
         $this->config = $config;
@@ -226,7 +231,7 @@ class API {
             if ($this->isConnected()) {
                 $this->disconnect();
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Do nothing because this is a destructor.
         }
     }
@@ -297,7 +302,7 @@ class API {
                     $this->options[CURLOPT_PROXYTYPE] = CURLPROXY_SOCKS5;
                     break;
                 default:
-                    throw new \DomainException(sprintf(
+                    throw new DomainException(sprintf(
                         'Unknown proxy type "%s"',
                         $this->config[self::PROXY][self::PROXY_TYPE]
                     ));
@@ -322,7 +327,7 @@ class API {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function connect() {
         $this->resource = curl_init();
@@ -337,12 +342,12 @@ class API {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function disconnect() {
         // Auto-connect:
         if ($this->isConnected() === false) {
-            throw new \BadMethodCallException('There is no connection.');
+            throw new BadMethodCallException('There is no connection.');
         }
 
         curl_close($this->resource);
@@ -355,11 +360,11 @@ class API {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function login() {
         if ($this->isLoggedIn()) {
-            throw new \BadMethodCallException('Client is already logged-in.');
+            throw new BadMethodCallException('Client is already logged-in.');
         }
 
         // Auto-connect:
@@ -372,7 +377,7 @@ class API {
         );
 
         if (!array_key_exists('session-id', $response)) {
-            throw new \RuntimeException('Failed to login because i-doit responded without a session ID');
+            throw new RuntimeException('Failed to login because i-doit responded without a session ID');
         }
 
         $this->session = $response['session-id'];
@@ -385,11 +390,11 @@ class API {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function logout() {
         if ($this->isLoggedIn() === false) {
-            throw new \BadMethodCallException('Client is not logged-in.');
+            throw new BadMethodCallException('Client is not logged-in.');
         }
 
         $this->request(
@@ -429,7 +434,7 @@ class API {
      *
      * @return array Result of request
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function request($method, array $params = []) {
         $data = [
@@ -460,14 +465,14 @@ class API {
      *
      * @return array Result of request
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchRequest(array $requests) {
         $data = [];
 
         foreach ($requests as $request) {
             if (!array_key_exists('method', $request)) {
-                throw new \BadMethodCallException(
+                throw new BadMethodCallException(
                     'Missing method in one of the sub-requests of this batch request'
                 );
             }
@@ -498,7 +503,7 @@ class API {
 
         foreach ($responses as $response) {
             if (!is_array($response)) {
-                throw new \RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'Found invalid result for request in batch: %s',
                     $response
                 ));
@@ -519,7 +524,7 @@ class API {
      *
      * @return array Result of request
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function execute(array $data) {
         // Auto-connect:
@@ -562,15 +567,15 @@ class API {
                         $message = 'Connection to Web server failed';
                     }
 
-                    throw new \RuntimeException($message);
+                    throw new RuntimeException($message);
                 default:
-                    throw new \RuntimeException(sprintf(
+                    throw new RuntimeException(sprintf(
                         'Web server responded with HTTP status code "%s"',
                         $this->lastInfo['http_code']
                     ));
             }
         } elseif (!is_string($responseString)) {
-            throw new \RuntimeException('No content from Web server');
+            throw new RuntimeException('No content from Web server');
         }
 
         $headerLength = curl_getinfo($this->resource, CURLINFO_HEADER_SIZE);
@@ -582,12 +587,12 @@ class API {
 
         if (!is_array($lastResponse)) {
             if (is_string($body) && strlen($body) > 0) {
-                throw new \RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'i-doit responded with an unknown message: %s',
                     $body
                 ));
             } else {
-                throw new \RuntimeException('i-doit responded with an invalid JSON string.');
+                throw new RuntimeException('i-doit responded with an invalid JSON string.');
             }
         }
 
@@ -603,26 +608,26 @@ class API {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function evaluateResponse(array $response) {
         if (array_key_exists('error', $response) &&
             $response['error'] !== null) {
             // Validate error object:
             if (!is_array($response['error'])) {
-                throw new \RuntimeException('Invalid error object');
+                throw new RuntimeException('Invalid error object');
             }
 
             if (!array_key_exists('code', $response['error']) ||
                 !is_int($response['error']['code']) ||
                 $response['error']['code'] >= 0) {
-                throw new \RuntimeException('Invalid error code');
+                throw new RuntimeException('Invalid error code');
             }
 
             if (!array_key_exists('message', $response['error']) ||
                 !is_string($response['error']['message']) ||
                 strlen($response['error']['message']) === 0) {
-                throw new \RuntimeException('Invalid error message');
+                throw new RuntimeException('Invalid error message');
             }
 
             $details = [];
@@ -662,14 +667,14 @@ class API {
                 );
             }
 
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 $message,
                 $response['error']['code']
             );
         }
 
         if (!array_key_exists('result', $response)) {
-            throw new \RuntimeException('i-doit forgot to add a result to its response.');
+            throw new RuntimeException('i-doit forgot to add a result to its response.');
         }
 
         return $this;
@@ -682,7 +687,7 @@ class API {
      * @param array $headers Additional headers as key-value pairs
      *
      * @return array Raw response from
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function rawRequest(array $data = [], array $headers = []) {
         foreach ($headers as $header => $value) {
@@ -754,7 +759,7 @@ class API {
      *
      * @return bool Returns true if succeeded
      *
-     * @throws \Exception on any misconfigured setting
+     * @throws Exception on any misconfigured setting
      */
     protected function testConfig() {
         /**
@@ -768,7 +773,7 @@ class API {
 
         foreach ($mandatorySettings as $mandatorySetting) {
             if (!array_key_exists($mandatorySetting, $this->config)) {
-                throw new \DomainException(sprintf(
+                throw new DomainException(sprintf(
                     'Configuration setting "%s" is mandatory.',
                     $mandatorySetting
                 ));
@@ -784,7 +789,7 @@ class API {
         /**
          * @param string $key
          * @param string $subKey
-         * @throws \Exception
+         * @throws Exception
          */
         $checkString = function ($key, $subKey = null) use ($config) {
             $value = null;
@@ -796,7 +801,7 @@ class API {
             }
 
             if (!is_string($value) || empty($value)) {
-                throw new \DomainException(sprintf(
+                throw new DomainException(sprintf(
                     'Configuration setting "%s" is invalid.',
                     $key
                 ));
@@ -806,7 +811,7 @@ class API {
         /**
          * @param string $key
          * @param string $subKey
-         * @throws \Exception
+         * @throws Exception
          */
         $checkPort = function ($key, $subKey = null) use ($config) {
             $value = null;
@@ -818,7 +823,7 @@ class API {
             }
 
             if (!is_int($value) || $value < self::PORT_MIN || $value > self::PORT_MAX) {
-                throw new \DomainException(sprintf(
+                throw new DomainException(sprintf(
                     'Configuration setting "%s" is not a valid port number between %s and %s.',
                     $key,
                     self::PORT_MIN,
@@ -835,7 +840,7 @@ class API {
 
         if (strpos($this->config[self::URL], 'https://') === false &&
             strpos($this->config[self::URL], 'http://') === false) {
-            throw new \DomainException(sprintf(
+            throw new DomainException(sprintf(
                 'Unsupported protocol in API URL "%s"',
                 $this->config[self::URL]
             ));
@@ -867,12 +872,12 @@ class API {
             $checkString(self::USERNAME);
 
             if (!array_key_exists(self::PASSWORD, $this->config)) {
-                throw new \DomainException('Username has no password.');
+                throw new DomainException('Username has no password.');
             }
 
             $checkString(self::PASSWORD);
         } elseif (array_key_exists(self::PASSWORD, $this->config)) {
-            throw new \DomainException('There is no username.');
+            throw new DomainException('There is no username.');
         }
 
         /**
@@ -891,7 +896,7 @@ class API {
 
         if (array_key_exists(self::PROXY, $this->config)) {
             if (!is_array($this->config[self::PROXY])) {
-                throw new \DomainException('Proxy settings are invalid.');
+                throw new DomainException('Proxy settings are invalid.');
             }
 
             $mandatorySettings = [
@@ -900,7 +905,7 @@ class API {
 
             foreach ($mandatorySettings as $mandatorySetting) {
                 if (!array_key_exists($mandatorySetting, $this->config[self::PROXY])) {
-                    throw new \DomainException(sprintf(
+                    throw new DomainException(sprintf(
                         'Proxy setting "%s" is mandatory.',
                         $mandatorySetting
                     ));
@@ -908,7 +913,7 @@ class API {
             }
 
             if (!is_bool($this->config[self::PROXY][self::PROXY_ACTIVE])) {
-                throw new \DomainException(sprintf(
+                throw new DomainException(sprintf(
                     'Proxy setting "%s" must be a boolean.',
                     self::PROXY_ACTIVE
                 ));
@@ -923,7 +928,7 @@ class API {
 
                 foreach ($mandatorySettings as $mandatorySetting) {
                     if (!array_key_exists($mandatorySetting, $this->config[self::PROXY])) {
-                        throw new \DomainException(sprintf(
+                        throw new DomainException(sprintf(
                             'Proxy setting "%s" is mandatory.',
                             $mandatorySetting
                         ));
@@ -938,12 +943,12 @@ class API {
                     $checkString(self::PROXY_USERNAME, self::PROXY);
 
                     if (!array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
-                        throw new \DomainException('Proxy username has no password.');
+                        throw new DomainException('Proxy username has no password.');
                     }
 
                     $checkString(self::PROXY_PASSWORD, self::PROXY);
                 } elseif (array_key_exists(self::PROXY_PASSWORD, $this->config[self::PROXY])) {
-                    throw new \DomainException('There is no proxy username.');
+                    throw new DomainException('There is no proxy username.');
                 }
             }
         }
@@ -954,7 +959,7 @@ class API {
 
         if (array_key_exists(self::BYPASS_SECURE_CONNECTION, $this->config)) {
             if (!is_bool($this->config[self::BYPASS_SECURE_CONNECTION])) {
-                throw new \DomainException(sprintf(
+                throw new DomainException(sprintf(
                     'Set "%s" to true to disable security-related cURL options, otherwise false to enable them',
                     self::BYPASS_SECURE_CONNECTION
                 ));

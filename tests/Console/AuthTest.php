@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
+use \Exception;
 use bheisig\idoitapi\Console\Auth;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -35,12 +36,12 @@ use bheisig\idoitapi\tests\BaseTest;
 class AuthTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Console\Auth
+     * @var Auth
      */
     protected $auth;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -49,7 +50,7 @@ class AuthTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCleanup() {
         $result = $this->auth->cleanup();

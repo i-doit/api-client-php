@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'cmdb.category_info'
  */
@@ -36,7 +39,7 @@ class CMDBCategoryInfo extends Request {
      *
      * @return array Result set
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($categoryConst) {
         return $this->api->request(
@@ -54,7 +57,7 @@ class CMDBCategoryInfo extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchRead(array $categories) {
         $requests = [];
@@ -82,7 +85,7 @@ class CMDBCategoryInfo extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readAll() {
         $cmdbObjectTypes = new CMDBObjectTypes($this->api);
@@ -127,7 +130,7 @@ class CMDBCategoryInfo extends Request {
         $combinedArray = array_combine($cleanCategoryConstants, $categories);
 
         if (!is_array($combinedArray)) {
-            throw new \RuntimeException('Unable to restructure result');
+            throw new RuntimeException('Unable to restructure result');
         }
 
         return $combinedArray;

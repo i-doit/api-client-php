@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi\Console;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'console.logbook'
  */
@@ -34,7 +36,7 @@ class Logbook extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function archive() {
         return $this->execute(

@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CMDBObjectTypeCategories;
 use bheisig\idoitapi\CMDBObjectTypes;
 
@@ -35,7 +36,7 @@ use bheisig\idoitapi\CMDBObjectTypes;
 class CMDBObjectTypeCategoriesTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBObjectTypeCategories
+     * @var CMDBObjectTypeCategories
      */
     protected $instance;
 
@@ -50,7 +51,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     protected $objectTypeConsts = [];
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -67,7 +68,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByIdentifier() {
         $categories = [];
@@ -80,7 +81,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByConstant() {
         $categories = [];
@@ -93,7 +94,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchReadByIdentifier() {
         $batchResult = $this->instance->batchReadByID($this->objectTypeIDs);
@@ -107,7 +108,7 @@ class CMDBObjectTypeCategoriesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchReadByConstant() {
         $batchResult = $this->instance->batchReadByConst($this->objectTypeConsts);

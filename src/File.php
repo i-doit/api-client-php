@@ -24,6 +24,10 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \BadMethodCallException;
+use \RuntimeException;
+
 /**
  * Requests for assigned files
  */
@@ -38,7 +42,7 @@ class File extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function add($objectID, $filePath, $description = '') {
         $fileAsString = $this->encode($filePath);
@@ -83,7 +87,7 @@ class File extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchAdd($objectID, array $files) {
         $objects = [];
@@ -100,7 +104,7 @@ class File extends Request {
         $fileObjectIDs = $cmdbObjects->create($objects);
 
         if (count($fileObjectIDs) !== count($files)) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 'Wanted to create %s file object(s) but got %s object identifiers',
                 count($files),
                 count($fileObjectIDs)
@@ -154,12 +158,12 @@ class File extends Request {
      *
      * @return string Base64 encoded string
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function encode($filePath) {
         if (!file_exists($filePath) ||
             !is_readable($filePath)) {
-            throw new \BadMethodCallException(sprintf(
+            throw new BadMethodCallException(sprintf(
                 'File "%s" not found or not readable',
                 $filePath
             ));
@@ -168,7 +172,7 @@ class File extends Request {
         $fileContent = file_get_contents($filePath);
 
         if (!is_string($fileContent)) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 'Unable to read from file "%s"',
                 $filePath
             ));

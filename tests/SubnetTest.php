@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\Subnet;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\Subnet;
 class SubnetTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Subnet
+     * @var Subnet
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class SubnetTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testLoad() {
         // "Global v4"
@@ -58,7 +59,7 @@ class SubnetTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testHasNext() {
         // "Global v4"
@@ -68,7 +69,7 @@ class SubnetTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testNext() {
         // "Global v4"
@@ -78,7 +79,7 @@ class SubnetTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testIsFree() {
         // "Global v4"

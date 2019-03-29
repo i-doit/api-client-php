@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
+use \Exception;
 use bheisig\idoitapi\Console\LDAP;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -35,12 +36,12 @@ use bheisig\idoitapi\tests\BaseTest;
 class LDAPTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Console\LDAP
+     * @var LDAP
      */
     protected $ldap;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -49,7 +50,7 @@ class LDAPTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @todo We need at least one LDAP configuration!
      */
     public function testSync() {
@@ -60,7 +61,7 @@ class LDAPTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @todo We need at least one LDAP configuration!
      */
     public function testSyncUnknownConfig() {
@@ -71,7 +72,7 @@ class LDAPTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSyncAll() {
         $result = $this->ldap->syncAll();
@@ -81,7 +82,7 @@ class LDAPTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @todo We need at least one LDAP configuration!
      */
     public function testSyncDistinguishedNames() {

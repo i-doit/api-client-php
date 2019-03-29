@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
+use \Exception;
 use bheisig\idoitapi\Console\System;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -35,12 +36,12 @@ use bheisig\idoitapi\tests\BaseTest;
 class SystemTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Console\System
+     * @var System
      */
     protected $system;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -49,7 +50,7 @@ class SystemTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testPurgeUnfinishedObjects() {
         $result = $this->system->purgeUnfinishedObjects();
@@ -59,7 +60,7 @@ class SystemTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testPurgeArchivedObjects() {
         $result = $this->system->purgeArchivedObjects();
@@ -69,7 +70,7 @@ class SystemTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testPurgeDeletedObjects() {
         $result = $this->system->purgeDeletedObjects();

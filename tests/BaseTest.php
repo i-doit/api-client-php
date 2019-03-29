@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use PHPUnit\Framework\TestCase;
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBObject;
@@ -36,22 +37,22 @@ use Symfony\Component\Dotenv\Dotenv;
 abstract class BaseTest extends TestCase {
 
     /**
-     * @var \bheisig\idoitapi\API
+     * @var API
      */
     protected $api;
 
     /**
-     * @var \bheisig\idoitapi\CMDBObject
+     * @var CMDBObject
      */
     protected $cmdbObject;
 
     /**
-     * @var \bheisig\idoitapi\CMDBObjects
+     * @var CMDBObjects
      */
     protected $cmdbObjects;
 
     /**
-     * @var \bheisig\idoitapi\CMDBCategory
+     * @var CMDBCategory
      */
     protected $cmdbCategory;
 
@@ -77,7 +78,7 @@ abstract class BaseTest extends TestCase {
     ];
 
     /**
-     * @var \Symfony\Component\Dotenv\Dotenv
+     * @var Dotenv
      */
     protected static $dotEnv;
 
@@ -102,7 +103,7 @@ abstract class BaseTest extends TestCase {
     /**
      * Make API available
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         $config = [
@@ -140,7 +141,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Object identifier
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function createServer(): int {
         return $this->cmdbObject->create(
@@ -154,7 +155,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return array Associative array with keys 'id', 'firstName', 'lastName' and 'email'
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function createPerson(): array {
         $firstName = substr($this->generateRandomString(), 0, 10);
@@ -193,7 +194,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Object identifier
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function createWorkstation(): int {
         $workstationID = $this->cmdbObject->create(
@@ -212,7 +213,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Category entry identifier
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function addPersonToWorkstation(int $personID, int $workstationID): int {
         return $this->cmdbCategory->create(
@@ -233,7 +234,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Category entry identifier
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function addWorkstationComponent(int $workstationID, string $objectTypeConst): int {
         $componentID = $this->cmdbObject->create(
@@ -256,7 +257,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Object identifier
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getIPv4Net(): int {
         return $this->cmdbObjects->getID('Global v4', 'C__OBJTYPE__LAYER3_NET');
@@ -267,7 +268,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Object identifier
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getRootLocation(): int {
         return $this->cmdbObjects->getID('Root location', 'C__OBJTYPE__LOCATION_GENERIC');
@@ -278,7 +279,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function createSubnet(): int {
         $netID = $this->cmdbObject->create('C__OBJTYPE__LAYER3_NET', $this->generateRandomString());
@@ -300,7 +301,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Category entry identifier
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function addIPv4(int $objectID, int $subnetID = null): int {
         return $this->cmdbCategory->create(
@@ -325,7 +326,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Category entry identifier
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function defineModel(int $objectID): int {
         return $this->cmdbCategory->create(
@@ -348,7 +349,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Category entry identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function addObjectToLocation(int $objectID, int $locationID): int {
         return $this->cmdbCategory->create(
@@ -370,7 +371,7 @@ abstract class BaseTest extends TestCase {
      *
      * @return int Category entry identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function addContact(int $objectID, int $contactID, int $roleID = 1): int {
         return $this->cmdbCategory->create(
@@ -732,7 +733,7 @@ abstract class BaseTest extends TestCase {
     /**
      * @param int $objectID Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isNormal(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
@@ -745,7 +746,7 @@ abstract class BaseTest extends TestCase {
     /**
      * @param int $objectID Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isArchived(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
@@ -758,7 +759,7 @@ abstract class BaseTest extends TestCase {
     /**
      * @param int $objectID Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isDeleted(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
@@ -771,7 +772,7 @@ abstract class BaseTest extends TestCase {
     /**
      * @param int $objectID Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isPurged(int $objectID) {
         $result = $this->cmdbObject->read($objectID);
@@ -781,7 +782,7 @@ abstract class BaseTest extends TestCase {
     /**
      * @param int $objectID Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isTemplate(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
@@ -794,7 +795,7 @@ abstract class BaseTest extends TestCase {
     /**
      * @param int $objectID Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isMassChangeTemplate(int $objectID) {
         $object = $this->cmdbObject->read($objectID);
@@ -813,7 +814,7 @@ abstract class BaseTest extends TestCase {
      * @param string $categoryConstant Category constant
      * @param int $entryID Entry identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isNormalEntry(int $objectID, string $categoryConstant, int $entryID) {
         $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 2);
@@ -837,7 +838,7 @@ abstract class BaseTest extends TestCase {
      * @param string $categoryConstant Category constant
      * @param int $entryID Entry identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isArchivedEntry(int $objectID, string $categoryConstant, int $entryID) {
         $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 3);
@@ -861,7 +862,7 @@ abstract class BaseTest extends TestCase {
      * @param string $categoryConstant Category constant
      * @param int $entryID Entry identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isDeletedEntry(int $objectID, string $categoryConstant, int $entryID) {
         $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 4);
@@ -883,10 +884,10 @@ abstract class BaseTest extends TestCase {
      * @param string $categoryConstant Category constant
      * @param int $entryID Entry identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function isNotAvailable(int $objectID, string $categoryConstant, int $entryID) {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID);
         $this->assertIsArray($result);
     }

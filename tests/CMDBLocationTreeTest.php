@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CMDBLocationTree;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\CMDBLocationTree;
 class CMDBLocationTreeTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBLocationTree
+     * @var CMDBLocationTree
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class CMDBLocationTreeTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRead() {
         $result = $this->instance->read($this->getRootLocation());
@@ -57,7 +58,7 @@ class CMDBLocationTreeTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadRecursively() {
         $result = $this->instance->readRecursively($this->getRootLocation());

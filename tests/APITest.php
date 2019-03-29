@@ -26,6 +26,9 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \stdClass;
+use \Exception;
+use \RuntimeException;
 use bheisig\idoitapi\API;
 
 class APITest extends BaseTest {
@@ -33,7 +36,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::__construct
      * @covers \bheisig\idoitapi\API::testConfig
-     * @throws \Exception
+     * @throws Exception
      */
     public function testConstructor() {
         // Minimal config:
@@ -49,7 +52,7 @@ class APITest extends BaseTest {
      * @covers \bheisig\idoitapi\API::__construct
      * @covers \bheisig\idoitapi\API::testConfig
      * @covers \bheisig\idoitapi\API::__destruct
-     * @throws \Exception
+     * @throws Exception
      * @doesNotPerformAssertions
      */
     public function testDestructor() {
@@ -64,7 +67,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::connect
-     * @throws \Exception
+     * @throws Exception
      */
     public function testConnect() {
         $this->assertInstanceOf(API::class, $this->api->connect());
@@ -73,7 +76,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::connect
      * @covers \bheisig\idoitapi\API::disconnect
-     * @throws \Exception
+     * @throws Exception
      */
     public function testDisconnect() {
         $this->api->connect();
@@ -85,7 +88,7 @@ class APITest extends BaseTest {
      * @covers \bheisig\idoitapi\API::isConnected
      * @covers \bheisig\idoitapi\API::connect
      * @covers \bheisig\idoitapi\API::disconnect
-     * @throws \Exception
+     * @throws Exception
      */
     public function testIsConnected() {
         $this->assertFalse($this->api->isConnected());
@@ -101,7 +104,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::login
-     * @throws \Exception
+     * @throws Exception
      */
     public function testLogin() {
         $this->assertInstanceOf(API::class, $this->api->login());
@@ -110,7 +113,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::login
      * @covers \bheisig\idoitapi\API::logout
-     * @throws \Exception
+     * @throws Exception
      */
     public function testLogout() {
         $this->api->login();
@@ -122,7 +125,7 @@ class APITest extends BaseTest {
      * @covers \bheisig\idoitapi\API::isLoggedIn
      * @covers \bheisig\idoitapi\API::login
      * @covers \bheisig\idoitapi\API::logout
-     * @throws \Exception
+     * @throws Exception
      */
     public function testIsLoggedIn() {
         $this->assertFalse($this->api->isLoggedIn());
@@ -140,7 +143,7 @@ class APITest extends BaseTest {
      * @covers \bheisig\idoitapi\API::request
      * @covers \bheisig\idoitapi\API::setCURLOptions
      * @covers \bheisig\idoitapi\API::evaluateResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function testRequest() {
         $result = $this->api->request('idoit.version');
@@ -153,7 +156,7 @@ class APITest extends BaseTest {
      * @covers \bheisig\idoitapi\API::request
      * @covers \bheisig\idoitapi\API::countRequests
      * @covers \bheisig\idoitapi\API::genID
-     * @throws \Exception
+     * @throws Exception
      */
     public function testCountRequests() {
         $this->api->request('idoit.version');
@@ -173,7 +176,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::batchRequest
-     * @throws \Exception
+     * @throws Exception
      */
     public function testBatchRequest() {
         $objectID = $this->createServer();
@@ -199,7 +202,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::batchRequest
-     * @throws \Exception
+     * @throws Exception
      */
     public function testOneRequestInABatch() {
         $results = $this->api->batchRequest([
@@ -217,7 +220,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRawRequest() {
         $request = [
@@ -239,7 +242,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @covers \bheisig\idoitapi\API::getLastRequestHeaders
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRequestWithAdditionalHeaders() {
         $request = [
@@ -293,7 +296,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      * @dataProvider provideInvalidRequests
      * @param mixed $request Invalid request
      */
@@ -309,7 +312,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      * @dataProvider provideInvalidBatch
      * @param mixed $request Invalid batch request
      */
@@ -327,7 +330,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRequestWithMissingParameters() {
         $request = [
@@ -362,7 +365,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      * @param mixed $parameters Invalid parameters
      * @dataProvider provideInvalidParameters
      */
@@ -385,7 +388,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group API-107
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRequestWithMissingApiKey() {
         $request = [
@@ -409,7 +412,7 @@ class APITest extends BaseTest {
     public function provideInvalidAPIKeys(): array {
         return [
             'null' => [null],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
             'empty array' => [[]],
             'positive integer' => [23],
             'negative integer' => [-42],
@@ -424,7 +427,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group API-107
-     * @throws \Exception on error
+     * @throws Exception on error
      * @param mixed $apiKey Invalid API key
      * @dataProvider provideInvalidAPIKeys
      */
@@ -448,7 +451,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRequestWithMissingVersionNumber() {
         $request = [
@@ -473,7 +476,7 @@ class APITest extends BaseTest {
     public function provideInvalidVersionNumbers() {
         return [
             'null' => [null],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
             'empty array' => [[]],
             'positive integer' => [23],
             'negative integer' => [-42],
@@ -487,7 +490,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      * @param mixed $versionNumber Invalid version number
      * @dataProvider provideInvalidVersionNumbers
      */
@@ -526,7 +529,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      * @param mixed $identifier Valid identifier
      * @dataProvider provideValidIdentifiers
      */
@@ -553,7 +556,7 @@ class APITest extends BaseTest {
     public function provideInvalidIdentifiers(): array {
         return [
             'null' => [null],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
             'empty array' => [[]],
             'float' => [123.456],
             'true' => [true],
@@ -564,7 +567,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      * @param mixed $identifier Invalid identifier
      * @dataProvider provideInvalidIdentifiers
      */
@@ -588,7 +591,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRequestWithMissingMethod() {
         $request = [
@@ -616,7 +619,7 @@ class APITest extends BaseTest {
         return [
             'empty string' => [''],
             'null' => [null],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
             'empty array' => [[]],
             'positive integer' => [23],
             'negative integer' => [-42],
@@ -628,7 +631,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      * @param mixed $method Invalid method
      * @dataProvider provideInvalidMethods
      */
@@ -666,7 +669,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
-     * @throws \Exception on error
+     * @throws Exception on error
      * @param string $method Unknown method
      * @dataProvider provideUnknownMethods
      */
@@ -691,7 +694,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group API-118
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRepeatingIdentifiersInBatchRequest() {
         $request = [
@@ -732,7 +735,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group API-119
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testVariousApiKeysInBatchRequest() {
         $request = [
@@ -773,11 +776,11 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group API-77
-     * @throws \Exception on error
+     * @throws Exception on error
      * @todo At the moment this library expects a JSON string in response body, so this test will fail.
      */
     public function testNotification() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $request = [
             'jsonrpc' => '2.0',
@@ -795,11 +798,11 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group API-77
-     * @throws \Exception on error
+     * @throws Exception on error
      * @todo At the moment this library expects a JSON string in response body, so this test will fail.
      */
     public function testOnlyNotificationsInBatchRequest() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $request = [
             [
@@ -833,7 +836,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::rawRequest
      * @group API-77
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSomeNotificationsInBatchRequest() {
         $request = [
@@ -878,7 +881,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::request
      * @covers \bheisig\idoitapi\API::getLastInfo
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetLastInfo() {
         $this->api->request('idoit.version');
@@ -890,7 +893,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::request
      * @covers \bheisig\idoitapi\API::getLastResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetLastResponse() {
         $this->api->request('idoit.version');
@@ -902,7 +905,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::request
      * @covers \bheisig\idoitapi\API::getLastRequestContent
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetLastRequestContent() {
         $this->api->request('idoit.version');
@@ -914,7 +917,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::request
      * @covers \bheisig\idoitapi\API::getLastResponseHeaders
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetLastResponseHeaders() {
         $this->api->request('idoit.version');
@@ -926,7 +929,7 @@ class APITest extends BaseTest {
     /**
      * @covers \bheisig\idoitapi\API::request
      * @covers \bheisig\idoitapi\API::getLastRequestHeaders
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetLastRequestHeaders() {
         $this->api->request('idoit.version');
@@ -937,7 +940,7 @@ class APITest extends BaseTest {
 
     /**
      * @covers \bheisig\idoitapi\API::request
-     * @throws \Exception
+     * @throws Exception
      */
     public function testValidateLanguageParameter() {
         // Test object type "printer":
@@ -994,7 +997,7 @@ class APITest extends BaseTest {
      * @covers \bheisig\idoitapi\API::getLastResponseHeaders
      * @covers \bheisig\idoitapi\API::getLastRequestHeaders
      * @covers \bheisig\idoitapi\API::logout
-     * @throws \Exception
+     * @throws Exception
      */
     public function testValidateSession() {
         $sessionHeader = 'X-RPC-Auth-Session';
@@ -1020,7 +1023,7 @@ class APITest extends BaseTest {
      *
      * @return string Header's value
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function getHeader(string $header, string $headers) {
         $lines = explode(PHP_EOL, $headers);
@@ -1035,7 +1038,7 @@ class APITest extends BaseTest {
             }
         }
 
-        throw new \RuntimeException(sprintf(
+        throw new RuntimeException(sprintf(
             'HTTP header "%s" not found',
             $header
         ));

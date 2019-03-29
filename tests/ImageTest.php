@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\Image;
 
 /**
@@ -34,7 +35,7 @@ use bheisig\idoitapi\Image;
 class ImageTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Image
+     * @var Image
      */
     protected $instance;
 
@@ -44,7 +45,7 @@ class ImageTest extends BaseTest {
     protected $files = [];
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -58,7 +59,7 @@ class ImageTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testAdd() {
         $objectID = $this->createServer();
@@ -72,7 +73,7 @@ class ImageTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchAdd() {
         $objectID = $this->createServer();
@@ -84,7 +85,7 @@ class ImageTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testEncode() {
         foreach ($this->files as $filePath => $description) {

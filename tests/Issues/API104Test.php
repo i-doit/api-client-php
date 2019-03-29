@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
@@ -36,7 +37,7 @@ use bheisig\idoitapi\tests\BaseTest;
 class API104Test extends BaseTest {
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testIssue() {
         $subnetID = $this->createSubnet();
@@ -65,7 +66,7 @@ class API104Test extends BaseTest {
      *
      * @return int Object identifier of net zone
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function createNetZone(int $subnetID): int {
         $netZoneID = $this->cmdbObject->create('C__OBJTYPE__NET_ZONE', 'Reserved IP addresses');

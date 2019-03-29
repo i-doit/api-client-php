@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'cmdb.object_type_categories'
  */
@@ -36,7 +38,7 @@ class CMDBObjectTypeCategories extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByID($objectTypeID) {
         return $this->api->request(
@@ -54,7 +56,7 @@ class CMDBObjectTypeCategories extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByConst($objectTypeConst) {
         return $this->api->request(
@@ -72,7 +74,7 @@ class CMDBObjectTypeCategories extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchReadByID(array $objectTypeIDs) {
         $requests = [];
@@ -96,7 +98,7 @@ class CMDBObjectTypeCategories extends Request {
      *
      * @return array Result
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchReadByConst(array $objectTypeConsts) {
         $requests = [];

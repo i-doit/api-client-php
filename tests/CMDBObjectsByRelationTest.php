@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
+use \RuntimeException;
 use bheisig\idoitapi\CMDBObjectsByRelation;
 
 /**
@@ -34,12 +36,12 @@ use bheisig\idoitapi\CMDBObjectsByRelation;
 class CMDBObjectsByRelationTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBObjectsByRelation
+     * @var CMDBObjectsByRelation
      */
     protected $cmdbObjectsByRelation;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +50,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByIdentifier() {
         $relationType = 10; // Location
@@ -74,7 +76,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByConstant() {
         $relationType = 'C__RELATION_TYPE__LOCATION';
@@ -101,7 +103,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
 
     /**
      * @group API-71
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFilterByStatusNormal() {
         $relationType = 'C__RELATION_TYPE__LOCATION';
@@ -129,7 +131,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
 
     /**
      * @group API-71
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFilterByStatusArchived() {
         $hostID = $this->createServer();
@@ -156,7 +158,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
 
     /**
      * @group API-71
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFilterByStatusDeleted() {
         $hostID = $this->createServer();
@@ -199,10 +201,10 @@ class CMDBObjectsByRelationTest extends BaseTest {
      * @group API-71
      * @dataProvider provideInvalidStatus
      * @param int $status
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFilterByInvalidStatus(int $status) {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
         $hostID = $this->createServer();
         $admin = $this->createPerson();

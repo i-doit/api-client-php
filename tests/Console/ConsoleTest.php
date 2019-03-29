@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
+use \Exception;
+use \RuntimeException;
 use bheisig\idoitapi\Console\Console;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -35,12 +37,12 @@ use bheisig\idoitapi\tests\BaseTest;
 class ConsoleTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Console\Console
+     * @var Console
      */
     protected $console;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -49,10 +51,10 @@ class ConsoleTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testExecuteNothing() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $result = $this->console->execute('');
 
@@ -60,7 +62,7 @@ class ConsoleTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testExecuteSimpleCommand() {
         $result = $this->console->execute(
@@ -75,10 +77,10 @@ class ConsoleTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testExecuteUnknownCommand() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $result = $this->console->execute(
             'console.commands.' . $this->generateRandomString()
@@ -105,10 +107,10 @@ class ConsoleTest extends BaseTest {
     /**
      * @dataProvider provideBlacklistedCommands
      * @param string $blacklistedCommand Blacklisted command
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testExecuteBlacklistedCommand(string $blacklistedCommand) {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
         $result = $this->console->execute($blacklistedCommand);
         $this->assertIsArray($result);

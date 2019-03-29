@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CMDBReports;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\CMDBReports;
 class CMDBReportsTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBReports
+     * @var CMDBReports
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class CMDBReportsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testListReports() {
         $result = $this->instance->listReports();
@@ -58,7 +59,7 @@ class CMDBReportsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRead() {
         $reports = $this->instance->listReports();
@@ -75,7 +76,7 @@ class CMDBReportsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchRead() {
         $reports = $this->instance->listReports();

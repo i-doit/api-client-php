@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
+use \Exception;
 use bheisig\idoitapi\Console\Search;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -35,12 +36,12 @@ use bheisig\idoitapi\tests\BaseTest;
 class SearchTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Console\Search
+     * @var Search
      */
     protected $search;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -49,7 +50,7 @@ class SearchTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateIndex() {
         $result = $this->search->createIndex();
@@ -59,7 +60,7 @@ class SearchTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdateIndex() {
         $result = $this->search->updateIndex();
@@ -69,7 +70,7 @@ class SearchTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testQuery() {
         $title = $this->generateRandomString();

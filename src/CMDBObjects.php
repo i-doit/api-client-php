@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'cmdb.objects'
  */
@@ -51,7 +54,7 @@ class CMDBObjects extends Request {
      *
      * @return array List of object identifiers
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function create(array $objects) {
         $requests = [];
@@ -92,7 +95,7 @@ class CMDBObjects extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read(
         array $filter = [], $limit = null, $offset = null, $orderBy = null, $sort = null, $categories = false
@@ -138,7 +141,7 @@ class CMDBObjects extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByIDs(array $objectIDs, $categories = false) {
         $params = [
@@ -166,7 +169,7 @@ class CMDBObjects extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByType($objectType, $categories = false) {
         $params = [
@@ -194,7 +197,7 @@ class CMDBObjects extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readArchived($type = null, $categories = false) {
         $params = [
@@ -226,7 +229,7 @@ class CMDBObjects extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readDeleted($type = null, $categories = false) {
         $params = [
@@ -257,7 +260,7 @@ class CMDBObjects extends Request {
      *
      * @return int Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function getID($title, $type = null) {
         $filter = [
@@ -272,16 +275,16 @@ class CMDBObjects extends Request {
 
         switch (count($result)) {
             case 0:
-                throw new \RuntimeException('Object not found');
+                throw new RuntimeException('Object not found');
             case 1:
                 if (!array_key_exists(0, $result) ||
                     !array_key_exists('id', $result[0])) {
-                    throw new \RuntimeException('Bad result');
+                    throw new RuntimeException('Bad result');
                 }
 
                 return $result[0]['id'];
             default:
-                throw new \RuntimeException('Found %s objects', count($result));
+                throw new RuntimeException('Found %s objects', count($result));
         }
     }
 
@@ -292,7 +295,7 @@ class CMDBObjects extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function update(array $objects) {
         $requests = [];
@@ -316,7 +319,7 @@ class CMDBObjects extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function archive(array $objectIDs) {
         $requests = [];
@@ -342,7 +345,7 @@ class CMDBObjects extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function delete(array $objectIDs) {
         $requests = [];
@@ -368,7 +371,7 @@ class CMDBObjects extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function purge(array $objectIDs) {
         $requests = [];
@@ -394,7 +397,7 @@ class CMDBObjects extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function recycle(array $objectIDs) {
         $requests = [];

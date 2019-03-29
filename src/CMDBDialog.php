@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'cmdb.dialog'
  */
@@ -39,7 +42,7 @@ class CMDBDialog extends Request {
      *
      * @return int Entry identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function create($category, $attribute, $value, $parent = null) {
         $params = [
@@ -59,7 +62,7 @@ class CMDBDialog extends Request {
 
         if (!array_key_exists('entry_id', $result) ||
             !is_numeric($result['entry_id'])) {
-            throw new \RuntimeException('Bad result');
+            throw new RuntimeException('Bad result');
         }
 
         return (int) $result['entry_id'];
@@ -80,7 +83,7 @@ class CMDBDialog extends Request {
      *
      * @return array List of entry identifiers
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      *
      * @todo Add support for parameter "parent"!
      */
@@ -117,7 +120,7 @@ class CMDBDialog extends Request {
         foreach ($entries as $entry) {
             if (!array_key_exists('entry_id', $entry) ||
                 !is_numeric($entry['entry_id'])) {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
 
             $entryIDs[] = (int) $entry['entry_id'];
@@ -134,7 +137,7 @@ class CMDBDialog extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($category, $attribute) {
         return $this->api->request(
@@ -153,7 +156,7 @@ class CMDBDialog extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchRead(array $attributes) {
         $requests = [];
@@ -190,7 +193,7 @@ class CMDBDialog extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function delete($category, $attribute, $entryID) {
         $this->api->request(

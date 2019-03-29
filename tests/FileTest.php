@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
+use \RuntimeException;
 use bheisig\idoitapi\File;
 
 /**
@@ -34,7 +36,7 @@ use bheisig\idoitapi\File;
 class FileTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\File
+     * @var File
      */
     protected $instance;
 
@@ -44,7 +46,7 @@ class FileTest extends BaseTest {
     protected $files = [];
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -66,13 +68,13 @@ class FileTest extends BaseTest {
             $status = file_put_contents($filePath, $description);
 
             if ($status === false) {
-                throw new \RuntimeException(sprintf('Unable to create test file "%s"', $filePath));
+                throw new RuntimeException(sprintf('Unable to create test file "%s"', $filePath));
             }
         }
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testAdd() {
         $objectID = $this->createServer();
@@ -86,7 +88,7 @@ class FileTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchAdd() {
         $objectID = $this->createServer();
@@ -98,7 +100,7 @@ class FileTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testEncode() {
         foreach ($this->files as $filePath => $description) {
@@ -110,14 +112,14 @@ class FileTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function tearDown() {
         foreach (array_keys($this->files) as $filePath) {
             $status = unlink($filePath);
 
             if ($status === false) {
-                throw new \RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'Unable to remove file "%s"',
                     $filePath
                 ));

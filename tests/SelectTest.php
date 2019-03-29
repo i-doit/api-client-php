@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\Select;
 use bheisig\idoitapi\CMDBObject;
 use bheisig\idoitapi\CMDBCategory;
@@ -36,12 +37,12 @@ use bheisig\idoitapi\CMDBCategory;
 class SelectTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Select
+     * @var Select
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -50,7 +51,7 @@ class SelectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFindByTitle() {
         $title = $this->generateRandomString();
@@ -66,7 +67,7 @@ class SelectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFindNothing() {
         $result = $this->instance->find(
@@ -80,7 +81,7 @@ class SelectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFindBySerialNumber() {
         $title = $this->generateRandomString();
@@ -107,7 +108,7 @@ class SelectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFindByHostaddress() {
         $title = $this->generateRandomString();

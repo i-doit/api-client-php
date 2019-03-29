@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'cmdb.impact'
  */
@@ -38,7 +40,7 @@ class CMDBImpact extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByID($objectID, $relationType, $status = null) {
         $params = [
@@ -65,7 +67,7 @@ class CMDBImpact extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByConst($objectID, $relationType, $status = null) {
         $params = [
@@ -92,7 +94,7 @@ class CMDBImpact extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByTypes($objectID, array $relationTypes, $status = null) {
         $params = [

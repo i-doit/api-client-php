@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CMDBObjectTypeGroups;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\CMDBObjectTypeGroups;
 class CMDBObjectTypeGroupsTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBObjectTypeGroups
+     * @var CMDBObjectTypeGroups
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class CMDBObjectTypeGroupsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRead() {
         $result = $this->instance->read();

@@ -24,6 +24,10 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \BadMethodCallException;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'checkmk.statictag'
  */
@@ -32,14 +36,14 @@ class CheckMKStaticTag extends Request {
     /**
      * Create a new static host tag
      *
-     * @param string $tag Tag ID
      * @param string $title Name
+     * @param string $tag Tag ID
      * @param string $group Optional associated host group
      * @param string $description Optional description
      *
      * @return int Identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function create($title, $tag = null, $group = null, $description = null) {
         $params = [
@@ -70,9 +74,9 @@ class CheckMKStaticTag extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -88,7 +92,7 @@ class CheckMKStaticTag extends Request {
      *
      * @return array List of identifiers as integers
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchCreate(array $tags) {
         $requests = [];
@@ -98,7 +102,7 @@ class CheckMKStaticTag extends Request {
         foreach ($tags as $data) {
             foreach ($required as $attribute) {
                 if (!array_key_exists($attribute, $data)) {
-                    throw new \BadMethodCallException(sprintf(
+                    throw new BadMethodCallException(sprintf(
                         'Missing attribute "%s"',
                         $attribute
                     ));
@@ -122,9 +126,9 @@ class CheckMKStaticTag extends Request {
             if (!array_key_exists('success', $tag) ||
                 $tag['success'] !== true) {
                 if (array_key_exists('message', $tag)) {
-                    throw new \RuntimeException(sprintf('Bad result: %s', $tag['message']));
+                    throw new RuntimeException(sprintf('Bad result: %s', $tag['message']));
                 } else {
-                    throw new \RuntimeException('Bad result');
+                    throw new RuntimeException('Bad result');
                 }
             }
 
@@ -139,7 +143,7 @@ class CheckMKStaticTag extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read() {
         return $this->api->request(
@@ -154,7 +158,7 @@ class CheckMKStaticTag extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByID($id) {
         return $this->api->request(
@@ -172,7 +176,7 @@ class CheckMKStaticTag extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByIDs(array $ids) {
         return $this->api->request(
@@ -190,7 +194,7 @@ class CheckMKStaticTag extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByTag($tag) {
         return $this->api->request(
@@ -210,7 +214,7 @@ class CheckMKStaticTag extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function update($id, array $tag) {
         $result = $this->api->request(
@@ -224,9 +228,9 @@ class CheckMKStaticTag extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -240,7 +244,7 @@ class CheckMKStaticTag extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function delete($id) {
         $result = $this->api->request(
@@ -253,9 +257,9 @@ class CheckMKStaticTag extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -269,7 +273,7 @@ class CheckMKStaticTag extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchDelete($ids) {
         $requests = [];
@@ -290,9 +294,9 @@ class CheckMKStaticTag extends Request {
             if (!array_key_exists('success', $tag) ||
                 $tag['success'] !== true) {
                 if (array_key_exists('message', $tag)) {
-                    throw new \RuntimeException(sprintf('Bad result: %s', $tag['message']));
+                    throw new RuntimeException(sprintf('Bad result: %s', $tag['message']));
                 } else {
-                    throw new \RuntimeException('Bad result');
+                    throw new RuntimeException('Bad result');
                 }
             }
         }
@@ -305,7 +309,7 @@ class CheckMKStaticTag extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function deleteAll() {
         $tags = $this->read();

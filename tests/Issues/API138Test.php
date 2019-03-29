@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
@@ -46,7 +47,7 @@ class API138Test extends BaseTest {
     /**
      * @dataProvider provideGenders
      * @param string $gender
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSalutation(string $gender) {
         /**

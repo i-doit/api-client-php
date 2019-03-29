@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
@@ -36,7 +37,7 @@ use bheisig\idoitapi\tests\BaseTest;
 class API131Test extends BaseTest {
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testPerson() {
         $firstName = 'John';
@@ -128,7 +129,7 @@ class API131Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testPersonGroup() {
         $title = $this->generateRandomString();
@@ -201,7 +202,7 @@ class API131Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testOrganization() {
         $title = $this->generateRandomString();

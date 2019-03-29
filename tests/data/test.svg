@@ -2,10 +2,10 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.2" width="80mm" height="41.92mm" viewBox="8000 5208 8000 4192" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:presentation="http://sun.com/xmlns/staroffice/presentation" xmlns:smil="http://www.w3.org/2001/SMIL20/" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xml:space="preserve">
  <defs class="ClipPathGroup">
-  <clipPath id="presentation_clip_path" clipPathUnits="userSpaceOnUse">
+  <clipPath id="presentation_clip_path">
    <rect x="8000" y="5208" width="8000" height="4192"/>
   </clipPath>
-  <clipPath id="presentation_clip_path_shrink" clipPathUnits="userSpaceOnUse">
+  <clipPath id="presentation_clip_path_shrink">
    <rect x="8008" y="5212" width="7984" height="4184"/>
   </clipPath>
  </defs>

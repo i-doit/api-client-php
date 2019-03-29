@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CMDBWorkstationComponents;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\CMDBWorkstationComponents;
 class CMDBWorkstationComponentsTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBWorkstationComponents
+     * @var CMDBWorkstationComponents
      */
     protected $cmdbWorkstationComponents;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRead() {
         $person = $this->createPerson();
@@ -68,7 +69,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchRead() {
         $person1 = $this->createPerson();
@@ -96,7 +97,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByEmail() {
         $person = $this->createPerson();
@@ -116,7 +117,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByEmails() {
         $person1 = $this->createPerson();

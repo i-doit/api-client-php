@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'cmdb.logbook'
  */
@@ -38,7 +41,7 @@ class CMDBLogbook extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function create($objectID, $message, $description = null) {
         $params = [
@@ -58,9 +61,9 @@ class CMDBLogbook extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -75,7 +78,7 @@ class CMDBLogbook extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchCreate($objectID, array $messages) {
         $requests = [];
@@ -104,7 +107,7 @@ class CMDBLogbook extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($since = null, $limit = 1000) {
         $params = [
@@ -131,7 +134,7 @@ class CMDBLogbook extends Request {
      *
      * @return array Indexed array of associative arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByObject($objectID, $since = null, $limit = 1000) {
         $params = [

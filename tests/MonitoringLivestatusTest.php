@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\MonitoringLivestatus;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\MonitoringLivestatus;
 class MonitoringLivestatusTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\MonitoringLivestatus
+     * @var MonitoringLivestatus
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateTCPConnection() {
         $result = $this->instance->createTCPConnection(
@@ -87,7 +88,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateUNIXSocketConnection() {
         $result = $this->instance->createUNIXSocketConnection(
@@ -109,7 +110,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadExisting() {
         // We need at least one instance:
@@ -161,7 +162,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadNonExisting() {
         // Make sure there are no instances:
@@ -174,7 +175,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByExistingIdentifier() {
         $title = $this->generateRandomString();
@@ -196,7 +197,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByNonExistingIdentifier() {
         // It is unlikely to produce such high IDs but this *could* fail:
@@ -209,7 +210,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByExistingIdentifiers() {
         $amount = 3;
@@ -228,7 +229,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByNonExistingIdentifiers() {
         // It is unlikely to produce such high IDs but this *could* fail:
@@ -245,7 +246,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByExistingTitle() {
         $title = $this->generateRandomString();
@@ -263,7 +264,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByNonExistingTitle() {
         $title = $this->generateRandomString();
@@ -275,7 +276,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdateExisting() {
         $orig = [
@@ -319,10 +320,10 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdateNonExisting() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         // It is unlikely to produce such high IDs but this *could* fail:
         $id = 99999999;
@@ -339,7 +340,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteByExistingIdentifier() {
         $id = $this->instance->createTCPConnection(
@@ -352,7 +353,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteByNonExistingIdentifier() {
         // It is unlikely to produce such high IDs but this *could* fail:
@@ -365,7 +366,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteByExistingTitle() {
         $title = $this->generateRandomString();
@@ -379,7 +380,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteByNonExistingTitle() {
         $title = $this->generateRandomString();
@@ -391,7 +392,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteDeletedOne() {
         $id = $this->instance->createTCPConnection(
@@ -409,7 +410,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchDeleteExisting() {
         $amount = 3;
@@ -427,7 +428,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchDeleteDeletedOnes() {
         $amount = 3;
@@ -450,7 +451,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteAllExisting() {
         $amount = 3;
@@ -467,7 +468,7 @@ class MonitoringLivestatusTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteAllNonExisting() {
         $amount = 3;

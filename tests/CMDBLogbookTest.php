@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
+use \DomainException;
 use bheisig\idoitapi\CMDBLogbook;
 
 /**
@@ -34,12 +36,12 @@ use bheisig\idoitapi\CMDBLogbook;
 class CMDBLogbookTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBLogbook
+     * @var CMDBLogbook
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +50,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreate() {
         $objectID = $this->createServer();
@@ -63,7 +65,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchCreate() {
         $objectID = $this->createServer();
@@ -81,7 +83,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRead() {
         $result = $this->instance->read();
@@ -112,7 +114,7 @@ class CMDBLogbookTest extends BaseTest {
     /**
      * @dataProvider provideDates
      * @param string $date Date or Unix timestamp
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByDate(string $date) {
         $result = $this->instance->read($date);
@@ -138,7 +140,7 @@ class CMDBLogbookTest extends BaseTest {
     /**
      * @dataProvider provideLimits
      * @param int $limit Limit
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadWithLimit(int $limit) {
         $result = $this->instance->read(null, $limit);
@@ -150,7 +152,7 @@ class CMDBLogbookTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByObject() {
         $objectID = $this->createServer();
@@ -166,7 +168,7 @@ class CMDBLogbookTest extends BaseTest {
     /**
      * @param string $date Date or Unix timestamp
      * @dataProvider provideDates
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByObjectAndDate(string $date) {
         $objectID = $this->createServer();
@@ -181,7 +183,7 @@ class CMDBLogbookTest extends BaseTest {
     /**
      * @param int $limit Limit
      * @dataProvider provideLimits
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByObjectAndLimit(int $limit) {
         $objectID = $this->createServer();
@@ -196,7 +198,7 @@ class CMDBLogbookTest extends BaseTest {
     /**
      * @param array $entries
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function validateEntries(array $entries) {
         foreach ($entries as $entry) {
@@ -207,7 +209,7 @@ class CMDBLogbookTest extends BaseTest {
     /**
      * @param array $entry
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function validateEntry(array $entry) {
         $this->assertArrayHasKey('logbook_id', $entry);
@@ -247,7 +249,7 @@ class CMDBLogbookTest extends BaseTest {
                         $this->validateChange($changeSet);
                         break;
                     default:
-                        throw new \DomainException('Invalid changeset');
+                        throw new DomainException('Invalid changeset');
                 }
             }
         }
@@ -286,7 +288,7 @@ class CMDBLogbookTest extends BaseTest {
      *
      * @param array $change Change from … to …
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function validateChange(array $change) {
         $this->assertCount(2, $change);
@@ -303,7 +305,7 @@ class CMDBLogbookTest extends BaseTest {
             case 'array':
                 break;
             default:
-                throw new \DomainException('Invalid new value');
+                throw new DomainException('Invalid new value');
         }
     }
 

@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CheckMKStaticTag;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\CheckMKStaticTag;
 class CheckMKStaticTagTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CheckMKStaticTag
+     * @var CheckMKStaticTag
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateMinimal() {
         $id = $this->instance->create(
@@ -60,7 +61,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateExtended() {
         $id = $this->instance->create(
@@ -75,7 +76,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateDublicate() {
         $title = $this->generateRandomString();
@@ -98,7 +99,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSimpleBatchCreate() {
         $tags = [];
@@ -123,7 +124,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testExtendedBatchCreate() {
         $tags = [];
@@ -151,16 +152,16 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadExisting() {
         // We need at least 1 host tag:
         $title = $this->generateRandomString();
-        $tag = $this->generateRandomString();
+        $tagID = $this->generateRandomString();
         $group = $this->generateRandomString();
         $description = $this->generateDescription();
 
-        $this->instance->create($title, $tag, $group, $description);
+        $this->instance->create($title, $tagID, $group, $description);
 
         $tags = $this->instance->read();
 
@@ -174,7 +175,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadNonExisting() {
         // Make sure there are no host tags:
@@ -187,7 +188,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByExistingIdentifier() {
         // We need at least 1 host tag:
@@ -224,7 +225,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByNonExistingIdentifier() {
         // It is unlikely to produce such high IDs but this *could* fail:
@@ -237,7 +238,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByExistingIdentifiers() {
         $tags = [];
@@ -259,7 +260,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByNonExistingIdentifiers() {
         // It is unlikely to produce such high IDs but this *could* fail:
@@ -276,7 +277,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByExistingTag() {
         $tag = $this->generateRandomString();
@@ -295,7 +296,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByNonExistingTag() {
         $tag = $this->generateRandomString();
@@ -307,7 +308,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdateExisting() {
         $orig = [
@@ -350,10 +351,10 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdateNonExisting() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         // It is unlikely to produce such high IDs but this *could* fail:
         $id = 99999999;
@@ -370,7 +371,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteExisting() {
         $id = $this->instance->create(
@@ -383,7 +384,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteDeletedOne() {
         $id = $this->instance->create(
@@ -401,7 +402,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteNonExisting() {
         // It is unlikely to produce such high IDs but this *could* fail:
@@ -413,7 +414,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchDeleteExisting() {
         $ids = $this->instance->batchCreate([
@@ -434,7 +435,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchDeleteDeletedOnes() {
         $ids = $this->instance->batchCreate([
@@ -458,7 +459,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchDeleteNonExisting() {
         // It is unlikely to produce such high IDs but this *could* fail:
@@ -474,7 +475,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteAllExisting() {
         $this->instance->batchCreate([
@@ -495,7 +496,7 @@ class CheckMKStaticTagTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testDeleteAllNonExisting() {
         $this->instance->batchCreate([

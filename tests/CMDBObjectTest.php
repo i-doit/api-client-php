@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
+use \RuntimeException;
 use bheisig\idoitapi\CMDBObject;
 use bheisig\idoitapi\CMDBObjects;
 use bheisig\idoitapi\CMDBObjectTypes;
@@ -37,7 +39,7 @@ use bheisig\idoitapi\CMDBCategoryInfo;
 class CMDBObjectTest extends BaseTest {
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-81
      */
     public function testCreate() {
@@ -51,7 +53,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateObjectForEveryType() {
         $objectTypeConstants = array_map(
@@ -68,7 +70,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-81
      */
     public function testCreateWithMoreAttributes() {
@@ -89,7 +91,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateNormalObject() {
         $objectID = $this->cmdbObject->create(
@@ -105,7 +107,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateArchivedObject() {
         $objectID = $this->cmdbObject->create(
@@ -121,7 +123,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateDeletedObject() {
         $objectID = $this->cmdbObject->create(
@@ -137,7 +139,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateTemplate() {
         $objectID = $this->cmdbObject->create(
@@ -153,7 +155,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateMassChangeTemplate() {
         $objectID = $this->cmdbObject->create(
@@ -170,7 +172,7 @@ class CMDBObjectTest extends BaseTest {
 
     /**
      * @group API-84
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateWithCategories() {
         $result = $this->cmdbObject->createWithCategories(
@@ -255,7 +257,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-81
      */
     public function testRead() {
@@ -338,7 +340,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdate() {
         $objectID = $this->createServer();
@@ -350,7 +352,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-81
      */
     public function testLoad() {
@@ -363,7 +365,7 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadAll() {
         $objectIDs = array_map(
@@ -416,15 +418,15 @@ class CMDBObjectTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadAllFromNonExistingObject() {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->cmdbObject->readAll($this->generateRandomID());
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-81
      */
     public function testUpsert() {

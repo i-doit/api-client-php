@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
@@ -36,7 +37,7 @@ use bheisig\idoitapi\tests\BaseTest;
 class API134Test extends BaseTest {
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreate() {
         $this->performCall(
@@ -47,7 +48,7 @@ class API134Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdate() {
         $this->performCall(
@@ -61,7 +62,7 @@ class API134Test extends BaseTest {
      * @param string $method
      * @param string $expectedMessage
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function performCall(string $method, string $expectedMessage) {
         $objectID = $this->createServer();

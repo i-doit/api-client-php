@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'cmdb.workstation_components'
  */
@@ -36,7 +38,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($objectID) {
         return $this->api->request(
@@ -56,7 +58,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @return array Result
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchRead(array $objectIDs) {
         return $this->api->request(
@@ -76,7 +78,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByEmail($email) {
         return $this->api->request(
@@ -96,7 +98,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByEmails(array $emails) {
         return $this->api->request(

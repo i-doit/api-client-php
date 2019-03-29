@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
@@ -36,7 +37,7 @@ use bheisig\idoitapi\tests\BaseTest;
 class API7Test extends BaseTest {
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testIssue() {
         $objectType = 'C__OBJTYPE__SWITCH';

@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Selector for objects
  */
@@ -38,7 +41,7 @@ class Select extends Request {
      *
      * @return array List of object identifiers as integers
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function find($category, $attribute, $value) {
         $cmdbObjects = new CMDBObjects($this->api);
@@ -107,7 +110,7 @@ class Select extends Request {
                     }
 
                     if (!array_key_exists('objID', $categoryEntry)) {
-                        throw new \RuntimeException('Found attribute for unknown object');
+                        throw new RuntimeException('Found attribute for unknown object');
                     }
 
                     $objectIDs[] = (int)$categoryEntry['objID'];

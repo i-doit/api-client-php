@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'cmdb.reports'
  */
@@ -34,7 +36,7 @@ class CMDBReports extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function listReports() {
         return $this->api->request(
@@ -49,7 +51,7 @@ class CMDBReports extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($reportID) {
         $result = $this->api->request(
@@ -73,7 +75,7 @@ class CMDBReports extends Request {
      *
      * @return array Indexed array of arrays
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchRead(array $reportIDs) {
         $requests = [];

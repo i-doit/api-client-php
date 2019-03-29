@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CMDBObjectTypes;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\CMDBObjectTypes;
 class CMDBObjectTypesTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBObjectTypes
+     * @var CMDBObjectTypes
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class CMDBObjectTypesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRead() {
         $result = $this->instance->read();
@@ -58,7 +59,7 @@ class CMDBObjectTypesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadOne() {
         $result = $this->instance->readOne('C__OBJTYPE__SERVER');
@@ -68,7 +69,7 @@ class CMDBObjectTypesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchRead() {
         $result = $this->instance->batchRead([
@@ -81,7 +82,7 @@ class CMDBObjectTypesTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByTitle() {
         $result = $this->instance->readByTitle('LC__CMDB__OBJTYPE__SERVER');

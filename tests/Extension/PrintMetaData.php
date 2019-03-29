@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Extension;
 
+use \Exception;
 use PHPUnit\Runner\BeforeFirstTestHook;
 use Symfony\Component\Dotenv\Dotenv;
 use bheisig\idoitapi\API;
@@ -34,12 +35,12 @@ use bheisig\idoitapi\Idoit;
 final class PrintMetaData implements BeforeFirstTestHook {
 
     /**
-     * @var \bheisig\idoitapi\API
+     * @var API
      */
     protected $api;
 
     /**
-     * @var \bheisig\idoitapi\Idoit
+     * @var Idoit
      */
     protected $idoit;
 
@@ -59,7 +60,7 @@ final class PrintMetaData implements BeforeFirstTestHook {
     protected $apiInfo = [];
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function executeBeforeFirstTest(): void {
         $this
@@ -83,13 +84,13 @@ final class PrintMetaData implements BeforeFirstTestHook {
     /**
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function loadComposer(): self {
         $composerFile = __DIR__ . '/../../composer.json';
         $composerFileContent = file_get_contents($composerFile);
         if (!is_string($composerFileContent)) {
-            throw new \Exception(sprintf(
+            throw new Exception(sprintf(
                 'Unable to read file "%s"',
                 $composerFile
             ));
@@ -116,7 +117,7 @@ final class PrintMetaData implements BeforeFirstTestHook {
 
             $this->api = new API($config);
             $this->idoit = new Idoit($this->api);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Suppress any exception…
         }
 
@@ -129,7 +130,7 @@ final class PrintMetaData implements BeforeFirstTestHook {
     protected function getIdoitVersion(): self {
         try {
             $this->idoitInfo = $this->idoit->readVersion();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Suppress any exception…
         }
         return $this;
@@ -148,7 +149,7 @@ final class PrintMetaData implements BeforeFirstTestHook {
                     break;
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Suppress any exception…
         }
 

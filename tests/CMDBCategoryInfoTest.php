@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBCategoryInfo;
 
@@ -35,14 +36,14 @@ use bheisig\idoitapi\CMDBCategoryInfo;
 class CMDBCategoryInfoTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBCategoryInfo
+     * @var CMDBCategoryInfo
      */
     protected $instance;
 
     protected $categories = [];
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -57,7 +58,7 @@ class CMDBCategoryInfoTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testRead() {
         foreach ($this->categories as $categoryConst) {
@@ -69,7 +70,7 @@ class CMDBCategoryInfoTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchRead() {
         $result = $this->instance->batchRead($this->categories);
@@ -84,7 +85,7 @@ class CMDBCategoryInfoTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadAll() {
         $result = $this->instance->readAll();
@@ -114,7 +115,7 @@ class CMDBCategoryInfoTest extends BaseTest {
 
     /**
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function provideVirtualCategories(): array {
         $cmdbCategoryInfo = new CMDBCategoryInfo(new API([
@@ -134,7 +135,7 @@ class CMDBCategoryInfoTest extends BaseTest {
 
     /**
      * @group API-72
-     * @throws \Exception on error
+     * @throws Exception on error
      * @dataProvider provideVirtualCategories
      * @param string $categoryConstant Category constant
      */

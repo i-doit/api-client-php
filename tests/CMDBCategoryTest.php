@@ -26,12 +26,13 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CMDBCategory;
 
 class CMDBCategoryTest extends BaseTest {
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSaveNewEntryInSingleValueCategory() {
         $objectID = $this->createServer();
@@ -71,7 +72,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSaveNewEntryInMultiValueCategory() {
         $objectID = $this->createServer();
@@ -112,7 +113,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSaveExistingEntryInSingleValueCategory() {
         $objectID = $this->createServer();
@@ -202,7 +203,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSaveExistingEntryInMultiValueCategory() {
         $objectID = $this->createServer();
@@ -287,7 +288,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSaveAdditionalEntryInMultiValueCategory() {
         $objectID = $this->createServer();
@@ -372,10 +373,10 @@ class CMDBCategoryTest extends BaseTest {
 
     /**
      * @group API-79
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSaveUnknownAttribute() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $objectID = $this->createServer();
         $this->isID($objectID);
@@ -393,10 +394,10 @@ class CMDBCategoryTest extends BaseTest {
 
     /**
      * @group API-78
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSaveInvalidAttribute() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $objectID = $this->createServer();
         $this->isID($objectID);
@@ -413,7 +414,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreate() {
         $objectID = $this->createServer();
@@ -436,7 +437,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadSingleValueCategory() {
         $objectID = $this->createServer();
@@ -465,7 +466,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadEntriesInMultiValueCategory() {
         $objectID = $this->createServer();
@@ -506,7 +507,7 @@ class CMDBCategoryTest extends BaseTest {
 
     /**
      * @group API-99
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadArchivedEntriesInMultiValueCategory() {
         $objectID = $this->createServer();
@@ -582,7 +583,7 @@ class CMDBCategoryTest extends BaseTest {
 
     /**
      * @group API-99
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadDeletedEntriesInMultiValueCategory() {
         $objectID = $this->createServer();
@@ -658,7 +659,7 @@ class CMDBCategoryTest extends BaseTest {
 
     /**
      * @group API-99
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadEntriesInMultiValueCategoryByAllStates() {
         $objectID = $this->createServer();
@@ -716,7 +717,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadNormalEntryInMultiValueCategoryWithMixedStates() {
         // Create data:
@@ -757,7 +758,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadArchivedEntryInMultiValueCategoryWithMixedStates() {
         // Create data:
@@ -798,7 +799,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadDeletedEntryInMultiValueCategoryWithMixedStates() {
         // Create data:
@@ -839,7 +840,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadNormalEntriesInMultiValueCategoryWithMixedStates() {
         // Create data:
@@ -880,7 +881,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadOneSingleValueCategoryByItsIdentifier() {
         $objectID = $this->createServer();
@@ -907,7 +908,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadOneEntryInMultiValueCategoryByItsIdentifier() {
         $objectID = $this->createServer();
@@ -934,7 +935,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadFirst() {
         $objectID = $this->createServer();
@@ -973,7 +974,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdate() {
         $objectID = $this->createServer();
@@ -1007,7 +1008,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchCreate() {
         $objectID1 = $this->createServer();
@@ -1071,7 +1072,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchRead() {
         $objectID1 = $this->createServer();
@@ -1098,7 +1099,7 @@ class CMDBCategoryTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchUpdate() {
         $objectID1 = $this->createServer();

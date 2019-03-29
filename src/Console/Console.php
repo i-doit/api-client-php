@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi\Console;
 
+use \Exception;
+use \RuntimeException;
 use \bheisig\idoitapi\Request;
 
 /**
@@ -40,7 +42,7 @@ class Console extends Request {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function execute($method, array $options = [], array $arguments = []) {
         $params = [];
@@ -59,19 +61,19 @@ class Console extends Request {
         );
 
         if (!array_key_exists('success', $result)) {
-            throw new \RuntimeException('Missing success status');
+            throw new RuntimeException('Missing success status');
         }
 
         if (!is_bool($result['success']) || $result['success'] === false) {
-            throw new \RuntimeException('Command failed');
+            throw new RuntimeException('Command failed');
         }
 
         if (!array_key_exists('output', $result)) {
-            throw new \RuntimeException('Missing output');
+            throw new RuntimeException('Missing output');
         }
 
         if (!is_array($result['output'])) {
-            throw new \RuntimeException('Invalid output');
+            throw new RuntimeException('Invalid output');
         }
 
         return $result['output'];

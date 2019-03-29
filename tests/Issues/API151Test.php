@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
@@ -239,7 +240,7 @@ class API151Test extends BaseTest {
      * @param int $unit
      * @param string $valueAttribute
      * @param string $unitAttribute
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testIssue(
         string $categoryConstant,

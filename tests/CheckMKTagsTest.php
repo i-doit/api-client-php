@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CheckMKTags;
 
 /**
@@ -34,12 +35,12 @@ use bheisig\idoitapi\CheckMKTags;
 class CheckMKTagsTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CheckMKTags
+     * @var CheckMKTags
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +49,7 @@ class CheckMKTagsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByExistingCategory() {
         $objectID = $this->createServer();
@@ -67,7 +68,7 @@ class CheckMKTagsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByEmptyCategory() {
         $objectID = $this->createServer();
@@ -79,10 +80,10 @@ class CheckMKTagsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByNonExistingObject() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         // It's very unlikely that this object exists:
         $objectID = 422300001;
@@ -94,10 +95,10 @@ class CheckMKTagsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByBrokenObjectIdentifier() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $objectIDs = [
             -1,
@@ -113,7 +114,7 @@ class CheckMKTagsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchReadExistingTags() {
         $objectIDs = [];
@@ -145,10 +146,10 @@ class CheckMKTagsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchReadNonExistingObjects() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         // It's very unlikely that these objects exist:
         $objectIDs = [
@@ -164,10 +165,10 @@ class CheckMKTagsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchReadBrokenObjectIdentifiers() {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $objectIDs = [
             -1,

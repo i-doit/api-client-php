@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\Idoit;
 use bheisig\idoitapi\CMDBObject;
 
@@ -35,12 +36,12 @@ use bheisig\idoitapi\CMDBObject;
 class IdoitTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Idoit
+     * @var Idoit
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -49,7 +50,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadVersion() {
         $result = $this->instance->readVersion();
@@ -95,7 +96,7 @@ class IdoitTest extends BaseTest {
 
     /**
      * @group API-55
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testGetAddOns() {
         $result = $this->instance->getAddOns();
@@ -142,7 +143,7 @@ class IdoitTest extends BaseTest {
      * @group API-101
      * @group API-168
      * @group unreleased
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadLicense() {
         $result = $this->instance->getLicense();
@@ -236,7 +237,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadConstants() {
         $result = $this->instance->readConstants();
@@ -289,7 +290,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSearch() {
         // We need something to look for:
@@ -309,7 +310,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testBatchSearch() {
         $batch = $this->instance->batchSearch(['demo', 'test', 'server']);
@@ -326,7 +327,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSearchForNewObject() {
         $objectTitle = $this->generateRandomString();

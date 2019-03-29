@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
+use \Exception;
 use bheisig\idoitapi\Console\Report;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -35,12 +36,12 @@ use bheisig\idoitapi\tests\BaseTest;
 class ReportTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Console\Report
+     * @var Report
      */
     protected $report;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -49,7 +50,7 @@ class ReportTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testExport() {
         $result = $this->report->export();

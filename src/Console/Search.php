@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi\Console;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'console.search'
  */
@@ -34,7 +36,7 @@ class Search extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function createIndex() {
         return $this->execute(
@@ -47,7 +49,7 @@ class Search extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function updateIndex() {
         return $this->execute(
@@ -65,7 +67,7 @@ class Search extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function query($query) {
         return $this->execute(

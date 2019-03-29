@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
@@ -36,7 +37,7 @@ use bheisig\idoitapi\tests\BaseTest;
 class API127Test extends BaseTest {
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testIssue() {
         $objectID = $this->createServer();

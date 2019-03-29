@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'idoit'
  */
@@ -34,7 +37,7 @@ class Idoit extends Request {
      *
      * @return array Associative array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readVersion() {
         return $this->api->request('idoit.version');
@@ -45,13 +48,13 @@ class Idoit extends Request {
      *
      * @return array Associative array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function getAddOns() {
         $response = $this->api->request('idoit.addons.read');
 
         if (!array_key_exists('result', $response) || !is_array($response['result'])) {
-            throw new \RuntimeException('Bad result');
+            throw new RuntimeException('Bad result');
         }
 
         return $response['result'];
@@ -62,7 +65,7 @@ class Idoit extends Request {
      *
      * @return array Associative array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function getLicense() {
         return $this->api->request('idoit.license.read');
@@ -73,7 +76,7 @@ class Idoit extends Request {
      *
      * @return array Associative array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readConstants() {
         return $this->api->request('idoit.constants');
@@ -86,7 +89,7 @@ class Idoit extends Request {
      *
      * @return array Search results
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function search($query) {
         return $this->api->request(
@@ -102,7 +105,7 @@ class Idoit extends Request {
      *
      * @return array Search results
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchSearch(array $queries) {
         $requests = [];

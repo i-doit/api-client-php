@@ -26,6 +26,9 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
+use \DomainException;
+
 //use bheisig\idoitapi\CMDBCategoryInfo;
 
 /**
@@ -51,7 +54,7 @@ class AttributeTest extends BaseTest {
     protected $objectID;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -69,7 +72,7 @@ class AttributeTest extends BaseTest {
     /**
      * @return int Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function createTestObject(): int {
         return $this->cmdbObject->create(
@@ -133,7 +136,7 @@ class AttributeTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @param string $categoryConst Category constant
      * @dataProvider provideCategories
      */
@@ -150,7 +153,7 @@ class AttributeTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @param string $categoryConst Category constant
      * @param array $attributes Attributes
      * @dataProvider provideCategories
@@ -173,7 +176,7 @@ class AttributeTest extends BaseTest {
      *
      * @return array Values
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function generateValues(array $attributes): array {
         $values = [];
@@ -200,7 +203,7 @@ class AttributeTest extends BaseTest {
                             // Category "accounting":
                             $value = $this->generateRandomString();
                         } else {
-                            throw new \DomainException(sprintf(
+                            throw new DomainException(sprintf(
                                 'Unknown text format "%s" for attribute "%s" (%s)',
                                 $properties['format']['callback'][0] . '::' . $properties['format']['callback'][1],
                                 $properties['title'],
@@ -230,7 +233,7 @@ class AttributeTest extends BaseTest {
                     $value = $this->generateRandomInteger();
                     break;
                 default:
-                    throw new \DomainException(sprintf(
+                    throw new DomainException(sprintf(
                         'Unknown type "%s" for attribute "%s" [%s]',
                         $properties['info']['type'],
                         $properties['title'],
@@ -249,7 +252,7 @@ class AttributeTest extends BaseTest {
      *
      * @return mixed
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function generateDialogValue(array $properties) {
         $options = [];
@@ -292,7 +295,7 @@ class AttributeTest extends BaseTest {
         }
 
         if (count($options) === 0) {
-            throw new \DomainException(sprintf(
+            throw new DomainException(sprintf(
                 'Unable to generate value for dialog attribute "%s"',
                 $properties['title']
             ));
@@ -306,7 +309,7 @@ class AttributeTest extends BaseTest {
      *
      * @return int|array Object identifier(s) as integer(s)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function generateObject(array $properties) {
         switch ($properties['format']['callback'][1]) {
@@ -315,7 +318,7 @@ class AttributeTest extends BaseTest {
                 $objectTypeConst = $objectTypes[array_rand($objectTypes)];
                 break;
             default:
-                throw new \DomainException(sprintf(
+                throw new DomainException(sprintf(
                     'Unknown export helper "%s" for attribute "%s"',
                     $properties['format']['callback'][0] . '::' . $properties['format']['callback'][1],
                     $properties['title']

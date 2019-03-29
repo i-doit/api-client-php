@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'cmdb.object_type_groups'
  */
@@ -46,7 +48,7 @@ class CMDBObjectTypeGroups extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($orderBy = null, $sortDirection = null, $limit = null) {
         $params = [];

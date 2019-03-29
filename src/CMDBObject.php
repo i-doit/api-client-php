@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'cmdb.object'
  */
@@ -45,7 +48,7 @@ class CMDBObject extends Request {
      *
      * @return int Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function create($type, $title, array $attributes = []) {
         $attributes['type'] = $type;
@@ -59,7 +62,7 @@ class CMDBObject extends Request {
         if (array_key_exists('id', $result)) {
             return $result['id'];
         } else {
-            throw new \RuntimeException('Unable to create object');
+            throw new RuntimeException('Unable to create object');
         }
     }
 
@@ -83,7 +86,7 @@ class CMDBObject extends Request {
      * @return array Result with object identifier ('id') and
      * key-value pairs of category constants and array of category entry identifiers as integers
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function createWithCategories($type, $title, array $categories = [], array $attributes = []) {
         $attributes['type'] = $type;
@@ -106,7 +109,7 @@ class CMDBObject extends Request {
      *
      * @return array Associative array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($objectID) {
         return $this->api->request('cmdb.object.read', [
@@ -122,7 +125,7 @@ class CMDBObject extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function update($objectID, array $attributes = []) {
         $params = [
@@ -147,7 +150,7 @@ class CMDBObject extends Request {
         if (!is_array($result) ||
             !array_key_exists('success', $result) ||
             $result['success'] === false) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 'Unable to archive object %s',
                 $objectID
             ));
@@ -163,7 +166,7 @@ class CMDBObject extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function archive($objectID) {
         $this->api->request(
@@ -183,7 +186,7 @@ class CMDBObject extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function delete($objectID) {
         $this->api->request(
@@ -203,7 +206,7 @@ class CMDBObject extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function purge($objectID) {
         $this->api->request(
@@ -225,7 +228,7 @@ class CMDBObject extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function markAsTemplate($objectID) {
         $this->api->request(
@@ -247,7 +250,7 @@ class CMDBObject extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function markAsMassChangeTemplate($objectID) {
         $this->api->request(
@@ -269,7 +272,7 @@ class CMDBObject extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function recycle($objectID) {
         $this->api->request(
@@ -289,7 +292,7 @@ class CMDBObject extends Request {
      *
      * @return array Multi-dimensional array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      *
      * @deprecated This method is pretty slow. Use readAll() instead!
      */
@@ -297,11 +300,11 @@ class CMDBObject extends Request {
         $object = $this->read($objectID);
 
         if (count($object) === 0) {
-            throw new \RuntimeException('Object not found');
+            throw new RuntimeException('Object not found');
         }
 
         if (!array_key_exists('objecttype', $object)) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 'Object %s has no type',
                 $objectID
             ));
@@ -329,7 +332,7 @@ class CMDBObject extends Request {
 
             for ($i = 0; $i < count($object[$categoryType]); $i++) {
                 if (!array_key_exists('const', $object[$categoryType][$i])) {
-                    throw new \RuntimeException(
+                    throw new RuntimeException(
                         'Information about categories is broken. Constant is missing.'
                     );
                 }
@@ -373,7 +376,7 @@ class CMDBObject extends Request {
      *
      * @return array Multi-dimensional array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readAll($objectID) {
         $objects = (new CMDBObjects($this->api))
@@ -381,14 +384,14 @@ class CMDBObject extends Request {
 
         switch (count($objects)) {
             case 0:
-                throw new \RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'Object not found by identifier %s',
                     $objectID
                 ));
             case 1:
                 return end($objects);
             default:
-                throw new \RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'Found multiple objects by identifier %s',
                     $objectID
                 ));
@@ -405,7 +408,7 @@ class CMDBObject extends Request {
      *
      * @return int Object identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function upsert($type, $title, array $attributes = []) {
         $cmdbObjects = new CMDBObjects($this->api);
@@ -423,12 +426,12 @@ class CMDBObject extends Request {
             case 1:
                 if (!array_key_exists(0, $result) ||
                     !array_key_exists('id', $result[0])) {
-                    throw new \RuntimeException('Bad result');
+                    throw new RuntimeException('Bad result');
                 }
 
                 return $result[0]['id'];
             default:
-                throw new \RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'Found %s objects',
                     count($result)
                 ));

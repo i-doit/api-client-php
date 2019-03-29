@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
 use bheisig\idoitapi\CMDBCategoryInfo;
 use bheisig\idoitapi\CMDBObjects;
 
@@ -35,12 +36,12 @@ use bheisig\idoitapi\CMDBObjects;
 class CMDBObjectsTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBObjects
+     * @var CMDBObjects
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -49,7 +50,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-81
      */
     public function testCreate() {
@@ -71,7 +72,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-81
      */
     public function testRead() {
@@ -86,7 +87,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadSome() {
         $objects = $this->instance->read([], 10, 0, 'title', CMDBObjects::SORT_DESCENDING);
@@ -100,7 +101,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByIdentifiers() {
         $objectIDs = $this->instance->create(
@@ -122,7 +123,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByType() {
         $objects = $this->instance->readByType('C__OBJTYPE__PERSON');
@@ -136,7 +137,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadArchived() {
         $objects = $this->instance->readArchived();
@@ -153,7 +154,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadDeleted() {
         $objects = $this->instance->readDeleted();
@@ -171,7 +172,7 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @group API-83
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadWithSomeCategories() {
         $objectID = $this->createServer();
@@ -220,7 +221,7 @@ class CMDBObjectsTest extends BaseTest {
 
     /**
      * @group API-83
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadWithAllCategories() {
         $objectID = $this->createServer();
@@ -271,7 +272,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdate() {
         $objectIDs = $this->instance->create(
@@ -295,7 +296,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-88
      */
     public function testArchive() {
@@ -314,7 +315,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-89
      */
     public function testDelete() {
@@ -333,7 +334,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-90
      */
     public function testPurge() {
@@ -352,7 +353,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-91
      */
     public function testRecycle() {
@@ -375,7 +376,7 @@ class CMDBObjectsTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      * @group API-81
      */
     public function testGetIdentifier() {

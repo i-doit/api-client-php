@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
@@ -50,7 +51,7 @@ class API115Test extends BaseTest {
      * @param int $identifier
      * @param string $title
      * @param string $constant
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSelectByIdentifier(int $identifier, string $title, string $constant) {
         /**
@@ -105,7 +106,7 @@ class API115Test extends BaseTest {
      * @param int $identifier
      * @param string $title
      * @param string $constant
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSelectByTitle(int $identifier, string $title, string $constant) {
         /**
@@ -160,7 +161,7 @@ class API115Test extends BaseTest {
      * @param int $identifier
      * @param string $title
      * @param string $constant
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSelectByConstant(int $identifier, string $title, string $constant) {
         /**

@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
+use \Exception;
 use bheisig\idoitapi\Console\Import;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -35,12 +36,12 @@ use bheisig\idoitapi\tests\BaseTest;
 class ImportTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Console\Import
+     * @var Import
      */
     protected $import;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -49,7 +50,7 @@ class ImportTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testImportFromCSVFile() {
         $result = $this->import->importFromCSVFile();
@@ -59,7 +60,7 @@ class ImportTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testListCSVImportProfiles() {
         $result = $this->import->listCSVImportProfiles();
@@ -69,7 +70,7 @@ class ImportTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testImportFromHInventory() {
         $result = $this->import->importFromHInventory();
@@ -79,7 +80,7 @@ class ImportTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testImportFromJDiscDiscovery() {
         $result = $this->import->importFromJDiscDiscovery();
@@ -89,7 +90,7 @@ class ImportTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testTriggerJDiscDiscovery() {
         $result = $this->import->triggerJDiscDiscovery();
@@ -99,7 +100,7 @@ class ImportTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testImportFromOCSInventoryNG() {
         $result = $this->import->importFromOCSInventoryNG();
@@ -109,7 +110,7 @@ class ImportTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testImportFromSyslog() {
         $result = $this->import->importFromSyslog();
@@ -119,7 +120,7 @@ class ImportTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testImportFromXMLFile() {
         $result = $this->import->importFromXMLFile();

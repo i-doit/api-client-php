@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi\Console;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'console.system'
  */
@@ -34,7 +36,7 @@ class System extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function purgeUnfinishedObjects() {
         return $this->execute(
@@ -50,7 +52,7 @@ class System extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function purgeArchivedObjects() {
         return $this->execute(
@@ -66,7 +68,7 @@ class System extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function purgeDeletedObjects() {
         return $this->execute(

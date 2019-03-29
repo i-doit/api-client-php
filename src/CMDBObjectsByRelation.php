@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'cmdb.objects_by_relation'
  */
@@ -38,7 +40,7 @@ class CMDBObjectsByRelation extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByID($objectID, $relationType, $status = null) {
         $params = [
@@ -64,7 +66,7 @@ class CMDBObjectsByRelation extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByConst($objectID, $relationType, $status = null) {
         $params = [

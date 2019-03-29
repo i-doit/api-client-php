@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'cmdb.location_tree'
  */
@@ -39,7 +42,7 @@ class CMDBLocationTree extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($objectID, $status = null) {
         $params = [
@@ -64,7 +67,7 @@ class CMDBLocationTree extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readRecursively($objectID, $status = null) {
         $children = $this->read($objectID, $status);
@@ -73,7 +76,7 @@ class CMDBLocationTree extends Request {
 
         foreach ($children as $child) {
             if (!array_key_exists('id', $child)) {
-                throw new \RuntimeException('Broken result');
+                throw new RuntimeException('Broken result');
             }
 
             $node = $child;

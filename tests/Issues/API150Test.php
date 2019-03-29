@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\CMDBCategory;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -38,7 +39,7 @@ use bheisig\idoitapi\tests\BaseTest;
 class API150Test extends BaseTest {
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testQuickPurgeExistingMember() {
         /**
@@ -108,7 +109,7 @@ class API150Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testQuickPurgeNonExistingMemberFromEmptyGroup() {
         /**
@@ -137,7 +138,7 @@ class API150Test extends BaseTest {
          * Run actual tests:
          */
 
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $this->cmdbCategory->quickPurge(
             $personGroupID,
@@ -147,7 +148,7 @@ class API150Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testQuickPurgeNonExistingMemberFromNonEmptyGroup() {
         /**
@@ -195,7 +196,7 @@ class API150Test extends BaseTest {
          * Run actual tests:
          */
 
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $this->cmdbCategory->quickPurge(
             $personGroupID,

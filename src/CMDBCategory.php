@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'cmdb.category'
  */
@@ -41,7 +44,7 @@ class CMDBCategory extends Request {
      *
      * @return int Entry identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function save($objectID, $categoryConstant, array $attributes, $entryID = null) {
         $params = [
@@ -64,9 +67,9 @@ class CMDBCategory extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -82,7 +85,7 @@ class CMDBCategory extends Request {
      *
      * @return int Entry identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function create($objectID, $categoryConst, array $attributes) {
         $params = [
@@ -101,9 +104,9 @@ class CMDBCategory extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -125,7 +128,7 @@ class CMDBCategory extends Request {
      *
      * @return array Indexed array of result sets (for both single- and multi-valued categories)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($objectID, $categoryConst, $status = 2) {
         return $this->api->request(
@@ -154,14 +157,14 @@ class CMDBCategory extends Request {
      *
      * @return array Associative array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readOneByID($objectID, $categoryConst, $entryID, $status = 2) {
         $entries = $this->read($objectID, $categoryConst, $status);
 
         foreach ($entries as $entry) {
             if (!array_key_exists('id', $entry)) {
-                throw new \RuntimeException(sprintf(
+                throw new RuntimeException(sprintf(
                     'Entries for category "%s" contain no identifier',
                     $categoryConst
                 ));
@@ -174,7 +177,7 @@ class CMDBCategory extends Request {
             }
         }
 
-        throw new \RuntimeException(sprintf(
+        throw new RuntimeException(sprintf(
             'No entry with identifier %s found in category "%s" for object %s',
             $entryID,
             $categoryConst,
@@ -190,7 +193,7 @@ class CMDBCategory extends Request {
      *
      * @return array Associative array, otherwise empty array when there is no entry
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readFirst($objectID, $categoryConst) {
         $entries = $this->read($objectID, $categoryConst);
@@ -212,7 +215,7 @@ class CMDBCategory extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function update($objectID, $categoryConst, array $attributes, $entryID = null) {
         if (isset($entryID)) {
@@ -231,9 +234,9 @@ class CMDBCategory extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -249,7 +252,7 @@ class CMDBCategory extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function archive($objectID, $categoryConst, $entryID) {
         $this->api->request(
@@ -273,7 +276,7 @@ class CMDBCategory extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function delete($objectID, $categoryConst, $entryID) {
         $this->api->request(
@@ -297,7 +300,7 @@ class CMDBCategory extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function purge($objectID, $categoryConst, $entryID = null) {
         $params = [
@@ -326,7 +329,7 @@ class CMDBCategory extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function recycle($objectID, $categoryConst, $entryID) {
         $this->api->request(
@@ -350,7 +353,7 @@ class CMDBCategory extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function quickPurge($objectID, $categoryConst, $entryID) {
         $result = $this->api->request(
@@ -365,9 +368,9 @@ class CMDBCategory extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -383,7 +386,7 @@ class CMDBCategory extends Request {
      *
      * @return array List of entry identifiers as integers
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchCreate(array $objectIDs, $categoryConst, array $attributes) {
         $entryIDs = [];
@@ -412,9 +415,9 @@ class CMDBCategory extends Request {
             if (!array_key_exists('success', $entry) ||
                 $entry['success'] !== true) {
                 if (array_key_exists('message', $entry)) {
-                    throw new \RuntimeException(sprintf('Bad result: %s', $entry['message']));
+                    throw new RuntimeException(sprintf('Bad result: %s', $entry['message']));
                 } else {
-                    throw new \RuntimeException('Bad result');
+                    throw new RuntimeException('Bad result');
                 }
             }
 
@@ -439,7 +442,7 @@ class CMDBCategory extends Request {
      *
      * @return array Indexed array of result sets (for both single- and multi-valued categories)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchRead(array $objectIDs, array $categoryConsts, $status = 2) {
         $requests = [];
@@ -469,7 +472,7 @@ class CMDBCategory extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchUpdate(array $objectIDs, $categoryConst, array $attributes) {
         $requests = [];
@@ -491,9 +494,9 @@ class CMDBCategory extends Request {
             if (!array_key_exists('success', $result) ||
                 $result['success'] !== true) {
                 if (array_key_exists('message', $result)) {
-                    throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                    throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
                 } else {
-                    throw new \RuntimeException('Bad result');
+                    throw new RuntimeException('Bad result');
                 }
             }
         }
@@ -509,7 +512,7 @@ class CMDBCategory extends Request {
      *
      * @return int Number of purged category entries
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function clear($objectID, array $categoryConsts) {
         $batch = $this->batchRead([$objectID], $categoryConsts);
@@ -547,9 +550,9 @@ class CMDBCategory extends Request {
             if (!array_key_exists('success', $result) ||
                 $result['success'] !== true) {
                 if (array_key_exists('message', $result)) {
-                    throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                    throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
                 } else {
-                    throw new \RuntimeException('Bad result');
+                    throw new RuntimeException('Bad result');
                 }
             }
         }

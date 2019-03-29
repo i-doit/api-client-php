@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\Idoit;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -37,12 +38,12 @@ use bheisig\idoitapi\tests\BaseTest;
 class API142Test extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\Idoit
+     * @var Idoit
      */
     protected $idoit;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -51,7 +52,7 @@ class API142Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateObjectWithCategories() {
         $objectTitle = 'Title ' . $this->generateRandomString();
@@ -95,7 +96,7 @@ class API142Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateSingleValueCategory() {
         $objectTitle = 'Title ' . $this->generateRandomString();
@@ -125,7 +126,7 @@ class API142Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testCreateMultiValueCategory() {
         $objectTitle = 'Title ' . $this->generateRandomString();
@@ -159,7 +160,7 @@ class API142Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdateSingleValueCategory() {
         $objectTitle = 'Title ' . $this->generateRandomString();
@@ -191,7 +192,7 @@ class API142Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testUpdateMultiValueCategory() {
         $objectTitle = 'Title ' . $this->generateRandomString();
@@ -243,7 +244,7 @@ class API142Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSaveSingleValueCategory() {
         $objectTitle = 'Title ' . $this->generateRandomString();
@@ -273,7 +274,7 @@ class API142Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testSaveMultiValueCategory() {
         $objectTitle = 'Title ' . $this->generateRandomString();
@@ -312,7 +313,7 @@ class API142Test extends BaseTest {
      * @param int $objectID Object identifier
      * @param string $objectTitle Object title
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     protected function searchInCMDBFor(string $attribute, string $value, int $objectID, string $objectTitle) {
         $results = $this->idoit->search($value);

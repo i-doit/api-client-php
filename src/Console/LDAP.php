@@ -24,6 +24,8 @@
 
 namespace bheisig\idoitapi\Console;
 
+use \Exception;
+
 /**
  * Requests for API namespace 'console.ldap'
  */
@@ -36,7 +38,7 @@ class LDAP extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function sync($ldapServerID) {
         return $this->execute(
@@ -52,7 +54,7 @@ class LDAP extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function syncAll() {
         return $this->execute(
@@ -67,7 +69,7 @@ class LDAP extends Console {
      *
      * @return array Output (one value per line)
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function syncDistinguishedNames(array $options = []) {
         return $this->execute(

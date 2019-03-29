@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \BadMethodCallException;
+
 /**
  * Requests for API namespace 'checkmk.tags'
  */
@@ -36,7 +39,7 @@ class CheckMKTags extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read($objectID) {
         return $this->api->request(
@@ -54,14 +57,14 @@ class CheckMKTags extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchRead(array $objectIDs) {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {
             if (!is_int($objectID) || $objectID <= 0) {
-                throw new \BadMethodCallException('Invalid object identifiers');
+                throw new BadMethodCallException('Invalid object identifiers');
             }
 
             $requests[] = [

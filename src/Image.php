@@ -24,6 +24,10 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \BadMethodCallException;
+use \RuntimeException;
+
 /**
  * Requests for image galleries
  */
@@ -38,7 +42,7 @@ class Image extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function add($objectID, $filePath, $caption = '') {
         $imageAsString = $this->encode($filePath);
@@ -65,7 +69,7 @@ class Image extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchAdd($objectID, array $images) {
         $objectIDs = [$objectID];
@@ -95,12 +99,12 @@ class Image extends Request {
      *
      * @return string Base64 encoded string
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function encode($filePath) {
         if (!file_exists($filePath) ||
             !is_readable($filePath)) {
-            throw new \BadMethodCallException(sprintf(
+            throw new BadMethodCallException(sprintf(
                 'Image "%s" not found or not readable',
                 $filePath
             ));
@@ -109,7 +113,7 @@ class Image extends Request {
         $fileContent = file_get_contents($filePath);
 
         if (!is_string($fileContent)) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 'Unable to read from file "%s"',
                 $filePath
             ));

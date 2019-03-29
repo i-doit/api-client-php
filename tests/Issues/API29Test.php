@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 use bheisig\idoitapi\CMDBDialog;
 
@@ -37,12 +38,12 @@ use bheisig\idoitapi\CMDBDialog;
 class API29Test extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBDialog
+     * @var CMDBDialog
      */
     protected $cmdbDialog;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -51,7 +52,7 @@ class API29Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testIssue() {
         $objectID = $this->createServer();

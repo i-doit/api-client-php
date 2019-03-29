@@ -32,14 +32,14 @@ abstract class Request implements Calls {
     /**
      * API client
      *
-     * @var \bheisig\idoitapi\API
+     * @var API
      */
     protected $api;
 
     /**
      * Constructor
      *
-     * @param \bheisig\idoitapi\API $api API client
+     * @param API $api API client
      */
     public function __construct(API $api) {
         $this->api = $api;

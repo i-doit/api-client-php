@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use \Exception;
+use \RuntimeException;
 use bheisig\idoitapi\CMDBImpact;
 
 /**
@@ -34,12 +36,12 @@ use bheisig\idoitapi\CMDBImpact;
 class CMDBImpactTest extends BaseTest {
 
     /**
-     * @var \bheisig\idoitapi\CMDBImpact
+     * @var CMDBImpact
      */
     protected $instance;
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function setUp() {
         parent::setUp();
@@ -48,7 +50,7 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByIdentifier() {
         $relationType = 10; // Location
@@ -79,7 +81,7 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByConstant() {
         $relationType = 'C__RELATION_TYPE__LOCATION';
@@ -110,7 +112,7 @@ class CMDBImpactTest extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testReadByTypes() {
         $relationTypes = [
@@ -155,10 +157,10 @@ class CMDBImpactTest extends BaseTest {
     /**
      * @dataProvider provideInvalidRelationTypeIdentifiers
      * @param int $invalidRelationType
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByInvalidRelationTypeIdentifier(int $invalidRelationType) {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         $objectID = $this->createServer();
 
@@ -185,10 +187,10 @@ class CMDBImpactTest extends BaseTest {
     /**
      * @dataProvider provideInvalidRelationsTypeConstants
      * @param string $invalidRelationType
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByInvalidRelationTypeConstants(string $invalidRelationType) {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
         $objectID = $this->createServer();
 
@@ -200,7 +202,7 @@ class CMDBImpactTest extends BaseTest {
 
     /**
      * @group API-71
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFilterByStatusNormal() {
         $relationType = 'C__RELATION_TYPE__USER';
@@ -229,7 +231,7 @@ class CMDBImpactTest extends BaseTest {
 
     /**
      * @group API-71
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFilterByStatusArchived() {
         $relationType = 'C__RELATION_TYPE__USER';
@@ -270,7 +272,7 @@ class CMDBImpactTest extends BaseTest {
 
     /**
      * @group API-71
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFilterByStatusDeleted() {
         $relationType = 'C__RELATION_TYPE__USER';
@@ -327,10 +329,10 @@ class CMDBImpactTest extends BaseTest {
      * @group API-71
      * @dataProvider provideInvalidStatus
      * @param int $status
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testFilterByInvalidStatus(int $status) {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
         $relationType = 'C__RELATION_TYPE__CLUSTER_MEMBERSHIPS';
 

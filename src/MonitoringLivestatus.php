@@ -24,6 +24,9 @@
 
 namespace bheisig\idoitapi;
 
+use \Exception;
+use \RuntimeException;
+
 /**
  * Requests for API namespace 'monitoring.livestatus'
  */
@@ -39,7 +42,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return int Identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function createTCPConnection($title, $address = '127.0.0.1', $port = 6557, $active = true) {
         $result = $this->api->request(
@@ -60,9 +63,9 @@ class MonitoringLivestatus extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -78,7 +81,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return int Identifier
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function createUNIXSocketConnection($title, $path, $active = true) {
         $result = $this->api->request(
@@ -98,9 +101,9 @@ class MonitoringLivestatus extends Request {
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -112,7 +115,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function read() {
         return $this->api->request(
@@ -127,7 +130,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByID($id) {
         return $this->api->request(
@@ -145,7 +148,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return array Result
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByIDs($ids) {
         return $this->api->request(
@@ -163,7 +166,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return array
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function readByTitle($title) {
         return $this->api->request(
@@ -183,7 +186,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function update($id, array $attributes) {
         $result = $this->api->request(
@@ -197,9 +200,9 @@ class MonitoringLivestatus extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -213,7 +216,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function deleteByID($id) {
         $result = $this->api->request(
@@ -226,9 +229,9 @@ class MonitoringLivestatus extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -242,7 +245,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function deleteByTitle($title) {
         $result = $this->api->request(
@@ -255,9 +258,9 @@ class MonitoringLivestatus extends Request {
         if (!array_key_exists('success', $result) ||
             $result['success'] !== true) {
             if (array_key_exists('message', $result)) {
-                throw new \RuntimeException(sprintf('Bad result: %s', $result['message']));
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
-                throw new \RuntimeException('Bad result');
+                throw new RuntimeException('Bad result');
             }
         }
 
@@ -271,7 +274,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function batchDelete($ids) {
         $requests = [];
@@ -292,9 +295,9 @@ class MonitoringLivestatus extends Request {
             if (!array_key_exists('success', $tag) ||
                 $tag['success'] !== true) {
                 if (array_key_exists('message', $tag)) {
-                    throw new \RuntimeException(sprintf('Bad result: %s', $tag['message']));
+                    throw new RuntimeException(sprintf('Bad result: %s', $tag['message']));
                 } else {
-                    throw new \RuntimeException('Bad result');
+                    throw new RuntimeException('Bad result');
                 }
             }
         }
@@ -307,7 +310,7 @@ class MonitoringLivestatus extends Request {
      *
      * @return self Returns itself
      *
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function deleteAll() {
         $instances = $this->read();

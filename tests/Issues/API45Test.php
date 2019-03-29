@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
@@ -36,7 +37,7 @@ use bheisig\idoitapi\tests\BaseTest;
 class API45Test extends BaseTest {
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testVerifyStatusOfTemplate() {
         $objectID = $this->createServer();
@@ -69,7 +70,7 @@ class API45Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testVerifyStatusOfMassChangeTemplate() {
         $objectID = $this->createServer();
@@ -102,7 +103,7 @@ class API45Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testAddSingleValueCategoryEntryToTemplate() {
         $objectID = $this->createServer();
@@ -126,7 +127,7 @@ class API45Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testAddMultiValueCategoryEntryToTemplate() {
         $objectID = $this->createServer();
@@ -154,7 +155,7 @@ class API45Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testAddSingleValueCategoryEntryToMassChangeTemplate() {
         $objectID = $this->createServer();
@@ -178,7 +179,7 @@ class API45Test extends BaseTest {
     }
 
     /**
-     * @throws \Exception on error
+     * @throws Exception on error
      */
     public function testAddMultiValueCategoryEntryToMassChangeTemplate() {
         $objectID = $this->createServer();

@@ -561,7 +561,7 @@ abstract class BaseTest extends TestCase {
     /**
      * Validate string as timestamp
      *
-     * @param string $time Any date or timestamp
+     * @param string $time Format: "Y-m-d H:i:s"
      */
     protected function isTime(string $time) {
         $timestamp = strtotime($time);

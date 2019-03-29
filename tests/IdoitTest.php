@@ -140,6 +140,8 @@ class IdoitTest extends BaseTest {
 
     /**
      * @group API-101
+     * @group API-168
+     * @group unreleased
      * @throws \Exception on error
      */
     public function testReadLicense() {
@@ -148,69 +150,89 @@ class IdoitTest extends BaseTest {
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
-        $this->assertArrayHasKey('id', $result);
-        $this->assertIsInt($result['id']);
-        $this->isID($result['id']);
-
-        $this->assertArrayHasKey('organization', $result);
-        $this->assertIsString($result['organization']);
-        $this->isOneLiner($result['organization']);
-
-        $this->assertArrayHasKey('email', $result);
-        $this->assertIsString($result['email']);
-        $this->isEmail($result['email']);
-
-        $this->assertArrayHasKey('registrationDate', $result);
-        $this->assertIsString($result['registrationDate']);
-        $this->isTime($result['registrationDate']);
-
-        $this->assertArrayHasKey('expiryDate', $result);
-        $this->assertIsString($result['expiryDate']);
-        $this->isTime($result['expiryDate']);
-
-        $this->assertArrayHasKey('installationDate', $result);
-        $this->assertIsString($result['installationDate']);
-        $this->isTime($result['installationDate']);
-
-        $registrationDate = strtotime($result['registrationDate']);
-        $installationDate = strtotime($result['installationDate']);
-        $expiryDate = strtotime($result['expiryDate']);
-
-        $this->assertGreaterThan(0, $registrationDate);
-        $this->assertGreaterThanOrEqual($registrationDate, $installationDate);
-        $this->assertGreaterThanOrEqual($installationDate, $expiryDate);
-
-        $this->assertArrayHasKey('type', $result);
-        $this->assertIsString($result['type']);
-        $this->assertSame('Client', $result['type']);
+        /**
+         * Object capacity:
+         */
 
         $this->assertArrayHasKey('objectCapacity', $result);
         $this->assertIsArray($result['objectCapacity']);
+        $this->assertCount(2, $result['objectCapacity']);
 
         $this->assertArrayHasKey('total', $result['objectCapacity']);
         $this->assertIsInt($result['objectCapacity']['total']);
-        $this->assertGreaterThan(0, $result['objectCapacity']['total']);
+        $this->assertGreaterThanOrEqual(0, $result['objectCapacity']['total']);
 
         $this->assertArrayHasKey('inUse', $result['objectCapacity']);
         $this->assertIsInt($result['objectCapacity']['inUse']);
         $this->assertGreaterThanOrEqual(0, $result['objectCapacity']['inUse']);
 
-        $this->assertArrayHasKey('unlimited', $result['objectCapacity']);
-        $this->assertIsBool($result['objectCapacity']['unlimited']);
+        /**
+         * Add-ons:
+         */
 
-        $this->assertArrayHasKey('modules', $result);
-        $this->assertIsArray($result['modules']);
+        $this->assertArrayHasKey('addons', $result);
+        $this->assertIsArray($result['addons']);
 
-        foreach ($result['modules'] as $index => $addOnKey) {
+        foreach ($result['addons'] as $key => $addon) {
+            $this->assertIsString($key);
+
+            $this->assertIsArray($addon);
+
+            $this->assertArrayHasKey('label', $addon);
+            $this->assertIsString($addon['label']);
+
+            $this->assertArrayHasKey('licensed', $addon);
+            $this->assertIsBool($addon['licensed']);
+        }
+
+        /**
+         * Licenses:
+         */
+
+        $this->assertArrayHasKey('licenses', $result);
+
+        foreach ($result['licenses'] as $index => $license) {
             $this->assertIsInt($index);
             $this->assertGreaterThanOrEqual(0, $index);
 
-            $this->assertIsString($addOnKey);
-            $this->isOneLiner($addOnKey);
-        }
+            $this->assertArrayHasKey('id', $license);
+            $this->assertIsInt($license['id']);
+            $this->isID($license['id']);
 
-        $this->assertArrayHasKey('valid', $result);
-        $this->assertIsBool($result['valid']);
+            $this->assertArrayHasKey('label', $license);
+            $this->assertIsString($license['label']);
+
+            $this->assertArrayHasKey('licenseType', $license);
+            $this->assertIsString($license['licenseType']);
+
+            $this->assertArrayHasKey('registrationDate', $license);
+            $this->assertIsString($license['registrationDate']);
+            $this->isTime($license['registrationDate']);
+
+            $this->assertArrayHasKey('validUntil', $license);
+            $this->assertIsString($license['validUntil']);
+            $this->isTime($license['validUntil']);
+
+            $registrationDate = strtotime($license['registrationDate']);
+            $validUntilDate = strtotime($license['validUntil']);
+
+            $this->assertGreaterThan(0, $registrationDate);
+            $this->assertGreaterThanOrEqual($registrationDate, $validUntilDate);
+
+            $this->assertArrayHasKey('objects', $license);
+            $this->assertIsInt($license['objects']);
+            $this->assertGreaterThanOrEqual(0, $license['objects']);
+
+            $this->assertArrayHasKey('tenants', $license);
+            $this->assertIsInt($license['tenants']);
+            $this->assertGreaterThanOrEqual(0, $license['tenants']);
+
+            $this->assertArrayHasKey('environment', $license);
+            $this->assertIsString($license['environment']);
+
+            $this->assertArrayHasKey('invalid', $license);
+            $this->assertIsBool($license['invalid']);
+        }
     }
 
     /**

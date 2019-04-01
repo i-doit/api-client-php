@@ -231,8 +231,8 @@ class IdoitTest extends BaseTest {
             $this->assertArrayHasKey('environment', $license);
             $this->assertIsString($license['environment']);
 
-            $this->assertArrayHasKey('invalid', $license);
-            $this->assertIsBool($license['invalid']);
+            $this->assertArrayHasKey('valid', $license);
+            $this->assertIsBool($license['valid']);
         }
     }
 

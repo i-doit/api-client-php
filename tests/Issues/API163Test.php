@@ -32,7 +32,6 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group API-163
- * @group unreleased
  * @see https://i-doit.atlassian.net/browse/API-163
  */
 class API163Test extends BaseTest {

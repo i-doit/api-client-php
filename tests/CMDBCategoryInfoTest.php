@@ -122,11 +122,21 @@ class CMDBCategoryInfoTest extends BaseTest {
             API::URL => 'https://example.com/src/json.rpc',
             API::KEY => '123'
         ]));
+
         $virtualCategoryConstants = $cmdbCategoryInfo->getVirtualCategoryConstants();
+
+        $ignoreFromAddOns = [
+            'C__CATG__FLOORPLAN',
+            'C__CATG__VIRTUAL_RELOCATE_CI'
+        ];
 
         $parameters = [];
 
         foreach ($virtualCategoryConstants as $virtualCategoryConstant) {
+            if (in_array($virtualCategoryConstant, $ignoreFromAddOns)) {
+                continue;
+            }
+
             $parameters[$virtualCategoryConstant] = [$virtualCategoryConstant];
         }
 

@@ -146,7 +146,8 @@ class CMDBLogbookTest extends BaseTest {
         $result = $this->instance->read(null, $limit);
 
         $this->assertIsArray($result);
-        $this->assertCount($limit, $result);
+        $count = count($result);
+        $this->assertLessThanOrEqual($limit, $count);
 
         $this->validateEntries($result);
     }

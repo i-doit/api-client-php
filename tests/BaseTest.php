@@ -444,13 +444,13 @@ abstract class BaseTest extends TestCase {
         $this->assertArrayHasKey('id', $object);
         $this->isID($object['id']);
 
-        $this->assertArrayHasKey('title', $object);
-        $this->assertIsString($object['title']);
-        $this->assertNotEmpty($object['title']);
+        $this->assertArrayHasKey('title', $object, sprintf('Object #%s has no title', $object['id']));
+        $this->assertIsString($object['title'], sprintf('Object #%s\'s title is not a string', $object['id']));
+        $this->assertNotEmpty($object['title'], sprintf('Object #%s has empty title', $object['id']));
 
-        $this->assertArrayHasKey('sysid', $object);
-        $this->assertIsString($object['sysid']);
-        $this->assertNotEmpty($object['sysid']);
+        $this->assertArrayHasKey('sysid', $object, sprintf('Object #%s has no SYSID', $object['id']));
+        $this->assertIsString($object['sysid'], sprintf('Object #%s\'s SYSID is not a string', $object['id']));
+        $this->assertNotEmpty($object['sysid'], sprintf('Object #%s has empty SYSID', $object['id']));
 
         $this->assertArrayHasKey('type', $object);
         $this->isID($object['type']);

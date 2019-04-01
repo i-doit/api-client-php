@@ -142,7 +142,6 @@ class IdoitTest extends BaseTest {
     /**
      * @group API-101
      * @group API-168
-     * @group unreleased
      * @throws Exception on error
      */
     public function testReadLicense() {

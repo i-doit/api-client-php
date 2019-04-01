@@ -79,25 +79,27 @@ class ImportTest extends BaseTest {
         $this->isOutput($result);
     }
 
-    /**
-     * @throws Exception on error
-     */
-    public function testImportFromJDiscDiscovery() {
-        $result = $this->import->importFromJDiscDiscovery();
+//    /**
+//     * @throws Exception on error
+//     * @todo Unable to test without a running JDisc instance!
+//     */
+//    public function testImportFromJDiscDiscovery() {
+//        $result = $this->import->importFromJDiscDiscovery();
+//
+//        $this->assertIsArray($result);
+//        $this->isOutput($result);
+//    }
 
-        $this->assertIsArray($result);
-        $this->isOutput($result);
-    }
-
-    /**
-     * @throws Exception on error
-     */
-    public function testTriggerJDiscDiscovery() {
-        $result = $this->import->triggerJDiscDiscovery();
-
-        $this->assertIsArray($result);
-        $this->isOutput($result);
-    }
+//    /**
+//     * @throws Exception on error
+//     * @todo Unable to test without a running JDisc instance!
+//     */
+//    public function testTriggerJDiscDiscovery() {
+//        $result = $this->import->triggerJDiscDiscovery();
+//
+//        $this->assertIsArray($result);
+//        $this->isOutput($result);
+//    }
 
     /**
      * @throws Exception on error

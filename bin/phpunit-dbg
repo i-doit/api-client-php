@@ -3,4 +3,4 @@
 export XDEBUG_CONFIG="idekey=idoitapi remote_enable=1 remote_host=localhost profiler_enable=0 remote_connect_back=0 remote_mode=req"
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
-/usr/bin/env php "$DIR"/../vendor/bin/phpunit -c "$DIR"/../tests/phpunit.xml --testdox --no-coverage "$@"
+/usr/bin/env php "$DIR"/../vendor/bin/phpunit -c "$DIR"/../phpunit.xml --testdox --no-coverage "$@"

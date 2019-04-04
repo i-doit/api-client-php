@@ -4,10 +4,10 @@ os:
 language: php
 
 php:
-  - 7.1.18
+  - 7.1
   - 7.2
   - 7.3
-  - nightly
+  - 7.4snapshot
 
 install:
   - travis_retry composer self-update
@@ -18,7 +18,7 @@ script:
 
 matrix:
   allow_failures:
-    - php: nightly
+    - php: 7.4snapshot
 
 notifications:
   email:

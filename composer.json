@@ -80,8 +80,8 @@
         "phpmd": "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
         "phpmnd": "./vendor/bin/phpmnd src/ --non-zero-exit-on-violation",
         "phpstan": "./vendor/bin/phpstan analyze -l max src tests",
-        "phpunit": "./vendor/bin/phpunit --configuration tests/phpunit.xml --testdox --exclude-group unreleased",
-        "phpunit-unreleased": "./vendor/bin/phpunit --configuration tests/phpunit.xml --testdox --group unreleased",
+        "phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --exclude-group unreleased",
+        "phpunit-unreleased": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --group unreleased",
         "security-checker": "./vendor/bin/security-checker security:check ./composer.lock",
         "syntax-check": "./vendor/bin/parallel-lint --exclude vendor --blame .",
         "system-check": [

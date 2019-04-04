@@ -44,8 +44,8 @@ class API163Test extends BaseTest {
          * Create test data:
          */
 
-        $objecID = $this->createServer();
-        $this->isID($objecID);
+        $objectID = $this->createServer();
+        $this->isID($objectID);
 
         /**
          * Run tests:
@@ -54,7 +54,7 @@ class API163Test extends BaseTest {
         $sysid = $this->generateRandomString();
 
         $entryID = $this->cmdbCategory->save(
-            $objecID,
+            $objectID,
             'C__CATG__GLOBAL',
             [
                 'sysid' => $sysid
@@ -66,7 +66,7 @@ class API163Test extends BaseTest {
          * Double check:
          */
 
-        $object = $this->cmdbObject->read($objecID);
+        $object = $this->cmdbObject->read($objectID);
 
         $this->assertArrayHasKey('sysid', $object);
         $this->assertIsString($object['sysid']);

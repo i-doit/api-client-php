@@ -137,7 +137,6 @@ This project comes with some useful composer scripts:
 | `composer find-forbidden`     | Find forbidden words in source code                       |
 | `composer gitstats`           | Create Git statistics                                     |
 | `composer gource`             | Visualize Git history                                     |
-| `composer parallel`           | Perform unit tests in parallel                            |
 | `composer phpcpd`             | Detect copy/paste in source code                          |
 | `composer phpcs`              | Detect violations of defined coding standards             |
 | `composer phploc`             | Print source code statistics                              |
@@ -145,6 +144,7 @@ This project comes with some useful composer scripts:
 | `composer phpmnd`             | Detect magic numbers in source code                       |
 | `composer phpstan`            | Analyze source code                                       |
 | `composer phpunit`            | Perform unit tests                                        |
+| `composer phpunit-parallel`   | Perform unit tests in parallel                            |
 | `composer phpunit-unreleased` | Perform unit tests for unreleased features                |
 | `composer security-checker`   | Look for dependencies with known security vulnerabilities |
 | `composer syntax-check`       | Check syntax of source code                               |

@@ -23,5 +23,6 @@
     </filter>
     <extensions>
         <extension class="bheisig\idoitapi\tests\Extension\PrintMetaData"/>
+        <extension class="bheisig\idoitapi\tests\Extension\PrintStatistics"/>
     </extensions>
 </phpunit>

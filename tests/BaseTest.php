@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Extension\Statistics;
 use \Exception;
 use PHPUnit\Framework\TestCase;
 use bheisig\idoitapi\API;
@@ -84,6 +85,8 @@ abstract class BaseTest extends TestCase {
 
     /**
      * Load environment settings
+     *
+     * @throws Exception on error
      */
     public static function setUpBeforeClass() {
         self::$dotEnv = new Dotenv();
@@ -134,6 +137,13 @@ abstract class BaseTest extends TestCase {
         $this->cmdbObject = new CMDBObject($this->api);
         $this->cmdbObjects = new CMDBObjects($this->api);
         $this->cmdbCategory = new CMDBCategory($this->api);
+    }
+
+    public function tearDown(): void {
+        Statistics::getInstance()->update(
+            Statistics::API_REQUEST_COUNTER,
+            $this->api->countRequests()
+        );
     }
 
     /**

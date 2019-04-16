@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ##  [Unreleased]
 
+_tbd_
+
+
+##  [0.8] – 2019-04-16
+
+It's spring time! 🌱
+
+To get the full experience, please update your i-doit to version >= 1.12.2 and API add-on to version >= 1.10.2.
+
 
 ### Added
 
@@ -187,7 +196,8 @@ Happy summer time ⛱️
 Initial release
 
 
-[Unreleased]: https://github.com/bheisig/i-doit-api-client-php/compare/0.7...HEAD
+[Unreleased]: https://github.com/bheisig/i-doit-api-client-php/compare/0.8...HEAD
+[0.8]: https://github.com/bheisig/i-doit-api-client-php/compare/0.7...0.8
 [0.7]: https://github.com/bheisig/i-doit-api-client-php/compare/0.6...0.7
 [0.6]: https://github.com/bheisig/i-doit-api-client-php/compare/0.5...0.6
 [0.5]: https://github.com/bheisig/i-doit-api-client-php/compare/0.4...0.5

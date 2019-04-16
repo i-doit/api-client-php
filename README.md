@@ -40,9 +40,9 @@ What's new? Take a look at the [changelog](CHANGELOG.md).
 
 Meet these simple requirements before using the client:
 
-*   A running instance of i-doit, version 1.10.2 or higher
-*   i-doit API add-on, version 1.9.1 or higher
-*   PHP, version 5.6 or higher (7.2 is recommended)
+*   A running instance of i-doit, version 1.12.2 or higher
+*   i-doit API add-on, version 1.10.2 or higher
+*   PHP, version 5.6 or higher (7.3 is recommended)
 *   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
 
 
@@ -51,10 +51,10 @@ Meet these simple requirements before using the client:
 It is recommended to install this client via [Composer](https://getcomposer.org/). Change to your project's root directory and fetch the latest stable version:
 
 ~~~ {.bash}
-composer require "bheisig/idoitapi=>=0.7"
+composer require "bheisig/idoitapi=>=0.8"
 ~~~
 
-This installs version `0.7` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
+This installs version `0.8` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
 
 ~~~ {.bash}
 composer require "bheisig/idoitapi=@DEV"
@@ -176,23 +176,31 @@ For almost every case there is a remote procedure you may call to read from or m
 
 | Namespace                     | Remote Procedure Call (RPC)           | Class in API Client Library   | Method                                                    |
 | ----------------------------- | ------------------------------------- | ----------------------------- | --------------------------------------------------------- |
-| `idoit`                       | `idoit.version`                       | `Idoit`                       | `readVersion()`                                           |
-|                               | `idoit.search`                        |                               | `search()`                                                |
+| `idoit`                       | `idoit.addons`                        | `Idoit`                       | `getAddOns()`                                             |
 |                               | `idoit.constants`                     |                               | `readConstants()`                                         |
+|                               | `idoit.license`                       |                               | `getLicense()`                                            |
+|                               | `idoit.search`                        |                               | `search()`                                                |
+|                               | `idoit.version`                       |                               | `readVersion()`                                           |
 |                               | `idoit.login`                         | `API`                         | `login()`                                                 |
 |                               | `idoit.logout`                        |                               | `logout()`                                                |
 | `cmdb.object`                 | `cmdb.object.create`                  | `CMDBObject`                  | `create()`                                                |
 |                               | `cmdb.object.read`                    |                               | `read()`                                                  |
-|                               | `cmdb.object.update`                  |                               | `udpate()`                                                |
-|                               | `cmdb.object.delete`                  |                               | `archive()`, `delete()`, `purge()`                        |
+|                               | `cmdb.object.update`                  |                               | `update()`                                                |
+|                               | `cmdb.object.archive`                 |                               | `archive()`                                               |
+|                               | `cmdb.object.delete`                  |                               | `delete()`                                                |
+|                               | `cmdb.object.purge`                   |                               | `purge()`                                                 |
 | `cmdb.objects`                | `cmdb.objects.read`                   | `CMDBObjects`                 | `read()`                                                  |
 | `cmdb.category`               | `cmdb.category.create`                | `CMDBCategory`                | `create()`                                                |
 |                               | `cmdb.category.read`                  |                               | `read()`, `readOneByID()`, `readFirst()`                  |
 |                               | `cmdb.category.update`                |                               | `update()`                                                |
-|                               | `cmdb.category.delete`                |                               | `archive()`, `delete()`, `purge()`                        |
+|                               | `cmdb.category.save`                  |                               | `save()`                                                  |
+|                               | `cmdb.category.archive`               |                               | `archive()`                                               |
+|                               | `cmdb.category.delete`                |                               | `delete()`                                                |
+|                               | `cmdb.category.purge`                 |                               | `purge()`                                                 |
 | `cmdb.category_info`          | `cmdb.category_info.read`             | `CMDBCategoryInfo`            | `read()`                                                  |
 | `cmdb.dialog`                 | `cmdb.dialog.create`                  | `CMDBDialog`                  | `create()`                                                |
 |                               | `cmdb.dialog.read`                    |                               | `read()`                                                  |
+|                               | `cmdb.dialog.delete`                  |                               | `delete()`                                                |
 | `cmdb.impact`                 | `cmdb.impact.read`                    | `CMDBImpact`                  | `readByID()`, `readByConst()`                             |
 | `cmdb.location_tree`          | `cmdb.location_tree.read`             | `CMDBLocationTree`            | `read()`, `readRecursively()`                             |
 | `cmdb.logbook`                | `cmdb.logbook.create`                 | `CMDBLogbook`                 | `create()`                                                |
@@ -500,16 +508,16 @@ use bheisig\idoitapi\CMDBCategory;
 $api = new API([/* … */]);
 
 $category = new CMDBCategory($api);
-$entryID = $this->category->create(
+$entryID = $this->category->save(
     42,
     'C__CATG__IP',
     [
         'net' => 123,
-        'active' => false,
-        'primary' => false,
+        'active' => 1,
+        'primary' => 0,
         'net_type' => 1,
         'ipv4_assignment' => 2,
-        "ipv4_address" =>  '10.20.10.100',
+        'ipv4_address' =>  '10.20.10.100',
         'description' => 'API TEST'
     ]
 );
@@ -591,7 +599,7 @@ use bheisig\idoitapi\CMDBCategory;
 $api = new API([/* … */]);
 
 $category = new CMDBCategory($api);
-$category->update(
+$category->save(
     42,
     'C__CATG__GLOBAL',
     [
@@ -962,12 +970,14 @@ use bheisig\idoitapi\API;
 use bheisig\idoitapi\Idoit;
 
 $api = new API([/* … */]);
-
 $idoit = new Idoit($api);
+
 $version = $idoit->readVersion();
 $constants = $idoit->readConstants();
+$addOns = $idoit->getAddOns();
+$license = $idoit->getLicense();
 
-var_dump($constants);
+var_dump($version, $constants, $addOns, $license);
 ~~~
 
 
@@ -1048,6 +1058,7 @@ Please, report any issues to [our issue tracker](https://github.com/bheisig/i-do
 ##  Projects using this API client library
 
 *   [i-doit CLI Tool](https://github.com/bheisig/i-doit-cli) – "Access your CMDB on the command line interface"
+*   [i-doit Check_MK 2 add-on](https://www.i-doit.com/en/i-doit/add-ons/check-mk-add-on-2/) – "Share information between i-doit and Check_MK"
 
 Send pull requests to add yours.
 

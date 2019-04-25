@@ -33,7 +33,6 @@ use bheisig\idoitapi\tests\BaseTest;
  * @group issues
  * @group API-178
  * @group unreleased
- * @group open
  * @see https://i-doit.atlassian.net/browse/API-178
  */
 class API178Test extends BaseTest {
@@ -140,9 +139,14 @@ class API178Test extends BaseTest {
         $this->assertIsArray($assignedDevices[0]['assigned_slots']);
         // This failed in the past:
         $this->assertCount(1, $assignedDevices[0]['assigned_slots']);
-        $this->assertArrayHasKey(0, $assignedDevices[0]['assigned_slots'][1]);
-        $this->assertIsArray($assignedDevices[0]['assigned_slots'][1]);
-        // @todo Check more details!
+        $this->assertArrayHasKey(0, $assignedDevices[0]['assigned_slots']);
+        $this->assertIsArray($assignedDevices[0]['assigned_slots'][0]);
+        $this->assertArrayHasKey('id', $assignedDevices[0]['assigned_slots'][0]);
+        $this->assertSame($slot1ID, (int) $assignedDevices[0]['assigned_slots'][0]['id']);
+        $this->assertArrayHasKey('type', $assignedDevices[0]['assigned_slots'][0]);
+        $this->assertSame('C__CATS__CHASSIS_SLOT', $assignedDevices[0]['assigned_slots'][0]['type']);
+        $this->assertArrayHasKey('title', $assignedDevices[0]['assigned_slots'][0]);
+        $this->assertSame('Slot #1', $assignedDevices[0]['assigned_slots'][0]['title']);
 
         /**
          * Double checks:
@@ -155,23 +159,49 @@ class API178Test extends BaseTest {
 
         $this->assertIsArray($slots);
         $this->assertCount(2, $slots);
+
         $this->assertArrayHasKey(0, $slots);
         $this->assertIsArray($slots[0]);
         $this->isCategoryEntry($slots[0]);
+        $this->assertArrayHasKey('id', $slots[0]);
+        $this->assertSame($slot1ID, (int) $slots[0]['id']);
+        $this->assertSame($segmentID, (int) $slots[0]['objID']);
+        $this->assertSame('Slot #1', $slots[0]['title']);
+        $this->assertArrayHasKey('assigned_devices', $slots[0]);
+        $this->assertIsArray($slots[0]['assigned_devices']);
+        $this->assertCount(1, $slots[0]['assigned_devices']);
+        $this->assertArrayHasKey(0, $slots[0]['assigned_devices']);
+        $this->assertIsArray($slots[0]['assigned_devices'][0]);
+        $this->assertArrayHasKey('id', $slots[0]['assigned_devices'][0]);
+        $this->assertSame($assignedDeviceID, (int) $slots[0]['assigned_devices'][0]['id']);
+        $this->assertArrayHasKey('type', $slots[0]['assigned_devices'][0]);
+        $this->assertSame('C__CATS__CHASSIS_DEVICES', $slots[0]['assigned_devices'][0]['type']);
+        $this->assertArrayHasKey('title', $slots[0]['assigned_devices'][0]);
+        $this->assertIsString($slots[0]['assigned_devices'][0]['title']);
+
         $this->assertArrayHasKey(1, $slots);
         $this->assertIsArray($slots[1]);
         $this->isCategoryEntry($slots[1]);
+        $this->assertArrayHasKey('id', $slots[1]);
+        $this->assertSame($slot2ID, (int) $slots[1]['id']);
+        $this->assertSame($segmentID, (int) $slots[1]['objID']);
+        $this->assertSame('Slot #2', $slots[1]['title']);
+        $this->assertArrayHasKey('assigned_devices', $slots[1]);
+        $this->assertIsArray($slots[1]['assigned_devices']);
+        $this->assertCount(0, $slots[1]['assigned_devices']);
 
         $chassisView = $this->cmdbCategory->read(
             $segmentID,
             'C__CATS__CHASSIS_VIEW'
         );
 
-        $this->assertIsArray($chassisViewID);
+        $this->assertIsArray($chassisView);
         $this->assertCount(1, $chassisView);
         $this->assertArrayHasKey(0, $chassisView);
         $this->assertIsArray($chassisView[0]);
         $this->isCategoryEntry($chassisView[0]);
+        $this->assertSame($chassisViewID, (int) $chassisView[0]['id']);
+        $this->assertSame($segmentID, (int) $chassisView[0]['objID']);
     }
 
 }

@@ -106,9 +106,12 @@ final class PrintMetaData implements BeforeFirstTestHook {
         try {
             $config = [
                 API::URL => getenv('URL'),
-                API::KEY => getenv('KEY'),
-                API::LANGUAGE => getenv('IDOIT_LANGUAGE')
+                API::KEY => getenv('KEY')
             ];
+
+            if (getenv('IDOIT_LANGUAGE') !== false) {
+                $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
+            }
 
             if (getenv('USERNAME') !== false && getenv('PASSWORD') !== false) {
                 $config['username'] = getenv('USERNAME');

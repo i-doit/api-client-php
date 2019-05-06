@@ -32,7 +32,6 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group API-178
- * @group unreleased
  * @see https://i-doit.atlassian.net/browse/API-178
  */
 class API178Test extends BaseTest {

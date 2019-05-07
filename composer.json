@@ -1,6 +1,6 @@
 {
     "name": "bheisig/idoitapi",
-    "version": "0.8",
+    "version": "0.9-dev",
     "description": "Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API",
     "type": "library",
     "keywords": ["i-doit", "cmdb", "it documentation", "api", "json-rpc"],
@@ -30,7 +30,10 @@
     "require-dev": {
         "php": ">=7.1.0",
         "brianium/paratest": "^2.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
         "jakub-onderka/php-parallel-lint": "^1.0",
+        "phan/phan": "^1.3",
+        "phpcompatibility/php-compatibility": "*",
         "phploc/phploc": "^4.0",
         "phpmd/phpmd" : "@stable",
         "phpstan/phpstan": "^0.11.5",
@@ -44,6 +47,7 @@
     "suggest": {
         "ext-xdebug": "Needed for code coverage with phpunit"
     },
+    "prefer-stable" : true,
     "autoload": {
         "psr-4": {
             "bheisig\\idoitapi\\": "src/"
@@ -63,6 +67,7 @@
             "@composer syntax-check",
             "@composer find-forbidden",
             "@composer security-checker",
+            "@composer phpcompatibility",
             "@composer phpcpd",
             "@composer phpcs",
             "@composer phpmnd",
@@ -73,6 +78,11 @@
         ],
         "gitstats": "gitstats -c project_name=`composer config name` . gitstats",
         "gource": "gource -1280x720 --seconds-per-day 3 --auto-skip-seconds 1 --title `composer config name`",
+        "phan": "./vendor/bin/phan",
+        "phpcompatibility": [
+            "./vendor/bin/phpcs -p --colors --extensions=php --standard=PHPCompatibility --runtime-set testVersion 5.6 src/",
+            "./vendor/bin/phpcs -p --colors --extensions=php --standard=PHPCompatibility --runtime-set testVersion 7.1 tests/"
+        ],
         "phpcpd": "./vendor/bin/phpcpd src/",
         "phpcs": "./vendor/bin/phpcs --extensions=php --standard=PSR1,PSR2 --exclude=PSR2.Classes.ClassDeclaration,Squiz.Functions.MultiLineFunctionDeclaration src/ tests/",
         "phploc": "./vendor/bin/phploc --exclude=vendor --exclude=docs --exclude=build .",
@@ -100,6 +110,8 @@
         "find-forbidden": "Find forbidden words in source code",
         "gitstats": "Create Git statistics",
         "gource": "Visualize Git history",
+        "phan": "Perform static code analysis with phan",
+        "phpcompatibility": "Run PHP compatibility checks",
         "phpcpd": "Detect copy/paste in source code",
         "phpcs": "Detect violations of defined coding standards",
         "phploc": "Print source code statistics",

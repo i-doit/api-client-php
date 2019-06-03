@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ##  [Unreleased]
 
-_tbd_
+
+### Added
+
+-   Provide cURL error code in case of connection problems
 
 
 ##  [0.8] – 2019-04-16

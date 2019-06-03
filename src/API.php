@@ -561,21 +561,34 @@ class API {
         if ($responseString === false) {
             switch ($this->lastInfo['http_code']) {
                 case 0:
-                    $message = curl_error($this->resource);
+                    $errorMessage = curl_error($this->resource);
+                    $errorCode = curl_errno($this->resource);
+                    $exceptionMessage = 'Connection to Web server failed [%s]: %s';
 
-                    if (strlen($message) === 0) {
-                        $message = 'Connection to Web server failed';
+                    if (strlen($errorMessage) === 0) {
+                        throw new RuntimeException(sprintf(
+                            $exceptionMessage,
+                            $errorCode,
+                            '-'
+                        ));
                     }
 
-                    throw new RuntimeException($message);
+                    throw new RuntimeException(sprintf(
+                        $exceptionMessage,
+                        $errorCode,
+                        $errorMessage
+                    ));
                 default:
                     throw new RuntimeException(sprintf(
-                        'Web server responded with HTTP status code "%s"',
+                        'Web server responded with HTTP status code %s',
                         $this->lastInfo['http_code']
                     ));
             }
         } elseif (!is_string($responseString)) {
-            throw new RuntimeException('No content from Web server');
+            throw new RuntimeException(sprintf(
+                'No content from Web server [HTTP status code %s]',
+                $this->lastInfo['http_code']
+            ));
         }
 
         $headerLength = curl_getinfo($this->resource, CURLINFO_HEADER_SIZE);

@@ -716,7 +716,7 @@ abstract class BaseTest extends TestCase {
     }
 
     protected function isCategoryEntry(array $entry) {
-        $this->assertGreaterThanOrEqual(3, count($entry));
+        $this->assertGreaterThanOrEqual(2, count($entry));
 
         $this->assertArrayHasKey('id', $entry);
 

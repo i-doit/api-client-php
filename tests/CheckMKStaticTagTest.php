@@ -30,7 +30,7 @@ use \Exception;
 use bheisig\idoitapi\CheckMKStaticTag;
 
 /**
- * @coversDefaultClass \bheisig\idoitapi\CheckMKStaticTag
+ * @group addon
  */
 class CheckMKStaticTagTest extends BaseTest {
 

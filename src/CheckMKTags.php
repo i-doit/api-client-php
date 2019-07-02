@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -41,7 +43,7 @@ class CheckMKTags extends Request {
      *
      * @throws Exception on error
      */
-    public function read($objectID) {
+    public function read(int $objectID): array {
         return $this->api->request(
             'checkmk.tags.read',
             [
@@ -59,7 +61,7 @@ class CheckMKTags extends Request {
      *
      * @throws Exception on error
      */
-    public function batchRead(array $objectIDs) {
+    public function batchRead(array $objectIDs): array {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {

@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\Console;
 
 use \Exception;
@@ -40,7 +42,7 @@ class Import extends Console {
      *
      * @throws Exception on error
      */
-    public function importFromCSVFile(array $options = []) {
+    public function importFromCSVFile(array $options = []): array {
         return $this->execute(
             'console.import.csv',
             $options
@@ -54,7 +56,7 @@ class Import extends Console {
      *
      * @throws Exception on error
      */
-    public function listCSVImportProfiles() {
+    public function listCSVImportProfiles(): array {
         return $this->execute(
             'console.import.csvprofiles'
         );
@@ -69,7 +71,7 @@ class Import extends Console {
      *
      * @throws Exception on error
      */
-    public function importFromHInventory(array $options = []) {
+    public function importFromHInventory(array $options = []): array {
         return $this->execute(
             'console.import.hinventory',
             $options
@@ -85,7 +87,7 @@ class Import extends Console {
      *
      * @throws Exception on error
      */
-    public function importFromJDiscDiscovery(array $options = []) {
+    public function importFromJDiscDiscovery(array $options = []): array {
         return $this->execute(
             'console.import.jdisc',
             $options
@@ -101,7 +103,7 @@ class Import extends Console {
      *
      * @throws Exception on error
      */
-    public function triggerJDiscDiscovery(array $options = []) {
+    public function triggerJDiscDiscovery(array $options = []): array {
         return $this->execute(
             'console.import.jdiscdiscovery',
             $options
@@ -117,7 +119,7 @@ class Import extends Console {
      *
      * @throws Exception on error
      */
-    public function importFromOCSInventoryNG(array $options = []) {
+    public function importFromOCSInventoryNG(array $options = []): array {
         return $this->execute(
             'console.import.ocs',
             $options
@@ -133,7 +135,7 @@ class Import extends Console {
      *
      * @throws Exception on error
      */
-    public function importFromSyslog(array $options = []) {
+    public function importFromSyslog(array $options = []): array {
         return $this->execute(
             'console.import.syslog',
             $options
@@ -149,7 +151,7 @@ class Import extends Console {
      *
      * @throws Exception on error
      */
-    public function importFromXMLFile(array $options = []) {
+    public function importFromXMLFile(array $options = []): array {
         return $this->execute(
             'console.import.xml',
             $options

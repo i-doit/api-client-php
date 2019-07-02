@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -38,7 +40,7 @@ class CMDBReports extends Request {
      *
      * @throws Exception on error
      */
-    public function listReports() {
+    public function listReports(): array {
         return $this->api->request(
             'cmdb.reports'
         );
@@ -53,7 +55,7 @@ class CMDBReports extends Request {
      *
      * @throws Exception on error
      */
-    public function read($reportID) {
+    public function read(int $reportID): array {
         $result = $this->api->request(
             'cmdb.reports',
             [
@@ -77,7 +79,7 @@ class CMDBReports extends Request {
      *
      * @throws Exception on error
      */
-    public function batchRead(array $reportIDs) {
+    public function batchRead(array $reportIDs): array {
         $requests = [];
 
         foreach ($reportIDs as $reportID) {

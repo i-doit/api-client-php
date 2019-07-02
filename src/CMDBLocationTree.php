@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -44,7 +46,7 @@ class CMDBLocationTree extends Request {
      *
      * @throws Exception on error
      */
-    public function read($objectID, $status = null) {
+    public function read(int $objectID, int $status = null): array {
         $params = [
             'id' => $objectID
         ];
@@ -69,7 +71,7 @@ class CMDBLocationTree extends Request {
      *
      * @throws Exception on error
      */
-    public function readRecursively($objectID, $status = null) {
+    public function readRecursively(int $objectID, int $status = null): array {
         $children = $this->read($objectID, $status);
 
         $tree = [];

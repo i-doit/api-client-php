@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -45,7 +47,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function create($title, $tag = null, $group = null, $description = null) {
+    public function create(string $title, string $tag = null, string $group = null, string $description = null): int {
         $params = [
             'data' => [
                 'title' => $title
@@ -94,7 +96,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function batchCreate(array $tags) {
+    public function batchCreate(array $tags): array {
         $requests = [];
 
         $required = ['title'];
@@ -145,7 +147,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function read() {
+    public function read(): array {
         return $this->api->request(
             'checkmk.statictag.read'
         );
@@ -160,7 +162,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function readByID($id) {
+    public function readByID(int $id): array {
         return $this->api->request(
             'checkmk.statictag.read',
             [
@@ -178,7 +180,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function readByIDs(array $ids) {
+    public function readByIDs(array $ids): array {
         return $this->api->request(
             'checkmk.statictag.read',
             [
@@ -196,7 +198,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function readByTag($tag) {
+    public function readByTag(string $tag): array {
         return $this->api->request(
             'checkmk.statictag.read',
             [
@@ -216,7 +218,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function update($id, array $tag) {
+    public function update(int $id, array $tag): self {
         $result = $this->api->request(
             'checkmk.statictag.update',
             [
@@ -246,7 +248,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function delete($id) {
+    public function delete(int $id): self {
         $result = $this->api->request(
             'checkmk.statictag.delete',
             [
@@ -275,7 +277,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function batchDelete($ids) {
+    public function batchDelete(array $ids): self {
         $requests = [];
 
         foreach ($ids as $id) {
@@ -311,7 +313,7 @@ class CheckMKStaticTag extends Request {
      *
      * @throws Exception on error
      */
-    public function deleteAll() {
+    public function deleteAll(): self {
         $tags = $this->read();
 
         $ids = [];

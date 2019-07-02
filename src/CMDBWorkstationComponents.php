@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -40,7 +42,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @throws Exception on error
      */
-    public function read($objectID) {
+    public function read(int $objectID): array {
         return $this->api->request(
             'cmdb.workstation_components',
             [
@@ -60,7 +62,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @throws Exception on error
      */
-    public function batchRead(array $objectIDs) {
+    public function batchRead(array $objectIDs): array {
         return $this->api->request(
             'cmdb.workstation_components',
             [
@@ -80,7 +82,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @throws Exception on error
      */
-    public function readByEmail($email) {
+    public function readByEmail(string $email): array {
         return $this->api->request(
             'cmdb.workstation_components',
             [
@@ -100,7 +102,7 @@ class CMDBWorkstationComponents extends Request {
      *
      * @throws Exception on error
      */
-    public function readByEmails(array $emails) {
+    public function readByEmails(array $emails): array {
         return $this->api->request(
             'cmdb.workstation_components',
             [

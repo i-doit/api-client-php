@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\Console;
 
 use \Exception;
@@ -38,7 +40,7 @@ class Search extends Console {
      *
      * @throws Exception on error
      */
-    public function createIndex() {
+    public function createIndex(): array {
         return $this->execute(
             'console.search.index'
         );
@@ -51,7 +53,7 @@ class Search extends Console {
      *
      * @throws Exception on error
      */
-    public function updateIndex() {
+    public function updateIndex(): array {
         return $this->execute(
             'console.search.index',
             [
@@ -69,7 +71,7 @@ class Search extends Console {
      *
      * @throws Exception on error
      */
-    public function query($query) {
+    public function query(string $query): array {
         return $this->execute(
             'console.search.query',
             [

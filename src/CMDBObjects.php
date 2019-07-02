@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -56,7 +58,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function create(array $objects) {
+    public function create(array $objects): array {
         $requests = [];
 
         foreach ($objects as $object) {
@@ -98,8 +100,13 @@ class CMDBObjects extends Request {
      * @throws Exception on error
      */
     public function read(
-        array $filter = [], $limit = null, $offset = null, $orderBy = null, $sort = null, $categories = false
-    ) {
+        array $filter = [],
+        int $limit = null,
+        int $offset = null,
+        string $orderBy = null,
+        string $sort = null,
+        $categories = false
+    ): array {
         $params = [];
 
         if (count($filter) > 0) {
@@ -143,7 +150,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function readByIDs(array $objectIDs, $categories = false) {
+    public function readByIDs(array $objectIDs, $categories = false): array {
         $params = [
             'filter' => [
                 'ids' => $objectIDs
@@ -171,7 +178,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function readByType($objectType, $categories = false) {
+    public function readByType(string $objectType, $categories = false): array {
         $params = [
             'filter' => [
                 'type' => $objectType
@@ -199,7 +206,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function readArchived($type = null, $categories = false) {
+    public function readArchived(string $type = null, $categories = false): array {
         $params = [
             'filter' => [
                 'status' => 'C__RECORD_STATUS__ARCHIVED'
@@ -231,7 +238,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function readDeleted($type = null, $categories = false) {
+    public function readDeleted(string $type = null, $categories = false): array {
         $params = [
             'filter' => [
                 'status' => 'C__RECORD_STATUS__DELETED'
@@ -262,7 +269,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function getID($title, $type = null) {
+    public function getID(string $title, string $type = null): int {
         $filter = [
             'title' => $title
         ];
@@ -297,7 +304,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function update(array $objects) {
+    public function update(array $objects): self {
         $requests = [];
 
         foreach ($objects as $object) {
@@ -321,7 +328,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function archive(array $objectIDs) {
+    public function archive(array $objectIDs): self {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {
@@ -347,7 +354,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function delete(array $objectIDs) {
+    public function delete(array $objectIDs): self {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {
@@ -373,7 +380,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function purge(array $objectIDs) {
+    public function purge(array $objectIDs): self {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {
@@ -399,7 +406,7 @@ class CMDBObjects extends Request {
      *
      * @throws Exception on error
      */
-    public function recycle(array $objectIDs) {
+    public function recycle(array $objectIDs): self {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {

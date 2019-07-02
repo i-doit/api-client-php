@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\Console;
 
 use \Exception;
@@ -38,7 +40,7 @@ class System extends Console {
      *
      * @throws Exception on error
      */
-    public function purgeUnfinishedObjects() {
+    public function purgeUnfinishedObjects(): array {
         return $this->execute(
             'console.system.objectcleanup',
             [
@@ -54,7 +56,7 @@ class System extends Console {
      *
      * @throws Exception on error
      */
-    public function purgeArchivedObjects() {
+    public function purgeArchivedObjects(): array {
         return $this->execute(
             'console.system.objectcleanup',
             [
@@ -70,7 +72,7 @@ class System extends Console {
      *
      * @throws Exception on error
      */
-    public function purgeDeletedObjects() {
+    public function purgeDeletedObjects(): array {
         return $this->execute(
             'console.system.objectcleanup',
             [

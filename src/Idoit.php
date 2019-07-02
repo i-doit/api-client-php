@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -39,7 +41,7 @@ class Idoit extends Request {
      *
      * @throws Exception on error
      */
-    public function readVersion() {
+    public function readVersion(): array {
         return $this->api->request('idoit.version');
     }
 
@@ -50,7 +52,7 @@ class Idoit extends Request {
      *
      * @throws Exception on error
      */
-    public function getAddOns() {
+    public function getAddOns(): array {
         $response = $this->api->request('idoit.addons.read');
 
         if (!array_key_exists('result', $response) || !is_array($response['result'])) {
@@ -67,7 +69,7 @@ class Idoit extends Request {
      *
      * @throws Exception on error
      */
-    public function getLicense() {
+    public function getLicense(): array {
         return $this->api->request('idoit.license.read');
     }
 
@@ -78,7 +80,7 @@ class Idoit extends Request {
      *
      * @throws Exception on error
      */
-    public function readConstants() {
+    public function readConstants(): array {
         return $this->api->request('idoit.constants');
     }
 
@@ -91,7 +93,7 @@ class Idoit extends Request {
      *
      * @throws Exception on error
      */
-    public function search($query) {
+    public function search(string $query): array {
         return $this->api->request(
             'idoit.search',
             ['q' => $query]
@@ -107,7 +109,7 @@ class Idoit extends Request {
      *
      * @throws Exception on error
      */
-    public function batchSearch(array $queries) {
+    public function batchSearch(array $queries): array {
         $requests = [];
 
         foreach ($queries as $query) {

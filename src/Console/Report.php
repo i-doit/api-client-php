@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\Console;
 
 use \Exception;
@@ -40,7 +42,7 @@ class Report extends Console {
      *
      * @throws Exception on error
      */
-    public function export(array $options = []) {
+    public function export(array $options = []): array {
         return $this->execute(
             'console.report.export',
             $options

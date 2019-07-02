@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\Console;
 
 use \Exception;
@@ -38,7 +40,7 @@ class Notifications extends Console {
      *
      * @throws Exception on error
      */
-    public function send() {
+    public function send(): array {
         return $this->execute(
             'console.notifications.send'
         );

@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -201,7 +203,7 @@ class API {
      *
      * @throws Exception on error
      */
-    public function __construct($config) {
+    public function __construct(array $config) {
         $this->config = $config;
 
         $this->testConfig();
@@ -241,7 +243,7 @@ class API {
      *
      * @return bool
      */
-    public function isConnected() {
+    public function isConnected(): bool {
         return is_resource($this->resource);
     }
 
@@ -250,11 +252,16 @@ class API {
      *
      * @return bool
      */
-    public function isLoggedIn() {
+    public function isLoggedIn(): bool {
         return isset($this->session);
     }
 
-    protected function setCURLOptions() {
+    /**
+     * Set cURL options
+     *
+     * @return self Returns itself
+     */
+    protected function setCURLOptions(): self {
         $this->options = [
             CURLOPT_FAILONERROR => true,
             // Follow (only) 301s and 302s:
@@ -318,6 +325,8 @@ class API {
             $this->options[CURLOPT_SSL_VERIFYHOST] = 2;
             $this->options[CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_2;
         }
+
+        return $this;
     }
 
     /**
@@ -329,7 +338,7 @@ class API {
      *
      * @throws RuntimeException on error
      */
-    public function connect() {
+    public function connect(): self {
         $this->resource = curl_init();
 
         if (!is_resource($this->resource)) {
@@ -348,7 +357,7 @@ class API {
      *
      * @throws Exception on error
      */
-    public function disconnect() {
+    public function disconnect(): self {
         // Auto-connect:
         if ($this->isConnected() === false) {
             throw new BadMethodCallException('There is no connection.');
@@ -366,7 +375,7 @@ class API {
      *
      * @throws Exception on error
      */
-    public function login() {
+    public function login(): self {
         if ($this->isLoggedIn()) {
             throw new BadMethodCallException('Client is already logged-in.');
         }
@@ -396,7 +405,7 @@ class API {
      *
      * @throws Exception on error
      */
-    public function logout() {
+    public function logout(): self {
         if ($this->isLoggedIn() === false) {
             throw new BadMethodCallException('Client is not logged-in.');
         }
@@ -415,7 +424,7 @@ class API {
      *
      * @return int
      */
-    protected function genID() {
+    protected function genID(): int {
         $this->id++;
 
         return $this->id;
@@ -426,7 +435,7 @@ class API {
      *
      * @return int Positive integer
      */
-    public function countRequests() {
+    public function countRequests(): int {
         return $this->id;
     }
 
@@ -440,7 +449,7 @@ class API {
      *
      * @throws Exception on error
      */
-    public function request($method, array $params = []) {
+    public function request(string $method, array $params = []): array {
         $data = [
             'version' => '2.0',
             'method' => $method,
@@ -471,7 +480,7 @@ class API {
      *
      * @throws Exception on error
      */
-    public function batchRequest(array $requests) {
+    public function batchRequest(array $requests): array {
         $data = [];
 
         foreach ($requests as $request) {
@@ -530,7 +539,7 @@ class API {
      *
      * @throws Exception on error
      */
-    protected function execute(array $data) {
+    protected function execute(array $data): array {
         // Auto-connect:
         if ($this->isConnected() === false) {
             $this->connect();
@@ -627,7 +636,7 @@ class API {
      *
      * @throws Exception on error
      */
-    protected function evaluateResponse(array $response) {
+    protected function evaluateResponse(array $response): self {
         if (array_key_exists('error', $response) &&
             $response['error'] !== null) {
             // Validate error object:
@@ -706,7 +715,7 @@ class API {
      * @return array Raw response from
      * @throws Exception on error
      */
-    public function rawRequest(array $data = [], array $headers = []) {
+    public function rawRequest(array $data = [], array $headers = []): array {
         foreach ($headers as $header => $value) {
             $this->options[CURLOPT_HTTPHEADER][] = $header . ': ' . $value;
         }
@@ -721,7 +730,7 @@ class API {
      *
      * @return array Associative array
      */
-    public function getLastInfo() {
+    public function getLastInfo(): array {
         return $this->lastInfo;
     }
 
@@ -732,7 +741,7 @@ class API {
      *
      * @return string Multi-line string
      */
-    public function getLastRequestHeaders() {
+    public function getLastRequestHeaders(): string {
         if (array_key_exists('request_header', $this->lastInfo)) {
             return $this->lastInfo['request_header'];
         }
@@ -747,7 +756,7 @@ class API {
      *
      * @return string Multi-line string
      */
-    public function getLastResponseHeaders() {
+    public function getLastResponseHeaders(): string {
         return $this->lastResponseHeaders;
     }
 
@@ -756,7 +765,7 @@ class API {
      *
      * @return array Associative array
      */
-    public function getLastResponse() {
+    public function getLastResponse(): array {
         return $this->lastResponse;
     }
 
@@ -767,7 +776,7 @@ class API {
      *
      * @return array Multi-dimensional associative array
      */
-    public function getLastRequestContent() {
+    public function getLastRequestContent(): array {
         return $this->lastRequestContent;
     }
 
@@ -778,7 +787,7 @@ class API {
      *
      * @throws Exception on any misconfigured setting
      */
-    protected function testConfig() {
+    protected function testConfig(): bool {
         /**
          * Mandatory settings
          */

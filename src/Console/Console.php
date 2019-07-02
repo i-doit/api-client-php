@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\Console;
 
 use \Exception;
@@ -44,7 +46,7 @@ class Console extends Request {
      *
      * @throws Exception on error
      */
-    public function execute($method, array $options = [], array $arguments = []) {
+    public function execute(string $method, array $options = [], array $arguments = []): array {
         $params = [];
 
         if (count($options) > 0) {

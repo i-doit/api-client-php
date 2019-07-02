@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -46,7 +48,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function save($objectID, $categoryConstant, array $attributes, $entryID = null) {
+    public function save(int $objectID, string $categoryConstant, array $attributes, int $entryID = null): int {
         $params = [
             'object' => $objectID,
             'data' => $attributes,
@@ -87,7 +89,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function create($objectID, $categoryConst, array $attributes) {
+    public function create(int $objectID, string $categoryConst, array $attributes): int {
         $params = [
             'objID' => $objectID,
             'data' => $attributes,
@@ -130,7 +132,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function read($objectID, $categoryConst, $status = 2) {
+    public function read(int $objectID, string $categoryConst, int $status = 2): array {
         return $this->api->request(
             'cmdb.category.read',
             [
@@ -159,7 +161,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function readOneByID($objectID, $categoryConst, $entryID, $status = 2) {
+    public function readOneByID(int $objectID, string $categoryConst, int $entryID, int $status = 2): array {
         $entries = $this->read($objectID, $categoryConst, $status);
 
         foreach ($entries as $entry) {
@@ -195,7 +197,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function readFirst($objectID, $categoryConst) {
+    public function readFirst(int $objectID, string $categoryConst): array {
         $entries = $this->read($objectID, $categoryConst);
 
         if (count($entries) === 0) {
@@ -217,7 +219,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function update($objectID, $categoryConst, array $attributes, $entryID = null) {
+    public function update(int $objectID, string $categoryConst, array $attributes, int $entryID = null): self {
         if (isset($entryID)) {
             $attributes['category_id'] = $entryID;
         }
@@ -254,7 +256,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function archive($objectID, $categoryConst, $entryID) {
+    public function archive(int $objectID, string $categoryConst, int $entryID): self {
         $this->api->request(
             'cmdb.category.archive',
             [
@@ -278,7 +280,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function delete($objectID, $categoryConst, $entryID) {
+    public function delete(int $objectID, string $categoryConst, int $entryID): self {
         $this->api->request(
             'cmdb.category.delete',
             [
@@ -302,7 +304,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function purge($objectID, $categoryConst, $entryID = null) {
+    public function purge(int $objectID, string $categoryConst, int $entryID = null): self {
         $params = [
             'object' => $objectID,
             'category' => $categoryConst
@@ -331,7 +333,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function recycle($objectID, $categoryConst, $entryID) {
+    public function recycle(int $objectID, string $categoryConst, int $entryID): self {
         $this->api->request(
             'cmdb.category.recycle',
             [
@@ -355,7 +357,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function quickPurge($objectID, $categoryConst, $entryID) {
+    public function quickPurge(int $objectID, string $categoryConst, int $entryID): self {
         $result = $this->api->request(
             'cmdb.category.quickpurge',
             [
@@ -388,7 +390,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function batchCreate(array $objectIDs, $categoryConst, array $attributes) {
+    public function batchCreate(array $objectIDs, string $categoryConst, array $attributes): array {
         $entryIDs = [];
 
         $requests = [];
@@ -444,7 +446,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function batchRead(array $objectIDs, array $categoryConsts, $status = 2) {
+    public function batchRead(array $objectIDs, array $categoryConsts, int $status = 2): array {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {
@@ -474,7 +476,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function batchUpdate(array $objectIDs, $categoryConst, array $attributes) {
+    public function batchUpdate(array $objectIDs, string $categoryConst, array $attributes): self {
         $requests = [];
 
         foreach ($objectIDs as $objectID) {
@@ -514,7 +516,7 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function clear($objectID, array $categoryConsts) {
+    public function clear(int $objectID, array $categoryConsts): int {
         $batch = $this->batchRead([$objectID], $categoryConsts);
 
         $requests = [];

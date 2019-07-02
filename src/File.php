@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -44,7 +46,7 @@ class File extends Request {
      *
      * @throws Exception on error
      */
-    public function add($objectID, $filePath, $description = '') {
+    public function add(int $objectID, string $filePath, string $description = ''): self {
         $fileAsString = $this->encode($filePath);
 
         $cmdbObject = new CMDBObject($this->api);
@@ -89,7 +91,7 @@ class File extends Request {
      *
      * @throws Exception on error
      */
-    public function batchAdd($objectID, array $files) {
+    public function batchAdd(int $objectID, array $files): self {
         $objects = [];
 
         foreach ($files as $description) {
@@ -160,7 +162,7 @@ class File extends Request {
      *
      * @throws Exception on error
      */
-    public function encode($filePath) {
+    public function encode(string $filePath): string {
         if (!file_exists($filePath) ||
             !is_readable($filePath)) {
             throw new BadMethodCallException(sprintf(

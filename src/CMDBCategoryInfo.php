@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -41,7 +43,7 @@ class CMDBCategoryInfo extends Request {
      *
      * @throws Exception on error
      */
-    public function read($categoryConst) {
+    public function read(string $categoryConst): array {
         return $this->api->request(
             'cmdb.category_info',
             array(
@@ -59,7 +61,7 @@ class CMDBCategoryInfo extends Request {
      *
      * @throws Exception on error
      */
-    public function batchRead(array $categories) {
+    public function batchRead(array $categories): array {
         $requests = [];
 
         foreach ($categories as $category) {
@@ -87,7 +89,7 @@ class CMDBCategoryInfo extends Request {
      *
      * @throws Exception on error
      */
-    public function readAll() {
+    public function readAll(): array {
         $cmdbObjectTypes = new CMDBObjectTypes($this->api);
         $cmdbObjectTypeCategories = new CMDBObjectTypeCategories($this->api);
         $categoryConsts = [];
@@ -143,7 +145,7 @@ class CMDBCategoryInfo extends Request {
      *
      * @return array Array of strings
      */
-    public function getVirtualCategoryConstants() {
+    public function getVirtualCategoryConstants(): array {
         return [
             'C__CATG__CABLING',
             'C__CATG__CABLE_CONNECTION',

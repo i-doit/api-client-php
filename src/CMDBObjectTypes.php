@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -38,7 +40,7 @@ class CMDBObjectTypes extends Request {
      *
      * @throws Exception on error
      */
-    public function read() {
+    public function read(): array {
         return $this->api->request(
             'cmdb.object_types',
             [
@@ -56,7 +58,7 @@ class CMDBObjectTypes extends Request {
      *
      * @throws Exception on error
      */
-    public function readOne($objectType) {
+    public function readOne(string $objectType): array {
         $result = $this->api->request(
             'cmdb.object_types',
             [
@@ -79,7 +81,7 @@ class CMDBObjectTypes extends Request {
      *
      * @throws Exception on error
      */
-    public function batchRead(array $objectTypes) {
+    public function batchRead(array $objectTypes): array {
         return $this->api->request(
             'cmdb.object_types',
             [
@@ -100,7 +102,7 @@ class CMDBObjectTypes extends Request {
      *
      * @throws Exception on error
      */
-    public function readByTitle($title) {
+    public function readByTitle(string $title): array {
         $result = $this->api->request(
             'cmdb.object_types',
             [

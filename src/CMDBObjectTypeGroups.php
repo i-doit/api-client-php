@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -50,7 +52,7 @@ class CMDBObjectTypeGroups extends Request {
      *
      * @throws Exception on error
      */
-    public function read($orderBy = null, $sortDirection = null, $limit = null) {
+    public function read(string $orderBy = null, string $sortDirection = null, int $limit = null): array {
         $params = [];
 
         if (isset($orderBy)) {

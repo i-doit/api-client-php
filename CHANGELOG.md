@@ -7,11 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+**Notice: Support for PHP 5.6 is finally dropped. Version 7.0 is deprecated. Support will be dropped in a further release. Please upgrade to at least version 7.1. Version 7.3 is recommended.**
+
 ### Added
 
 -   Provide cURL error code in case of connection problems
 -   Check for errors when initiating cURL
 -   Add virtual category constant "C__CATG__DATABASE_FOLDER" which will be blacklisted by some methods
+
+### Changed
+
+-   Drop support for PHP version 5.6
+-   Mark PHP version 7.0 as deprecated
+-   Recommend PHP 7.3
+-   Declare strict types
 
 ## [0.8] – 2019-04-16
 

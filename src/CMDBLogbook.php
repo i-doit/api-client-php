@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -43,7 +45,7 @@ class CMDBLogbook extends Request {
      *
      * @throws Exception on error
      */
-    public function create($objectID, $message, $description = null) {
+    public function create(int $objectID, string $message, string $description = null): self {
         $params = [
             'object_id' => $objectID,
             'message' => $message
@@ -80,7 +82,7 @@ class CMDBLogbook extends Request {
      *
      * @throws Exception on error
      */
-    public function batchCreate($objectID, array $messages) {
+    public function batchCreate(int $objectID, array $messages): self {
         $requests = [];
 
         foreach ($messages as $message) {
@@ -109,7 +111,7 @@ class CMDBLogbook extends Request {
      *
      * @throws Exception on error
      */
-    public function read($since = null, $limit = 1000) {
+    public function read(string $since = null, int $limit = 1000): array {
         $params = [
             'limit' => $limit
         ];
@@ -136,7 +138,7 @@ class CMDBLogbook extends Request {
      *
      * @throws Exception on error
      */
-    public function readByObject($objectID, $since = null, $limit = 1000) {
+    public function readByObject(int $objectID, string $since = null, int $limit = 1000): array {
         $params = [
             'object_id' => $objectID,
             'limit' => $limit

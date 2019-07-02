@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -42,7 +44,7 @@ class CMDBImpact extends Request {
      *
      * @throws Exception on error
      */
-    public function readByID($objectID, $relationType, $status = null) {
+    public function readByID(int $objectID, int $relationType, int $status = null): array {
         $params = [
             'id' => $objectID,
             'relation_type' => $relationType
@@ -69,7 +71,7 @@ class CMDBImpact extends Request {
      *
      * @throws Exception on error
      */
-    public function readByConst($objectID, $relationType, $status = null) {
+    public function readByConst(int $objectID, string $relationType, int $status = null): array {
         $params = [
             'id' => $objectID,
             'relation_type' => $relationType
@@ -96,7 +98,7 @@ class CMDBImpact extends Request {
      *
      * @throws Exception on error
      */
-    public function readByTypes($objectID, array $relationTypes, $status = null) {
+    public function readByTypes(int $objectID, array $relationTypes, int $status = null): array {
         $params = [
             'id' => $objectID,
             'relation_type' => $relationTypes

@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -50,7 +52,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function create($type, $title, array $attributes = []) {
+    public function create($type, string $title, array $attributes = []): int {
         $attributes['type'] = $type;
         $attributes['title'] = $title;
 
@@ -88,7 +90,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function createWithCategories($type, $title, array $categories = [], array $attributes = []) {
+    public function createWithCategories($type, string $title, array $categories = [], array $attributes = []): array {
         $attributes['type'] = $type;
         $attributes['title'] = $title;
 
@@ -111,7 +113,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function read($objectID) {
+    public function read(int $objectID): array {
         return $this->api->request('cmdb.object.read', [
             'id' => $objectID
         ]);
@@ -127,7 +129,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function update($objectID, array $attributes = []) {
+    public function update(int $objectID, array $attributes = []): self {
         $params = [
             'id' => $objectID
         ];
@@ -168,7 +170,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function archive($objectID) {
+    public function archive(int $objectID): self {
         $this->api->request(
             'cmdb.object.archive',
             [
@@ -188,7 +190,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function delete($objectID) {
+    public function delete(int $objectID): self {
         $this->api->request(
             'cmdb.object.delete',
             [
@@ -208,7 +210,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function purge($objectID) {
+    public function purge(int $objectID): self {
         $this->api->request(
             'cmdb.object.purge',
             [
@@ -230,7 +232,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function markAsTemplate($objectID) {
+    public function markAsTemplate(int $objectID): self {
         $this->api->request(
             'cmdb.object.markAsTemplate',
             [
@@ -252,7 +254,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function markAsMassChangeTemplate($objectID) {
+    public function markAsMassChangeTemplate(int $objectID): self {
         $this->api->request(
             'cmdb.object.markAsMassChangeTemplate',
             [
@@ -274,7 +276,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function recycle($objectID) {
+    public function recycle(int $objectID): self {
         $this->api->request(
             'cmdb.object.recycle',
             [
@@ -296,7 +298,7 @@ class CMDBObject extends Request {
      *
      * @deprecated This method is pretty slow. Use readAll() instead!
      */
-    public function load($objectID) {
+    public function load(int $objectID): array {
         $object = $this->read($objectID);
 
         if (count($object) === 0) {
@@ -378,7 +380,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function readAll($objectID) {
+    public function readAll(int $objectID): array {
         $objects = (new CMDBObjects($this->api))
             ->read(['ids' => [$objectID]], null, null, null, null, true);
 
@@ -410,7 +412,7 @@ class CMDBObject extends Request {
      *
      * @throws Exception on error
      */
-    public function upsert($type, $title, array $attributes = []) {
+    public function upsert($type, string $title, array $attributes = []): int {
         $cmdbObjects = new CMDBObjects($this->api);
 
         $filter = [

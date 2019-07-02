@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -70,7 +72,7 @@ class Subnet extends Request {
      *
      * @throws Exception on error
      */
-    public function load($objectID) {
+    public function load(int $objectID): self {
         $category = new CMDBCategory($this->api);
         $netInfo = $category->read($objectID, 'C__CATS__NET');
 
@@ -122,7 +124,7 @@ class Subnet extends Request {
      *
      * @throws Exception on error
      */
-    public function hasNext() {
+    public function hasNext(): bool {
         if (!isset($this->current)) {
             throw new BadMethodCallException('You need to call method "load()" first.');
         }
@@ -143,7 +145,7 @@ class Subnet extends Request {
      *
      * @throws Exception on error
      */
-    public function next() {
+    public function next(): string {
         if (!isset($this->current)) {
             throw new BadMethodCallException('You need to call method "load()" first.');
         }
@@ -168,7 +170,7 @@ class Subnet extends Request {
      *
      * @throws Exception on error
      */
-    public function isFree($ipAddress) {
+    public function isFree(string $ipAddress): bool {
         if (!isset($this->current)) {
             throw new BadMethodCallException('You need to call method "load()" first.');
         }
@@ -187,7 +189,7 @@ class Subnet extends Request {
      *
      * @throws Exception on error
      */
-    protected function isUsed($longIP) {
+    protected function isUsed(int $longIP): bool {
         foreach ($this->taken as $taken) {
             $takenIPLong = $this->convertIPv4Address($taken);
 
@@ -208,7 +210,7 @@ class Subnet extends Request {
      *
      * @throws Exception on error
      */
-    protected function convertIPv4Address($ipv4Address) {
+    protected function convertIPv4Address(string $ipv4Address): int {
         $longIP = ip2long($ipv4Address);
 
         if (!is_int($longIP)) {

@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi\Console;
 
 use \Exception;
@@ -40,7 +42,7 @@ class LDAP extends Console {
      *
      * @throws Exception on error
      */
-    public function sync($ldapServerID) {
+    public function sync(int $ldapServerID): array {
         return $this->execute(
             'console.ldap.sync',
             [
@@ -56,7 +58,7 @@ class LDAP extends Console {
      *
      * @throws Exception on error
      */
-    public function syncAll() {
+    public function syncAll(): array {
         return $this->execute(
             'console.ldap.sync'
         );
@@ -71,7 +73,7 @@ class LDAP extends Console {
      *
      * @throws Exception on error
      */
-    public function syncDistinguishedNames(array $options = []) {
+    public function syncDistinguishedNames(array $options = []): array {
         return $this->execute(
             'console.ldap.syncdn',
             $options

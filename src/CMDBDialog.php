@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -44,7 +46,7 @@ class CMDBDialog extends Request {
      *
      * @throws Exception on error
      */
-    public function create($category, $attribute, $value, $parent = null) {
+    public function create(string $category, string $attribute, $value, $parent = null): int {
         $params = [
             'category' => $category,
             'property' => $attribute,
@@ -87,7 +89,7 @@ class CMDBDialog extends Request {
      *
      * @todo Add support for parameter "parent"!
      */
-    public function batchCreate(array $values) {
+    public function batchCreate(array $values): array {
         $requests = [];
 
         foreach ($values as $category => $keyValuePair) {
@@ -139,7 +141,7 @@ class CMDBDialog extends Request {
      *
      * @throws Exception on error
      */
-    public function read($category, $attribute) {
+    public function read(string $category, string $attribute): array {
         return $this->api->request(
             'cmdb.dialog.read',
             [
@@ -158,7 +160,7 @@ class CMDBDialog extends Request {
      *
      * @throws Exception on error
      */
-    public function batchRead(array $attributes) {
+    public function batchRead(array $attributes): array {
         $requests = [];
 
         foreach ($attributes as $category => $mixed) {
@@ -195,7 +197,7 @@ class CMDBDialog extends Request {
      *
      * @throws Exception on error
      */
-    public function delete($category, $attribute, $entryID) {
+    public function delete(string $category, string $attribute, int $entryID): self {
         $this->api->request(
             'cmdb.dialog.delete',
             [

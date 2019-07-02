@@ -3,7 +3,7 @@
 Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/bheisig/idoitapi.svg)](https://packagist.org/packages/bheisig/idoitapi)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg)](https://php.net/)
 [![Build Status](https://travis-ci.org/bheisig/i-doit-api-client-php.svg?branch=master)](https://travis-ci.org/bheisig/i-doit-api-client-php)
 
 
@@ -42,7 +42,7 @@ Meet these simple requirements before using the client:
 
 *   A running instance of i-doit, version 1.12.2 or higher
 *   i-doit API add-on, version 1.10.2 or higher
-*   PHP, version 5.6 or higher (7.3 is recommended)
+*   PHP, version 7.1 or higher (7.0 works but is deprecated, 7.3 is recommended)
 *   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
 
 

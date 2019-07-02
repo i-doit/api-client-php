@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -43,7 +45,7 @@ class Select extends Request {
      *
      * @throws Exception on error
      */
-    public function find($category, $attribute, $value) {
+    public function find(string $category, string $attribute, $value): array {
         $cmdbObjects = new CMDBObjects($this->api);
 
         $limit = 100;

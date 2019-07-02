@@ -22,6 +22,8 @@
  * @link https://github.com/bheisig/i-doit-api-client-php
  */
 
+declare(strict_types=1);
+
 namespace bheisig\idoitapi;
 
 use \Exception;
@@ -44,7 +46,9 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function createTCPConnection($title, $address = '127.0.0.1', $port = 6557, $active = true) {
+    public function createTCPConnection(
+        string $title, string $address = '127.0.0.1', int $port = 6557, bool $active = true
+    ): int {
         $result = $this->api->request(
             'monitoring.livestatus.create',
             [
@@ -83,7 +87,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function createUNIXSocketConnection($title, $path, $active = true) {
+    public function createUNIXSocketConnection(string $title, string $path, bool $active = true): int {
         $result = $this->api->request(
             'monitoring.livestatus.create',
             [
@@ -117,7 +121,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function read() {
+    public function read(): array {
         return $this->api->request(
             'monitoring.livestatus.read'
         );
@@ -132,7 +136,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function readByID($id) {
+    public function readByID(int $id): array {
         return $this->api->request(
             'monitoring.livestatus.read',
             [
@@ -150,7 +154,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function readByIDs($ids) {
+    public function readByIDs(array $ids): array {
         return $this->api->request(
             'monitoring.livestatus.read',
             [
@@ -168,7 +172,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function readByTitle($title) {
+    public function readByTitle(string $title): array {
         return $this->api->request(
             'monitoring.livestatus.read',
             [
@@ -188,7 +192,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function update($id, array $attributes) {
+    public function update(int $id, array $attributes): self {
         $result = $this->api->request(
             'monitoring.livestatus.update',
             [
@@ -218,7 +222,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function deleteByID($id) {
+    public function deleteByID(int $id): self {
         $result = $this->api->request(
             'monitoring.livestatus.delete',
             [
@@ -247,7 +251,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function deleteByTitle($title) {
+    public function deleteByTitle(string $title): self {
         $result = $this->api->request(
             'monitoring.livestatus.delete',
             [
@@ -276,7 +280,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function batchDelete($ids) {
+    public function batchDelete(array $ids): self {
         $requests = [];
 
         foreach ($ids as $id) {
@@ -312,7 +316,7 @@ class MonitoringLivestatus extends Request {
      *
      * @throws Exception on error
      */
-    public function deleteAll() {
+    public function deleteAll(): self {
         $instances = $this->read();
 
         $ids = [];

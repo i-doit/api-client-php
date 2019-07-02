@@ -327,10 +327,14 @@ class API {
      *
      * @return self Returns itself
      *
-     * @throws Exception on error
+     * @throws RuntimeException on error
      */
     public function connect() {
         $this->resource = curl_init();
+
+        if (!is_resource($this->resource)) {
+            throw new RuntimeException('Unable to initiate cURL session');
+        }
 
         return $this;
     }

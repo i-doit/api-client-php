@@ -89,7 +89,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     public static function setUpBeforeClass() {
-        self::$dotEnv = new Dotenv();
+        self::$dotEnv = new Dotenv(true);
         self::$dotEnv->load(__DIR__ . '/../.env');
 
         $composerFile = __DIR__ . '/../composer.json';

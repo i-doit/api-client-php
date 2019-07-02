@@ -76,7 +76,7 @@ final class PrintMetaData implements BeforeFirstTestHook {
      * @return self Returns itself
      */
     protected function loadEnvironment(): self {
-        $dotenv = new Dotenv();
+        $dotenv = new Dotenv(true);
         $dotenv->load(__DIR__ . '/../../.env');
         return $this;
     }

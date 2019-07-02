@@ -150,6 +150,7 @@ class CMDBCategoryInfo extends Request {
             'C__CATG__CLUSTER_SHARED_STORAGE',
             'C__CATG__CLUSTER_VITALITY',
             'C__CATG__CLUSTER_SHARED_VIRTUAL_SWITCH',
+            'C__CATG__DATABASE_FOLDER',
             'C__CATG__FLOORPLAN',
             'C__CATG__JDISC_DISCOVERY',
             'C__CATG__LIVESTATUS',

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Provide cURL error code in case of connection problems
 -   Check for errors when initiating cURL
+-   Add virtual category constant "C__CATG__DATABASE_FOLDER" which will be blacklisted by some methods
 
 ## [0.8] – 2019-04-16
 

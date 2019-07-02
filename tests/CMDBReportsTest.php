@@ -55,7 +55,6 @@ class CMDBReportsTest extends BaseTest {
         $result = $this->instance->listReports();
 
         $this->assertIsArray($result);
-        $this->assertNotCount(0, $result);
     }
 
     /**
@@ -63,6 +62,7 @@ class CMDBReportsTest extends BaseTest {
      */
     public function testRead() {
         $reports = $this->instance->listReports();
+        $this->assertIsArray($reports);
 
         foreach ($reports as $report) {
             $this->assertArrayHasKey('id', $report);
@@ -80,6 +80,7 @@ class CMDBReportsTest extends BaseTest {
      */
     public function testBatchRead() {
         $reports = $this->instance->listReports();
+        $this->assertIsArray($reports);
         $reportIDs = [];
 
         foreach ($reports as $report) {

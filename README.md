@@ -1,4 +1,4 @@
-#   i-doit API client library
+# i-doit API client library
 
 Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
@@ -6,47 +6,43 @@ Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg)](https://php.net/)
 [![Build Status](https://travis-ci.org/bheisig/i-doit-api-client-php.svg?branch=master)](https://travis-ci.org/bheisig/i-doit-api-client-php)
 
-
-##  About
+## About
 
 [i-doit](https://i-doit.com) is a software application for IT documentation and a CMDB (Configuration Management Database). This application is very useful to collect all your knowledge about the IT infrastructure you are dealing with. i-doit is a Web application and [has an exhausting API](https://kb.i-doit.com/pages/viewpage.action?pageId=37355644) which is very useful to automate your infrastructure.
 
 This API client library provides a simple, but powerful abstraction layer to send requests to i-doit's API. It is written in pure PHP.
 
-
-##  Features
+## Features
 
 Why should you use this API client library? There are some good reasons:
 
-*   Easy to use
-*   There is a PHP function for each API method
-*   Supports batch requests (much faster)
-*   Sends user-defined requests
-*   Uploads files and images
-*   Supports login and logout methods to save sessions
-*   Follows redirects (HTTP 301/302) automatically
-*   Uses optional HTTP or SOCKS5 proxy
-*   Verifies TLS certificate chains
-*   Throws exception on error
-*   Many examples
-*   Well-documented
-*   Easy to install via Composer
-*   Well-tested with dozens of unit tests
+-   Easy to use
+-   There is a PHP function for each API method
+-   Supports batch requests (much faster)
+-   Sends user-defined requests
+-   Uploads files and images
+-   Supports login and logout methods to save sessions
+-   Follows redirects (HTTP 301/302) automatically
+-   Uses optional HTTP or SOCKS5 proxy
+-   Verifies TLS certificate chains
+-   Throws exception on error
+-   Many examples
+-   Well-documented
+-   Easy to install via Composer
+-   Well-tested with dozens of unit tests
 
 What's new? Take a look at the [changelog](CHANGELOG.md).
 
-
-##  Requirements
+## Requirements
 
 Meet these simple requirements before using the client:
 
-*   A running instance of i-doit, version 1.12.2 or higher
-*   i-doit API add-on, version 1.10.2 or higher
-*   PHP, version 7.1 or higher (7.0 works but is deprecated, 7.3 is recommended)
-*   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
+-   A running instance of i-doit, version 1.12.2 or higher
+-   i-doit API add-on, version 1.10.2 or higher
+-   PHP, version 7.1 or higher (7.0 works but is deprecated, 7.3 is recommended)
+-   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
 
-
-##  Installation
+## Installation
 
 It is recommended to install this client via [Composer](https://getcomposer.org/). Change to your project's root directory and fetch the latest stable version:
 
@@ -60,8 +56,7 @@ This installs version `0.8` or higher if available. Instead of sticking to a spe
 composer require "bheisig/idoitapi=@DEV"
 ~~~
 
-
-##  Updates
+## Updates
 
 Composer has the great advantage (besides many others) that you can simply update the API client library by running:
 
@@ -69,8 +64,7 @@ Composer has the great advantage (besides many others) that you can simply updat
 composer update
 ~~~
 
-
-##  Usage
+## Usage
 
 If you use Composer you should use its own autoloader, too:
 
@@ -80,8 +74,7 @@ require_once 'vendor/autoload.php';
 
 This is it. All other files will be auto-loaded on-the-fly if needed.
 
-
-##  Configuration
+## Configuration
 
 The API client library class requires a configuration:
 
@@ -107,21 +100,20 @@ $api = new API([
 ]);
 ~~~
 
-*   `API::URL`: URL to i-doit's API, probably the base URL appended by `src/jsonrpc.php`
-*   `API::PORT`: optional port on which the Web server listens; if not set port 80 will be used for HTTP and 443 for HTTPS
-*   `API::KEY`: API key
-*   `API::USERNAME` and `API::PASSWORD`: optional credentials if needed, otherwise `System API` user will be used
-*   `API::LANGUAGE`: requests to and responses from i-doit will be translated to this language (`de` and `en` supported); this is optional; defaults to user's prefered language
-*   `API::PROXY`: use a proxy between client and server
-    *   `API::PROXY_ACTIVE`: if `true` proxy settings will be used
-    *   `API::PROXY_TYPE`: use a HTTP (`API::PROXY_TYPE_HTTP`) or a SOCKS5 (`API::PROXY_TYPE_SOCKS5`) proxy
-    *   `API::PROXY_HOST`: FQDN or IP address to proxy
-    *   `API::PROXY_PORT`: port on which the proxy server listens
-    *   `API::PROXY_USERNAME` and `API::PROXY_PASSWORD`: optional credentials used to authenticate against the proxy
-*   `API::BYPASS_SECURE_CONNECTION`: Set to `true` to disable security-related cURL options; defaults to `false`; do not set this in production! 
+-   `API::URL`: URL to i-doit's API, probably the base URL appended by `src/jsonrpc.php`
+-   `API::PORT`: optional port on which the Web server listens; if not set port 80 will be used for HTTP and 443 for HTTPS
+-   `API::KEY`: API key
+-   `API::USERNAME` and `API::PASSWORD`: optional credentials if needed, otherwise `System API` user will be used
+-   `API::LANGUAGE`: requests to and responses from i-doit will be translated to this language (`de` and `en` supported); this is optional; defaults to user's prefered language
+-   `API::PROXY`: use a proxy between client and server
+    -   `API::PROXY_ACTIVE`: if `true` proxy settings will be used
+    -   `API::PROXY_TYPE`: use a HTTP (`API::PROXY_TYPE_HTTP`) or a SOCKS5 (`API::PROXY_TYPE_SOCKS5`) proxy
+    -   `API::PROXY_HOST`: FQDN or IP address to proxy
+    -   `API::PROXY_PORT`: port on which the proxy server listens
+    -   `API::PROXY_USERNAME` and `API::PROXY_PASSWORD`: optional credentials used to authenticate against the proxy
+-   `API::BYPASS_SECURE_CONNECTION`: Set to `true` to disable security-related cURL options; defaults to `false`; do not set this in production! 
 
-
-##  Examples
+## Examples
 
 A basic "Hello, World!" example is to fetch some basic information about your i-doit instance:
 
@@ -146,7 +138,6 @@ var_dump($info);
 
 It is simple like that. For more examples take a look at the next sub sections.
 
-
 ### Login and logout
 
 One sweet thing about i-doit's API you can (and should) use one user session for your stuff. This saves resources on the server side and allows you to perform a lot more calls in a short time.
@@ -168,7 +159,6 @@ If you are unsure in which condition your session is try `isLoggedIn()`:
 ~~~ {.php}
 $api->isLoggedIn(); // Returns true or false
 ~~~
-
 
 ### Pre-defined methods
 
@@ -221,16 +211,13 @@ For almost every case there is a remote procedure you may call to read from or m
 |                               | `monitoring.livestatus.update`        |                               | `update()`                                                |
 |                               | `monitoring.livestatus.delete`        |                               | `deleteByID()`, `deleteByTitle()`                         |
 
-
 Additionally, this API client library is shipped with methods as workarounds for remote procedure calls you probably miss. The RPC `cmdb.objects.create` does not exist but you may use `CMDBObjects::create()`. It simulates the missing RPC and gives you an easier and faster way to manipulate your CMDB.
 
 If it makes sense there are methods to perform batch requests for most RPCs. For example, `CMDBCategory::batchRead()` fetches multiple category entries at once.
 
-
 ### Examples
 
-
-####    Search in i-doit's database
+#### Search in i-doit's database
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -262,8 +249,7 @@ $result = $idoit->batchSearch([
 var_dump($result);
 ~~~
 
-
-####    Create a new object
+#### Create a new object
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -280,8 +266,7 @@ $objectID = $object->create(
 var_dump($objectID);
 ~~~
 
-
-####    Read common information about an object
+#### Read common information about an object
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -295,8 +280,7 @@ $objectInfo = $object->read(42);
 var_dump($objectInfo);
 ~~~
 
-
-####    Load all data of an object
+#### Load all data of an object
 
 This will fetch everything about an object: common data, assigned categories and category entries as well.
 
@@ -314,8 +298,7 @@ var_dump($objectInfo);
 
 The method `load()` triggers round about 4 API calls. So be aware if it is heavily used.
 
-
-####    Update an existing object
+#### Update an existing object
 
 Currently, you are able to update an object's title:
 
@@ -334,8 +317,7 @@ $object->update(
 );
 ~~~
 
-
-####    Create or update an object ("upsert")
+#### Create or update an object ("upsert")
 
 You you like to get an identifier of an object but you are unsure whether or not it exists, try an upsert. This is an "update" and an "insert" at the same time. This means, if the object exists you will get its identifier directly. If not the object will be created and then you will get its identifier. Objects must match against type and title. Additional attributes will be stored.
 
@@ -355,11 +337,9 @@ $object->upsert(
 );
 ~~~
 
-
-####    Fetch an object identifier
+#### Fetch an object identifier
 
 Fetch an object identifier by object title and (optional) type:
-
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -374,9 +354,7 @@ $objectID = $object->getID('My little server', 'C__OBJTYPE__SERVER');
 
 An exception error will be thrown if there is either no object or more than one.
 
-
-
-####    Change documentation status of an object
+#### Change documentation status of an object
 
 i-doit has the concept of archiving your IT documentation. Each object has an status (`normal`, `archived`, marked as `deleted`). And last but not least, an object may be purged from the database.
 
@@ -396,8 +374,7 @@ $object->delete($objectID);
 $object->purge($objectID);
 ~~~
 
-
-####    Create multiple objects
+#### Create multiple objects
 
 Create multiple objects at once:
 
@@ -420,8 +397,7 @@ $objectIDs = $cmdbObjects->create(
 var_dump($objectIDs);
 ~~~
 
-
-####    Read multiple objects
+#### Read multiple objects
 
 Reading multiple objects at once is provided by several methods. Let's see:
 
@@ -458,8 +434,7 @@ $objects = $cmdbObjects->readDeleted('C__OBJTYPE__CLIENT');
 var_dump($objects);
 ~~~
 
-
-####    Update multiple objects
+#### Update multiple objects
 
 Update multiple objects at once:
 
@@ -479,8 +454,7 @@ $cmdbObjects->update([
 ]);
 ~~~
 
-
-####    Archive/delete/purge multiple objects
+#### Archive/delete/purge multiple objects
 
 Archive objects, mark them as deleted or even purge them from database:
 
@@ -498,8 +472,7 @@ $cmdbObjects
     ->purge([1, 2, 3]);
 ~~~
 
-
-####    Create category entries with attributes
+#### Create category entries with attributes
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -527,8 +500,7 @@ var_dump($entryID);
 
 Alternatively, use method `CMDBCategory::batchCreate()` for batch requests.
 
-
-####    Read categories and attributes
+#### Read categories and attributes
 
 Read one or more category entries for one specific object:
 
@@ -589,8 +561,7 @@ $result = $category->batchRead(
 var_dump($result);
 ~~~
 
-
-####    Update categories and attributes
+#### Update categories and attributes
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -610,8 +581,7 @@ $category->save(
 
 Alternatively, use method `CMDBCategory::batchUpdate()` for batch requests.
 
-
-####    Change documentation status of a category and its attributes
+#### Change documentation status of a category and its attributes
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -628,8 +598,7 @@ $category->delete(42, 'C__CATG__CPU', 2);
 $category->purge(42, 'C__CATG__CPU', 3);
 ~~~
 
-
-####    Create values in drop-down menus
+#### Create values in drop-down menus
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -659,8 +628,7 @@ $entryIDs = $dialog->batchCreate([
 var_dump($entryIDs);
 ~~~
 
-
-####    Fetch values from drop-down menus
+#### Fetch values from drop-down menus
 
 Drop-down menus in i-doit are called "dialog" (read-only) or "dialog+" (editable).
 
@@ -684,8 +652,7 @@ $modelsAndManufacturers = $dialog->batchRead([
 var_dump($modelsAndManufacturers);
 ~~~
 
-
-####    Build a location tree
+#### Build a location tree
 
 Read objects located directly under an object:
 
@@ -715,8 +682,7 @@ $result = $locationTree->readRecursively(1);
 var_dump($result);
 ~~~
 
-
-####    Fetch relations between objects
+#### Fetch relations between objects
 
 ~~~ {.php}
 use bheisig\idoitapi\API;
@@ -733,8 +699,7 @@ $result = $relation->read(
 var_dump($result);
 ~~~
 
-
-####    Fetch workplace components for a person
+#### Fetch workplace components for a person
 
 A Person may be assigned to a workplace with several components like a PC, a monitor and a telephone. These components can be fetched by the person. You either need the object ID or the email address. Even more than one workplaces are supported.
 
@@ -758,8 +723,7 @@ $result = $components->readByEMails(['alice@example.org', 'bob@example.org']); /
 var_dump($result);
 ~~~
 
-
-####    Reports
+#### Reports
 
 List all reports:
 
@@ -803,7 +767,6 @@ $result = $reports->batchRead([1, 2]);
 var_dump($result);
 ~~~
 
-
 ### Fetch next free IP address from subnet
 
 ~~~ {.php}
@@ -818,7 +781,6 @@ $nextIP = $subnet->load(123)->next();
 
 echo 'Next IP address: ' . $nextIP . PHP_EOL;
 ~~~
-
 
 ### Upload files
 
@@ -845,7 +807,6 @@ $file->batchAdd(
     ]
 );
 ~~~
-
 
 ### Upload images to a gallery
 
@@ -874,7 +835,6 @@ $file->batchAdd(
 );
 ~~~
 
-
 ### Self-defined request
 
 Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this API client library. Here is the way to perform a self-defined request:
@@ -890,7 +850,6 @@ var_dump($result);
 ~~~
 
 `request()` takes the method and optional parameters.
-
 
 ### Self-defined batch request
 
@@ -913,7 +872,6 @@ $result = $api->batchRequest([
 
 var_dump($result);
 ~~~
-
 
 ### Read information about your CMDB design
 
@@ -962,7 +920,6 @@ $categories = $categoryInfo->batchRead([
 var_dump($categories);
 ~~~
 
-
 ### Read information about i-doit itself
 
 ~~~ {.php}
@@ -980,7 +937,6 @@ $license = $idoit->getLicense();
 var_dump($version, $constants, $addOns, $license);
 ~~~
 
-
 ### Re-connect to server
 
 Sometimes you need a fresh connection. You may explicitly disconnect from the i-doit server and re-connect to it:
@@ -996,7 +952,6 @@ $api->isConnected(); // Returns false
 $api->connect();
 $api->isConnected(); // Returns true
 ~~~
-
 
 ### Debug API calls
 
@@ -1049,21 +1004,18 @@ $duration = time() - $start;
 fwrite(STDERR, sprintf('Duration: %s seconds', $duration) . PHP_EOL);
 ~~~
 
-
-##  Contribute
+## Contribute
 
 Please, report any issues to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues). Pull requests are very welcomed. If you like to get involved see file [`CONTRIBUTING.md`](CONTRIBUTING.md) for details.
 
+## Projects using this API client library
 
-##  Projects using this API client library
-
-*   [i-doit CLI Tool](https://github.com/bheisig/i-doit-cli) – "Access your CMDB on the command line interface"
-*   [i-doit Check_MK 2 add-on](https://www.i-doit.com/en/i-doit/add-ons/check-mk-add-on-2/) – "Share information between i-doit and Check_MK"
+-   [i-doit CLI Tool](https://github.com/bheisig/i-doit-cli) – "Access your CMDB on the command line interface"
+-   [i-doit Check_MK 2 add-on](https://www.i-doit.com/en/i-doit/add-ons/check-mk-add-on-2/) – "Share information between i-doit and Check_MK"
 
 Send pull requests to add yours.
 
-
-##  Copyright & License
+## Copyright & License
 
 Copyright (C) 2016-19 [Benjamin Heisig](https://benjamin.heisig.name/)
 

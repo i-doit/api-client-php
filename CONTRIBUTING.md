@@ -1,31 +1,30 @@
-#   Contribution
+# Contribution
 
 Thank you very much for your interest in this project! There are plenty of ways you can support us. :-)
 
-
-##  Code of Conduct
+## Code of Conduct
 
 We like you to read and follow our [code of conduct](CODE_OF_CONDUCT.md) before contributing. Thank you.
 
-
-##  Use it
+## Use it
 
 The best and (probably) easiest way is to use the API client library for your own projects. It would be very nice to share your thoughts with us. We love to hear from you.
 
 If you have questions how to use it properly read the [documentation](README.md) carefully.
 
-
-##  Report bugs
+## Report bugs
 
 If you find something strange please report it to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues).
 
+## Find security issues
 
-##  Make a wish
+[Found a security-related issue?](SECURITY.md)
+
+## Make a wish
 
 Of course, there are some features in the pipeline. However, if you have good ideas how to improve the API client library please let us know! Write a feature request [in our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues).
 
-
-##  Setup a development environment
+## Setup a development environment
 
 If you like to contribute source code, documentation snippets, self-explaining examples or other useful bits, fork this repository, setup the environment and make a pull request.
 
@@ -45,20 +44,18 @@ Now it is the time to do your stuff. Do not forget to commit your changes. When 
 
 Notice, that any of your contributions merged into this repository will be [licensed under the AGPLv3](LICENSE).
 
-
-##  Requirements
+## Requirements
 
 Developers must meet some more requirements:
 
-*   See requirements mentioned in the [documentation](README.md)
-*   You need at least PHP 7.1 (7.3 is recommended), for example to run unit tests
-*   [Xdebug](https://xdebug.org/), needed for code coverage with phpunit
-*   [Composer](https://getcomposer.org/)
-*   [Git](https://git-scm.com/)
-*   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)
+-   See requirements mentioned in the [documentation](README.md)
+-   You need at least PHP 7.1 (7.3 is recommended), for example to run unit tests
+-   [Xdebug](https://xdebug.org/), needed for code coverage with phpunit
+-   [Composer](https://getcomposer.org/)
+-   [Git](https://git-scm.com/)
+-   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)
 
-
-##  Run unit tests
+## Run unit tests
 
 There is a huge amount of tests located under `tests/`. These tests can be executed by [PHPUnit](https://phpunit.de/). We test both this client library and the i-doit JSON-RPC API as well.
 
@@ -66,7 +63,6 @@ There is a huge amount of tests located under `tests/`. These tests can be execu
 
 1.  Copy fiel `.env.dist` to `.env`
 2.  Put your configuration settings to `.env`
-
 
 ### Usage
 
@@ -98,7 +94,6 @@ You may add arguments and options, for example:
 bin/phpunit-dbg --group unreleased tests/APITest.php
 ~~~
 
-
 ### Available test groups
 
 Some tests are grouped. Include a group by `--group` or exclude it by `--exclude-group`.
@@ -110,8 +105,7 @@ Some tests are grouped. Include a group by `--group` or exclude it by `--exclude
 | `issues`      | Perform tests for reported issues                 |
 | `ABC-123`     | Perform tests for reported issue `ABC-123`        |
 
-
-##  Release new version
+## Release new version
 
 … and publish it to [packagist.org](https://packagist.org/packages/bheisig/idoitapi). You need commit rights for this repository.
 
@@ -126,8 +120,7 @@ Some tests are grouped. Include a group by `--group` or exclude it by `--exclude
 
 There is already a webhook enabled to push the code from GitHub to Packagist.
 
-
-##  Composer scripts
+## Composer scripts
 
 This project comes with some useful composer scripts:
 
@@ -137,6 +130,11 @@ This project comes with some useful composer scripts:
 | `composer find-forbidden`     | Find forbidden words in source code                       |
 | `composer gitstats`           | Create Git statistics                                     |
 | `composer gource`             | Visualize Git history                                     |
+| `composer lint`               | Perform all lint checks                                   |
+| `composer lint-php`           | Check syntax of PHP files                                 |
+| `composer lint-json`          | Check syntax of JSON files                                |
+| `composer lint-xml`           | Check syntax of XML files                                 |
+| `composer lint-yaml`          | Check syntax of YAML files                                |
 | `composer phan`               | Perform static code analysis with phan                    |
 | `composer phpcompatibility`   | Run PHP compatibility checks                              |
 | `composer phpcpd`             | Detect copy/paste in source code                          |
@@ -150,12 +148,10 @@ This project comes with some useful composer scripts:
 | `composer phpunit-parallel`   | Perform unit tests in parallel                            |
 | `composer phpunit-unreleased` | Perform unit tests for unreleased features                |
 | `composer security-checker`   | Look for dependencies with known security vulnerabilities |
-| `composer syntax-check`       | Check syntax of source code                               |
 | `composer system-check`       | Run some system checks                                    |
 
 For example, execute `composer phpstan`.
 
-
-##  Donate
+## Donate
 
 Last but not least, if you think this script is useful for your daily work, consider a donation. What about a beer?

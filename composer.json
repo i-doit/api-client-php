@@ -41,6 +41,7 @@
         "povils/phpmnd": "^2",
         "sebastian/phpcpd": "^4.1.0",
         "sensiolabs/security-checker": "^5",
+        "sllh/composer-lint": "^1.0",
         "squizlabs/php_codesniffer": "*",
         "symfony/dotenv": "^4.1"
     },
@@ -59,7 +60,14 @@
         }
     },
     "config": {
-        "process-timeout": 86400
+        "process-timeout": 86400,
+        "sllh-composer-lint": {
+            "php": false,
+            "type": true,
+            "minimum-stability": true,
+            "version-constraints": true
+        },
+        "sort-packages": true
     },
     "scripts": {
         "ci": [

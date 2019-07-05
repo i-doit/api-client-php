@@ -115,6 +115,10 @@ abstract class BaseTest extends TestCase {
             API::BYPASS_SECURE_CONNECTION => getenv('BYPASS_SECURE_CONNECTION')
         ];
 
+        if (getenv('PORT') !== false) {
+            $config[API::PORT] = (int) getenv('PORT');
+        }
+
         if (getenv('IDOIT_LANGUAGE') !== false) {
             $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
         }

@@ -55,6 +55,21 @@ Developers must meet some more requirements:
 -   [Git](https://git-scm.com/)
 -   One or more working copies of [i-doit](https://i-doit.com/) (otherwise this API client library is senseless)
 
+## Use a Docker environment
+
+As an alternative to a local environment you can run everything inside a [Docker container](https://docker.com/). To make it easy there is already a `Dockerfile` available in the root directory of this repository. Build the image and run the container:
+
+~~~ {.bash}
+docker build . -t idoitapi:latest
+docker run -it --rm --name idoitapi -v "$PWD":/usr/src/ idoitapi:latest
+~~~
+
+This executes `composer list` by default. It's possible to run any other command, for example:
+
+~~~ {.bash}
+docker run -it --rm --name idoitapi -v "$PWD":/usr/src/ idoitapi:latest composer ci
+~~~
+
 ## Run unit tests
 
 There is a huge amount of tests located under `tests/`. These tests can be executed by [PHPUnit](https://phpunit.de/). We test both this client library and the i-doit JSON-RPC API as well.
@@ -68,7 +83,7 @@ There is a huge amount of tests located under `tests/`. These tests can be execu
 
 Execute tests for all released features:
 
-~~~
+~~~ {.bash}
 composer phpunit
 ~~~
 
@@ -76,13 +91,13 @@ At the end you get the result of a code coverage analysis.
 
 Run these tests in parallel to produce a higher load:
 
-~~~
+~~~ {.bash}
 composer parallel
 ~~~
 
 Run all tests in debug mode using [Xdebug](https://xdebug.org/):
 
-~~~
+~~~ {.bash}
 bin/phpunit-dbg
 ~~~
 
@@ -90,7 +105,7 @@ If you configure your system properly, you will be able to set breakpoints in yo
 
 You may add arguments and options, for example:
 
-~~~
+~~~ {.bash}
 bin/phpunit-dbg --group unreleased tests/APITest.php
 ~~~
 

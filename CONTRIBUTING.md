@@ -61,13 +61,13 @@ As an alternative to a local environment you can run everything inside a [Docker
 
 ~~~ {.bash}
 docker build . -t idoitapi:latest
-docker run -it --rm --name idoitapi -v "$PWD":/usr/src/ idoitapi:latest
+docker run -it --rm --name idoitapi -v "$PWD":/usr/src idoitapi:latest
 ~~~
 
-This executes `composer list` by default. It's possible to run any other command, for example:
+This executes `composer list` by default. It's possible to run any other command. For example, if you're right at the beginning run `composer install` insight the container:
 
 ~~~ {.bash}
-docker run -it --rm --name idoitapi -v "$PWD":/usr/src/ idoitapi:latest composer ci
+docker run -it --rm --name idoitapi -v "$PWD":/usr/src idoitapi:latest composer install
 ~~~
 
 ## Run unit tests

@@ -84,6 +84,9 @@
             "@composer phpmnd",
             "@composer phpstan"
         ],
+        "ci-phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon --log-junit ./phpunit_log.xml --no-coverage",
+        "ci-phpunit-parallel": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon --log-junit=./phpunit_parallel_log.xml ./tests/",
+        "ci-phpunit-unreleased": "./vendor/bin/phpunit --configuration ./phpunit.xml --group unreleased --log-junit ./phpunit_unreleased_log.xml --no-coverage",
         "find-forbidden": [
             "! grep -rEn \"(echo|var_dump|die|exit)\" src/* tests/*"
         ],
@@ -112,7 +115,7 @@
         "phpstan": "./vendor/bin/phpstan analyze -l max src tests",
         "phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --exclude-group unreleased,addon",
         "phpunit-addon": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --group addon",
-        "phpunit-parallel": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml ./tests/",
+        "phpunit-parallel": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon ./tests/",
         "phpunit-unreleased": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --group unreleased",
         "security-checker": "./vendor/bin/security-checker security:check ./composer.lock",
         "system-check": [
@@ -128,6 +131,9 @@
     },
     "scripts-descriptions": {
         "ci": "Perform continuous integration tasks",
+        "ci-phpunit": "CI: Perform unit tests",
+        "ci-phpunit-parallel": "CI: Perform unit tests in parallel",
+        "ci-phpunit-unreleased": "CI: Perform unit tests for unreleased features",
         "find-forbidden": "Find forbidden words in source code",
         "gitstats": "Create Git statistics",
         "gource": "Visualize Git history",

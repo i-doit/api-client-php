@@ -4,10 +4,10 @@ os:
 language: php
 
 php:
-  - 7.1
-  - 7.2
-  - 7.3
-  - 7.4snapshot
+  - "7.1"
+  - "7.2"
+  - "7.3"
+  - "7.4snapshot"
 
 install:
   - travis_retry composer self-update
@@ -15,10 +15,6 @@ install:
 
 script:
   - composer ci
-
-matrix:
-  allow_failures:
-    - php: 7.4snapshot
 
 notifications:
   email:

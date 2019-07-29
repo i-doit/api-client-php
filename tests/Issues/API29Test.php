@@ -76,12 +76,12 @@ class API29Test extends BaseTest {
             $this->isOneLiner($role['title']);
 
             // 2nd test: Assign role by its title:
-            $entryID = $this->cmdbCategory->create($objectID, 'C__CATG__CONTACT', [
+            $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__CONTACT', [
                 'contact' => $personID,
                 'role' => $role['title']
             ]);
 
-            $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
+            $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
 
             $this->assertIsArray($result);
             $this->assertArrayHasKey('id', $result);
@@ -103,12 +103,12 @@ class API29Test extends BaseTest {
             $this->assertSame($role['title'], $result['role']['title']);
 
             // 3rd test: Assign role by its identifier (as integer!):
-            $entryID = $this->cmdbCategory->create($objectID, 'C__CATG__CONTACT', [
+            $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__CONTACT', [
                 'contact' => $personID,
                 'role' => (int) $role['id']
             ]);
 
-            $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
+            $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
 
             $this->assertIsArray($result);
             $this->assertArrayHasKey('id', $result);
@@ -130,12 +130,12 @@ class API29Test extends BaseTest {
             $this->assertSame($role['title'], $result['role']['title']);
 
             // 4th test: Assign role by its identifier (as string!):
-            $entryID = $this->cmdbCategory->create($objectID, 'C__CATG__CONTACT', [
+            $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__CONTACT', [
                 'contact' => $personID,
                 'role' => $role['id']
             ]);
 
-            $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
+            $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
 
             $this->assertIsArray($result);
             $this->assertArrayHasKey('id', $result);

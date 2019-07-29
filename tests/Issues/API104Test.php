@@ -45,14 +45,14 @@ class API104Test extends BaseTest {
         $hostID = $this->createServer();
         $entryID = $this->addIPv4($hostID, $subnetID);
 
-        $result = $this->cmdbCategory->readOneByID($hostID, 'C__CATG__IP', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($hostID, 'C__CATG__IP', $entryID);
         $this->assertArrayHasKey('zone', $result);
         // This failed because "zone" was an empty array:
         $this->assertNull($result['zone']);
 
         // Just an additional check:
         $this->createNetZone($subnetID);
-        $result = $this->cmdbCategory->readOneByID($hostID, 'C__CATG__IP', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($hostID, 'C__CATG__IP', $entryID);
         $this->assertArrayHasKey('zone', $result);
         // Now it's an associative array in PHP/object in JSON:
         $this->assertIsArray($result['zone']);
@@ -69,9 +69,9 @@ class API104Test extends BaseTest {
      * @throws Exception on error
      */
     protected function createNetZone(int $subnetID): int {
-        $netZoneID = $this->cmdbObject->create('C__OBJTYPE__NET_ZONE', 'Reserved IP addresses');
+        $netZoneID = $this->useCMDBObject()->create('C__OBJTYPE__NET_ZONE', 'Reserved IP addresses');
 
-        $this->cmdbCategory->create($subnetID, 'C__CATS__NET_ZONE', [
+        $this->useCMDBCategory()->create($subnetID, 'C__CATS__NET_ZONE', [
             'zone' => $netZoneID,
             'range_from' => '10.0.0.1',
             'range_to' => '10.255.255.254',

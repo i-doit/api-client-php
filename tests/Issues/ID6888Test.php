@@ -49,7 +49,7 @@ class ID6888Test extends BaseTest {
             $this->isID($objectID);
 
             for ($entryIndex = 1; $entryIndex <= $amountOfEntries; $entryIndex++) {
-                $entryID = $this->cmdbCategory->save(
+                $entryID = $this->useCMDBCategory()->save(
                     $objectID,
                     'C__CATG__CUSTOM_FIELDS_ID_6888',
                     [

@@ -39,14 +39,14 @@ class Zendesk4367Test extends BaseTest {
      * @throws Exception
      */
     public function testIssue() {
-        $objectID = $this->cmdbObject->create('C__OBJTYPE__SERVER', 'My host');
-        $applicationID = $this->cmdbObject->create('C__OBJTYPE__APPLICATION', 'My app');
-        $versionID = $this->cmdbCategory->create($applicationID, 'C__CATG__VERSION', [
+        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__SERVER', 'My host');
+        $applicationID = $this->useCMDBObject()->create('C__OBJTYPE__APPLICATION', 'My app');
+        $versionID = $this->useCMDBCategory()->create($applicationID, 'C__CATG__VERSION', [
             'title' => '1.0.0'
         ]);
 
         // This failed because of SQL query error:
-        $entryID = $this->cmdbCategory->create($objectID, 'C__CATG__APPLICATION', [
+        $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__APPLICATION', [
             'application' => $applicationID,
             'assigned_version' => $versionID
         ]);

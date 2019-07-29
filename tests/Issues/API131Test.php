@@ -45,11 +45,11 @@ class API131Test extends BaseTest {
         $title = $firstName . ' ' . $lastName;
         $categoryConstant = 'C__CATS__PERSON_MASTER';
 
-        $objectID = $this->cmdbObject->create('C__OBJTYPE__PERSON', $title);
+        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__PERSON', $title);
 
         // Original:
 
-        $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
+        $entry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
         $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
@@ -76,9 +76,9 @@ class API131Test extends BaseTest {
         $this->assertNotSame($lastName, $newLastName);
         $this->assertNotSame($title, $newTitle);
 
-        $this->cmdbObject->update($objectID, ['title' => $newTitle]);
+        $this->useCMDBObject()->update($objectID, ['title' => $newTitle]);
 
-        $updatedEntry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
+        $updatedEntry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
         $this->assertIsArray($updatedEntry);
         $this->assertArrayHasKey('id', $updatedEntry);
@@ -97,12 +97,12 @@ class API131Test extends BaseTest {
 
         // Update by "cmdb.category.update" (go back to old name):
 
-        $this->cmdbCategory->update($objectID, $categoryConstant, [
+        $this->useCMDBCategory()->update($objectID, $categoryConstant, [
             'first_name' => $firstName,
             'last_name' => $lastName
         ]);
 
-        $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
+        $entry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
         $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
@@ -119,7 +119,7 @@ class API131Test extends BaseTest {
         $this->assertIsString($entry['last_name']);
         $this->assertSame($lastName, $entry['last_name']);
 
-        $object = $this->cmdbObject->read($objectID);
+        $object = $this->useCMDBObject()->read($objectID);
         $this->assertIsArray($object);
         $this->assertArrayHasKey('id', $object);
         $this->isID($object['id']);
@@ -135,11 +135,11 @@ class API131Test extends BaseTest {
         $title = $this->generateRandomString();
         $categoryConstant = 'C__CATS__PERSON_GROUP_MASTER';
 
-        $objectID = $this->cmdbObject->create('C__OBJTYPE__PERSON_GROUP', $title);
+        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__PERSON_GROUP', $title);
 
         // Original:
 
-        $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
+        $entry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
         $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
@@ -158,9 +158,9 @@ class API131Test extends BaseTest {
 
         $this->assertNotSame($title, $newTitle);
 
-        $this->cmdbObject->update($objectID, ['title' => $newTitle]);
+        $this->useCMDBObject()->update($objectID, ['title' => $newTitle]);
 
-        $updatedEntry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
+        $updatedEntry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
         $this->assertIsArray($updatedEntry);
         $this->assertArrayHasKey('id', $updatedEntry);
@@ -175,11 +175,11 @@ class API131Test extends BaseTest {
 
         // Update by "cmdb.category.update" (go back to old name):
 
-        $this->cmdbCategory->update($objectID, $categoryConstant, [
+        $this->useCMDBCategory()->update($objectID, $categoryConstant, [
             'title' => $title
         ]);
 
-        $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
+        $entry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
         $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
@@ -192,7 +192,7 @@ class API131Test extends BaseTest {
         $this->assertIsString($entry['title']);
         $this->assertSame($title, $entry['title']);
 
-        $object = $this->cmdbObject->read($objectID);
+        $object = $this->useCMDBObject()->read($objectID);
         $this->assertIsArray($object);
         $this->assertArrayHasKey('id', $object);
         $this->isID($object['id']);
@@ -208,11 +208,11 @@ class API131Test extends BaseTest {
         $title = $this->generateRandomString();
         $categoryConstant = 'C__CATS__ORGANIZATION_MASTER_DATA';
 
-        $objectID = $this->cmdbObject->create('C__OBJTYPE__ORGANIZATION', $title);
+        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__ORGANIZATION', $title);
 
         // Original:
 
-        $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
+        $entry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
         $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
@@ -231,9 +231,9 @@ class API131Test extends BaseTest {
 
         $this->assertNotSame($title, $newTitle);
 
-        $this->cmdbObject->update($objectID, ['title' => $newTitle]);
+        $this->useCMDBObject()->update($objectID, ['title' => $newTitle]);
 
-        $updatedEntry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
+        $updatedEntry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
         $this->assertIsArray($updatedEntry);
         $this->assertArrayHasKey('id', $updatedEntry);
@@ -248,11 +248,11 @@ class API131Test extends BaseTest {
 
         // Update by "cmdb.category.update" (go back to old name):
 
-        $this->cmdbCategory->update($objectID, $categoryConstant, [
+        $this->useCMDBCategory()->update($objectID, $categoryConstant, [
             'title' => $title
         ]);
 
-        $entry = $this->cmdbCategory->readFirst($objectID, $categoryConstant);
+        $entry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
         $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
@@ -265,7 +265,7 @@ class API131Test extends BaseTest {
         $this->assertIsString($entry['title']);
         $this->assertSame($title, $entry['title']);
 
-        $object = $this->cmdbObject->read($objectID);
+        $object = $this->useCMDBObject()->read($objectID);
         $this->assertIsArray($object);
         $this->assertArrayHasKey('id', $object);
         $this->isID($object['id']);

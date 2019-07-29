@@ -61,13 +61,13 @@ class API190Test extends BaseTest {
          * Create test data:
          */
 
-        $rackID = $this->cmdbObject->create(
+        $rackID = $this->useCMDBObject()->create(
             ObjectType::ENCLOSURE,
             $this->generateRandomString()
         );
         $this->isID($rackID);
 
-        $rackFormFactorID = $this->cmdbCategory->save(
+        $rackFormFactorID = $this->useCMDBCategory()->save(
             $rackID,
             Category::CATG__FORMFACTOR,
             [
@@ -78,7 +78,7 @@ class API190Test extends BaseTest {
         );
         $this->isID($rackFormFactorID);
 
-        $rackSettingsID = $this->cmdbCategory->save(
+        $rackSettingsID = $this->useCMDBCategory()->save(
             $rackID,
             Category::CATS__ENCLOSURE,
             [
@@ -95,7 +95,7 @@ class API190Test extends BaseTest {
         $hostID = $this->createServer();
         $this->isID($hostID);
 
-        $hostFormFactorID = $this->cmdbCategory->save(
+        $hostFormFactorID = $this->useCMDBCategory()->save(
             $hostID,
             Category::CATG__FORMFACTOR,
             [
@@ -106,7 +106,7 @@ class API190Test extends BaseTest {
         );
         $this->isID($hostFormFactorID);
 
-        $locationID = $this->cmdbCategory->save(
+        $locationID = $this->useCMDBCategory()->save(
             $hostID,
             Category::CATG__LOCATION,
             [
@@ -123,7 +123,7 @@ class API190Test extends BaseTest {
          * Run tests:
          */
 
-        $location = $this->cmdbCategory->read(
+        $location = $this->useCMDBCategory()->read(
             $hostID,
             Category::CATG__LOCATION
         );

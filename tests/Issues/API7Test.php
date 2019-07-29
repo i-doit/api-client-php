@@ -45,18 +45,18 @@ class API7Test extends BaseTest {
 
         // Create switch A…
         $switchATitle = 'Switch A';
-        $switchAID = $this->cmdbObject->create($objectType, $switchATitle);
+        $switchAID = $this->useCMDBObject()->create($objectType, $switchATitle);
         $this->isID($switchAID);
 
         // …with network port…
         $portATitle = 'Port A/01';
-        $portAID = $this->cmdbCategory->create($switchAID, $categoryConstant, [
+        $portAID = $this->useCMDBCategory()->create($switchAID, $categoryConstant, [
             'title' => $portATitle
         ]);
         $this->isID($portAID);
 
         // …and verify network port:
-        $portA = $this->cmdbCategory->readOneByID($switchAID, $categoryConstant, $portAID);
+        $portA = $this->useCMDBCategory()->readOneByID($switchAID, $categoryConstant, $portAID);
         $this->assertIsArray($portA);
         $this->assertArrayHasKey('id', $portA);
         $this->isIDAsString($portA['id']);
@@ -71,18 +71,18 @@ class API7Test extends BaseTest {
 
         // Create switch B…
         $switchBTitle = 'Switch B';
-        $switchBID = $this->cmdbObject->create($objectType, $switchBTitle);
+        $switchBID = $this->useCMDBObject()->create($objectType, $switchBTitle);
         $this->isID($switchBID);
 
         // …with network port…
         $portBTitle = 'Port B/01';
-        $portBID = $this->cmdbCategory->create($switchBID, $categoryConstant, [
+        $portBID = $this->useCMDBCategory()->create($switchBID, $categoryConstant, [
             'title' => $portBTitle
         ]);
         $this->isID($portBID);
 
         //…and verify network port:
-        $portB = $this->cmdbCategory->readOneByID($switchBID, $categoryConstant, $portBID);
+        $portB = $this->useCMDBCategory()->readOneByID($switchBID, $categoryConstant, $portBID);
         $this->assertIsArray($portB);
         $this->assertArrayHasKey('id', $portB);
         $this->isIDAsString($portB['id']);
@@ -97,12 +97,12 @@ class API7Test extends BaseTest {
 
         // Connect both ports…
         $connectorBID = (int) $portB['connector'];
-        $this->cmdbCategory->update($switchAID, $categoryConstant, [
+        $this->useCMDBCategory()->update($switchAID, $categoryConstant, [
             'assigned_connector' => $connectorBID
         ], $portAID);
 
         // …and verify connection between them on switch A…
-        $portsA = $this->cmdbCategory->read($switchAID, $categoryConstant);
+        $portsA = $this->useCMDBCategory()->read($switchAID, $categoryConstant);
 
         $this->assertIsArray($portA);
         $this->assertCount(1, $portsA);
@@ -139,7 +139,7 @@ class API7Test extends BaseTest {
         $this->assertIsString($portsA[0]['assigned_connector'][0]['assigned_category']);
         $this->assertSame($categoryConstant, $portsA[0]['assigned_connector'][0]['assigned_category']);
 
-        $connectorsA = $this->cmdbCategory->read($switchAID, 'C__CATG__CONNECTOR');
+        $connectorsA = $this->useCMDBCategory()->read($switchAID, 'C__CATG__CONNECTOR');
 
         $this->assertIsArray($connectorsA);
         $this->assertCount(1, $connectorsA);
@@ -176,7 +176,7 @@ class API7Test extends BaseTest {
         $this->assertSame($categoryConstant, $connectorsA[0]['assigned_connector'][0]['assigned_category']);
 
         // …and switch B:
-        $portsB = $this->cmdbCategory->read($switchBID, $categoryConstant);
+        $portsB = $this->useCMDBCategory()->read($switchBID, $categoryConstant);
 
         $this->assertIsArray($portB);
         $this->assertCount(1, $portsB);
@@ -213,7 +213,7 @@ class API7Test extends BaseTest {
         $this->assertIsString($portsB[0]['assigned_connector'][0]['assigned_category']);
         $this->assertSame($categoryConstant, $portsB[0]['assigned_connector'][0]['assigned_category']);
 
-        $connectorsB = $this->cmdbCategory->read($switchBID, 'C__CATG__CONNECTOR');
+        $connectorsB = $this->useCMDBCategory()->read($switchBID, 'C__CATG__CONNECTOR');
 
         $this->assertIsArray($connectorsB);
         $this->assertCount(1, $connectorsB);

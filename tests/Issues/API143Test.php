@@ -45,7 +45,7 @@ class API143Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $entryID = $this->cmdbCategory->create(
+        $entryID = $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__CPU',
             [
@@ -55,7 +55,7 @@ class API143Test extends BaseTest {
         );
         $this->isID($entryID);
 
-        $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CPU', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CPU', $entryID);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('frequency', $result);
@@ -64,7 +64,7 @@ class API143Test extends BaseTest {
         $this->assertArrayHasKey('frequency_unit', $result);
         $this->assertNull($result['frequency_unit']);
 
-        $this->cmdbCategory->update(
+        $this->useCMDBCategory()->update(
             $objectID,
             'C__CATG__CPU',
             [
@@ -73,7 +73,7 @@ class API143Test extends BaseTest {
             $entryID
         );
 
-        $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__CPU', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CPU', $entryID);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('frequency', $result);

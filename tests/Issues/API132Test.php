@@ -45,14 +45,14 @@ class API132Test extends BaseTest {
 
         $fileName = $this->generateRandomString() . '.test';
 
-        $fileObjectID = $this->cmdbObject->create(
+        $fileObjectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__FILE',
             $fileName
         );
         $this->isID($fileObjectID);
 
         // This failed because category constant was re-named in i-doit 1.11:
-        $versionEntryID = $this->cmdbCategory->create(
+        $versionEntryID = $this->useCMDBCategory()->create(
             $fileObjectID,
             'C__CMDB__SUBCAT__FILE_VERSIONS',
             [
@@ -64,7 +64,7 @@ class API132Test extends BaseTest {
         );
         $this->isID($versionEntryID);
 
-        $fileEntryID = $this->cmdbCategory->create(
+        $fileEntryID = $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__FILE',
             [

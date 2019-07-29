@@ -58,7 +58,7 @@ class ID6791Test extends BaseTest {
          */
 
         // This failed with an HTTP status code 500:
-        $portID = $this->cmdbCategory->save(
+        $portID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__NETWORK_PORT',
             [
@@ -76,7 +76,7 @@ class ID6791Test extends BaseTest {
          * Double check:
          */
 
-        $ports = $this->cmdbCategory->read(
+        $ports = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__NETWORK_PORT'
         );
@@ -118,7 +118,7 @@ class ID6791Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $ip1ID = $this->cmdbCategory->create(
+        $ip1ID = $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__IP',
             [
@@ -133,7 +133,7 @@ class ID6791Test extends BaseTest {
         );
         $this->isID($ip1ID);
 
-        $ip2ID = $this->cmdbCategory->create(
+        $ip2ID = $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__IP',
             [
@@ -153,7 +153,7 @@ class ID6791Test extends BaseTest {
          */
 
         // This failed with an HTTP status code 500:
-        $portID = $this->cmdbCategory->save(
+        $portID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__NETWORK_PORT',
             [
@@ -171,7 +171,7 @@ class ID6791Test extends BaseTest {
          * Double check:
          */
 
-        $ports = $this->cmdbCategory->read(
+        $ports = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__NETWORK_PORT'
         );

@@ -53,7 +53,7 @@ class CheckMKTagsTest extends BaseTest {
      */
     public function testReadByExistingCategory() {
         $objectID = $this->createServer();
-        $this->cmdbCategory->create(
+        $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__CMK2_TAG',
             [
@@ -123,7 +123,7 @@ class CheckMKTagsTest extends BaseTest {
         for ($i = 0; $i < $amount; $i++) {
             $objectID = $this->createServer();
 
-            $this->cmdbCategory->create(
+            $this->useCMDBCategory()->create(
                 $objectID,
                 'C__CATG__CMK2_TAG',
                 [

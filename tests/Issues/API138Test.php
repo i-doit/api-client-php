@@ -53,12 +53,12 @@ class API138Test extends BaseTest {
          * Create test data:
          */
 
-        $personID = $this->cmdbObject->create(
+        $personID = $this->useCMDBObject()->create(
             'C__OBJTYPE__PERSON',
             $this->generateRandomString()
         );
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $personID,
             'C__CATS__PERSON_MASTER',
             [
@@ -71,7 +71,7 @@ class API138Test extends BaseTest {
          * Run tests:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $personID,
             'C__CATS__PERSON_MASTER'
         );

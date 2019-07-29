@@ -64,7 +64,7 @@ class API161Test extends BaseTest {
          * Run tests:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $subnetID,
             'C__CATS__NET_IP_ADDRESSES'
         );

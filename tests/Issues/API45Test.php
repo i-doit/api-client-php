@@ -43,9 +43,9 @@ class API45Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $this->cmdbObject->markAsTemplate($objectID);
+        $this->useCMDBObject()->markAsTemplate($objectID);
 
-        $result = $this->cmdbCategory->readFirst($objectID, 'C__CATG__GLOBAL');
+        $result = $this->useCMDBCategory()->readFirst($objectID, 'C__CATG__GLOBAL');
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('status', $result);
@@ -76,9 +76,9 @@ class API45Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
 
-        $result = $this->cmdbCategory->readFirst($objectID, 'C__CATG__GLOBAL');
+        $result = $this->useCMDBCategory()->readFirst($objectID, 'C__CATG__GLOBAL');
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('status', $result);
@@ -109,12 +109,12 @@ class API45Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $this->cmdbObject->markAsTemplate($objectID);
+        $this->useCMDBObject()->markAsTemplate($objectID);
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
 
-        $result = $this->cmdbCategory->readFirst($objectID, 'C__CATG__MODEL');
+        $result = $this->useCMDBCategory()->readFirst($objectID, 'C__CATG__MODEL');
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
@@ -133,12 +133,12 @@ class API45Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $this->cmdbObject->markAsTemplate($objectID);
+        $this->useCMDBObject()->markAsTemplate($objectID);
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
 
-        $result = $this->cmdbCategory->readOneByID(
+        $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -161,12 +161,12 @@ class API45Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
 
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
 
-        $result = $this->cmdbCategory->readFirst($objectID, 'C__CATG__MODEL');
+        $result = $this->useCMDBCategory()->readFirst($objectID, 'C__CATG__MODEL');
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
@@ -185,12 +185,12 @@ class API45Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
 
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
 
-        $result = $this->cmdbCategory->readOneByID(
+        $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
             'C__CATG__IP',
             $entryID

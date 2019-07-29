@@ -56,7 +56,7 @@ class API140Test extends BaseTest {
         }
 
         // This was pretty slow:
-        $results = $this->cmdbCategory->batchRead([$objectID], $categoryConsts);
+        $results = $this->useCMDBCategory()->batchRead([$objectID], $categoryConsts);
 
         $this->assertIsArray($results);
         $this->assertCount($amount, $results);

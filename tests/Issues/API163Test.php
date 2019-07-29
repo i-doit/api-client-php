@@ -53,7 +53,7 @@ class API163Test extends BaseTest {
 
         $sysid = $this->generateRandomString();
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__GLOBAL',
             [
@@ -66,7 +66,7 @@ class API163Test extends BaseTest {
          * Double check:
          */
 
-        $object = $this->cmdbObject->read($objectID);
+        $object = $this->useCMDBObject()->read($objectID);
 
         $this->assertArrayHasKey('sysid', $object);
         $this->assertIsString($object['sysid']);

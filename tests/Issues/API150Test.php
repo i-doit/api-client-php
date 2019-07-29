@@ -48,13 +48,13 @@ class API150Test extends BaseTest {
         $person = $this->createPerson();
         $this->isID($person['id']);
 
-        $personGroupID = $this->cmdbObject->create(
+        $personGroupID = $this->useCMDBObject()->create(
             'C__OBJTYPE__PERSON_GROUP',
             $this->generateRandomString()
         );
         $this->isID($personGroupID);
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $personGroupID,
             'C__CATS__PERSON_GROUP_MEMBERS',
             [
@@ -67,7 +67,7 @@ class API150Test extends BaseTest {
          * Verify test data:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $personGroupID,
             'C__CATS__PERSON_GROUP_MEMBERS'
         );
@@ -86,7 +86,7 @@ class API150Test extends BaseTest {
          * Run actual tests:
          */
 
-        $result = $this->cmdbCategory->quickPurge(
+        $result = $this->useCMDBCategory()->quickPurge(
             $personGroupID,
             'C__CATS__PERSON_GROUP_MEMBERS',
             $entryID
@@ -98,7 +98,7 @@ class API150Test extends BaseTest {
          * Double check:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $personGroupID,
             'C__CATS__PERSON_GROUP_MEMBERS'
         );
@@ -115,7 +115,7 @@ class API150Test extends BaseTest {
          * Create test data:
          */
 
-        $personGroupID = $this->cmdbObject->create(
+        $personGroupID = $this->useCMDBObject()->create(
             'C__OBJTYPE__PERSON_GROUP',
             $this->generateRandomString()
         );
@@ -125,7 +125,7 @@ class API150Test extends BaseTest {
          * Verify test data:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $personGroupID,
             'C__CATS__PERSON_GROUP_MEMBERS'
         );
@@ -139,7 +139,7 @@ class API150Test extends BaseTest {
 
         $this->expectException(Exception::class);
 
-        $this->cmdbCategory->quickPurge(
+        $this->useCMDBCategory()->quickPurge(
             $personGroupID,
             'C__CATS__PERSON_GROUP_MEMBERS',
             $this->generateRandomID()
@@ -157,13 +157,13 @@ class API150Test extends BaseTest {
         $person = $this->createPerson();
         $this->isID($person['id']);
 
-        $personGroupID = $this->cmdbObject->create(
+        $personGroupID = $this->useCMDBObject()->create(
             'C__OBJTYPE__PERSON_GROUP',
             $this->generateRandomString()
         );
         $this->isID($personGroupID);
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $personGroupID,
             'C__CATS__PERSON_GROUP_MEMBERS',
             [
@@ -176,7 +176,7 @@ class API150Test extends BaseTest {
          * Verify test data:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $personGroupID,
             'C__CATS__PERSON_GROUP_MEMBERS'
         );
@@ -197,7 +197,7 @@ class API150Test extends BaseTest {
 
         $this->expectException(Exception::class);
 
-        $this->cmdbCategory->quickPurge(
+        $this->useCMDBCategory()->quickPurge(
             $personGroupID,
             'C__CATS__PERSON_GROUP_MEMBERS',
             $this->generateRandomID()

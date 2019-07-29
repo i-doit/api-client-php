@@ -75,7 +75,7 @@ class AttributeTest extends BaseTest {
      * @throws Exception on error
      */
     protected function createTestObject(): int {
-        return $this->cmdbObject->create(
+        return $this->useCMDBObject()->create(
             'C__OBJTYPE__GENERIC_TEMPLATE',
             $this->generateRandomString()
         );
@@ -325,7 +325,7 @@ class AttributeTest extends BaseTest {
                 ));
         }
 
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             $objectTypeConst,
             $this->generateRandomString()
         );

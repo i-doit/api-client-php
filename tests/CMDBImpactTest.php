@@ -57,7 +57,7 @@ class CMDBImpactTest extends BaseTest {
 
         $objectID = $this->createServer();
         $rootLocationID = $this->getRootLocation();
-        $roomID = $this->cmdbObject->create(
+        $roomID = $this->useCMDBObject()->create(
             'C__OBJTYPE__ROOM',
             $this->generateRandomString()
         );
@@ -88,7 +88,7 @@ class CMDBImpactTest extends BaseTest {
 
         $objectID = $this->createServer();
         $rootLocationID = $this->getRootLocation();
-        $roomID = $this->cmdbObject->create(
+        $roomID = $this->useCMDBObject()->create(
             'C__OBJTYPE__ROOM',
             $this->generateRandomString()
         );
@@ -242,7 +242,7 @@ class CMDBImpactTest extends BaseTest {
 
         $entryID = $this->addContact($objectID, $user['id'], 2);
 
-        $this->cmdbCategory->archive($objectID, 'C__CATG__CONTACT', $entryID);
+        $this->useCMDBCategory()->archive($objectID, 'C__CATG__CONTACT', $entryID);
 
         $result = $this->instance->readByConst(
             $objectID,
@@ -283,7 +283,7 @@ class CMDBImpactTest extends BaseTest {
 
         $entryID = $this->addContact($objectID, $user['id'], 2);
 
-        $this->cmdbCategory->delete($objectID, 'C__CATG__CONTACT', $entryID);
+        $this->useCMDBCategory()->delete($objectID, 'C__CATG__CONTACT', $entryID);
 
         $result = $this->instance->readByConst(
             $objectID,
@@ -339,13 +339,13 @@ class CMDBImpactTest extends BaseTest {
         $hostID = $this->createServer();
         $this->isID($hostID);
 
-        $clusterID = $this->cmdbObject->create(
+        $clusterID = $this->useCMDBObject()->create(
             'C__OBJTYPE__CLUSTER',
             $this->generateRandomString()
         );
         $this->isID($clusterID);
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $clusterID,
             'C__CATG__CLUSTER_MEMBERS',
             [

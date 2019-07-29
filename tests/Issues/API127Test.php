@@ -43,7 +43,7 @@ class API127Test extends BaseTest {
         $objectID = $this->createServer();
         $entryID = $this->addIPv4($objectID);
 
-        $result = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__IP', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__IP', $entryID);
         $this->assertIsArray($result);
         $this->assertArrayHasKey('ipv4_address', $result);
         $this->assertIsArray($result['ipv4_address']);

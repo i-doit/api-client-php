@@ -42,16 +42,16 @@ class API130Test extends BaseTest {
      * @throws Exception
      */
     public function testIssue() {
-        $objectID = $this->cmdbObject->create('C__OBJTYPE__SERVER', 'My host');
-        $applicationID = $this->cmdbObject->create('C__OBJTYPE__APPLICATION', 'My app');
-        $licenseID = $this->cmdbObject->create('C__OBJTYPE__LICENCE', 'My license');
-        $licenseKeyID = $this->cmdbCategory->create($licenseID, 'C__CATS__LICENCE_LIST', [
+        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__SERVER', 'My host');
+        $applicationID = $this->useCMDBObject()->create('C__OBJTYPE__APPLICATION', 'My app');
+        $licenseID = $this->useCMDBObject()->create('C__OBJTYPE__LICENCE', 'My license');
+        $licenseKeyID = $this->useCMDBCategory()->create($licenseID, 'C__CATS__LICENCE_LIST', [
             'key' => '123-xyz',
             'type' => 2, // Volume
             'amount' => 1000
         ]);
         // This failed because of last two attributes:
-        $entryID = $this->cmdbCategory->create($objectID, 'C__CATG__APPLICATION', [
+        $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__APPLICATION', [
             'application' => $applicationID,
             'assigned_license' => $licenseKeyID
         ]);

@@ -44,13 +44,13 @@ class API39Test extends BaseTest {
         $this->isID($hostID);
 
         // Install primary operating system:
-        $primaryOSID = $this->cmdbObject->create(
+        $primaryOSID = $this->useCMDBObject()->create(
             'C__OBJTYPE__OPERATING_SYSTEM',
             $this->generateRandomString()
         );
         $this->isID($primaryOSID);
 
-        $firstEntryID = $this->cmdbCategory->create(
+        $firstEntryID = $this->useCMDBCategory()->create(
             $hostID,
             'C__CATG__APPLICATION',
             [
@@ -62,7 +62,7 @@ class API39Test extends BaseTest {
         $this->isID($firstEntryID);
 
         // Validate primary operating system:
-        $firstEntry = $this->cmdbCategory->readOneByID(
+        $firstEntry = $this->useCMDBCategory()->readOneByID(
             $hostID,
             'C__CATG__APPLICATION',
             $firstEntryID
@@ -75,13 +75,13 @@ class API39Test extends BaseTest {
         $this->hasPriority(1, $firstEntry);
 
         // Install secondary operating system:
-        $secondaryOSID = $this->cmdbObject->create(
+        $secondaryOSID = $this->useCMDBObject()->create(
             'C__OBJTYPE__OPERATING_SYSTEM',
             $this->generateRandomString()
         );
         $this->isID($secondaryOSID);
 
-        $secondEntryID = $this->cmdbCategory->create(
+        $secondEntryID = $this->useCMDBCategory()->create(
             $hostID,
             'C__CATG__APPLICATION',
             [
@@ -93,7 +93,7 @@ class API39Test extends BaseTest {
         $this->isID($secondEntryID);
 
         // Validate secondary operating system:
-        $secondEntry = $this->cmdbCategory->readOneByID(
+        $secondEntry = $this->useCMDBCategory()->readOneByID(
             $hostID,
             'C__CATG__APPLICATION',
             $secondEntryID
@@ -106,7 +106,7 @@ class API39Test extends BaseTest {
         $this->hasPriority(2, $secondEntry);
 
         // Switch priority:
-        $this->cmdbCategory->update(
+        $this->useCMDBCategory()->update(
             $hostID,
             'C__CATG__APPLICATION',
             [
@@ -115,7 +115,7 @@ class API39Test extends BaseTest {
             $firstEntryID
         );
 
-        $this->cmdbCategory->update(
+        $this->useCMDBCategory()->update(
             $hostID,
             'C__CATG__APPLICATION',
             [
@@ -125,7 +125,7 @@ class API39Test extends BaseTest {
         );
 
         // Validate that former primary operating system is now the secondary one:
-        $firstEntry = $this->cmdbCategory->readOneByID(
+        $firstEntry = $this->useCMDBCategory()->readOneByID(
             $hostID,
             'C__CATG__APPLICATION',
             $firstEntryID
@@ -138,7 +138,7 @@ class API39Test extends BaseTest {
         $this->hasPriority(2, $firstEntry);
 
         // Validate that former secondary operating system is now the primary one:
-        $secondEntry = $this->cmdbCategory->readOneByID(
+        $secondEntry = $this->useCMDBCategory()->readOneByID(
             $hostID,
             'C__CATG__APPLICATION',
             $secondEntryID

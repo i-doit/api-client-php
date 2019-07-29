@@ -75,7 +75,7 @@ class SearchTest extends BaseTest {
     public function testQuery() {
         $title = $this->generateRandomString();
 
-        $this->cmdbObject->create(
+        $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             $title
         );

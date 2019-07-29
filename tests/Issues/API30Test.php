@@ -40,25 +40,25 @@ class API30Test extends BaseTest {
      * @throws Exception on error
      */
     public function testIssue() {
-        $hostAID = $this->cmdbObject->create(
+        $hostAID = $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             'Host A'
         );
         $this->isID($hostAID);
 
-        $hostBID = $this->cmdbObject->create(
+        $hostBID = $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             'Host B'
         );
         $this->isID($hostBID);
 
-        $cableID = $this->cmdbObject->create(
+        $cableID = $this->useCMDBObject()->create(
             'C__OBJTYPE__CABLE',
             'Cabel A <=> B'
         );
         $this->isID($cableID);
 
-        $rxID = $this->cmdbCategory->save(
+        $rxID = $this->useCMDBCategory()->save(
             $cableID,
             'C__CATG__FIBER_LEAD',
             [
@@ -69,7 +69,7 @@ class API30Test extends BaseTest {
         );
         $this->isID($rxID);
 
-        $txID = $this->cmdbCategory->save(
+        $txID = $this->useCMDBCategory()->save(
             $cableID,
             'C__CATG__FIBER_LEAD',
             [
@@ -80,7 +80,7 @@ class API30Test extends BaseTest {
         );
         $this->isID($txID);
 
-        $connectorAID = $this->cmdbCategory->save(
+        $connectorAID = $this->useCMDBCategory()->save(
             $hostAID,
             'C__CATG__CONNECTOR',
             [
@@ -89,7 +89,7 @@ class API30Test extends BaseTest {
         );
         $this->isID($connectorAID);
 
-        $connectorBID = $this->cmdbCategory->save(
+        $connectorBID = $this->useCMDBCategory()->save(
             $hostBID,
             'C__CATG__CONNECTOR',
             [
@@ -101,7 +101,7 @@ class API30Test extends BaseTest {
         );
         $this->isID($connectorBID);
 
-        $result = $this->cmdbCategory->save(
+        $result = $this->useCMDBCategory()->save(
             $hostAID,
             'C__CATG__CONNECTOR',
             [
@@ -115,7 +115,7 @@ class API30Test extends BaseTest {
         $this->assertSame($connectorAID, $result);
 
         // Verify both wires:
-        $wires = $this->cmdbCategory->read($cableID, 'C__CATG__FIBER_LEAD');
+        $wires = $this->useCMDBCategory()->read($cableID, 'C__CATG__FIBER_LEAD');
         $this->assertIsArray($wires);
         $this->assertCount(2, $wires);
 
@@ -142,7 +142,7 @@ class API30Test extends BaseTest {
         $this->assertSame('tx', $wires[1]['label']);
 
         // Verify first connector:
-        $connectorA = $this->cmdbCategory->readOneByID(
+        $connectorA = $this->useCMDBCategory()->readOneByID(
             $hostAID,
             'C__CATG__CONNECTOR',
             $connectorAID
@@ -167,7 +167,7 @@ class API30Test extends BaseTest {
         $this->assertSame($txID, (int) $connectorA['used_fiber_lead_tx']['id']);
 
         // Verify second connector:
-        $connectorB = $this->cmdbCategory->readOneByID(
+        $connectorB = $this->useCMDBCategory()->readOneByID(
             $hostBID,
             'C__CATG__CONNECTOR',
             $connectorBID

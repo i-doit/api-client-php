@@ -46,7 +46,7 @@ class API53Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $result = $this->cmdbCategory->create(
+        $result = $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__IP',
             [

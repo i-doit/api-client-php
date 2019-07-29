@@ -42,7 +42,7 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
     }
@@ -55,11 +55,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
     }
@@ -74,11 +74,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
     }
@@ -93,11 +93,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
     }
@@ -112,11 +112,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
     }
@@ -129,7 +129,7 @@ class ObjectStatusTest extends BaseTest {
         $this->expectException(Exception::class);
 
         $objectID = $this->generateRandomID();
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
     }
@@ -142,7 +142,7 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
     }
@@ -155,11 +155,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
     }
@@ -174,11 +174,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
     }
@@ -193,11 +193,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
     }
@@ -212,11 +212,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
     }
@@ -229,7 +229,7 @@ class ObjectStatusTest extends BaseTest {
         $this->expectException(Exception::class);
 
         $objectID = $this->generateRandomID();
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
     }
@@ -296,7 +296,7 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->purge($objectID);
+        $result = $this->useCMDBObject()->purge($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isPurged($objectID);
     }
@@ -309,11 +309,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
 
-        $result = $this->cmdbObject->purge($objectID);
+        $result = $this->useCMDBObject()->purge($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isPurged($objectID);
     }
@@ -326,11 +326,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
 
-        $result = $this->cmdbObject->purge($objectID);
+        $result = $this->useCMDBObject()->purge($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isPurged($objectID);
     }
@@ -343,11 +343,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
 
-        $result = $this->cmdbObject->purge($objectID);
+        $result = $this->useCMDBObject()->purge($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isPurged($objectID);
     }
@@ -360,11 +360,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
 
-        $result = $this->cmdbObject->purge($objectID);
+        $result = $this->useCMDBObject()->purge($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isPurged($objectID);
     }
@@ -377,7 +377,7 @@ class ObjectStatusTest extends BaseTest {
         $this->expectException(Exception::class);
 
         $objectID = $this->generateRandomID();
-        $result = $this->cmdbObject->purge($objectID);
+        $result = $this->useCMDBObject()->purge($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isPurged($objectID);
     }
@@ -392,7 +392,7 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->recycle($objectID);
+        $result = $this->useCMDBObject()->recycle($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isNormal($objectID);
     }
@@ -405,11 +405,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
 
-        $result = $this->cmdbObject->recycle($objectID);
+        $result = $this->useCMDBObject()->recycle($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isNormal($objectID);
     }
@@ -422,11 +422,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
 
-        $result = $this->cmdbObject->recycle($objectID);
+        $result = $this->useCMDBObject()->recycle($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isNormal($objectID);
     }
@@ -441,11 +441,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->purge($objectID);
+        $result = $this->useCMDBObject()->purge($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isPurged($objectID);
 
-        $result = $this->cmdbObject->recycle($objectID);
+        $result = $this->useCMDBObject()->recycle($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isNormal($objectID);
     }
@@ -458,11 +458,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
 
-        $result = $this->cmdbObject->recycle($objectID);
+        $result = $this->useCMDBObject()->recycle($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isNormal($objectID);
     }
@@ -475,11 +475,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
 
-        $result = $this->cmdbObject->recycle($objectID);
+        $result = $this->useCMDBObject()->recycle($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isNormal($objectID);
     }
@@ -492,7 +492,7 @@ class ObjectStatusTest extends BaseTest {
         $this->expectException(Exception::class);
 
         $objectID = $this->generateRandomID();
-        $result = $this->cmdbObject->recycle($objectID);
+        $result = $this->useCMDBObject()->recycle($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isNormal($objectID);
     }
@@ -505,7 +505,7 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
     }
@@ -518,11 +518,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
     }
@@ -537,11 +537,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
     }
@@ -556,11 +556,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
     }
@@ -575,11 +575,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
     }
@@ -592,7 +592,7 @@ class ObjectStatusTest extends BaseTest {
         $this->expectException(Exception::class);
 
         $objectID = $this->generateRandomID();
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
     }
@@ -605,7 +605,7 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
     }
@@ -618,11 +618,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isTemplate($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
     }
@@ -637,11 +637,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->archive($objectID);
+        $result = $this->useCMDBObject()->archive($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isArchived($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
     }
@@ -656,11 +656,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->delete($objectID);
+        $result = $this->useCMDBObject()->delete($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isDeleted($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
     }
@@ -675,11 +675,11 @@ class ObjectStatusTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isNormal($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
 
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
     }
 
@@ -691,7 +691,7 @@ class ObjectStatusTest extends BaseTest {
         $this->expectException(Exception::class);
 
         $objectID = $this->generateRandomID();
-        $result = $this->cmdbObject->markAsMassChangeTemplate($objectID);
+        $result = $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
         $this->assertInstanceOf(CMDBObject::class, $result);
         $this->isMassChangeTemplate($objectID);
     }

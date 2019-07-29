@@ -80,7 +80,7 @@ class ID6419Test extends BaseTest {
          * Run tests:
          */
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__NETWORK_PORT',
             [
@@ -94,7 +94,7 @@ class ID6419Test extends BaseTest {
          * Double check:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__NETWORK_PORT'
         );
@@ -129,7 +129,7 @@ class ID6419Test extends BaseTest {
 
         $this->expectException(Exception::class);
 
-        $this->cmdbCategory->save(
+        $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__NETWORK_PORT',
             [

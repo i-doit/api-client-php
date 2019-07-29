@@ -57,13 +57,13 @@ class API115Test extends BaseTest {
          * Create test data:
          */
 
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__CLIENT',
             $this->generateRandomString()
         );
         $this->isID($objectID);
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATS__CLIENT',
             [
@@ -76,7 +76,7 @@ class API115Test extends BaseTest {
          * Run tests:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATS__CLIENT'
         );
@@ -112,13 +112,13 @@ class API115Test extends BaseTest {
          * Create test data:
          */
 
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__CLIENT',
             $this->generateRandomString()
         );
         $this->isID($objectID);
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATS__CLIENT',
             [
@@ -131,7 +131,7 @@ class API115Test extends BaseTest {
          * Run tests:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATS__CLIENT'
         );
@@ -167,13 +167,13 @@ class API115Test extends BaseTest {
          * Create test data:
          */
 
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__CLIENT',
             $this->generateRandomString()
         );
         $this->isID($objectID);
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATS__CLIENT',
             [
@@ -186,7 +186,7 @@ class API115Test extends BaseTest {
          * Run tests:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATS__CLIENT'
         );

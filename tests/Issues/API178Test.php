@@ -47,7 +47,7 @@ class API178Test extends BaseTest {
         $rootID = $this->getRootLocation();
         $this->isID($rootID);
 
-        $rackID = $this->cmdbObject->create(
+        $rackID = $this->useCMDBObject()->create(
             'C__OBJTYPE__ENCLOSURE',
             $this->generateRandomString()
         );
@@ -56,13 +56,13 @@ class API178Test extends BaseTest {
         $rackLocationID = $this->addObjectToLocation($rackID, $rootID);
         $this->isID($rackLocationID);
 
-        $segmentID = $this->cmdbObject->create(
+        $segmentID = $this->useCMDBObject()->create(
             'C__OBJTYPE__RACK_SEGMENT',
             $this->generateRandomString()
         );
         $this->isID($segmentID);
 
-        $chassisViewID = $this->cmdbCategory->save(
+        $chassisViewID = $this->useCMDBCategory()->save(
             $segmentID,
             'C__CATS__CHASSIS_VIEW',
             [
@@ -74,7 +74,7 @@ class API178Test extends BaseTest {
         );
         $this->isID($chassisViewID);
 
-        $slot1ID = $this->cmdbCategory->save(
+        $slot1ID = $this->useCMDBCategory()->save(
             $segmentID,
             'C__CATS__CHASSIS_SLOT',
             [
@@ -88,7 +88,7 @@ class API178Test extends BaseTest {
         );
         $this->isID($slot1ID);
 
-        $slot2ID = $this->cmdbCategory->save(
+        $slot2ID = $this->useCMDBCategory()->save(
             $segmentID,
             'C__CATS__CHASSIS_SLOT',
             [
@@ -105,7 +105,7 @@ class API178Test extends BaseTest {
         $hostID = $this->createServer();
         $this->isID($hostID);
 
-        $assignedDeviceID = $this->cmdbCategory->save(
+        $assignedDeviceID = $this->useCMDBCategory()->save(
             $segmentID,
             'C__CATS__CHASSIS_DEVICES',
             [
@@ -119,7 +119,7 @@ class API178Test extends BaseTest {
          * Run tests:
          */
 
-        $assignedDevices = $this->cmdbCategory->read(
+        $assignedDevices = $this->useCMDBCategory()->read(
             $segmentID,
             'C__CATS__CHASSIS_DEVICES'
         );
@@ -151,7 +151,7 @@ class API178Test extends BaseTest {
          * Double checks:
          */
 
-        $slots = $this->cmdbCategory->read(
+        $slots = $this->useCMDBCategory()->read(
             $segmentID,
             'C__CATS__CHASSIS_SLOT'
         );
@@ -189,7 +189,7 @@ class API178Test extends BaseTest {
         $this->assertIsArray($slots[1]['assigned_devices']);
         $this->assertCount(0, $slots[1]['assigned_devices']);
 
-        $chassisView = $this->cmdbCategory->read(
+        $chassisView = $this->useCMDBCategory()->read(
             $segmentID,
             'C__CATS__CHASSIS_VIEW'
         );

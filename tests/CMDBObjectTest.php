@@ -43,7 +43,7 @@ class CMDBObjectTest extends BaseTest {
      * @group API-81
      */
     public function testCreate() {
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString()
         );
@@ -64,7 +64,7 @@ class CMDBObjectTest extends BaseTest {
         );
 
         foreach ($objectTypeConstants as $objectTypeConstant) {
-            $objectID = $this->cmdbObject->create($objectTypeConstant, $this->generateRandomString());
+            $objectID = $this->useCMDBObject()->create($objectTypeConstant, $this->generateRandomString());
             $this->isID($objectID);
         }
     }
@@ -74,7 +74,7 @@ class CMDBObjectTest extends BaseTest {
      * @group API-81
      */
     public function testCreateWithMoreAttributes() {
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
             [
@@ -94,7 +94,7 @@ class CMDBObjectTest extends BaseTest {
      * @throws Exception on error
      */
     public function testCreateNormalObject() {
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
             [
@@ -110,7 +110,7 @@ class CMDBObjectTest extends BaseTest {
      * @throws Exception on error
      */
     public function testCreateArchivedObject() {
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
             [
@@ -126,7 +126,7 @@ class CMDBObjectTest extends BaseTest {
      * @throws Exception on error
      */
     public function testCreateDeletedObject() {
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
             [
@@ -142,7 +142,7 @@ class CMDBObjectTest extends BaseTest {
      * @throws Exception on error
      */
     public function testCreateTemplate() {
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
             [
@@ -158,7 +158,7 @@ class CMDBObjectTest extends BaseTest {
      * @throws Exception on error
      */
     public function testCreateMassChangeTemplate() {
-        $objectID = $this->cmdbObject->create(
+        $objectID = $this->useCMDBObject()->create(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
             [
@@ -175,7 +175,7 @@ class CMDBObjectTest extends BaseTest {
      * @throws Exception on error
      */
     public function testCreateWithCategories() {
-        $result = $this->cmdbObject->createWithCategories(
+        $result = $this->useCMDBObject()->createWithCategories(
             'C__OBJTYPE__SERVER',
             $this->generateRandomString(),
             [
@@ -237,19 +237,19 @@ class CMDBObjectTest extends BaseTest {
         $firstIPEntryID = $result['categories']['C__CATG__IP'][0];
         $secondIPEntryID = $result['categories']['C__CATG__IP'][0];
 
-        $model = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__MODEL', $modelEntryID);
+        $model = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__MODEL', $modelEntryID);
         $this->assertArrayHasKey('id', $model);
         $this->isIDAsString($model['id']);
         $id = (int) $model['id'];
         $this->assertSame($modelEntryID, $id);
 
-        $firstIPEntry = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__IP', $firstIPEntryID);
+        $firstIPEntry = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__IP', $firstIPEntryID);
         $this->assertArrayHasKey('id', $firstIPEntry);
         $this->isIDAsString($firstIPEntry['id']);
         $id = (int) $firstIPEntry['id'];
         $this->assertSame($firstIPEntryID, $id);
 
-        $secondIPEntry = $this->cmdbCategory->readOneByID($objectID, 'C__CATG__IP', $secondIPEntryID);
+        $secondIPEntry = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__IP', $secondIPEntryID);
         $this->assertArrayHasKey('id', $secondIPEntry);
         $this->isIDAsString($secondIPEntry['id']);
         $id = (int) $secondIPEntry['id'];
@@ -263,7 +263,7 @@ class CMDBObjectTest extends BaseTest {
     public function testRead() {
         $objectID = $this->createServer();
 
-        $result = $this->cmdbObject->read($objectID);
+        $result = $this->useCMDBObject()->read($objectID);
 
         $this->assertIsArray($result);
         $this->isOneObject($result);
@@ -347,7 +347,7 @@ class CMDBObjectTest extends BaseTest {
 
         $this->assertInstanceOf(
             CMDBObject::class,
-            $this->cmdbObject->update($objectID, ['title' => 'Anne Admin'])
+            $this->useCMDBObject()->update($objectID, ['title' => 'Anne Admin'])
         );
     }
 
@@ -358,7 +358,7 @@ class CMDBObjectTest extends BaseTest {
     public function testLoad() {
         $objectID = $this->createServer();
 
-        $result = $this->cmdbObject->load($objectID);
+        $result = $this->useCMDBObject()->load($objectID);
 
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
@@ -373,14 +373,14 @@ class CMDBObjectTest extends BaseTest {
                 return $object['id'];
             },
             // No, do not test every single object, but some recently created ones:
-            $this->cmdbObjects->read([], 10, 0, 'id', CMDBObjects::SORT_DESCENDING)
+            $this->useCMDBObjects()->read([], 10, 0, 'id', CMDBObjects::SORT_DESCENDING)
         );
 
         $categoryInfo = new CMDBCategoryInfo($this->api);
         $blacklistedCategoryConstants = $categoryInfo->getVirtualCategoryConstants();
 
         foreach ($objectIDs as $objectID) {
-            $result = $this->cmdbObject->readAll($objectID);
+            $result = $this->useCMDBObject()->readAll($objectID);
 
             $this->assertIsArray($result);
             $this->isObject($result);
@@ -422,7 +422,7 @@ class CMDBObjectTest extends BaseTest {
      */
     public function testReadAllFromNonExistingObject() {
         $this->expectException(RuntimeException::class);
-        $this->cmdbObject->readAll($this->generateRandomID());
+        $this->useCMDBObject()->readAll($this->generateRandomID());
     }
 
     /**
@@ -433,14 +433,14 @@ class CMDBObjectTest extends BaseTest {
         $title = $this->generateRandomString();
 
         // Exists:
-        $objectID = $this->cmdbObject->create('C__OBJTYPE__SERVER', $title);
-        $result = $this->cmdbObject->upsert('C__OBJTYPE__SERVER', $title, ['purpose' => 'Private stuff']);
+        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__SERVER', $title);
+        $result = $this->useCMDBObject()->upsert('C__OBJTYPE__SERVER', $title, ['purpose' => 'Private stuff']);
 
         $this->assertIsInt($result);
         $this->assertSame($objectID, $result);
 
         // Does not exist:
-        $result = $this->cmdbObject->upsert('C__OBJTYPE__SERVER', $this->generateRandomString());
+        $result = $this->useCMDBObject()->upsert('C__OBJTYPE__SERVER', $this->generateRandomString());
 
         $this->assertIsInt($result);
         $this->assertGreaterThan(0, $result);

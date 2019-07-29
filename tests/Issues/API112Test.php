@@ -51,7 +51,7 @@ class API112Test extends BaseTest {
             $objectIDs[] = $objectID;
         }
 
-        $ipList = $this->cmdbCategory->read($subnetID, 'C__CATS__NET_IP_ADDRESSES');
+        $ipList = $this->useCMDBCategory()->read($subnetID, 'C__CATS__NET_IP_ADDRESSES');
 
         $this->assertIsArray($ipList);
 

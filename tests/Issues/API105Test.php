@@ -40,24 +40,24 @@ class API105Test extends BaseTest {
      * @throws Exception on error
      */
     public function testIssue() {
-        $hostID = $this->cmdbObject->create('C__OBJTYPE__SERVER', 'My little server');
-        $osID = $this->cmdbObject->create('C__OBJTYPE__OPERATING_SYSTEM', 'My little os');
+        $hostID = $this->useCMDBObject()->create('C__OBJTYPE__SERVER', 'My little server');
+        $osID = $this->useCMDBObject()->create('C__OBJTYPE__OPERATING_SYSTEM', 'My little os');
 
         // Install OS:
 
-        $versionID = $this->cmdbCategory->create($osID, 'C__CATG__VERSION', [
+        $versionID = $this->useCMDBCategory()->create($osID, 'C__CATG__VERSION', [
             'title' => '1.0.0'
         ]);
-        $variantID = $this->cmdbCategory->create($osID, 'C__CATS__APPLICATION_VARIANT', [
+        $variantID = $this->useCMDBCategory()->create($osID, 'C__CATS__APPLICATION_VARIANT', [
             'title' => 'home',
             'variant' => 'home'
         ]);
-        $this->cmdbCategory->create($hostID, 'C__CATG__OPERATING_SYSTEM', [
+        $this->useCMDBCategory()->create($hostID, 'C__CATG__OPERATING_SYSTEM', [
             'application' => $osID,
             'assigned_version' => $versionID,
             'assigned_variant' => $variantID
         ]);
-        $entries = $this->cmdbCategory->read($hostID, 'C__CATG__OPERATING_SYSTEM');
+        $entries = $this->useCMDBCategory()->read($hostID, 'C__CATG__OPERATING_SYSTEM');
 
         $this->assertIsArray($entries);
         $this->assertArrayHasKey(0, $entries);
@@ -68,19 +68,19 @@ class API105Test extends BaseTest {
 
         // Update OS:
 
-        $versionID = $this->cmdbCategory->create($osID, 'C__CATG__VERSION', [
+        $versionID = $this->useCMDBCategory()->create($osID, 'C__CATG__VERSION', [
             'title' => '2.0.0'
         ]);
-        $variantID = $this->cmdbCategory->create($osID, 'C__CATS__APPLICATION_VARIANT', [
+        $variantID = $this->useCMDBCategory()->create($osID, 'C__CATS__APPLICATION_VARIANT', [
             'title' => 'enterprise',
             'variant' => 'enterprise'
         ]);
-        $this->cmdbCategory->update($hostID, 'C__CATG__OPERATING_SYSTEM', [
+        $this->useCMDBCategory()->update($hostID, 'C__CATG__OPERATING_SYSTEM', [
             'application' => $osID,
             'assigned_version' => $versionID,
             'assigned_variant' => $variantID
         ]);
-        $entries = $this->cmdbCategory->read($hostID, 'C__CATG__OPERATING_SYSTEM');
+        $entries = $this->useCMDBCategory()->read($hostID, 'C__CATG__OPERATING_SYSTEM');
 
         $this->assertIsArray($entries);
         $this->assertArrayHasKey(0, $entries);

@@ -188,7 +188,7 @@ class CMDBObjectsTest extends BaseTest {
             'C__CATG__CONTACT'
         ];
 
-        $result = $this->cmdbObjects->read(['ids' => [$objectID]], null, null, null, null, $categoryConstants);
+        $result = $this->useCMDBObjects()->read(['ids' => [$objectID]], null, null, null, null, $categoryConstants);
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
@@ -231,7 +231,7 @@ class CMDBObjectsTest extends BaseTest {
         $this->addIPv4($objectID);
         $this->addContact($objectID, $person['id']);
 
-        $result = $this->cmdbObjects->read(['ids' => [$objectID]], null, null, null, null, true);
+        $result = $this->useCMDBObjects()->read(['ids' => [$objectID]], null, null, null, null, true);
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);

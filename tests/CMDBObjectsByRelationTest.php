@@ -137,7 +137,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
         $hostID = $this->createServer();
         $admin = $this->createPerson();
         $entryID = $this->addContact($hostID, $admin['id'], 1);
-        $this->cmdbCategory->archive($hostID, 'C__CATG__CONTACT', $entryID);
+        $this->useCMDBCategory()->archive($hostID, 'C__CATG__CONTACT', $entryID);
 
         $result = $this->cmdbObjectsByRelation->readByConst(
             $hostID,
@@ -164,7 +164,7 @@ class CMDBObjectsByRelationTest extends BaseTest {
         $hostID = $this->createServer();
         $admin = $this->createPerson();
         $entryID = $this->addContact($hostID, $admin['id'], 1);
-        $this->cmdbCategory->delete($hostID, 'C__CATG__CONTACT', $entryID);
+        $this->useCMDBCategory()->delete($hostID, 'C__CATG__CONTACT', $entryID);
 
         $result = $this->cmdbObjectsByRelation->readByConst(
             $hostID,

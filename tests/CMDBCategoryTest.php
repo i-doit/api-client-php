@@ -42,7 +42,7 @@ class CMDBCategoryTest extends BaseTest {
             'title' => $this->generateRandomString()
         ];
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__MODEL',
             $attributes
@@ -51,7 +51,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertIsInt($entryID);
         $this->isID($entryID);
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__MODEL'
         );
@@ -87,7 +87,7 @@ class CMDBCategoryTest extends BaseTest {
             'description' => $this->generateDescription()
         ];
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__IP',
             $attributes
@@ -96,7 +96,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertIsInt($entryID);
         $this->isID($entryID);
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP'
         );
@@ -125,7 +125,7 @@ class CMDBCategoryTest extends BaseTest {
             'title' => $this->generateRandomString()
         ];
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__MODEL',
             $attributes
@@ -134,7 +134,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertIsInt($entryID);
         $this->isID($entryID);
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__MODEL'
         );
@@ -163,7 +163,7 @@ class CMDBCategoryTest extends BaseTest {
             'title' => $this->generateRandomString()
         ];
 
-        $newEntryID = $this->cmdbCategory->save(
+        $newEntryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__MODEL',
             $newAttributes
@@ -172,7 +172,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertIsInt($newEntryID);
         $this->isID($newEntryID);
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__MODEL'
         );
@@ -220,7 +220,7 @@ class CMDBCategoryTest extends BaseTest {
             'description' => $this->generateDescription()
         ];
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__IP',
             $attributes
@@ -229,7 +229,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertIsInt($entryID);
         $this->isID($entryID);
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP'
         );
@@ -256,7 +256,7 @@ class CMDBCategoryTest extends BaseTest {
             'description' => $this->generateDescription()
         ];
 
-        $newEntryID = $this->cmdbCategory->save(
+        $newEntryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__IP',
             $newAttributes,
@@ -266,7 +266,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertIsInt($newEntryID);
         $this->isID($newEntryID);
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP'
         );
@@ -305,7 +305,7 @@ class CMDBCategoryTest extends BaseTest {
             'description' => $this->generateDescription()
         ];
 
-        $firstEntryID = $this->cmdbCategory->save(
+        $firstEntryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__IP',
             $firstAttributes
@@ -314,7 +314,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertIsInt($firstEntryID);
         $this->isID($firstEntryID);
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP'
         );
@@ -341,7 +341,7 @@ class CMDBCategoryTest extends BaseTest {
             'description' => $this->generateDescription()
         ];
 
-        $secondEntryID = $this->cmdbCategory->save(
+        $secondEntryID = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__IP',
             $secondAttributes
@@ -350,7 +350,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertIsInt($secondEntryID);
         $this->isID($secondEntryID);
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP'
         );
@@ -381,7 +381,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $result = $this->cmdbCategory->save(
+        $result = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__MODEL',
             [
@@ -402,7 +402,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $result = $this->cmdbCategory->save(
+        $result = $this->useCMDBCategory()->save(
             $objectID,
             'C__CATG__MODEL',
             [
@@ -419,7 +419,7 @@ class CMDBCategoryTest extends BaseTest {
     public function testCreate() {
         $objectID = $this->createServer();
 
-        $entryID = $this->cmdbCategory->create(
+        $entryID = $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__IP',
             [
@@ -446,7 +446,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
 
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__MODEL'
         );
@@ -480,7 +480,7 @@ class CMDBCategoryTest extends BaseTest {
             $this->isID($entryID);
         }
 
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP'
         );
@@ -521,7 +521,7 @@ class CMDBCategoryTest extends BaseTest {
             $this->isID($entryID);
         }
 
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP'
         );
@@ -531,10 +531,10 @@ class CMDBCategoryTest extends BaseTest {
 
         // Rank the first entry:
         $rankedEntryID = $entryIDs[0];
-        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $rankedEntryID);
+        $this->useCMDBCategory()->archive($objectID, 'C__CATG__IP', $rankedEntryID);
 
         // Read it:
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP',
             3 // Archived
@@ -554,7 +554,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertSame($objectID, (int) $result[0]['objID']);
 
         // Check the other entries:
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP',
             2
@@ -597,7 +597,7 @@ class CMDBCategoryTest extends BaseTest {
             $this->isID($entryID);
         }
 
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP'
         );
@@ -607,10 +607,10 @@ class CMDBCategoryTest extends BaseTest {
 
         // Rank the first entry:
         $rankedEntryID = $entryIDs[0];
-        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $rankedEntryID);
+        $this->useCMDBCategory()->delete($objectID, 'C__CATG__IP', $rankedEntryID);
 
         // Read it:
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP',
             4 // Deleted
@@ -630,7 +630,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertSame($objectID, (int) $result[0]['objID']);
 
         // Check the other entries:
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP',
             2
@@ -673,7 +673,7 @@ class CMDBCategoryTest extends BaseTest {
             $this->isID($entryID);
         }
 
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP'
         );
@@ -683,14 +683,14 @@ class CMDBCategoryTest extends BaseTest {
 
         // Archive the first one:
         $archivedEntryID = $entryIDs[0];
-        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $archivedEntryID);
+        $this->useCMDBCategory()->archive($objectID, 'C__CATG__IP', $archivedEntryID);
 
         // Delete the second one:
         $deletedEntryID = $entryIDs[1];
-        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $deletedEntryID);
+        $this->useCMDBCategory()->delete($objectID, 'C__CATG__IP', $deletedEntryID);
 
         // Read all of them:
-        $result = $this->cmdbCategory->read(
+        $result = $this->useCMDBCategory()->read(
             $objectID,
             'C__CATG__IP',
             -1 // All
@@ -732,11 +732,11 @@ class CMDBCategoryTest extends BaseTest {
             $this->isID($entryID);
         }
 
-        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
-        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
+        $this->useCMDBCategory()->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
+        $this->useCMDBCategory()->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
 
         // Run tests:
-        $result = $this->cmdbCategory->read($objectID, 'C__CATG__IP', 2);
+        $result = $this->useCMDBCategory()->read($objectID, 'C__CATG__IP', 2);
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
@@ -773,11 +773,11 @@ class CMDBCategoryTest extends BaseTest {
             $this->isID($entryID);
         }
 
-        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
-        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
+        $this->useCMDBCategory()->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
+        $this->useCMDBCategory()->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
 
         // Run tests:
-        $result = $this->cmdbCategory->read($objectID, 'C__CATG__IP', 3);
+        $result = $this->useCMDBCategory()->read($objectID, 'C__CATG__IP', 3);
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
@@ -814,11 +814,11 @@ class CMDBCategoryTest extends BaseTest {
             $this->isID($entryID);
         }
 
-        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
-        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
+        $this->useCMDBCategory()->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
+        $this->useCMDBCategory()->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
 
         // Run tests:
-        $result = $this->cmdbCategory->read($objectID, 'C__CATG__IP', 4);
+        $result = $this->useCMDBCategory()->read($objectID, 'C__CATG__IP', 4);
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
@@ -855,11 +855,11 @@ class CMDBCategoryTest extends BaseTest {
             $this->isID($entryID);
         }
 
-        $this->cmdbCategory->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
-        $this->cmdbCategory->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
+        $this->useCMDBCategory()->archive($objectID, 'C__CATG__IP', $entryIDs[1]);
+        $this->useCMDBCategory()->delete($objectID, 'C__CATG__IP', $entryIDs[2]);
 
         // Run tests:
-        $result = $this->cmdbCategory->read($objectID, 'C__CATG__IP');
+        $result = $this->useCMDBCategory()->read($objectID, 'C__CATG__IP');
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
@@ -890,7 +890,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
 
-        $result = $this->cmdbCategory->readOneByID(
+        $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
             'C__CATG__MODEL',
             $entryID
@@ -917,7 +917,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryID = $this->addIPv4($objectID);
         $this->isID($entryID);
 
-        $result = $this->cmdbCategory->readOneByID(
+        $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
             'C__CATG__IP',
             $entryID
@@ -942,7 +942,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->defineModel($objectID);
 
         // Test single-value category:
-        $result = $this->cmdbCategory->readFirst(
+        $result = $this->useCMDBCategory()->readFirst(
             $objectID,
             'C__CATG__MODEL'
         );
@@ -954,7 +954,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->addIPv4($objectID);
 
         // Test multi-value category:
-        $result = $this->cmdbCategory->readFirst(
+        $result = $this->useCMDBCategory()->readFirst(
             $objectID,
             'C__CATG__IP'
         );
@@ -964,7 +964,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->assertArrayHasKey('id', $result);
 
         // Test empty category (no entry for object):
-        $result = $this->cmdbCategory->readFirst(
+        $result = $this->useCMDBCategory()->readFirst(
             $objectID,
             'C__CATG__ACCESS'
         );
@@ -980,7 +980,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID = $this->createServer();
 
         // Test single-value category:
-        $itself = $this->cmdbCategory->update(
+        $itself = $this->useCMDBCategory()->update(
             $objectID,
             'C__CATG__GLOBAL',
             [
@@ -999,7 +999,7 @@ class CMDBCategoryTest extends BaseTest {
         }
 
         for ($i = 0; $i < $amount; $i++) {
-            $itself = $this->cmdbCategory->update($objectID, 'C__CATG__IP', [
+            $itself = $this->useCMDBCategory()->update($objectID, 'C__CATG__IP', [
                 'ipv4_address' => $this->generateIPv4Address()
             ], $entryIDs[$i]);
 
@@ -1015,7 +1015,7 @@ class CMDBCategoryTest extends BaseTest {
         $objectID2 = $this->createServer();
 
         // Single-valued category:
-        $result = $this->cmdbCategory->batchCreate(
+        $result = $this->useCMDBCategory()->batchCreate(
             [$objectID1, $objectID2],
             'C__CATG__MODEL',
             [
@@ -1037,7 +1037,7 @@ class CMDBCategoryTest extends BaseTest {
         }
 
         // Multi-valued category:
-        $result = $this->cmdbCategory->batchCreate(
+        $result = $this->useCMDBCategory()->batchCreate(
             [$objectID1, $objectID2],
             'C__CATG__IP',
             [
@@ -1082,7 +1082,7 @@ class CMDBCategoryTest extends BaseTest {
         $this->defineModel($objectID1);
         $this->defineModel($objectID2);
 
-        $batchResult = $this->cmdbCategory->batchRead(
+        $batchResult = $this->useCMDBCategory()->batchRead(
             [$objectID1, $objectID2],
             ['C__CATG__IP', 'C__CATG__MODEL']
         );
@@ -1110,7 +1110,7 @@ class CMDBCategoryTest extends BaseTest {
         $entryIDs[] = $this->defineModel($objectID1);
         $entryIDs[] = $this->defineModel($objectID2);
 
-        $itself = $this->cmdbCategory->batchUpdate(
+        $itself = $this->useCMDBCategory()->batchUpdate(
             [$objectID1, $objectID2],
             'C__CATG__MODEL',
             [

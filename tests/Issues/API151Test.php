@@ -542,7 +542,7 @@ class API151Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             $categoryConstant,
             [
@@ -556,7 +556,7 @@ class API151Test extends BaseTest {
          * Check data:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             $categoryConstant
         );
@@ -620,7 +620,7 @@ class API151Test extends BaseTest {
         $objectID = $this->createServer();
         $this->isID($objectID);
 
-        $entryID = $this->cmdbCategory->save(
+        $entryID = $this->useCMDBCategory()->save(
             $objectID,
             $categoryConstant,
             [
@@ -634,7 +634,7 @@ class API151Test extends BaseTest {
          * Alter data:
          */
 
-        $updatedID = $this->cmdbCategory->save(
+        $updatedID = $this->useCMDBCategory()->save(
             $objectID,
             $categoryConstant,
             [
@@ -648,7 +648,7 @@ class API151Test extends BaseTest {
          * Check data:
          */
 
-        $entries = $this->cmdbCategory->read(
+        $entries = $this->useCMDBCategory()->read(
             $objectID,
             $categoryConstant
         );

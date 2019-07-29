@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\CMDBDialog;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use bheisig\idoitapi\tests\Extension\Statistics;
 use \Exception;
 use PHPUnit\Framework\TestCase;
@@ -56,6 +58,11 @@ abstract class BaseTest extends TestCase {
      * @var CMDBCategory
      */
     protected $cmdbCategory;
+
+    /**
+     * @var CMDBDialog
+     */
+    protected $cmdbDialog;
 
     /**
      * Information about this project
@@ -137,10 +144,6 @@ abstract class BaseTest extends TestCase {
         }
 
         $this->api = new API($config);
-
-        $this->cmdbObject = new CMDBObject($this->api);
-        $this->cmdbObjects = new CMDBObjects($this->api);
-        $this->cmdbCategory = new CMDBCategory($this->api);
     }
 
     public function tearDown(): void {
@@ -148,6 +151,38 @@ abstract class BaseTest extends TestCase {
             Statistics::API_REQUEST_COUNTER,
             $this->api->countRequests()
         );
+    }
+
+    public function useCMDBObject(): CMDBObject {
+        if (!isset($this->cmdbObject)) {
+            $this->cmdbObject = new CMDBObject($this->api);
+        }
+
+        return $this->cmdbObject;
+    }
+
+    public function useCMDBObjects(): CMDBObjects {
+        if (!isset($this->cmdbObjects)) {
+            $this->cmdbObjects = new CMDBObjects($this->api);
+        }
+
+        return $this->cmdbObjects;
+    }
+
+    public function useCMDBCategory(): CMDBCategory {
+        if (!isset($this->cmdbCategory)) {
+            $this->cmdbCategory = new CMDBCategory($this->api);
+        }
+
+        return $this->cmdbCategory;
+    }
+
+    public function useCMDBDialog(): CMDBDialog {
+        if (!isset($this->cmdbDialog)) {
+            $this->cmdbDialog = new CMDBDialog($this->api);
+        }
+
+        return $this->cmdbDialog;
     }
 
     /**
@@ -158,8 +193,8 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function createServer(): int {
-        return $this->cmdbObject->create(
-            'C__OBJTYPE__SERVER',
+        return $this->useCMDBObject()->create(
+            ObjectType::SERVER,
             $this->generateRandomString()
         );
     }
@@ -180,12 +215,12 @@ abstract class BaseTest extends TestCase {
             $lastName
         );
 
-        $personID = $this->cmdbObject->create(
+        $personID = $this->useCMDBObject()->create(
             'C__OBJTYPE__PERSON',
             $firstName . ' ' . $lastName
         );
 
-        $this->cmdbCategory->save(
+        $this->useCMDBCategory()->save(
             $personID,
             'C__CATG__MAIL_ADDRESSES',
             [
@@ -211,7 +246,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function createWorkstation(): int {
-        $workstationID = $this->cmdbObject->create(
+        $workstationID = $this->useCMDBObject()->create(
             'C__OBJTYPE__WORKSTATION',
             $this->generateRandomString()
         );
@@ -230,7 +265,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function addPersonToWorkstation(int $personID, int $workstationID): int {
-        return $this->cmdbCategory->create(
+        return $this->useCMDBCategory()->create(
             $workstationID,
             'C__CATG__LOGICAL_UNIT',
             [
@@ -251,12 +286,12 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function addWorkstationComponent(int $workstationID, string $objectTypeConst): int {
-        $componentID = $this->cmdbObject->create(
+        $componentID = $this->useCMDBObject()->create(
             $objectTypeConst,
             $this->generateRandomString()
         );
 
-        return $this->cmdbCategory->create(
+        return $this->useCMDBCategory()->create(
             $componentID,
             'C__CATG__ASSIGNED_WORKSTATION',
             [
@@ -274,7 +309,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function getIPv4Net(): int {
-        return $this->cmdbObjects->getID('Global v4', 'C__OBJTYPE__LAYER3_NET');
+        return $this->useCMDBObjects()->getID('Global v4', 'C__OBJTYPE__LAYER3_NET');
     }
 
     /**
@@ -285,7 +320,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function getRootLocation(): int {
-        return $this->cmdbObjects->getID('Root location', 'C__OBJTYPE__LOCATION_GENERIC');
+        return $this->useCMDBObjects()->getID('Root location', 'C__OBJTYPE__LOCATION_GENERIC');
     }
 
     /**
@@ -296,9 +331,9 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function createSubnet(): int {
-        $netID = $this->cmdbObject->create('C__OBJTYPE__LAYER3_NET', $this->generateRandomString());
+        $netID = $this->useCMDBObject()->create('C__OBJTYPE__LAYER3_NET', $this->generateRandomString());
 
-        $this->cmdbCategory->create($netID, 'C__CATS__NET', [
+        $this->useCMDBCategory()->create($netID, 'C__CATS__NET', [
             'type' => 1, // IPv4
             'address' => '10.0.0.0',
             'netmask' => '255.0.0.0'
@@ -318,7 +353,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function addIPv4(int $objectID, int $subnetID = null): int {
-        return $this->cmdbCategory->create(
+        return $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__IP',
             [
@@ -343,7 +378,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function defineModel(int $objectID): int {
-        return $this->cmdbCategory->create(
+        return $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__MODEL',
             [
@@ -366,7 +401,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function addObjectToLocation(int $objectID, int $locationID): int {
-        return $this->cmdbCategory->create(
+        return $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__LOCATION',
             [
@@ -388,7 +423,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function addContact(int $objectID, int $contactID, int $roleID = 1): int {
-        return $this->cmdbCategory->create(
+        return $this->useCMDBCategory()->create(
             $objectID,
             'C__CATG__CONTACT',
             [
@@ -750,7 +785,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function isNormal(int $objectID) {
-        $object = $this->cmdbObject->read($objectID);
+        $object = $this->useCMDBObject()->read($objectID);
         $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
@@ -763,7 +798,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function isArchived(int $objectID) {
-        $object = $this->cmdbObject->read($objectID);
+        $object = $this->useCMDBObject()->read($objectID);
         $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
@@ -776,7 +811,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function isDeleted(int $objectID) {
-        $object = $this->cmdbObject->read($objectID);
+        $object = $this->useCMDBObject()->read($objectID);
         $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
@@ -789,7 +824,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function isPurged(int $objectID) {
-        $result = $this->cmdbObject->read($objectID);
+        $result = $this->useCMDBObject()->read($objectID);
         $this->assertCount(0, $result);
     }
 
@@ -799,7 +834,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function isTemplate(int $objectID) {
-        $object = $this->cmdbObject->read($objectID);
+        $object = $this->useCMDBObject()->read($objectID);
         $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
@@ -812,7 +847,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function isMassChangeTemplate(int $objectID) {
-        $object = $this->cmdbObject->read($objectID);
+        $object = $this->useCMDBObject()->read($objectID);
         $this->assertIsArray($object);
 
         $this->assertArrayHasKey('status', $object);
@@ -831,7 +866,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function isNormalEntry(int $objectID, string $categoryConstant, int $entryID) {
-        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 2);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, $categoryConstant, $entryID, 2);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
@@ -855,7 +890,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function isArchivedEntry(int $objectID, string $categoryConstant, int $entryID) {
-        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 3);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, $categoryConstant, $entryID, 3);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
@@ -879,7 +914,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function isDeletedEntry(int $objectID, string $categoryConstant, int $entryID) {
-        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID, 4);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, $categoryConstant, $entryID, 4);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
@@ -902,7 +937,7 @@ abstract class BaseTest extends TestCase {
      */
     protected function isNotAvailable(int $objectID, string $categoryConstant, int $entryID) {
         $this->expectException(Exception::class);
-        $result = $this->cmdbCategory->readOneByID($objectID, $categoryConstant, $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, $categoryConstant, $entryID);
         $this->assertIsArray($result);
     }
 

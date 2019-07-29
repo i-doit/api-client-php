@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -57,7 +58,7 @@ class API166Test extends BaseTest {
             'method' => 'cmdb.category.archive',
             'params' => [
                 'object' => $objectID,
-                'category' => 'C__CATG__ACCOUNTING',
+                'category' => Category::CATG__ACCOUNTING,
                 'entry' => $entryID,
                 'apikey' => getenv('KEY')
             ],
@@ -99,7 +100,7 @@ class API166Test extends BaseTest {
             'method' => 'cmdb.category.delete',
             'params' => [
                 'object' => $objectID,
-                'category' => 'C__CATG__ACCOUNTING',
+                'category' => Category::CATG__ACCOUNTING,
                 'entry' => $entryID,
                 'apikey' => getenv('KEY')
             ],
@@ -141,7 +142,7 @@ class API166Test extends BaseTest {
             'method' => 'cmdb.category.purge',
             'params' => [
                 'object' => $objectID,
-                'category' => 'C__CATG__ACCOUNTING',
+                'category' => Category::CATG__ACCOUNTING,
                 'entry' => $entryID,
                 'apikey' => getenv('KEY')
             ],
@@ -183,7 +184,7 @@ class API166Test extends BaseTest {
             'method' => 'cmdb.category.quickpurge',
             'params' => [
                 'objID' => $objectID,
-                'category' => 'C__CATG__ACCOUNTING',
+                'category' => Category::CATG__ACCOUNTING,
                 'cateID' => $entryID,
                 'apikey' => getenv('KEY')
             ],
@@ -225,7 +226,7 @@ class API166Test extends BaseTest {
             'method' => 'cmdb.category.archive',
             'params' => [
                 'object' => $objectID,
-                'category' => 'C__CATG__NETWORK_PORT',
+                'category' => Category::CATG__NETWORK_PORT,
                 'entry' => $entryID,
                 'apikey' => getenv('KEY')
             ],
@@ -268,7 +269,7 @@ class API166Test extends BaseTest {
             'method' => 'cmdb.category.delete',
             'params' => [
                 'object' => $objectID,
-                'category' => 'C__CATG__NETWORK_PORT',
+                'category' => Category::CATG__NETWORK_PORT,
                 'entry' => $entryID,
                 'apikey' => getenv('KEY')
             ],
@@ -311,7 +312,7 @@ class API166Test extends BaseTest {
             'method' => 'cmdb.category.purge',
             'params' => [
                 'object' => $objectID,
-                'category' => 'C__CATG__NETWORK_PORT',
+                'category' => Category::CATG__NETWORK_PORT,
                 'entry' => $entryID,
                 'apikey' => getenv('KEY')
             ],
@@ -354,7 +355,7 @@ class API166Test extends BaseTest {
             'method' => 'cmdb.category.quickpurge',
             'params' => [
                 'objID' => $objectID,
-                'category' => 'C__CATG__NETWORK_PORT',
+                'category' => Category::CATG__NETWORK_PORT,
                 'cateID' => $entryID,
                 'apikey' => getenv('KEY')
             ],

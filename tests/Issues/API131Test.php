@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -43,9 +45,9 @@ class API131Test extends BaseTest {
         $firstName = 'John';
         $lastName = 'Doe';
         $title = $firstName . ' ' . $lastName;
-        $categoryConstant = 'C__CATS__PERSON_MASTER';
+        $categoryConstant = Category::CATS__PERSON_MASTER;
 
-        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__PERSON', $title);
+        $objectID = $this->useCMDBObject()->create(ObjectType::PERSON, $title);
 
         // Original:
 
@@ -133,9 +135,9 @@ class API131Test extends BaseTest {
      */
     public function testPersonGroup() {
         $title = $this->generateRandomString();
-        $categoryConstant = 'C__CATS__PERSON_GROUP_MASTER';
+        $categoryConstant = Category::CATS__PERSON_GROUP_MASTER;
 
-        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__PERSON_GROUP', $title);
+        $objectID = $this->useCMDBObject()->create(ObjectType::PERSON_GROUP, $title);
 
         // Original:
 
@@ -206,9 +208,9 @@ class API131Test extends BaseTest {
      */
     public function testOrganization() {
         $title = $this->generateRandomString();
-        $categoryConstant = 'C__CATS__ORGANIZATION_MASTER_DATA';
+        $categoryConstant = Category::CATS__ORGANIZATION_MASTER_DATA;
 
-        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__ORGANIZATION', $title);
+        $objectID = $this->useCMDBObject()->create(ObjectType::ORGANIZATION, $title);
 
         // Original:
 

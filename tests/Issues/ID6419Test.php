@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -82,7 +83,7 @@ class ID6419Test extends BaseTest {
 
         $entryID = $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATG__NETWORK_PORT',
+            Category::CATG__NETWORK_PORT,
             [
                 'mac' => $mac
             ]
@@ -96,7 +97,7 @@ class ID6419Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $objectID,
-            'C__CATG__NETWORK_PORT'
+            Category::CATG__NETWORK_PORT
         );
 
         $this->assertIsArray($entries);
@@ -131,7 +132,7 @@ class ID6419Test extends BaseTest {
 
         $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATG__NETWORK_PORT',
+            Category::CATG__NETWORK_PORT,
             [
                 'mac' => $mac
             ]

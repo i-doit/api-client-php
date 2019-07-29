@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\CMDBCategory;
 use bheisig\idoitapi\tests\BaseTest;
@@ -49,14 +51,14 @@ class API150Test extends BaseTest {
         $this->isID($person['id']);
 
         $personGroupID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__PERSON_GROUP',
+            ObjectType::PERSON_GROUP,
             $this->generateRandomString()
         );
         $this->isID($personGroupID);
 
         $entryID = $this->useCMDBCategory()->save(
             $personGroupID,
-            'C__CATS__PERSON_GROUP_MEMBERS',
+            Category::CATS__PERSON_GROUP_MEMBERS,
             [
                 'connected_object' => $person['id']
             ]
@@ -69,7 +71,7 @@ class API150Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $personGroupID,
-            'C__CATS__PERSON_GROUP_MEMBERS'
+            Category::CATS__PERSON_GROUP_MEMBERS
         );
 
         $this->assertIsArray($entries);
@@ -88,7 +90,7 @@ class API150Test extends BaseTest {
 
         $result = $this->useCMDBCategory()->quickPurge(
             $personGroupID,
-            'C__CATS__PERSON_GROUP_MEMBERS',
+            Category::CATS__PERSON_GROUP_MEMBERS,
             $entryID
         );
 
@@ -100,7 +102,7 @@ class API150Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $personGroupID,
-            'C__CATS__PERSON_GROUP_MEMBERS'
+            Category::CATS__PERSON_GROUP_MEMBERS
         );
 
         $this->assertIsArray($entries);
@@ -116,7 +118,7 @@ class API150Test extends BaseTest {
          */
 
         $personGroupID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__PERSON_GROUP',
+            ObjectType::PERSON_GROUP,
             $this->generateRandomString()
         );
         $this->isID($personGroupID);
@@ -127,7 +129,7 @@ class API150Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $personGroupID,
-            'C__CATS__PERSON_GROUP_MEMBERS'
+            Category::CATS__PERSON_GROUP_MEMBERS
         );
 
         $this->assertIsArray($entries);
@@ -141,7 +143,7 @@ class API150Test extends BaseTest {
 
         $this->useCMDBCategory()->quickPurge(
             $personGroupID,
-            'C__CATS__PERSON_GROUP_MEMBERS',
+            Category::CATS__PERSON_GROUP_MEMBERS,
             $this->generateRandomID()
         );
     }
@@ -158,14 +160,14 @@ class API150Test extends BaseTest {
         $this->isID($person['id']);
 
         $personGroupID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__PERSON_GROUP',
+            ObjectType::PERSON_GROUP,
             $this->generateRandomString()
         );
         $this->isID($personGroupID);
 
         $entryID = $this->useCMDBCategory()->save(
             $personGroupID,
-            'C__CATS__PERSON_GROUP_MEMBERS',
+            Category::CATS__PERSON_GROUP_MEMBERS,
             [
                 'connected_object' => $person['id']
             ]
@@ -178,7 +180,7 @@ class API150Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $personGroupID,
-            'C__CATS__PERSON_GROUP_MEMBERS'
+            Category::CATS__PERSON_GROUP_MEMBERS
         );
 
         $this->assertIsArray($entries);
@@ -199,7 +201,7 @@ class API150Test extends BaseTest {
 
         $this->useCMDBCategory()->quickPurge(
             $personGroupID,
-            'C__CATS__PERSON_GROUP_MEMBERS',
+            Category::CATS__PERSON_GROUP_MEMBERS,
             $this->generateRandomID()
         );
     }

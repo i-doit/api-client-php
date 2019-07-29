@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -47,7 +48,7 @@ class API143Test extends BaseTest {
 
         $entryID = $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'title' => $this->generateRandomString(),
                 'manufacturer' => 'Amdtel'
@@ -55,7 +56,7 @@ class API143Test extends BaseTest {
         );
         $this->isID($entryID);
 
-        $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CPU', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, Category::CATG__CPU, $entryID);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('frequency', $result);
@@ -66,14 +67,14 @@ class API143Test extends BaseTest {
 
         $this->useCMDBCategory()->update(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'manufacturer' => 'Amdtel'
             ],
             $entryID
         );
 
-        $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CPU', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, Category::CATG__CPU, $entryID);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('frequency', $result);

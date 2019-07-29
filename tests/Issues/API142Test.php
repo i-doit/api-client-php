@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\Idoit;
 use bheisig\idoitapi\tests\BaseTest;
@@ -63,17 +65,17 @@ class API142Test extends BaseTest {
         $cpu2 = 'CPU 2 ' . $this->generateRandomString();
 
         $result = $this->useCMDBObject()->createWithCategories(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             $objectTitle,
             [
-                'C__CATG__MODEL' => [
+                Category::CATG__MODEL => [
                     [
                         'manufacturer' => $manufacturer,
                         'title' => $model,
                         'serial' => $serial
                     ]
                 ],
-                'C__CATG__CPU' => [
+                Category::CATG__CPU => [
                     [
                         'title' => $cpu1,
                     ],
@@ -105,14 +107,14 @@ class API142Test extends BaseTest {
         $serial = 'Serial ' . $this->generateRandomString();
 
         $objectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             $objectTitle
         );
         $this->isID($objectID);
 
         $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             [
                 'manufacturer' => $manufacturer,
                 'title' => $model,
@@ -134,14 +136,14 @@ class API142Test extends BaseTest {
         $cpu2 = 'CPU 2 ' . $this->generateRandomString();
 
         $objectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             $objectTitle
         );
         $this->isID($objectID);
 
         $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'title' => $cpu1,
             ]
@@ -149,7 +151,7 @@ class API142Test extends BaseTest {
 
         $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'title' => $cpu2,
             ]
@@ -169,7 +171,7 @@ class API142Test extends BaseTest {
         $serial = 'Serial ' . $this->generateRandomString();
 
         $objectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             $objectTitle
         );
         $this->isID($objectID);
@@ -178,7 +180,7 @@ class API142Test extends BaseTest {
 
         $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             [
                 'manufacturer' => $manufacturer,
                 'title' => $model,
@@ -200,14 +202,14 @@ class API142Test extends BaseTest {
         $cpu2 = 'CPU 2 ' . $this->generateRandomString();
 
         $objectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             $objectTitle
         );
         $this->isID($objectID);
 
         $entry1ID = $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'title' => $this->generateRandomString(),
             ]
@@ -215,7 +217,7 @@ class API142Test extends BaseTest {
 
         $entry2ID = $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'title' => $this->generateRandomString(),
             ]
@@ -223,7 +225,7 @@ class API142Test extends BaseTest {
 
         $this->useCMDBCategory()->update(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'title' => $cpu1,
             ],
@@ -232,7 +234,7 @@ class API142Test extends BaseTest {
 
         $this->useCMDBCategory()->update(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'title' => $cpu2,
             ],
@@ -253,14 +255,14 @@ class API142Test extends BaseTest {
         $serial = 'Serial ' . $this->generateRandomString();
 
         $objectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             $objectTitle
         );
         $this->isID($objectID);
 
         $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             [
                 'manufacturer' => $manufacturer,
                 'title' => $model,
@@ -282,14 +284,14 @@ class API142Test extends BaseTest {
         $cpu2 = 'CPU 2 ' . $this->generateRandomString();
 
         $objectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             $objectTitle
         );
         $this->isID($objectID);
 
         $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'title' => $cpu1,
             ]
@@ -297,7 +299,7 @@ class API142Test extends BaseTest {
 
         $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             [
                 'title' => $cpu2,
             ]

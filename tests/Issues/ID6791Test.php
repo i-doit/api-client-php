@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -60,7 +61,7 @@ class ID6791Test extends BaseTest {
         // This failed with an HTTP status code 500:
         $portID = $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATG__NETWORK_PORT',
+            Category::CATG__NETWORK_PORT,
             [
                 'active' => 1,
                 'title' => 'eth0',
@@ -78,7 +79,7 @@ class ID6791Test extends BaseTest {
 
         $ports = $this->useCMDBCategory()->read(
             $objectID,
-            'C__CATG__NETWORK_PORT'
+            Category::CATG__NETWORK_PORT
         );
 
         $this->assertIsArray($ports);
@@ -120,7 +121,7 @@ class ID6791Test extends BaseTest {
 
         $ip1ID = $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__IP',
+            Category::CATG__IP,
             [
                 'net' => $this->getIPv4Net(),
                 'active' => mt_rand(0, 1),
@@ -135,7 +136,7 @@ class ID6791Test extends BaseTest {
 
         $ip2ID = $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__IP',
+            Category::CATG__IP,
             [
                 'net' => $this->getIPv4Net(),
                 'active' => mt_rand(0, 1),
@@ -155,7 +156,7 @@ class ID6791Test extends BaseTest {
         // This failed with an HTTP status code 500:
         $portID = $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATG__NETWORK_PORT',
+            Category::CATG__NETWORK_PORT,
             [
                 'active' => 1,
                 'title' => 'eth0',
@@ -173,7 +174,7 @@ class ID6791Test extends BaseTest {
 
         $ports = $this->useCMDBCategory()->read(
             $objectID,
-            'C__CATG__NETWORK_PORT'
+            Category::CATG__NETWORK_PORT
         );
 
         $this->assertIsArray($ports);
@@ -213,7 +214,7 @@ class ID6791Test extends BaseTest {
 
         $this->assertArrayHasKey('type', $address);
         $this->assertIsString($address['type']);
-        $this->assertSame('C__CATG__IP', $address['type']);
+        $this->assertSame(Category::CATG__IP, $address['type']);
     }
 
 }

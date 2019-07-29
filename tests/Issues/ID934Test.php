@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 use bheisig\idoitapi\CMDBCategoryInfo;
@@ -42,20 +43,20 @@ class ID934Test extends BaseTest {
      */
     public function testGetCategoryInfo() {
         $categoryConstants = [
-            'C__CMDB__SUBCAT__NETWORK_PORT' => 'C__CATG__NETWORK_PORT',
-            'C__CMDB__SUBCAT__NETWORK_INTERFACE_P' => 'C__CATG__NETWORK_INTERFACE',
-            'C__CMDB__SUBCAT__NETWORK_INTERFACE_L' => 'C__CATG__NETWORK_LOG_PORT',
-            'C__CMDB__SUBCAT__NETWORK_PORT_OVERVIEW' => 'C__CATG__NETWORK_PORT_OVERVIEW',
-            'C__CMDB__SUBCAT__STORAGE__DEVICE' => 'C__CATG__STORAGE_DEVICE',
-            'C__CMDB__SUBCAT__LICENCE_LIST' => 'C__CATS__LICENCE_LIST',
-            'C__CMDB__SUBCAT__LICENCE_OVERVIEW' => 'C__CATS__LICENCE_OVERVIEW',
-            'C__CMDB__SUBCAT__EMERGENCY_PLAN_LINKED_OBJECT_LIST' => 'C__CATS__EMERGENCY_PLAN_LINKED_OBJECTS',
-            'C__CMDB__SUBCAT__EMERGENCY_PLAN' => 'C__CATS__EMERGENCY_PLAN_ATTRIBUTE',
-            'C__CMDB__SUBCAT__WS_NET_TYPE' => 'C__CATS__WS_NET_TYPE',
-            'C__CMDB__SUBCAT__WS_ASSIGNMENT' => 'C__CATS__WS_ASSIGNMENT',
-            'C__CMDB__SUBCAT__FILE_OBJECTS' => 'C__CATS__FILE_OBJECTS',
-            'C__CMDB__SUBCAT__FILE_VERSIONS' => 'C__CATS__FILE_VERSIONS',
-            'C__CMDB__SUBCAT__FILE_ACTUAL' => 'C__CATS__FILE_ACTUAL',
+            'C__CMDB__SUBCAT__NETWORK_PORT' => Category::CATG__NETWORK_PORT,
+            'C__CMDB__SUBCAT__NETWORK_INTERFACE_P' => Category::CATG__NETWORK_INTERFACE,
+            'C__CMDB__SUBCAT__NETWORK_INTERFACE_L' => Category::CATG__NETWORK_LOG_PORT,
+            'C__CMDB__SUBCAT__NETWORK_PORT_OVERVIEW' => Category::CATG__NETWORK_PORT_OVERVIEW,
+            'C__CMDB__SUBCAT__STORAGE__DEVICE' => Category::CATG__STORAGE_DEVICE,
+            'C__CMDB__SUBCAT__LICENCE_LIST' => Category::CATS__LICENCE_LIST,
+            'C__CMDB__SUBCAT__LICENCE_OVERVIEW' => Category::CATS__LICENCE_OVERVIEW,
+            'C__CMDB__SUBCAT__EMERGENCY_PLAN_LINKED_OBJECT_LIST' => Category::CATS__EMERGENCY_PLAN_LINKED_OBJECTS,
+            'C__CMDB__SUBCAT__EMERGENCY_PLAN' => Category::CATS__EMERGENCY_PLAN_ATTRIBUTE,
+            'C__CMDB__SUBCAT__WS_NET_TYPE' => Category::CATS__WS_NET_TYPE,
+            'C__CMDB__SUBCAT__WS_ASSIGNMENT' => Category::CATS__WS_ASSIGNMENT,
+            'C__CMDB__SUBCAT__FILE_OBJECTS' => Category::CATS__FILE_OBJECTS,
+            'C__CMDB__SUBCAT__FILE_VERSIONS' => Category::CATS__FILE_VERSIONS,
+            'C__CMDB__SUBCAT__FILE_ACTUAL' => Category::CATS__FILE_ACTUAL,
         ];
 
         $cmdbCategoryInfo = new CMDBCategoryInfo($this->api);

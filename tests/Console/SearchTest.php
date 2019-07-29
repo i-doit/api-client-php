@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Console;
 
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\Console\Search;
 use bheisig\idoitapi\tests\BaseTest;
@@ -76,7 +77,7 @@ class SearchTest extends BaseTest {
         $title = $this->generateRandomString();
 
         $this->useCMDBObject()->create(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             $title
         );
 

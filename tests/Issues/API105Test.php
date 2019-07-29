@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -40,24 +42,24 @@ class API105Test extends BaseTest {
      * @throws Exception on error
      */
     public function testIssue() {
-        $hostID = $this->useCMDBObject()->create('C__OBJTYPE__SERVER', 'My little server');
-        $osID = $this->useCMDBObject()->create('C__OBJTYPE__OPERATING_SYSTEM', 'My little os');
+        $hostID = $this->useCMDBObject()->create(ObjectType::SERVER, 'My little server');
+        $osID = $this->useCMDBObject()->create(ObjectType::OPERATING_SYSTEM, 'My little os');
 
         // Install OS:
 
-        $versionID = $this->useCMDBCategory()->create($osID, 'C__CATG__VERSION', [
+        $versionID = $this->useCMDBCategory()->create($osID, Category::CATG__VERSION, [
             'title' => '1.0.0'
         ]);
-        $variantID = $this->useCMDBCategory()->create($osID, 'C__CATS__APPLICATION_VARIANT', [
+        $variantID = $this->useCMDBCategory()->create($osID, Category::CATS__APPLICATION_VARIANT, [
             'title' => 'home',
             'variant' => 'home'
         ]);
-        $this->useCMDBCategory()->create($hostID, 'C__CATG__OPERATING_SYSTEM', [
+        $this->useCMDBCategory()->create($hostID, Category::CATG__OPERATING_SYSTEM, [
             'application' => $osID,
             'assigned_version' => $versionID,
             'assigned_variant' => $variantID
         ]);
-        $entries = $this->useCMDBCategory()->read($hostID, 'C__CATG__OPERATING_SYSTEM');
+        $entries = $this->useCMDBCategory()->read($hostID, Category::CATG__OPERATING_SYSTEM);
 
         $this->assertIsArray($entries);
         $this->assertArrayHasKey(0, $entries);
@@ -68,19 +70,19 @@ class API105Test extends BaseTest {
 
         // Update OS:
 
-        $versionID = $this->useCMDBCategory()->create($osID, 'C__CATG__VERSION', [
+        $versionID = $this->useCMDBCategory()->create($osID, Category::CATG__VERSION, [
             'title' => '2.0.0'
         ]);
-        $variantID = $this->useCMDBCategory()->create($osID, 'C__CATS__APPLICATION_VARIANT', [
+        $variantID = $this->useCMDBCategory()->create($osID, Category::CATS__APPLICATION_VARIANT, [
             'title' => 'enterprise',
             'variant' => 'enterprise'
         ]);
-        $this->useCMDBCategory()->update($hostID, 'C__CATG__OPERATING_SYSTEM', [
+        $this->useCMDBCategory()->update($hostID, Category::CATG__OPERATING_SYSTEM, [
             'application' => $osID,
             'assigned_version' => $versionID,
             'assigned_variant' => $variantID
         ]);
-        $entries = $this->useCMDBCategory()->read($hostID, 'C__CATG__OPERATING_SYSTEM');
+        $entries = $this->useCMDBCategory()->read($hostID, Category::CATG__OPERATING_SYSTEM);
 
         $this->assertIsArray($entries);
         $this->assertArrayHasKey(0, $entries);

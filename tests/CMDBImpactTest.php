@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use \RuntimeException;
 use bheisig\idoitapi\CMDBImpact;
@@ -58,7 +60,7 @@ class CMDBImpactTest extends BaseTest {
         $objectID = $this->createServer();
         $rootLocationID = $this->getRootLocation();
         $roomID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__ROOM',
+            ObjectType::ROOM,
             $this->generateRandomString()
         );
 
@@ -89,7 +91,7 @@ class CMDBImpactTest extends BaseTest {
         $objectID = $this->createServer();
         $rootLocationID = $this->getRootLocation();
         $roomID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__ROOM',
+            ObjectType::ROOM,
             $this->generateRandomString()
         );
 
@@ -242,7 +244,7 @@ class CMDBImpactTest extends BaseTest {
 
         $entryID = $this->addContact($objectID, $user['id'], 2);
 
-        $this->useCMDBCategory()->archive($objectID, 'C__CATG__CONTACT', $entryID);
+        $this->useCMDBCategory()->archive($objectID, Category::CATG__CONTACT, $entryID);
 
         $result = $this->instance->readByConst(
             $objectID,
@@ -283,7 +285,7 @@ class CMDBImpactTest extends BaseTest {
 
         $entryID = $this->addContact($objectID, $user['id'], 2);
 
-        $this->useCMDBCategory()->delete($objectID, 'C__CATG__CONTACT', $entryID);
+        $this->useCMDBCategory()->delete($objectID, Category::CATG__CONTACT, $entryID);
 
         $result = $this->instance->readByConst(
             $objectID,
@@ -340,14 +342,14 @@ class CMDBImpactTest extends BaseTest {
         $this->isID($hostID);
 
         $clusterID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__CLUSTER',
+            ObjectType::CLUSTER,
             $this->generateRandomString()
         );
         $this->isID($clusterID);
 
         $entryID = $this->useCMDBCategory()->save(
             $clusterID,
-            'C__CATG__CLUSTER_MEMBERS',
+            Category::CATG__CLUSTER_MEMBERS,
             [
                 'member' => [$hostID]
             ]

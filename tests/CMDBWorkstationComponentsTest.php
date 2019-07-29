@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\CMDBWorkstationComponents;
 
@@ -54,10 +55,10 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     public function testRead() {
         $person = $this->createPerson();
         $workstationID = $this->createWorkstation();
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__CLIENT');
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__VOIP_PHONE');
+        $this->addWorkstationComponent($workstationID, ObjectType::CLIENT);
+        $this->addWorkstationComponent($workstationID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstationID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstationID, ObjectType::VOIP_PHONE);
         $this->addPersonToWorkstation($person['id'], $workstationID);
 
         $result = $this->cmdbWorkstationComponents->read($person['id']);
@@ -74,18 +75,18 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     public function testBatchRead() {
         $person1 = $this->createPerson();
         $workstation1ID = $this->createWorkstation();
-        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__CLIENT');
-        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__VOIP_PHONE');
+        $this->addWorkstationComponent($workstation1ID, ObjectType::CLIENT);
+        $this->addWorkstationComponent($workstation1ID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstation1ID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstation1ID, ObjectType::VOIP_PHONE);
         $this->addPersonToWorkstation($person1['id'], $workstation1ID);
 
         $person2 = $this->createPerson();
         $workstation2ID = $this->createWorkstation();
-        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__CLIENT');
-        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__VOIP_PHONE');
+        $this->addWorkstationComponent($workstation2ID, ObjectType::CLIENT);
+        $this->addWorkstationComponent($workstation2ID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstation2ID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstation2ID, ObjectType::VOIP_PHONE);
         $this->addPersonToWorkstation($person2['id'], $workstation2ID);
 
         $result = $this->cmdbWorkstationComponents->batchRead([$person1['id'], $person2['id']]);
@@ -102,10 +103,10 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     public function testReadByEmail() {
         $person = $this->createPerson();
         $workstationID = $this->createWorkstation();
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__CLIENT');
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstationID, 'C__OBJTYPE__VOIP_PHONE');
+        $this->addWorkstationComponent($workstationID, ObjectType::CLIENT);
+        $this->addWorkstationComponent($workstationID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstationID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstationID, ObjectType::VOIP_PHONE);
         $this->addPersonToWorkstation($person['id'], $workstationID);
 
         $result = $this->cmdbWorkstationComponents->readByEmail($person['email']);
@@ -122,18 +123,18 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     public function testReadByEmails() {
         $person1 = $this->createPerson();
         $workstation1ID = $this->createWorkstation();
-        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__CLIENT');
-        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstation1ID, 'C__OBJTYPE__VOIP_PHONE');
+        $this->addWorkstationComponent($workstation1ID, ObjectType::CLIENT);
+        $this->addWorkstationComponent($workstation1ID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstation1ID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstation1ID, ObjectType::VOIP_PHONE);
         $this->addPersonToWorkstation($person1['id'], $workstation1ID);
 
         $person2 = $this->createPerson();
         $workstation2ID = $this->createWorkstation();
-        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__CLIENT');
-        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__MONITOR');
-        $this->addWorkstationComponent($workstation2ID, 'C__OBJTYPE__VOIP_PHONE');
+        $this->addWorkstationComponent($workstation2ID, ObjectType::CLIENT);
+        $this->addWorkstationComponent($workstation2ID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstation2ID, ObjectType::MONITOR);
+        $this->addWorkstationComponent($workstation2ID, ObjectType::VOIP_PHONE);
         $this->addPersonToWorkstation($person2['id'], $workstation2ID);
 
         $result = $this->cmdbWorkstationComponents->readByEmails([$person1['email'], $person2['email']]);

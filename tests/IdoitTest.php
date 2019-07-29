@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\Idoit;
 use bheisig\idoitapi\CMDBObject;
@@ -295,7 +296,7 @@ class IdoitTest extends BaseTest {
         // We need something to look for:
         $objectTitle = 'demo';
         $cmdbObject = new CMDBObject($this->api);
-        $cmdbObject->create('C__OBJTYPE__SERVER', $objectTitle);
+        $cmdbObject->create(ObjectType::SERVER, $objectTitle);
 
         $results = $this->instance->search('demo');
 
@@ -331,7 +332,7 @@ class IdoitTest extends BaseTest {
     public function testSearchForNewObject() {
         $objectTitle = $this->generateRandomString();
         $cmdbObject = new CMDBObject($this->api);
-        $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $objectTitle);
+        $objectID = $cmdbObject->create(ObjectType::SERVER, $objectTitle);
         $results = $this->instance->search($objectTitle);
 
         $this->assertIsArray($results);

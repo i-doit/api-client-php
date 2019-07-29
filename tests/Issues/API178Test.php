@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -48,7 +50,7 @@ class API178Test extends BaseTest {
         $this->isID($rootID);
 
         $rackID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__ENCLOSURE',
+            ObjectType::ENCLOSURE,
             $this->generateRandomString()
         );
         $this->isID($rackID);
@@ -57,14 +59,14 @@ class API178Test extends BaseTest {
         $this->isID($rackLocationID);
 
         $segmentID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__RACK_SEGMENT',
+            ObjectType::RACK_SEGMENT,
             $this->generateRandomString()
         );
         $this->isID($segmentID);
 
         $chassisViewID = $this->useCMDBCategory()->save(
             $segmentID,
-            'C__CATS__CHASSIS_VIEW',
+            Category::CATS__CHASSIS_VIEW,
             [
                 'front_x' => 2,
                 'front_y' => 1,
@@ -76,7 +78,7 @@ class API178Test extends BaseTest {
 
         $slot1ID = $this->useCMDBCategory()->save(
             $segmentID,
-            'C__CATS__CHASSIS_SLOT',
+            Category::CATS__CHASSIS_SLOT,
             [
                 'title' => 'Slot #1',
                 'from_x' => 0,
@@ -90,7 +92,7 @@ class API178Test extends BaseTest {
 
         $slot2ID = $this->useCMDBCategory()->save(
             $segmentID,
-            'C__CATS__CHASSIS_SLOT',
+            Category::CATS__CHASSIS_SLOT,
             [
                 'title' => 'Slot #2',
                 'from_x' => 1,
@@ -107,7 +109,7 @@ class API178Test extends BaseTest {
 
         $assignedDeviceID = $this->useCMDBCategory()->save(
             $segmentID,
-            'C__CATS__CHASSIS_DEVICES',
+            Category::CATS__CHASSIS_DEVICES,
             [
                 'assigned_device' => $hostID,
                 'assigned_slots' => [$slot1ID]
@@ -121,7 +123,7 @@ class API178Test extends BaseTest {
 
         $assignedDevices = $this->useCMDBCategory()->read(
             $segmentID,
-            'C__CATS__CHASSIS_DEVICES'
+            Category::CATS__CHASSIS_DEVICES
         );
 
         $this->assertIsArray($assignedDevices);
@@ -143,7 +145,7 @@ class API178Test extends BaseTest {
         $this->assertArrayHasKey('id', $assignedDevices[0]['assigned_slots'][0]);
         $this->assertSame($slot1ID, (int) $assignedDevices[0]['assigned_slots'][0]['id']);
         $this->assertArrayHasKey('type', $assignedDevices[0]['assigned_slots'][0]);
-        $this->assertSame('C__CATS__CHASSIS_SLOT', $assignedDevices[0]['assigned_slots'][0]['type']);
+        $this->assertSame(Category::CATS__CHASSIS_SLOT, $assignedDevices[0]['assigned_slots'][0]['type']);
         $this->assertArrayHasKey('title', $assignedDevices[0]['assigned_slots'][0]);
         $this->assertSame('Slot #1', $assignedDevices[0]['assigned_slots'][0]['title']);
 
@@ -153,7 +155,7 @@ class API178Test extends BaseTest {
 
         $slots = $this->useCMDBCategory()->read(
             $segmentID,
-            'C__CATS__CHASSIS_SLOT'
+            Category::CATS__CHASSIS_SLOT
         );
 
         $this->assertIsArray($slots);
@@ -174,7 +176,7 @@ class API178Test extends BaseTest {
         $this->assertArrayHasKey('id', $slots[0]['assigned_devices'][0]);
         $this->assertSame($assignedDeviceID, (int) $slots[0]['assigned_devices'][0]['id']);
         $this->assertArrayHasKey('type', $slots[0]['assigned_devices'][0]);
-        $this->assertSame('C__CATS__CHASSIS_DEVICES', $slots[0]['assigned_devices'][0]['type']);
+        $this->assertSame(Category::CATS__CHASSIS_DEVICES, $slots[0]['assigned_devices'][0]['type']);
         $this->assertArrayHasKey('title', $slots[0]['assigned_devices'][0]);
         $this->assertIsString($slots[0]['assigned_devices'][0]['title']);
 
@@ -191,7 +193,7 @@ class API178Test extends BaseTest {
 
         $chassisView = $this->useCMDBCategory()->read(
             $segmentID,
-            'C__CATS__CHASSIS_VIEW'
+            Category::CATS__CHASSIS_VIEW
         );
 
         $this->assertIsArray($chassisView);

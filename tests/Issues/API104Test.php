@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -45,14 +47,14 @@ class API104Test extends BaseTest {
         $hostID = $this->createServer();
         $entryID = $this->addIPv4($hostID, $subnetID);
 
-        $result = $this->useCMDBCategory()->readOneByID($hostID, 'C__CATG__IP', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($hostID, Category::CATG__IP, $entryID);
         $this->assertArrayHasKey('zone', $result);
         // This failed because "zone" was an empty array:
         $this->assertNull($result['zone']);
 
         // Just an additional check:
         $this->createNetZone($subnetID);
-        $result = $this->useCMDBCategory()->readOneByID($hostID, 'C__CATG__IP', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($hostID, Category::CATG__IP, $entryID);
         $this->assertArrayHasKey('zone', $result);
         // Now it's an associative array in PHP/object in JSON:
         $this->assertIsArray($result['zone']);
@@ -69,9 +71,9 @@ class API104Test extends BaseTest {
      * @throws Exception on error
      */
     protected function createNetZone(int $subnetID): int {
-        $netZoneID = $this->useCMDBObject()->create('C__OBJTYPE__NET_ZONE', 'Reserved IP addresses');
+        $netZoneID = $this->useCMDBObject()->create(ObjectType::NET_ZONE, 'Reserved IP addresses');
 
-        $this->useCMDBCategory()->create($subnetID, 'C__CATS__NET_ZONE', [
+        $this->useCMDBCategory()->create($subnetID, Category::CATS__NET_ZONE, [
             'zone' => $netZoneID,
             'range_from' => '10.0.0.1',
             'range_to' => '10.255.255.254',

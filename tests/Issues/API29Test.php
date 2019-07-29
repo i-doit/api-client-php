@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 use bheisig\idoitapi\CMDBDialog;
@@ -62,7 +63,7 @@ class API29Test extends BaseTest {
         $personID = $person['id'];
         $this->isID($personID);
 
-        $roles = $this->cmdbDialog->read('C__CATG__CONTACT', 'role');
+        $roles = $this->cmdbDialog->read(Category::CATG__CONTACT, 'role');
 
         // This is a little overhead, because one role would be enough…
         foreach ($roles as $role) {
@@ -76,12 +77,12 @@ class API29Test extends BaseTest {
             $this->isOneLiner($role['title']);
 
             // 2nd test: Assign role by its title:
-            $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__CONTACT', [
+            $entryID = $this->useCMDBCategory()->create($objectID, Category::CATG__CONTACT, [
                 'contact' => $personID,
                 'role' => $role['title']
             ]);
 
-            $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
+            $result = $this->useCMDBCategory()->readOneByID($objectID, Category::CATG__CONTACT, $entryID);
 
             $this->assertIsArray($result);
             $this->assertArrayHasKey('id', $result);
@@ -103,12 +104,12 @@ class API29Test extends BaseTest {
             $this->assertSame($role['title'], $result['role']['title']);
 
             // 3rd test: Assign role by its identifier (as integer!):
-            $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__CONTACT', [
+            $entryID = $this->useCMDBCategory()->create($objectID, Category::CATG__CONTACT, [
                 'contact' => $personID,
                 'role' => (int) $role['id']
             ]);
 
-            $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
+            $result = $this->useCMDBCategory()->readOneByID($objectID, Category::CATG__CONTACT, $entryID);
 
             $this->assertIsArray($result);
             $this->assertArrayHasKey('id', $result);
@@ -130,12 +131,12 @@ class API29Test extends BaseTest {
             $this->assertSame($role['title'], $result['role']['title']);
 
             // 4th test: Assign role by its identifier (as string!):
-            $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__CONTACT', [
+            $entryID = $this->useCMDBCategory()->create($objectID, Category::CATG__CONTACT, [
                 'contact' => $personID,
                 'role' => $role['id']
             ]);
 
-            $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__CONTACT', $entryID);
+            $result = $this->useCMDBCategory()->readOneByID($objectID, Category::CATG__CONTACT, $entryID);
 
             $this->assertIsArray($result);
             $this->assertArrayHasKey('id', $result);

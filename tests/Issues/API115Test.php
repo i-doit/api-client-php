@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -58,14 +60,14 @@ class API115Test extends BaseTest {
          */
 
         $objectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__CLIENT',
+            ObjectType::CLIENT,
             $this->generateRandomString()
         );
         $this->isID($objectID);
 
         $entryID = $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATS__CLIENT',
+            Category::CATS__CLIENT,
             [
                 'type' => $identifier
             ]
@@ -78,7 +80,7 @@ class API115Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $objectID,
-            'C__CATS__CLIENT'
+            Category::CATS__CLIENT
         );
 
         $this->assertIsArray($entries);
@@ -113,14 +115,14 @@ class API115Test extends BaseTest {
          */
 
         $objectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__CLIENT',
+            ObjectType::CLIENT,
             $this->generateRandomString()
         );
         $this->isID($objectID);
 
         $entryID = $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATS__CLIENT',
+            Category::CATS__CLIENT,
             [
                 'type' => $title
             ]
@@ -133,7 +135,7 @@ class API115Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $objectID,
-            'C__CATS__CLIENT'
+            Category::CATS__CLIENT
         );
 
         $this->assertIsArray($entries);
@@ -168,14 +170,14 @@ class API115Test extends BaseTest {
          */
 
         $objectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__CLIENT',
+            ObjectType::CLIENT,
             $this->generateRandomString()
         );
         $this->isID($objectID);
 
         $entryID = $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATS__CLIENT',
+            Category::CATS__CLIENT,
             [
                 'type' => $constant
             ]
@@ -188,7 +190,7 @@ class API115Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $objectID,
-            'C__CATS__CLIENT'
+            Category::CATS__CLIENT
         );
 
         $this->assertIsArray($entries);

@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -49,7 +50,7 @@ class API76Test extends BaseTest {
         $entryID = $this->addIPv4($objectID, $subnetID);
         $this->isID($entryID);
 
-        $result = $this->useCMDBCategory()->readOneByID($objectID, 'C__CATG__IP', $entryID);
+        $result = $this->useCMDBCategory()->readOneByID($objectID, Category::CATG__IP, $entryID);
         $this->assertIsArray($result);
 
         // This failed because these arrays share the same content:

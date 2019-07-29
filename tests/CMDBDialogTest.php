@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\CMDBDialog;
 
@@ -55,7 +56,7 @@ class CMDBDialogTest extends BaseTest {
         $entryTitle = $this->generateRandomString();
 
         $entryID = $this->cmdbDialog->create(
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             'manufacturer',
             $entryTitle
         );
@@ -63,7 +64,7 @@ class CMDBDialogTest extends BaseTest {
         $this->isID($entryID);
 
         $entries = $this->cmdbDialog->read(
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             'manufacturer'
         );
 
@@ -86,7 +87,7 @@ class CMDBDialogTest extends BaseTest {
         $parentTitle = $this->generateRandomString();
 
         $parentID = $this->cmdbDialog->create(
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             'manufacturer',
             $parentTitle
         );
@@ -95,14 +96,14 @@ class CMDBDialogTest extends BaseTest {
         $entryTitle = $this->generateRandomString();
 
         $entryID = $this->cmdbDialog->create(
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             'title',
             $entryTitle,
             $parentTitle
         );
         $this->isID($entryID);
 
-        $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
+        $result = $this->cmdbDialog->read(Category::CATG__MODEL, 'title');
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
@@ -136,7 +137,7 @@ class CMDBDialogTest extends BaseTest {
         $parentTitle = $this->generateRandomString();
 
         $parentID = $this->cmdbDialog->create(
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             'manufacturer',
             $parentTitle
         );
@@ -145,14 +146,14 @@ class CMDBDialogTest extends BaseTest {
         $entryTitle = $this->generateRandomString();
 
         $entryID = $this->cmdbDialog->create(
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             'title',
             $entryTitle,
             $parentID
         );
         $this->isID($entryID);
 
-        $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
+        $result = $this->cmdbDialog->read(Category::CATG__MODEL, 'title');
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
@@ -188,7 +189,7 @@ class CMDBDialogTest extends BaseTest {
         $parentTitle = $this->generateRandomString();
 
         $parentID = $this->cmdbDialog->create(
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             'manufacturer',
             $parentTitle
         );
@@ -198,7 +199,7 @@ class CMDBDialogTest extends BaseTest {
 
         // This must fail because parent is unknown:
         $entryID = $this->cmdbDialog->create(
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             'title',
             $entryTitle,
             "$parentID"
@@ -217,7 +218,7 @@ class CMDBDialogTest extends BaseTest {
 
         // This must fail because parent is unknown:
         $entryID = $this->cmdbDialog->create(
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             'title',
             $entryTitle,
             $this->generateRandomString()
@@ -232,10 +233,10 @@ class CMDBDialogTest extends BaseTest {
     public function testCreateWithoutParent() {
         $value = $this->generateRandomString();
 
-        $dialogID = $this->cmdbDialog->create('C__CATG__MODEL', 'title', $value);
+        $dialogID = $this->cmdbDialog->create(Category::CATG__MODEL, 'title', $value);
         $this->isID($dialogID);
 
-        $result = $this->cmdbDialog->read('C__CATG__MODEL', 'title');
+        $result = $this->cmdbDialog->read(Category::CATG__MODEL, 'title');
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
 
@@ -308,10 +309,10 @@ class CMDBDialogTest extends BaseTest {
      */
     public function testBatchCreate() {
         $result = $this->cmdbDialog->batchCreate([
-            'C__CATG__CPU' => [
+            Category::CATG__CPU => [
                 'manufacturer' => 'ACME Semiconductor, Inc.'
             ],
-            'C__CATG__GLOBAL' => [
+            Category::CATG__GLOBAL => [
                 'category' => [
                     'cat 1',
                     'cat 2',
@@ -335,7 +336,7 @@ class CMDBDialogTest extends BaseTest {
      */
     public function testRead() {
         $result = $this->cmdbDialog->read(
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             'manufacturer'
         );
 
@@ -355,8 +356,8 @@ class CMDBDialogTest extends BaseTest {
      */
     public function testBatchRead() {
         $result = $this->cmdbDialog->batchRead([
-            'C__CATG__GLOBAL' => 'purpose',
-            'C__CATG__MODEL' => [
+            Category::CATG__GLOBAL => 'purpose',
+            Category::CATG__MODEL => [
                 'manufacturer',
                 'model'
             ]
@@ -373,7 +374,7 @@ class CMDBDialogTest extends BaseTest {
         $entryTitle = $this->generateRandomString();
 
         $entryID = $this->cmdbDialog->create(
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             'manufacturer',
             $entryTitle
         );
@@ -381,7 +382,7 @@ class CMDBDialogTest extends BaseTest {
         $this->isID($entryID);
 
         $result = $this->cmdbDialog->delete(
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             'manufacturer',
             $entryID
         );
@@ -390,7 +391,7 @@ class CMDBDialogTest extends BaseTest {
 
         // Verify
         $entries = $this->cmdbDialog->read(
-            'C__CATG__CPU',
+            Category::CATG__CPU,
             'manufacturer'
         );
 

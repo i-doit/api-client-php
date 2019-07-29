@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -42,16 +44,16 @@ class API130Test extends BaseTest {
      * @throws Exception
      */
     public function testIssue() {
-        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__SERVER', 'My host');
-        $applicationID = $this->useCMDBObject()->create('C__OBJTYPE__APPLICATION', 'My app');
-        $licenseID = $this->useCMDBObject()->create('C__OBJTYPE__LICENCE', 'My license');
-        $licenseKeyID = $this->useCMDBCategory()->create($licenseID, 'C__CATS__LICENCE_LIST', [
+        $objectID = $this->useCMDBObject()->create(ObjectType::SERVER, 'My host');
+        $applicationID = $this->useCMDBObject()->create(ObjectType::APPLICATION, 'My app');
+        $licenseID = $this->useCMDBObject()->create(ObjectType::LICENCE, 'My license');
+        $licenseKeyID = $this->useCMDBCategory()->create($licenseID, Category::CATS__LICENCE_LIST, [
             'key' => '123-xyz',
             'type' => 2, // Volume
             'amount' => 1000
         ]);
         // This failed because of last two attributes:
-        $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__APPLICATION', [
+        $entryID = $this->useCMDBCategory()->create($objectID, Category::CATG__APPLICATION, [
             'application' => $applicationID,
             'assigned_license' => $licenseKeyID
         ]);

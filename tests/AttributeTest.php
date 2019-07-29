@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use \DomainException;
 
@@ -76,7 +78,7 @@ class AttributeTest extends BaseTest {
      */
     protected function createTestObject(): int {
         return $this->useCMDBObject()->create(
-            'C__OBJTYPE__GENERIC_TEMPLATE',
+            ObjectType::GENERIC_TEMPLATE,
             $this->generateRandomString()
         );
     }
@@ -88,8 +90,8 @@ class AttributeTest extends BaseTest {
         $parameters = [];
 
         $blacklistedCategories = array_merge([
-            'C__CATG__GLOBAL',
-            'C__CATG__LOGBOOK'
+            Category::CATG__GLOBAL,
+            Category::CATG__LOGBOOK
         ], $this->virtualCategories);
 
         foreach ($this->categories as $categoryConst => $attributes) {
@@ -107,16 +109,16 @@ class AttributeTest extends BaseTest {
         $parameters = [];
 
         $blacklistedCategories = array_merge([
-            'C__CATG__GLOBAL',
-            'C__CATG__LOGBOOK'
+            Category::CATG__GLOBAL,
+            Category::CATG__LOGBOOK
         ], $this->virtualCategories);
 
         // @todo For a quick win we test popular categories at first:
         $whitlistedCategories = [
-            'C__CATG__MODEL',
-            'C__CATG__ACCESS',
-            'C__CATG__ACCOUNTING',
-            //'C__CATG__IP',
+            Category::CATG__MODEL,
+            Category::CATG__ACCESS,
+            Category::CATG__ACCOUNTING,
+            //Category::CATG__IP,
             //'C__CMDB__SUBCAT__NETWORK_PORT'
         ];
 
@@ -314,7 +316,7 @@ class AttributeTest extends BaseTest {
     protected function generateObject(array $properties) {
         switch ($properties['format']['callback'][1]) {
             case 'contact':
-                $objectTypes = ['C__OBJTYPE__PERSON', 'C__OBJTYPE__PERSON_GROUP', 'C__OBJTYPE__ORGANIZATION'];
+                $objectTypes = [ObjectType::PERSON, ObjectType::PERSON_GROUP, ObjectType::ORGANIZATION];
                 $objectTypeConst = $objectTypes[array_rand($objectTypes)];
                 break;
             default:

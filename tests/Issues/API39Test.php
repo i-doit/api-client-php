@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -45,14 +47,14 @@ class API39Test extends BaseTest {
 
         // Install primary operating system:
         $primaryOSID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__OPERATING_SYSTEM',
+            ObjectType::OPERATING_SYSTEM,
             $this->generateRandomString()
         );
         $this->isID($primaryOSID);
 
         $firstEntryID = $this->useCMDBCategory()->create(
             $hostID,
-            'C__CATG__APPLICATION',
+            Category::CATG__APPLICATION,
             [
                 'application' => $primaryOSID,
                 'application_type' => 2, // 2 = operating system
@@ -64,7 +66,7 @@ class API39Test extends BaseTest {
         // Validate primary operating system:
         $firstEntry = $this->useCMDBCategory()->readOneByID(
             $hostID,
-            'C__CATG__APPLICATION',
+            Category::CATG__APPLICATION,
             $firstEntryID
         );
         $this->assertIsArray($firstEntry);
@@ -76,14 +78,14 @@ class API39Test extends BaseTest {
 
         // Install secondary operating system:
         $secondaryOSID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__OPERATING_SYSTEM',
+            ObjectType::OPERATING_SYSTEM,
             $this->generateRandomString()
         );
         $this->isID($secondaryOSID);
 
         $secondEntryID = $this->useCMDBCategory()->create(
             $hostID,
-            'C__CATG__APPLICATION',
+            Category::CATG__APPLICATION,
             [
                 'application' => $secondaryOSID,
                 'application_type' => 2, // 2 = operating system
@@ -95,7 +97,7 @@ class API39Test extends BaseTest {
         // Validate secondary operating system:
         $secondEntry = $this->useCMDBCategory()->readOneByID(
             $hostID,
-            'C__CATG__APPLICATION',
+            Category::CATG__APPLICATION,
             $secondEntryID
         );
         $this->assertIsArray($secondEntry);
@@ -108,7 +110,7 @@ class API39Test extends BaseTest {
         // Switch priority:
         $this->useCMDBCategory()->update(
             $hostID,
-            'C__CATG__APPLICATION',
+            Category::CATG__APPLICATION,
             [
                 'application_priority' => 2
             ],
@@ -117,7 +119,7 @@ class API39Test extends BaseTest {
 
         $this->useCMDBCategory()->update(
             $hostID,
-            'C__CATG__APPLICATION',
+            Category::CATG__APPLICATION,
             [
                 'application_priority' => 1
             ],
@@ -127,7 +129,7 @@ class API39Test extends BaseTest {
         // Validate that former primary operating system is now the secondary one:
         $firstEntry = $this->useCMDBCategory()->readOneByID(
             $hostID,
-            'C__CATG__APPLICATION',
+            Category::CATG__APPLICATION,
             $firstEntryID
         );
         $this->assertIsArray($firstEntry);
@@ -140,7 +142,7 @@ class API39Test extends BaseTest {
         // Validate that former secondary operating system is now the primary one:
         $secondEntry = $this->useCMDBCategory()->readOneByID(
             $hostID,
-            'C__CATG__APPLICATION',
+            Category::CATG__APPLICATION,
             $secondEntryID
         );
         $this->assertIsArray($secondEntry);

@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -41,26 +43,26 @@ class API30Test extends BaseTest {
      */
     public function testIssue() {
         $hostAID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             'Host A'
         );
         $this->isID($hostAID);
 
         $hostBID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__SERVER',
+            ObjectType::SERVER,
             'Host B'
         );
         $this->isID($hostBID);
 
         $cableID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__CABLE',
+            ObjectType::CABLE,
             'Cabel A <=> B'
         );
         $this->isID($cableID);
 
         $rxID = $this->useCMDBCategory()->save(
             $cableID,
-            'C__CATG__FIBER_LEAD',
+            Category::CATG__FIBER_LEAD,
             [
                 'label' => 'rx',
                 'color' => 'black',
@@ -71,7 +73,7 @@ class API30Test extends BaseTest {
 
         $txID = $this->useCMDBCategory()->save(
             $cableID,
-            'C__CATG__FIBER_LEAD',
+            Category::CATG__FIBER_LEAD,
             [
                 'label' => 'tx',
                 'color' => 'white',
@@ -82,7 +84,7 @@ class API30Test extends BaseTest {
 
         $connectorAID = $this->useCMDBCategory()->save(
             $hostAID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             [
                 'title' => 'Port A/1'
             ]
@@ -91,7 +93,7 @@ class API30Test extends BaseTest {
 
         $connectorBID = $this->useCMDBCategory()->save(
             $hostBID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             [
                 'title' => 'Port B/1',
                 // It's important to assign connector and cable first…
@@ -103,7 +105,7 @@ class API30Test extends BaseTest {
 
         $result = $this->useCMDBCategory()->save(
             $hostAID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             [
                 // … before selecting wich wire is rx/tx:
                 'used_fiber_lead_rx' => $rxID,
@@ -115,7 +117,7 @@ class API30Test extends BaseTest {
         $this->assertSame($connectorAID, $result);
 
         // Verify both wires:
-        $wires = $this->useCMDBCategory()->read($cableID, 'C__CATG__FIBER_LEAD');
+        $wires = $this->useCMDBCategory()->read($cableID, Category::CATG__FIBER_LEAD);
         $this->assertIsArray($wires);
         $this->assertCount(2, $wires);
 
@@ -144,7 +146,7 @@ class API30Test extends BaseTest {
         // Verify first connector:
         $connectorA = $this->useCMDBCategory()->readOneByID(
             $hostAID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             $connectorAID
         );
 
@@ -169,7 +171,7 @@ class API30Test extends BaseTest {
         // Verify second connector:
         $connectorB = $this->useCMDBCategory()->readOneByID(
             $hostBID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             $connectorBID
         );
 

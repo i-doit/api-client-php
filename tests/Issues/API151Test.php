@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -105,16 +106,16 @@ class API151Test extends BaseTest {
         ];
 
         return [
-            'C__CATG__MEMORY' => $attributes,
-            'C__CATG__DRIVE' => $attributes,
-            'C__CATG__STORAGE_DEVICE' => $attributes,
-            'C__CATG__GRAPHIC' => [
+            Category::CATG__MEMORY => $attributes,
+            Category::CATG__DRIVE => $attributes,
+            Category::CATG__STORAGE_DEVICE => $attributes,
+            Category::CATG__GRAPHIC => [
                 [
                     self::VALUE_ATTRIBUTE => 'memory',
                     self::UNIT_ATTRIBUTE => 'unit'
                 ]
             ],
-            'C__CATG__DATABASE_SA' => [
+            Category::CATG__DATABASE_SA => [
                 [
                     self::VALUE_ATTRIBUTE => 'size',
                     self::UNIT_ATTRIBUTE => 'size_unit'
@@ -124,7 +125,7 @@ class API151Test extends BaseTest {
                     self::UNIT_ATTRIBUTE => 'max_size_unit'
                 ]
             ],
-            'C__CATG__DATABASE_TABLE' => [
+            Category::CATG__DATABASE_TABLE => [
                 [
                     self::VALUE_ATTRIBUTE => 'size',
                     self::UNIT_ATTRIBUTE => 'size_unit'
@@ -138,8 +139,8 @@ class API151Test extends BaseTest {
                     self::UNIT_ATTRIBUTE => 'schema_size_unit'
                 ]
             ],
-            'C__CATG__LDEV_SERVER' => $attributes,
-            'C__CATG__COMPUTING_RESOURCES' => [
+            Category::CATG__LDEV_SERVER => $attributes,
+            Category::CATG__COMPUTING_RESOURCES => [
                 [
                     self::VALUE_ATTRIBUTE => 'disc_space',
                     self::UNIT_ATTRIBUTE => 'disc_space_unit'
@@ -150,13 +151,13 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithFrequency(): array {
         return [
-            'C__CATG__CPU' => [
+            Category::CATG__CPU => [
                 [
                     self::VALUE_ATTRIBUTE => 'frequency',
                     self::UNIT_ATTRIBUTE => 'frequency_unit'
                 ]
             ],
-            'C__CATG__COMPUTING_RESOURCES' => [
+            Category::CATG__COMPUTING_RESOURCES => [
                 [
                     self::VALUE_ATTRIBUTE => 'cpu',
                     self::UNIT_ATTRIBUTE => 'cpu_unit'
@@ -167,7 +168,7 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithWeight(): array {
         return [
-            'C__CATG__FORMFACTOR' => [
+            Category::CATG__FORMFACTOR => [
                 [
                     self::VALUE_ATTRIBUTE => 'weight',
                     self::UNIT_ATTRIBUTE => 'weight_unit'
@@ -178,25 +179,25 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithBandwidth(): array {
         return [
-            'C__CATG__NETWORK_PORT' => [
+            Category::CATG__NETWORK_PORT => [
                 [
                     self::VALUE_ATTRIBUTE => 'speed',
                     self::UNIT_ATTRIBUTE => 'speed_type'
                 ]
             ],
-            'C__CATG__CONTROLLER_FC_PORT' => [
+            Category::CATG__CONTROLLER_FC_PORT => [
                 [
                     self::VALUE_ATTRIBUTE => 'speed',
                     self::UNIT_ATTRIBUTE => 'speed_unit'
                 ]
             ],
-            'C__CATG__COMPUTING_RESOURCES' => [
+            Category::CATG__COMPUTING_RESOURCES => [
                 [
                     self::VALUE_ATTRIBUTE => 'network_bandwidth',
                     self::UNIT_ATTRIBUTE => 'network_bandwidth_unit'
                 ]
             ],
-            'C__CATG__WAN' => [
+            Category::CATG__WAN => [
                 [
                     self::VALUE_ATTRIBUTE => 'capacity_up',
                     self::UNIT_ATTRIBUTE => 'capacity_up_unit'
@@ -219,13 +220,13 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithLength(): array {
         return [
-            'C__CATG__CABLE' => [
+            Category::CATG__CABLE => [
                 [
                     self::VALUE_ATTRIBUTE => 'length',
                     self::UNIT_ATTRIBUTE => 'length_unit'
                 ]
             ],
-            'C__CATS__MONITOR' => [
+            Category::CATS__MONITOR => [
                 [
                     self::VALUE_ATTRIBUTE => 'size',
                     self::UNIT_ATTRIBUTE => 'size_unit'
@@ -236,7 +237,7 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithGrad(): array {
         return [
-            'C__CATS__AC' => [
+            Category::CATS__AC => [
                 [
                     self::VALUE_ATTRIBUTE => 'threshold',
                     self::UNIT_ATTRIBUTE => 'threshold_unit'
@@ -247,7 +248,7 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithPower(): array {
         return [
-            'C__CATS__AC' => [
+            Category::CATS__AC => [
                 [
                     self::VALUE_ATTRIBUTE => 'capacity',
                     self::UNIT_ATTRIBUTE => 'capacity_unit'
@@ -258,7 +259,7 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithAirQuantity(): array {
         return [
-            'C__CATS__AC' => [
+            Category::CATS__AC => [
                 [
                     self::VALUE_ATTRIBUTE => 'air_quantity',
                     self::UNIT_ATTRIBUTE => 'air_quantity_unit'
@@ -269,7 +270,7 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithTimePeriod(): array {
         return [
-            'C__CATS__EPS' => [
+            Category::CATS__EPS => [
                 [
                     self::VALUE_ATTRIBUTE => 'warmup_time',
                     self::UNIT_ATTRIBUTE => 'warmup_time_unit'
@@ -279,7 +280,7 @@ class API151Test extends BaseTest {
                     self::UNIT_ATTRIBUTE => 'autonomy_time_unit'
                 ]
             ],
-            'C__CATS__UPS' => [
+            Category::CATS__UPS => [
                 [
                     self::VALUE_ATTRIBUTE => 'charge_time',
                     self::UNIT_ATTRIBUTE => 'charge_time_unit'
@@ -294,7 +295,7 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithVolume(): array {
         return [
-            'C__CATS__EPS' => [
+            Category::CATS__EPS => [
                 [
                     self::VALUE_ATTRIBUTE => 'fuel_tank',
                     self::UNIT_ATTRIBUTE => 'volume_unit'
@@ -305,7 +306,7 @@ class API151Test extends BaseTest {
 
     protected function getCategoriesWithBit(): array {
         return [
-            'C__CATS__LAYER2_NET' => [
+            Category::CATS__LAYER2_NET => [
                 [
                     self::VALUE_ATTRIBUTE => 'vrf_capacity',
                     self::UNIT_ATTRIBUTE => 'vrf_capacity_unit'

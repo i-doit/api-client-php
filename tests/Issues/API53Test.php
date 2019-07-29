@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -48,7 +49,7 @@ class API53Test extends BaseTest {
 
         $result = $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__IP',
+            Category::CATG__IP,
             [
                 // This request must fail, because object does not exist:
                 'net' => $this->generateRandomID(),

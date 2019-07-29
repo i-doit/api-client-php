@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -46,7 +48,7 @@ class API132Test extends BaseTest {
         $fileName = $this->generateRandomString() . '.test';
 
         $fileObjectID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__FILE',
+            ObjectType::FILE,
             $fileName
         );
         $this->isID($fileObjectID);
@@ -66,7 +68,7 @@ class API132Test extends BaseTest {
 
         $fileEntryID = $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__FILE',
+            Category::CATG__FILE,
             [
                 'file' => $fileObjectID
             ]

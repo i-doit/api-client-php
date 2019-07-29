@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\CMDBObjectTypes;
 
@@ -62,7 +63,7 @@ class CMDBObjectTypesTest extends BaseTest {
      * @throws Exception on error
      */
     public function testReadOne() {
-        $result = $this->instance->readOne('C__OBJTYPE__SERVER');
+        $result = $this->instance->readOne(ObjectType::SERVER);
 
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
@@ -73,8 +74,8 @@ class CMDBObjectTypesTest extends BaseTest {
      */
     public function testBatchRead() {
         $result = $this->instance->batchRead([
-            'C__OBJTYPE__SERVER',
-            'C__OBJTYPE__VIRTUAL_SERVER'
+            ObjectType::SERVER,
+            ObjectType::VIRTUAL_SERVER
         ]);
 
         $this->assertIsArray($result);

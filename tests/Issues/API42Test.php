@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -46,7 +47,7 @@ class API42Test extends BaseTest {
         // Add 1st connector:
         $connectorAID = $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             [
                 'title' => $this->generateRandomString(),
                 'description' => $this->generateDescription()
@@ -56,7 +57,7 @@ class API42Test extends BaseTest {
 
         $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             $connectorAID
         );
         $this->assertIsArray($result);
@@ -76,7 +77,7 @@ class API42Test extends BaseTest {
         // Add 2nd connector:
         $connectorBID = $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             [
                 'title' => $this->generateRandomString(),
                 'description' => $this->generateDescription()
@@ -86,7 +87,7 @@ class API42Test extends BaseTest {
 
         $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             $connectorBID
         );
         $this->assertIsArray($result);
@@ -106,7 +107,7 @@ class API42Test extends BaseTest {
         // Combine both connectors:
         $this->useCMDBCategory()->update(
             $objectID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             [
                 'connector_sibling' => $connectorBID
             ],
@@ -116,7 +117,7 @@ class API42Test extends BaseTest {
         // Verify 1st connector has no cable:
         $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             $connectorAID
         );
         $this->assertIsArray($result);
@@ -137,7 +138,7 @@ class API42Test extends BaseTest {
         // Verify 2nd connector has no cable:
         $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
-            'C__CATG__CONNECTOR',
+            Category::CATG__CONNECTOR,
             $connectorBID
         );
         $this->assertIsArray($result);

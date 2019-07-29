@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -55,7 +56,7 @@ class API163Test extends BaseTest {
 
         $entryID = $this->useCMDBCategory()->save(
             $objectID,
-            'C__CATG__GLOBAL',
+            Category::CATG__GLOBAL,
             [
                 'sysid' => $sysid
             ]

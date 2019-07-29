@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -39,14 +41,14 @@ class Zendesk4367Test extends BaseTest {
      * @throws Exception
      */
     public function testIssue() {
-        $objectID = $this->useCMDBObject()->create('C__OBJTYPE__SERVER', 'My host');
-        $applicationID = $this->useCMDBObject()->create('C__OBJTYPE__APPLICATION', 'My app');
-        $versionID = $this->useCMDBCategory()->create($applicationID, 'C__CATG__VERSION', [
+        $objectID = $this->useCMDBObject()->create(ObjectType::SERVER, 'My host');
+        $applicationID = $this->useCMDBObject()->create(ObjectType::APPLICATION, 'My app');
+        $versionID = $this->useCMDBCategory()->create($applicationID, Category::CATG__VERSION, [
             'title' => '1.0.0'
         ]);
 
         // This failed because of SQL query error:
-        $entryID = $this->useCMDBCategory()->create($objectID, 'C__CATG__APPLICATION', [
+        $entryID = $this->useCMDBCategory()->create($objectID, Category::CATG__APPLICATION, [
             'application' => $applicationID,
             'assigned_version' => $versionID
         ]);

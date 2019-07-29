@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \stdClass;
 use \Exception;
 use \RuntimeException;
@@ -954,7 +956,7 @@ class APITest extends BaseTest {
                 'cmdb.object_types.read',
                 [
                     'filter' => [
-                        'id' => 'C__OBJTYPE__PRINTER'
+                        'id' => ObjectType::PRINTER
                     ],
                     API::LANGUAGE => $language
                 ]
@@ -978,7 +980,7 @@ class APITest extends BaseTest {
             $result = $this->api->request(
                 'cmdb.category_info.read',
                 [
-                    'category' => 'C__CATG__MODEL',
+                    'category' => Category::CATG__MODEL,
                     API::LANGUAGE => $language
                 ]
             );

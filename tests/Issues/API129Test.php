@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -40,19 +42,23 @@ class API129Test extends BaseTest {
      * @throws Exception
      */
     public function testIssue() {
-        $serverID = $this->useCMDBObject()->create('C__OBJTYPE__SERVER', 'My little server');
+        $serverID = $this->useCMDBObject()->create(ObjectType::SERVER, 'My little server');
         $this->assertIsInt($serverID);
         $this->assertGreaterThan(0, $serverID);
 
-        $rmcID = $this->useCMDBObject()->create('C__OBJTYPE__RM_CONTROLLER', 'RMC for my little server');
+        $rmcID = $this->useCMDBObject()->create(ObjectType::RM_CONTROLLER, 'RMC for my little server');
         $this->assertIsInt($rmcID);
         $this->assertGreaterThan(0, $rmcID);
 
-        $entryID = $this->useCMDBCategory()->create($serverID, 'C__CATG__RM_CONTROLLER', ['connected_object' => $rmcID]);
+        $entryID = $this->useCMDBCategory()->create(
+            $serverID,
+            Category::CATG__RM_CONTROLLER,
+            ['connected_object' => $rmcID]
+        );
         $this->assertIsInt($entryID);
         $this->assertGreaterThan(0, $entryID);
 
-        $assignedController = $this->useCMDBCategory()->readOneByID($serverID, 'C__CATG__RM_CONTROLLER', $entryID);
+        $assignedController = $this->useCMDBCategory()->readOneByID($serverID, Category::CATG__RM_CONTROLLER, $entryID);
         $this->assertIsArray($assignedController);
         $this->assertArrayHasKey('id', $assignedController);
         $id = (int) $assignedController['id'];
@@ -68,7 +74,7 @@ class API129Test extends BaseTest {
         $this->assertGreaterThan(0, $connectedObject);
         $this->assertSame($rmcID, $connectedObject);
 
-        $assignedObjects = $this->useCMDBCategory()->read($rmcID, 'C__CATG__RM_CONTROLLER_BACKWARD');
+        $assignedObjects = $this->useCMDBCategory()->read($rmcID, Category::CATG__RM_CONTROLLER_BACKWARD);
         $this->assertIsArray($assignedObjects);
         $this->assertCount(1, $assignedObjects);
         $this->assertArrayHasKey(0, $assignedObjects);

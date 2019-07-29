@@ -27,6 +27,7 @@ declare(strict_types=1);
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBDialog;
+use bheisig\idoitapi\tests\Constants\Category;
 use bheisig\idoitapi\tests\Constants\ObjectType;
 use bheisig\idoitapi\tests\Extension\Statistics;
 use \Exception;
@@ -216,13 +217,13 @@ abstract class BaseTest extends TestCase {
         );
 
         $personID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__PERSON',
+            ObjectType::PERSON,
             $firstName . ' ' . $lastName
         );
 
         $this->useCMDBCategory()->save(
             $personID,
-            'C__CATG__MAIL_ADDRESSES',
+            Category::CATG__MAIL_ADDRESSES,
             [
                 'title' => $email,
                 'primary' => 1,
@@ -247,7 +248,7 @@ abstract class BaseTest extends TestCase {
      */
     protected function createWorkstation(): int {
         $workstationID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__WORKSTATION',
+            ObjectType::WORKSTATION,
             $this->generateRandomString()
         );
 
@@ -267,7 +268,7 @@ abstract class BaseTest extends TestCase {
     protected function addPersonToWorkstation(int $personID, int $workstationID): int {
         return $this->useCMDBCategory()->create(
             $workstationID,
-            'C__CATG__LOGICAL_UNIT',
+            Category::CATG__LOGICAL_UNIT,
             [
                 'parent' => $personID,
                 'description' => $this->generateDescription()
@@ -293,7 +294,7 @@ abstract class BaseTest extends TestCase {
 
         return $this->useCMDBCategory()->create(
             $componentID,
-            'C__CATG__ASSIGNED_WORKSTATION',
+            Category::CATG__ASSIGNED_WORKSTATION,
             [
                 'parent' => $workstationID,
                 'description' => $this->generateDescription()
@@ -309,7 +310,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function getIPv4Net(): int {
-        return $this->useCMDBObjects()->getID('Global v4', 'C__OBJTYPE__LAYER3_NET');
+        return $this->useCMDBObjects()->getID('Global v4', ObjectType::LAYER3_NET);
     }
 
     /**
@@ -320,7 +321,7 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function getRootLocation(): int {
-        return $this->useCMDBObjects()->getID('Root location', 'C__OBJTYPE__LOCATION_GENERIC');
+        return $this->useCMDBObjects()->getID('Root location', ObjectType::LOCATION_GENERIC);
     }
 
     /**
@@ -331,9 +332,9 @@ abstract class BaseTest extends TestCase {
      * @throws Exception on error
      */
     protected function createSubnet(): int {
-        $netID = $this->useCMDBObject()->create('C__OBJTYPE__LAYER3_NET', $this->generateRandomString());
+        $netID = $this->useCMDBObject()->create(ObjectType::LAYER3_NET, $this->generateRandomString());
 
-        $this->useCMDBCategory()->create($netID, 'C__CATS__NET', [
+        $this->useCMDBCategory()->create($netID, Category::CATS__NET, [
             'type' => 1, // IPv4
             'address' => '10.0.0.0',
             'netmask' => '255.0.0.0'
@@ -355,7 +356,7 @@ abstract class BaseTest extends TestCase {
     protected function addIPv4(int $objectID, int $subnetID = null): int {
         return $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__IP',
+            Category::CATG__IP,
             [
                 'net' => (isset($subnetID)) ? $subnetID : $this->getIPv4Net(),
                 'active' => mt_rand(0, 1),
@@ -380,7 +381,7 @@ abstract class BaseTest extends TestCase {
     protected function defineModel(int $objectID): int {
         return $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             [
                 'manufacturer' => $this->generateRandomString(),
                 'title' => $this->generateRandomString(),
@@ -403,7 +404,7 @@ abstract class BaseTest extends TestCase {
     protected function addObjectToLocation(int $objectID, int $locationID): int {
         return $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__LOCATION',
+            Category::CATG__LOCATION,
             [
                 'parent' => $locationID,
                 'description' => $this->generateDescription()
@@ -425,7 +426,7 @@ abstract class BaseTest extends TestCase {
     protected function addContact(int $objectID, int $contactID, int $roleID = 1): int {
         return $this->useCMDBCategory()->create(
             $objectID,
-            'C__CATG__CONTACT',
+            Category::CATG__CONTACT,
             [
                 'contact' => $contactID,
                 'role' => $roleID,

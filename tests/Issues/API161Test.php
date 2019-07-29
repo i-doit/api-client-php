@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -66,7 +67,7 @@ class API161Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $subnetID,
-            'C__CATS__NET_IP_ADDRESSES'
+            Category::CATS__NET_IP_ADDRESSES
         );
 
         $this->assertIsArray($entries);

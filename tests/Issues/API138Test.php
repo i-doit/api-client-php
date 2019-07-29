@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -54,13 +56,13 @@ class API138Test extends BaseTest {
          */
 
         $personID = $this->useCMDBObject()->create(
-            'C__OBJTYPE__PERSON',
+            ObjectType::PERSON,
             $this->generateRandomString()
         );
 
         $entryID = $this->useCMDBCategory()->save(
             $personID,
-            'C__CATS__PERSON_MASTER',
+            Category::CATS__PERSON_MASTER,
             [
                 'salutation' => $gender
             ]
@@ -73,7 +75,7 @@ class API138Test extends BaseTest {
 
         $entries = $this->useCMDBCategory()->read(
             $personID,
-            'C__CATS__PERSON_MASTER'
+            Category::CATS__PERSON_MASTER
         );
 
         $this->assertIsArray($entries);

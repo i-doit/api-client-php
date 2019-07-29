@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -52,7 +53,7 @@ class API140Test extends BaseTest {
         $categoryConsts = [];
 
         for ($index = 0; $index < $amount; $index++) {
-            $categoryConsts[] = 'C__CATG__IP';
+            $categoryConsts[] = Category::CATG__IP;
         }
 
         // This was pretty slow:

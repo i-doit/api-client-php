@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\CMDBCategoryInfo;
 use bheisig\idoitapi\CMDBObjects;
@@ -56,9 +58,9 @@ class CMDBObjectsTest extends BaseTest {
     public function testCreate() {
         $objectIDs = $this->instance->create(
             [
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. One'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Two'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Three']
+                ['type' => ObjectType::SERVER, 'title' => 'Server No. One'],
+                ['type' => ObjectType::SERVER, 'title' => 'Server No. Two'],
+                ['type' => ObjectType::SERVER, 'title' => 'Server No. Three']
             ]
         );
 
@@ -106,9 +108,9 @@ class CMDBObjectsTest extends BaseTest {
     public function testReadByIdentifiers() {
         $objectIDs = $this->instance->create(
             [
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Four'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Five'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Six']
+                ['type' => ObjectType::SERVER, 'title' => 'Server No. Four'],
+                ['type' => ObjectType::SERVER, 'title' => 'Server No. Five'],
+                ['type' => ObjectType::SERVER, 'title' => 'Server No. Six']
             ]
         );
 
@@ -126,7 +128,7 @@ class CMDBObjectsTest extends BaseTest {
      * @throws Exception on error
      */
     public function testReadByType() {
-        $objects = $this->instance->readByType('C__OBJTYPE__PERSON');
+        $objects = $this->instance->readByType(ObjectType::PERSON);
 
         $this->assertIsArray($objects);
         $this->assertNotCount(0, $objects);
@@ -144,7 +146,7 @@ class CMDBObjectsTest extends BaseTest {
 
         $this->assertIsArray($objects);
 
-        $objects = $this->instance->readArchived('C__OBJTYPE__PERSON');
+        $objects = $this->instance->readArchived(ObjectType::PERSON);
 
         $this->assertIsArray($objects);
 
@@ -161,7 +163,7 @@ class CMDBObjectsTest extends BaseTest {
 
         $this->assertIsArray($objects);
 
-        $objects = $this->instance->readDeleted('C__OBJTYPE__PERSON');
+        $objects = $this->instance->readDeleted(ObjectType::PERSON);
 
         $this->assertIsArray($objects);
 
@@ -183,9 +185,9 @@ class CMDBObjectsTest extends BaseTest {
         $this->addContact($objectID, $person['id']);
 
         $categoryConstants = [
-            'C__CATG__MODEL',
-            'C__CATG__IP',
-            'C__CATG__CONTACT'
+            Category::CATG__MODEL,
+            Category::CATG__IP,
+            Category::CATG__CONTACT
         ];
 
         $result = $this->useCMDBObjects()->read(['ids' => [$objectID]], null, null, null, null, $categoryConstants);
@@ -262,7 +264,7 @@ class CMDBObjectsTest extends BaseTest {
                 $this->assertIsArray($entry);
                 $this->isCategoryEntry($entry);
 
-                if ($categoryConstant === 'C__CATG__RELATION') {
+                if ($categoryConstant === Category::CATG__RELATION) {
                     continue;
                 }
 
@@ -277,9 +279,9 @@ class CMDBObjectsTest extends BaseTest {
     public function testUpdate() {
         $objectIDs = $this->instance->create(
             [
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Seven'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Eight'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Server No. Nine']
+                ['type' => ObjectType::SERVER, 'title' => 'Server No. Seven'],
+                ['type' => ObjectType::SERVER, 'title' => 'Server No. Eight'],
+                ['type' => ObjectType::SERVER, 'title' => 'Server No. Nine']
             ]
         );
 
@@ -302,9 +304,9 @@ class CMDBObjectsTest extends BaseTest {
     public function testArchive() {
         $objectIDs = $this->instance->create(
             [
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Archived Server One'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Archived Server Two'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Archived Server Three']
+                ['type' => ObjectType::SERVER, 'title' => 'Archived Server One'],
+                ['type' => ObjectType::SERVER, 'title' => 'Archived Server Two'],
+                ['type' => ObjectType::SERVER, 'title' => 'Archived Server Three']
             ]
         );
 
@@ -321,9 +323,9 @@ class CMDBObjectsTest extends BaseTest {
     public function testDelete() {
         $objectIDs = $this->instance->create(
             [
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Deleted Server One'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Deleted Server Two'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Deleted Server Three']
+                ['type' => ObjectType::SERVER, 'title' => 'Deleted Server One'],
+                ['type' => ObjectType::SERVER, 'title' => 'Deleted Server Two'],
+                ['type' => ObjectType::SERVER, 'title' => 'Deleted Server Three']
             ]
         );
 
@@ -340,9 +342,9 @@ class CMDBObjectsTest extends BaseTest {
     public function testPurge() {
         $objectIDs = $this->instance->create(
             [
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Purged Server One'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Purged Server Two'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Purged Server Three']
+                ['type' => ObjectType::SERVER, 'title' => 'Purged Server One'],
+                ['type' => ObjectType::SERVER, 'title' => 'Purged Server Two'],
+                ['type' => ObjectType::SERVER, 'title' => 'Purged Server Three']
             ]
         );
 
@@ -359,9 +361,9 @@ class CMDBObjectsTest extends BaseTest {
     public function testRecycle() {
         $objectIDs = $this->instance->create(
             [
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Purged Server One'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Purged Server Two'],
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => 'Purged Server Three']
+                ['type' => ObjectType::SERVER, 'title' => 'Purged Server One'],
+                ['type' => ObjectType::SERVER, 'title' => 'Purged Server Two'],
+                ['type' => ObjectType::SERVER, 'title' => 'Purged Server Three']
             ]
         );
 
@@ -384,7 +386,7 @@ class CMDBObjectsTest extends BaseTest {
 
         $objectIDs = $this->instance->create(
             [
-                ['type' => 'C__OBJTYPE__SERVER', 'title' => $uniqueTitle]
+                ['type' => ObjectType::SERVER, 'title' => $uniqueTitle]
             ]
         );
 

@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\Select;
 use bheisig\idoitapi\CMDBObject;
@@ -57,9 +59,9 @@ class SelectTest extends BaseTest {
         $title = $this->generateRandomString();
 
         $cmdbObject = new CMDBObject($this->api);
-        $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $title);
+        $objectID = $cmdbObject->create(ObjectType::SERVER, $title);
 
-        $result = $this->instance->find('C__CATG__GLOBAL', 'title', $title);
+        $result = $this->instance->find(Category::CATG__GLOBAL, 'title', $title);
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
@@ -71,7 +73,7 @@ class SelectTest extends BaseTest {
      */
     public function testFindNothing() {
         $result = $this->instance->find(
-            'C__CATG__GLOBAL',
+            Category::CATG__GLOBAL,
             'title',
             $this->generateRandomString()
         );
@@ -88,19 +90,19 @@ class SelectTest extends BaseTest {
         $serial = $this->generateRandomString();
 
         $cmdbObject = new CMDBObject($this->api);
-        $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $title);
+        $objectID = $cmdbObject->create(ObjectType::SERVER, $title);
 
         $cmdbCategory = new CMDBCategory($this->api);
 
         $cmdbCategory->create(
             $objectID,
-            'C__CATG__MODEL',
+            Category::CATG__MODEL,
             [
                 'serial' => $serial
             ]
         );
 
-        $result = $this->instance->find('C__CATG__MODEL', 'serial', $serial);
+        $result = $this->instance->find(Category::CATG__MODEL, 'serial', $serial);
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
@@ -115,13 +117,13 @@ class SelectTest extends BaseTest {
         $ip = $this->generateIPv4Address();
 
         $cmdbObject = new CMDBObject($this->api);
-        $objectID = $cmdbObject->create('C__OBJTYPE__SERVER', $title);
+        $objectID = $cmdbObject->create(ObjectType::SERVER, $title);
 
         $cmdbCategory = new CMDBCategory($this->api);
 
         $cmdbCategory->create(
             $objectID,
-            'C__CATG__IP',
+            Category::CATG__IP,
             [
                 'net' => $this->getIPv4Net(),
                 'active' => 0,
@@ -133,7 +135,7 @@ class SelectTest extends BaseTest {
             ]
         );
 
-        $result = $this->instance->find('C__CATG__IP', 'hostaddress', $ip);
+        $result = $this->instance->find(Category::CATG__IP, 'hostaddress', $ip);
 
         $this->assertIsArray($result);
         $this->assertCount(1, $result);

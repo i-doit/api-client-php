@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -73,7 +74,7 @@ class API134Test extends BaseTest {
             'params' => [
                 'apikey' => getenv('KEY'),
                 'objID' => $objectID,
-                'category' => 'C__CATG__MODEL',
+                'category' => Category::CATG__MODEL,
                 'data' => [
                     'manufacturer' => $this->generateRandomString(),
                     'title' => $this->generateRandomString()

@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
+use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -40,8 +42,8 @@ class API7Test extends BaseTest {
      * @throws Exception on error
      */
     public function testIssue() {
-        $objectType = 'C__OBJTYPE__SWITCH';
-        $categoryConstant = 'C__CATG__NETWORK_PORT';
+        $objectType = ObjectType::SWITCH;
+        $categoryConstant = Category::CATG__NETWORK_PORT;
 
         // Create switch A…
         $switchATitle = 'Switch A';
@@ -139,7 +141,7 @@ class API7Test extends BaseTest {
         $this->assertIsString($portsA[0]['assigned_connector'][0]['assigned_category']);
         $this->assertSame($categoryConstant, $portsA[0]['assigned_connector'][0]['assigned_category']);
 
-        $connectorsA = $this->useCMDBCategory()->read($switchAID, 'C__CATG__CONNECTOR');
+        $connectorsA = $this->useCMDBCategory()->read($switchAID, Category::CATG__CONNECTOR);
 
         $this->assertIsArray($connectorsA);
         $this->assertCount(1, $connectorsA);
@@ -213,7 +215,7 @@ class API7Test extends BaseTest {
         $this->assertIsString($portsB[0]['assigned_connector'][0]['assigned_category']);
         $this->assertSame($categoryConstant, $portsB[0]['assigned_connector'][0]['assigned_category']);
 
-        $connectorsB = $this->useCMDBCategory()->read($switchBID, 'C__CATG__CONNECTOR');
+        $connectorsB = $this->useCMDBCategory()->read($switchBID, Category::CATG__CONNECTOR);
 
         $this->assertIsArray($connectorsB);
         $this->assertCount(1, $connectorsB);

@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests\Issues;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
@@ -45,7 +46,7 @@ class API45Test extends BaseTest {
 
         $this->useCMDBObject()->markAsTemplate($objectID);
 
-        $result = $this->useCMDBCategory()->readFirst($objectID, 'C__CATG__GLOBAL');
+        $result = $this->useCMDBCategory()->readFirst($objectID, Category::CATG__GLOBAL);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('status', $result);
@@ -78,7 +79,7 @@ class API45Test extends BaseTest {
 
         $this->useCMDBObject()->markAsMassChangeTemplate($objectID);
 
-        $result = $this->useCMDBCategory()->readFirst($objectID, 'C__CATG__GLOBAL');
+        $result = $this->useCMDBCategory()->readFirst($objectID, Category::CATG__GLOBAL);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('status', $result);
@@ -114,7 +115,7 @@ class API45Test extends BaseTest {
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
 
-        $result = $this->useCMDBCategory()->readFirst($objectID, 'C__CATG__MODEL');
+        $result = $this->useCMDBCategory()->readFirst($objectID, Category::CATG__MODEL);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
@@ -140,7 +141,7 @@ class API45Test extends BaseTest {
 
         $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
-            'C__CATG__IP',
+            Category::CATG__IP,
             $entryID
         );
         $this->assertIsArray($result);
@@ -166,7 +167,7 @@ class API45Test extends BaseTest {
         $entryID = $this->defineModel($objectID);
         $this->isID($entryID);
 
-        $result = $this->useCMDBCategory()->readFirst($objectID, 'C__CATG__MODEL');
+        $result = $this->useCMDBCategory()->readFirst($objectID, Category::CATG__MODEL);
         $this->assertIsArray($result);
 
         $this->assertArrayHasKey('id', $result);
@@ -192,7 +193,7 @@ class API45Test extends BaseTest {
 
         $result = $this->useCMDBCategory()->readOneByID(
             $objectID,
-            'C__CATG__IP',
+            Category::CATG__IP,
             $entryID
         );
         $this->assertIsArray($result);

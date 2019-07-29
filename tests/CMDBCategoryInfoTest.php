@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi\tests;
 
+use bheisig\idoitapi\tests\Constants\Category;
 use \Exception;
 use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBCategoryInfo;
@@ -51,9 +52,9 @@ class CMDBCategoryInfoTest extends BaseTest {
         $this->instance = new CMDBCategoryInfo($this->api);
 
         $this->categories = [
-            'C__CATG__GLOBAL',
-            'C__CATG__IP',
-            'C__CATS__PERSON_MASTER'
+            Category::CATG__GLOBAL,
+            Category::CATG__IP,
+            Category::CATS__PERSON_MASTER
         ];
     }
 

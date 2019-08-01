@@ -124,13 +124,13 @@ Some tests are grouped. Include a group by `--group` or exclude it by `--exclude
 
 … and publish it to [packagist.org](https://packagist.org/packages/bheisig/idoitapi). You need commit rights for this repository.
 
-1.  Bump `version` in file [`composer.json`](composer.json)
+1.  Bump version: `composer config extra.version <VERSION>`
 2.  Update composer: `composer update`
 3.  Keep [`README.md`](README.md) and [`CHANGELOG.md`](CHANGELOG.md) up-to-date
-4.  Commit changes: `git commit -a -m "Bump version to $(composer config version)"`
+4.  Commit changes: `git commit -a -m "Bump version to $(composer config extra.version)"`
 5.  Perform some tests, for example `composer ci`
 6.  Run unit tests: `composer phpunit`
-7.  Create Git tag: `git tag -s -a -m "Release version $(composer config version)" $(composer config version)`
+7.  Create Git tag: `git tag -s -a -m "Release version $(composer config extra.version)" $(composer config extra.version)`
 8.  Push changes: `git push && git push --tags`
 
 There is already a webhook enabled to push the code from GitHub to Packagist.

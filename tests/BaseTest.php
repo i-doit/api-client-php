@@ -472,7 +472,7 @@ abstract class BaseTest extends TestCase {
             'This data is auto-generated at %s by a unit test for %s, version %s',
             date('c'),
             self::$composer['name'],
-            self::$composer['version']
+            self::$composer['extra']['version']
         );
     }
 

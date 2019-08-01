@@ -1,6 +1,5 @@
 {
     "name": "bheisig/idoitapi",
-    "version": "0.9-dev",
     "description": "Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API",
     "type": "library",
     "keywords": ["i-doit", "cmdb", "it documentation", "api", "json-rpc"],
@@ -124,9 +123,9 @@
             "php --info | grep -E \"(max_execution_time|memory_limit)\"",
             "@composer --version",
             "@composer validate",
-            "@composer diagnose",
+            "@composer diagnose || echo \"Ignore warnings\"",
             "@composer check-platform-reqs",
-            "@composer config version"
+            "@composer config extra.version"
         ]
     },
     "scripts-descriptions": {
@@ -156,5 +155,8 @@
         "phpunit-unreleased": "Perform unit tests for unreleased features",
         "security-checker": "Look for dependencies with known security vulnerabilities",
         "system-check": "Run some system checks"
+    },
+    "extra": {
+        "version": "0.9-dev"
     }
 }

@@ -285,8 +285,12 @@ class API {
         ];
 
         if (array_key_exists('name', $this->composer) &&
-            array_key_exists('version', $this->composer)) {
-            $this->options[CURLOPT_USERAGENT] = $this->composer['name'] . ' ' . $this->composer['version'];
+            is_string($this->composer['name']) &&
+            array_key_exists('extra', $this->composer) &&
+            is_array($this->composer['extra']) &&
+            array_key_exists('version', $this->composer['extra']) &&
+            is_string($this->composer['extra']['version'])) {
+            $this->options[CURLOPT_USERAGENT] = $this->composer['name'] . ' ' . $this->composer['extra']['version'];
         }
 
         if (isset($this->config[self::PROXY]) &&

@@ -113,7 +113,7 @@ class API190Test extends BaseTest {
                 'parent' => $rackID,
                 'option' => 3, // Horizontal
                 'insertion' => 2, // Front/back
-                'pos' => 1,
+                'pos' => $expectedPosition,
                 'description' => $this->generateDescription()
             ]
         );

@@ -124,7 +124,7 @@
             "php --info | grep -E \"(max_execution_time|memory_limit)\"",
             "@composer --version",
             "@composer validate",
-            "@composer diagnose || echo \"Ignore warnings\"",
+            "@composer diagnose",
             "@composer check-platform-reqs",
             "@composer config version"
         ]

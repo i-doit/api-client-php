@@ -26,6 +26,8 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi;
 
+use RuntimeException;
+
 /**
  * Request
  */
@@ -45,6 +47,53 @@ abstract class Request implements Calls {
      */
     public function __construct(API $api) {
         $this->api = $api;
+    }
+
+    /**
+     * Check for success and return identifier
+     *
+     * @param array $result Response from API request
+     *
+     * @return int Identifier
+     *
+     * @throws RuntimeException on error
+     */
+    protected function requireSuccessFor(array $result): int {
+        if (!array_key_exists('id', $result) ||
+            !is_numeric($result['id']) ||
+            !array_key_exists('success', $result) ||
+            $result['success'] !== true) {
+            if (array_key_exists('message', $result)) {
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
+            } else {
+                throw new RuntimeException('Bad result');
+            }
+        }
+
+        return (int) $result['id'];
+    }
+
+
+
+    /**
+     * Check whether each request in a batch was successful
+     *
+     * @param array $results Results
+     *
+     * @throws RuntimeException on error
+     */
+    protected function requireSuccessforAll(array $results) {
+        foreach ($results as $result) {
+            // Do not check 'id' because in a batch request it is always NULL:
+            if (!array_key_exists('success', $result) ||
+                $result['success'] !== true) {
+                if (array_key_exists('message', $result)) {
+                    throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
+                } else {
+                    throw new RuntimeException('Bad result');
+                }
+            }
+        }
     }
 
 }

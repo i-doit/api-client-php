@@ -27,6 +27,7 @@ declare(strict_types=1);
 namespace bheisig\idoitapi;
 
 use \Exception;
+use \BadMethodCallException;
 use \RuntimeException;
 
 /**
@@ -101,18 +102,7 @@ class CMDBCategory extends Request {
             $params
         );
 
-        if (!array_key_exists('id', $result) ||
-            !is_numeric($result['id']) ||
-            !array_key_exists('success', $result) ||
-            $result['success'] !== true) {
-            if (array_key_exists('message', $result)) {
-                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-            } else {
-                throw new RuntimeException('Bad result');
-            }
-        }
-
-        return (int) $result['id'];
+        return $this->requireSuccessFor($result);
     }
 
     /**
@@ -433,7 +423,7 @@ class CMDBCategory extends Request {
      * Read one or more category entries for one or more objects
      *
      * @param array $objectIDs List of object identifiers as integers
-     * @param array $categoryConsts List of category constants as strings
+     * @param array $categoryConstants List of category constants as strings
      * @param int $status Filter entries by status:
      * 2 = normal;
      * 3 = archived;
@@ -446,23 +436,57 @@ class CMDBCategory extends Request {
      *
      * @throws Exception on error
      */
-    public function batchRead(array $objectIDs, array $categoryConsts, int $status = 2): array {
+    public function batchRead(array $objectIDs, array $categoryConstants, int $status = 2): array {
+        if (count($objectIDs) === 0) {
+            throw new BadMethodCallException('Needed at least one object identifier');
+        }
+
+        if (count($categoryConstants) === 0) {
+            throw new BadMethodCallException('Needed at least one category constant');
+        }
+
         $requests = [];
 
         foreach ($objectIDs as $objectID) {
-            foreach ($categoryConsts as $categoryConst) {
+            if (!is_int($objectID) || $objectID <= 0) {
+                throw new BadMethodCallException(
+                    'Each object identifier must be a positive integer'
+                );
+            }
+
+            foreach ($categoryConstants as $categoryConstant) {
+                if (!is_string($categoryConstant) || strlen($categoryConstant) === 0) {
+                    throw new BadMethodCallException(
+                        'Each category constant must be a non-empty string'
+                    );
+                }
+
                 $requests[] = [
                     'method' => 'cmdb.category.read',
                     'params' => [
                         'objID' => $objectID,
-                        'category' => $categoryConst,
+                        'category' => $categoryConstant,
                         'status' => $status
                     ]
                 ];
             }
         }
 
-        return $this->api->batchRequest($requests);
+        $results = $this->api->batchRequest($requests);
+
+        $expectedAmountOfResults = count($objectIDs) * count($categoryConstants);
+        $actualAmountOfResults = count($results);
+
+        if ($expectedAmountOfResults !== $actualAmountOfResults) {
+            throw new RuntimeException(sprintf(
+                'Requested entries for %s object(s) and %s category/categories but got %s result(s)',
+                count($objectIDs),
+                count($categoryConstants),
+                $actualAmountOfResults
+            ));
+        }
+
+        return $results;
     }
 
     /**
@@ -492,16 +516,7 @@ class CMDBCategory extends Request {
 
         $results = $this->api->batchRequest($requests);
 
-        foreach ($results as $result) {
-            if (!array_key_exists('success', $result) ||
-                $result['success'] !== true) {
-                if (array_key_exists('message', $result)) {
-                    throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-                } else {
-                    throw new RuntimeException('Bad result');
-                }
-            }
-        }
+        $this->requireSuccessforAll($results);
 
         return $this;
     }
@@ -548,16 +563,7 @@ class CMDBCategory extends Request {
 
         $results = $this->api->batchRequest($requests);
 
-        foreach ($results as $result) {
-            if (!array_key_exists('success', $result) ||
-                $result['success'] !== true) {
-                if (array_key_exists('message', $result)) {
-                    throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-                } else {
-                    throw new RuntimeException('Bad result');
-                }
-            }
-        }
+        $this->requireSuccessforAll($results);
 
         return $counter;
     }

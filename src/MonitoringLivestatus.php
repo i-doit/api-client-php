@@ -62,18 +62,7 @@ class MonitoringLivestatus extends Request {
             ]
         );
 
-        if (!array_key_exists('id', $result) ||
-            !is_numeric($result['id']) ||
-            !array_key_exists('success', $result) ||
-            $result['success'] !== true) {
-            if (array_key_exists('message', $result)) {
-                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-            } else {
-                throw new RuntimeException('Bad result');
-            }
-        }
-
-        return (int) $result['id'];
+        return $this->requireSuccessFor($result);
     }
 
     /**
@@ -100,18 +89,7 @@ class MonitoringLivestatus extends Request {
             ]
         );
 
-        if (!array_key_exists('id', $result) ||
-            !is_numeric($result['id']) ||
-            !array_key_exists('success', $result) ||
-            $result['success'] !== true) {
-            if (array_key_exists('message', $result)) {
-                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-            } else {
-                throw new RuntimeException('Bad result');
-            }
-        }
-
-        return (int) $result['id'];
+        return $this->requireSuccessFor($result);
     }
 
     /**
@@ -292,19 +270,9 @@ class MonitoringLivestatus extends Request {
             ];
         }
 
-        $result = $this->api->batchRequest($requests);
+        $results = $this->api->batchRequest($requests);
 
-        foreach ($result as $tag) {
-            // Do not check 'id' because in a batch request it is always NULL:
-            if (!array_key_exists('success', $tag) ||
-                $tag['success'] !== true) {
-                if (array_key_exists('message', $tag)) {
-                    throw new RuntimeException(sprintf('Bad result: %s', $tag['message']));
-                } else {
-                    throw new RuntimeException('Bad result');
-                }
-            }
-        }
+        $this->requireSuccessforAll($results);
 
         return $this;
     }

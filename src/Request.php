@@ -73,7 +73,23 @@ abstract class Request implements Calls {
         return (int) $result['id'];
     }
 
-
+    /**
+     * Check for success but ignore identifier
+     *
+     * @param array $result Result
+     *
+     * @throws RuntimeException on error
+     */
+    protected function requireSuccessWithoutIdentifier(array $result) {
+        if (!array_key_exists('success', $result) ||
+            $result['success'] !== true) {
+            if (array_key_exists('message', $result)) {
+                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
+            } else {
+                throw new RuntimeException('Bad result');
+            }
+        }
+    }
 
     /**
      * Check whether each request in a batch was successful
@@ -85,14 +101,7 @@ abstract class Request implements Calls {
     protected function requireSuccessforAll(array $results) {
         foreach ($results as $result) {
             // Do not check 'id' because in a batch request it is always NULL:
-            if (!array_key_exists('success', $result) ||
-                $result['success'] !== true) {
-                if (array_key_exists('message', $result)) {
-                    throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-                } else {
-                    throw new RuntimeException('Bad result');
-                }
-            }
+            $this->requireSuccessWithoutIdentifier($result);
         }
     }
 

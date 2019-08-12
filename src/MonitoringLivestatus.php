@@ -27,7 +27,6 @@ declare(strict_types=1);
 namespace bheisig\idoitapi;
 
 use \Exception;
-use \RuntimeException;
 
 /**
  * Requests for API namespace 'monitoring.livestatus'
@@ -179,14 +178,7 @@ class MonitoringLivestatus extends Request {
             ]
         );
 
-        if (!array_key_exists('success', $result) ||
-            $result['success'] !== true) {
-            if (array_key_exists('message', $result)) {
-                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-            } else {
-                throw new RuntimeException('Bad result');
-            }
-        }
+        $this->requireSuccessWithoutIdentifier($result);
 
         return $this;
     }
@@ -208,14 +200,7 @@ class MonitoringLivestatus extends Request {
             ]
         );
 
-        if (!array_key_exists('success', $result) ||
-            $result['success'] !== true) {
-            if (array_key_exists('message', $result)) {
-                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-            } else {
-                throw new RuntimeException('Bad result');
-            }
-        }
+        $this->requireSuccessWithoutIdentifier($result);
 
         return $this;
     }
@@ -237,14 +222,7 @@ class MonitoringLivestatus extends Request {
             ]
         );
 
-        if (!array_key_exists('success', $result) ||
-            $result['success'] !== true) {
-            if (array_key_exists('message', $result)) {
-                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-            } else {
-                throw new RuntimeException('Bad result');
-            }
-        }
+        $this->requireSuccessWithoutIdentifier($result);
 
         return $this;
     }

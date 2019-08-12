@@ -216,14 +216,7 @@ class CheckMKStaticTag extends Request {
             ]
         );
 
-        if (!array_key_exists('success', $result) ||
-            $result['success'] !== true) {
-            if (array_key_exists('message', $result)) {
-                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-            } else {
-                throw new RuntimeException('Bad result');
-            }
-        }
+        $this->requireSuccessWithoutIdentifier($result);
 
         return $this;
     }
@@ -245,14 +238,7 @@ class CheckMKStaticTag extends Request {
             ]
         );
 
-        if (!array_key_exists('success', $result) ||
-            $result['success'] !== true) {
-            if (array_key_exists('message', $result)) {
-                throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
-            } else {
-                throw new RuntimeException('Bad result');
-            }
-        }
+        $this->requireSuccessWithoutIdentifier($result);
 
         return $this;
     }

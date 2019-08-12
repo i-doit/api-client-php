@@ -485,6 +485,10 @@ abstract class BaseTest extends TestCase {
         return date('Y-m-d');
     }
 
+    protected function generateRGB(): string {
+        return substr(md5($this->generateRandomString()), 0, 6);
+    }
+
     /**
      * Validate common information about an object
      *

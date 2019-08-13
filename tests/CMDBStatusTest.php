@@ -31,7 +31,6 @@ use bheisig\idoitapi\CMDBStatus;
 
 /**
  * @group unreleased
- * @group open
  */
 class CMDBStatusTest extends BaseTest {
 

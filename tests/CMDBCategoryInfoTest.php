@@ -150,12 +150,42 @@ class CMDBCategoryInfoTest extends BaseTest {
      * @dataProvider provideVirtualCategories
      * @param string $categoryConstant Category constant
      */
-    public function testReadVirtualCategories(string $categoryConstant) {
+    public function testReadVirtualCategoryInfo(string $categoryConstant) {
         $request = [
             'jsonrpc' => '2.0',
             'method' => 'cmdb.category_info',
             'params' => array(
                 'category' => $categoryConstant,
+                'apikey' => getenv('KEY')
+            ),
+            'id' => 1
+        ];
+
+        $response = $this->api->rawRequest($request);
+
+        $this->assertIsArray($response);
+        $this->isError($response);
+        $this->hasValidJSONRPCIdentifier($request, $response);
+        $this->assertSame(-32099, $response['error']['code'], $categoryConstant);
+    }
+
+    /**
+     * @group API-189
+     * @group unreleased
+     * @throws Exception on error
+     * @dataProvider provideVirtualCategories
+     * @param string $categoryConstant Category constant
+     */
+    public function testReadVirtualCategoryEntries(string $categoryConstant) {
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $request = [
+            'jsonrpc' => '2.0',
+            'method' => 'cmdb.category.read',
+            'params' => array(
+                'category' => $categoryConstant,
+                'objID' => $objectID,
                 'apikey' => getenv('KEY')
             ),
             'id' => 1

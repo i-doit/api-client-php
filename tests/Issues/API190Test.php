@@ -43,10 +43,10 @@ class API190Test extends BaseTest {
 
     public function provideRackSettings(): array {
         return [
-            'ascending at pos 1' => ['asc', 1],
-            'descending at pos 1' => ['desc', 1],
-            'ascending at pos ' . self::RACK_UNITS => ['asc', self::RACK_UNITS],
-            'descending at pos ' . self::RACK_UNITS => ['desc', self::RACK_UNITS]
+            'ascending at pos 1' => ['asc', 1, 1],
+            'descending at pos 1' => ['desc', 1, 42],
+            'ascending at pos ' . self::RACK_UNITS => ['asc', self::RACK_UNITS, 42],
+            'descending at pos ' . self::RACK_UNITS => ['desc', self::RACK_UNITS, 1]
         ];
     }
 
@@ -54,9 +54,10 @@ class API190Test extends BaseTest {
      * @dataProvider provideRackSettings
      * @param string $sort Sort asc|desc
      * @param int $expectedPosition Position in rack
+     * @param int $internalPosition Internal position stored in backend
      * @throws Exception on error
      */
-    public function testIssue(string $sort, int $expectedPosition) {
+    public function testIssue(string $sort, int $expectedPosition, int $internalPosition) {
         /**
          * Create test data:
          */
@@ -138,7 +139,7 @@ class API190Test extends BaseTest {
         $this->assertIsArray($location[0]['pos']);
 
         $this->assertArrayHasKey('title', $location[0]['pos']);
-        $this->assertSame(1, (int) $location[0]['pos']['title']);
+        $this->assertSame($internalPosition, (int) $location[0]['pos']['title']);
 
         $this->assertArrayHasKey('obj_id', $location[0]['pos']);
         $this->assertSame($hostID, (int) $location[0]['pos']['obj_id']);

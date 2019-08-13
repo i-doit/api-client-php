@@ -35,10 +35,14 @@ use bheisig\idoitapi\tests\BaseTest;
  * @group API-151
  * @group API-187
  * @group API-188
+ * @group ID-6994
+ * @group ID-6998
  * @group unreleased
  * @see https://i-doit.atlassian.net/browse/API-151
  * @see https://i-doit.atlassian.net/browse/API-187
  * @see https://i-doit.atlassian.net/browse/API-188
+ * @see https://i-doit.atlassian.net/browse/ID-6994
+ * @see https://i-doit.atlassian.net/browse/ID-6998
  */
 class API151Test extends BaseTest {
 

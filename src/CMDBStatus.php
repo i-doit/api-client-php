@@ -58,19 +58,26 @@ class CMDBStatus extends Request {
      * @param string $title Title
      * @param string $constant Constant
      * @param string $color
+     * @param int $identifier Set identifier to update existing status, otherwise a new one will be created
      *
      * @return int
      *
      * @throws Exception on error
      */
-    public function save(string $title, string $constant, string $color): int {
+    public function save(string $title, string $constant, string $color, int $identifier = null): int {
+        $params = [
+            self::ATTRIBUTE_TITLE => $title,
+            self::ATTRIBUTE_CONSTANT => $constant,
+            self::ATTRIBUTE_COLOR => $color
+        ];
+
+        if (isset($identifier)) {
+            $params[self::ATTRIBUTE_ID] = $identifier;
+        }
+
         $result = $this->api->request(
             'cmdb.status.save',
-            [
-                self::ATTRIBUTE_TITLE => $title,
-                self::ATTRIBUTE_CONSTANT => $constant,
-                self::ATTRIBUTE_COLOR => $color
-            ]
+            $params
         );
 
         return $this->requireSuccessFor($result);

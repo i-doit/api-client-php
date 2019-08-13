@@ -168,7 +168,77 @@ class CMDBStatusTest extends BaseTest {
      * @throws Exception on error
      */
     public function testUpdateExistingStatus() {
-        // @todo Implement me!
+        /**
+         * Generate test data:
+         */
+
+        $title = $this->generateRandomString();
+        $constant = 'C__' . strtoupper($title);
+        $color = $this->generateRGB();
+
+        $identifier = $this->instance->save(
+            $title,
+            $constant,
+            $color
+        );
+
+        $this->isID($identifier);
+
+        /**
+         * Run tests:
+         */
+
+        $newTitle = $this->generateRandomString();
+        $newConstant = 'C__' . strtoupper($newTitle);
+        $newColor = $this->generateRGB();
+
+        $result = $this->instance->save(
+            $newTitle,
+            $newConstant,
+            $newColor,
+            $identifier
+        );
+
+        $this->isID($result);
+        $this->assertSame($identifier, $result);
+
+        /**
+         * Double check:
+         */
+
+        $notFound = $this->isExisting($title, $constant, $color, true);
+        $found = $this->isExisting($newTitle, $newConstant, $newColor, true);
+
+        $this->assertSame(false, $notFound);
+        $this->assertSame(true, $found);
+    }
+
+    /**
+     * @throws Exception on error
+     */
+    public function testUpdateNonExistingStatus() {
+        /**
+         * Generate test data:
+         */
+
+        $nonExistingIdentifier = $this->generateRandomID();
+
+        /**
+         * Run tests:
+         */
+
+        $newTitle = $this->generateRandomString();
+        $newConstant = 'C__' . strtoupper($newTitle);
+        $newColor = $this->generateRGB();
+
+        $this->expectException(Exception::class);
+
+        $this->instance->save(
+            $newTitle,
+            $newConstant,
+            $newColor,
+            $nonExistingIdentifier
+        );
     }
 
     /**

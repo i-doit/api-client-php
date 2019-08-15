@@ -32,7 +32,9 @@ use bheisig\idoitapi\API;
 use bheisig\idoitapi\CMDBCategoryInfo;
 
 /**
- * @coversDefaultClass \bheisig\idoitapi\CMDBCategoryInfo
+ * @group API-204
+ * @group unreleased
+ * @see https://i-doit.atlassian.net/browse/API-204
  */
 class CMDBCategoryInfoTest extends BaseTest {
 
@@ -67,6 +69,8 @@ class CMDBCategoryInfoTest extends BaseTest {
 
             $this->assertIsArray($result);
             $this->assertNotCount(0, $result);
+
+            $this->isCategoryInfo($result);
         }
     }
 
@@ -82,6 +86,8 @@ class CMDBCategoryInfoTest extends BaseTest {
         foreach ($result as $categoryInfo) {
             $this->assertIsArray($categoryInfo);
             $this->assertNotCount(0, $categoryInfo);
+
+            $this->isCategoryInfo($categoryInfo);
         }
     }
 
@@ -98,10 +104,7 @@ class CMDBCategoryInfoTest extends BaseTest {
             $this->assertIsString($categoryConst);
             $this->assertIsArray($categoryInfo);
 
-            foreach ($categoryInfo as $attribute => $properties) {
-                $this->assertIsString($attribute);
-                $this->assertIsArray($properties);
-            }
+            $this->isCategoryInfo($categoryInfo);
         }
     }
 
@@ -197,6 +200,135 @@ class CMDBCategoryInfoTest extends BaseTest {
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
         $this->assertSame(-32099, $response['error']['code'], $categoryConstant);
+    }
+
+    protected function isCategoryInfo(array $category) {
+        foreach ($category as $attributeTitle => $attribute) {
+            $this->assertIsString($attributeTitle);
+            $this->assertGreaterThan(0, strlen($attributeTitle));
+
+            $this->assertIsArray($attribute);
+            $this->isAttributeInfo($attribute);
+        }
+    }
+
+    protected function isAttributeInfo(array $attribute) {
+        /**
+         * "title":
+         */
+
+        $this->assertArrayHasKey('title', $attribute);
+        $this->assertIsString($attribute['title']);
+        $this->assertGreaterThan(0, strlen($attribute['title']));
+
+        /**
+         * "info":
+         */
+
+        $this->assertArrayHasKey('info', $attribute);
+        $this->assertIsArray($attribute['info']);
+        // "info.primary_field" is optional:
+        if (array_key_exists('primary_field', $attribute['info'])) {
+            $this->assertIsBool($attribute['info']['primary_field']);
+        }
+
+        $this->assertArrayHasKey('type', $attribute['info']);
+        $this->assertIsString($attribute['info']['type']);
+        $this->assertGreaterThan(0, strlen($attribute['info']['type']));
+
+        // "info.backward" is optional:
+        if (array_key_exists('backward', $attribute['info'])) {
+            $this->assertIsBool($attribute['info']['backward']);
+        }
+
+        $this->assertArrayHasKey('title', $attribute['info']);
+        $this->assertIsString($attribute['info']['title']);
+        $this->assertGreaterThan(0, strlen($attribute['info']['title']));
+
+        // "info.description" is optional:
+        if (array_key_exists('description', $attribute['info'])) {
+            $this->assertIsString($attribute['info']['description']);
+            $this->assertGreaterThan(0, strlen($attribute['info']['description']));
+        }
+
+        /**
+         * "data":
+         */
+
+        $this->assertArrayHasKey('data', $attribute);
+        $this->assertIsArray($attribute['data']);
+
+        $this->assertArrayHasKey('type', $attribute['data']);
+        $this->assertIsString($attribute['data']['type']);
+        $this->assertGreaterThan(0, strlen($attribute['data']['type']));
+
+        // "data.readonly" is optional:
+        if (array_key_exists('readonly', $attribute['data'])) {
+            $this->assertIsBool($attribute['data']['readonly']);
+        }
+
+        $this->assertArrayHasKey('index', $attribute['data']);
+        $this->assertIsBool($attribute['data']['index']);
+
+        // "data.field" is optional:
+        if (array_key_exists('field', $attribute['data'])) {
+            $this->assertIsString($attribute['data']['field']);
+            $this->assertGreaterThan(0, strlen($attribute['data']['field']));
+        }
+
+        // "data.table_alias" is optional:
+        if (array_key_exists('table_alias', $attribute['data'])) {
+            $this->assertIsString($attribute['data']['table_alias']);
+            $this->assertGreaterThan(0, strlen($attribute['data']['table_alias']));
+        }
+
+        /**
+         * "ui":
+         */
+
+        $this->assertArrayHasKey('ui', $attribute);
+        $this->assertIsArray($attribute['ui']);
+
+        $this->assertArrayHasKey('type', $attribute['ui']);
+        $this->assertIsString($attribute['ui']['type']);
+        $this->assertGreaterThan(0, strlen($attribute['ui']['type']));
+
+        // "ui.default" is optional and is mixed type (even null): nothing we can do!
+
+        // "ui.params" is optional:
+        if (array_key_exists('params', $attribute['ui'])) {
+            $this->assertIsArray($attribute['ui']['params']);
+        }
+
+        // "ui.id" is optional:
+        if (array_key_exists('id', $attribute['ui'])) {
+            $this->assertIsString($attribute['ui']['id']);
+            // String may be empty.
+        }
+
+        /**
+         * "format":
+         */
+
+        // format is optional and may be null:
+        if (array_key_exists('format', $attribute) && isset($attribute['format'])) {
+            $this->assertArrayHasKey('format', $attribute);
+            // Inside this array there could be anything.
+        }
+
+        /**
+         * "check":
+         */
+
+        $this->assertArrayHasKey('check', $attribute);
+        $this->assertIsArray($attribute['check']);
+
+        $this->assertArrayHasKey('mandatory', $attribute['check']);
+
+        // "check.mandatory" may be set to null:
+        if (isset($attribute['check']['mandatory'])) {
+            $this->assertIsBool($attribute['check']['mandatory']);
+        }
     }
 
 }

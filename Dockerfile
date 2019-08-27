@@ -26,6 +26,8 @@ RUN apt-get update; \
     php -r \
         "unlink('composer-setup.php');";
 
+RUN echo "memory_limit = -1" > /usr/local/etc/php/conf.d/zzz-idoitapi.ini;
+
 WORKDIR /usr/src
 
 ENV COMPOSER_ALLOW_SUPERUSER 1

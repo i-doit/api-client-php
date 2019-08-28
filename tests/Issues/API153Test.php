@@ -114,9 +114,12 @@ class API153Test extends BaseTest {
             API::USERNAME => $username,
             API::PASSWORD => $password,
             API::KEY => getenv('KEY'),
-            API::URL => getenv('URL'),
-            API::LANGUAGE => getenv('IDOIT_LANGUAGE')
+            API::URL => getenv('URL')
         ];
+
+        if (getenv('IDOIT_LANGUAGE') !== false) {
+            $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
+        }
 
         $this->api = new API($config);
 
@@ -147,9 +150,12 @@ class API153Test extends BaseTest {
             API::KEY => $apiKey,
             API::USERNAME => getenv('USERNAME'),
             API::PASSWORD => getenv('PASSWORD'),
-            API::URL => getenv('URL'),
-            API::LANGUAGE => getenv('IDOIT_LANGUAGE')
+            API::URL => getenv('URL')
         ];
+
+        if (getenv('IDOIT_LANGUAGE') !== false) {
+            $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
+        }
 
         $this->api = new API($config);
 

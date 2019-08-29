@@ -83,8 +83,8 @@
             "@composer phpmnd",
             "@composer phpstan"
         ],
-        "ci-phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon --log-junit ./phpunit_log.xml --no-coverage",
-        "ci-phpunit-parallel": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon --log-junit=./phpunit_parallel_log.xml ./tests/",
+        "ci-phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon,open --log-junit ./phpunit_log.xml --no-coverage",
+        "ci-phpunit-parallel": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon,open --log-junit=./phpunit_parallel_log.xml ./tests/",
         "ci-phpunit-unreleased": "./vendor/bin/phpunit --configuration ./phpunit.xml --group unreleased --log-junit ./phpunit_unreleased_log.xml --no-coverage",
         "find-forbidden": [
             "! grep -rEn \"(echo|var_dump|die|exit)\" src/* tests/*"
@@ -112,9 +112,9 @@
         "phpmd": "./vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
         "phpmnd": "./vendor/bin/phpmnd src/ --non-zero-exit-on-violation",
         "phpstan": "./vendor/bin/phpstan analyze -l max src tests",
-        "phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --exclude-group unreleased,addon",
+        "phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --exclude-group unreleased,addon,open",
         "phpunit-addon": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --group addon",
-        "phpunit-parallel": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon ./tests/",
+        "phpunit-parallel": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon,open ./tests/",
         "phpunit-unreleased": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --group unreleased",
         "security-checker": "./vendor/bin/security-checker security:check ./composer.lock",
         "system-check": [

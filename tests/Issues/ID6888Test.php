@@ -32,7 +32,7 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group ID-6888
- * @group unreleased
+ * @group open
  * @see https://i-doit.atlassian.net/browse/ID-6888
  */
 class ID6888Test extends BaseTest {

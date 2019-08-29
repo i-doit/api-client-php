@@ -34,7 +34,6 @@ use \DomainException;
 //use bheisig\idoitapi\CMDBCategoryInfo;
 
 /**
- * @group unreleased
  * @group open
  * @todo These tests won't work at all. Instead create tests for each category explicitly!
  */

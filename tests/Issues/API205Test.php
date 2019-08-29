@@ -33,7 +33,6 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group API-205
- * @group unreleased
  * @group open
  * @see https://i-doit.atlassian.net/browse/API-205
  */

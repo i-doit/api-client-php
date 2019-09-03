@@ -34,7 +34,6 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group API-194
- * @group unreleased
  * @see https://i-doit.atlassian.net/browse/API-194
  */
 class API194Test extends BaseTest {

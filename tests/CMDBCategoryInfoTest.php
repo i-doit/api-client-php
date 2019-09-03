@@ -33,7 +33,6 @@ use bheisig\idoitapi\CMDBCategoryInfo;
 
 /**
  * @group API-204
- * @group unreleased
  * @see https://i-doit.atlassian.net/browse/API-204
  */
 class CMDBCategoryInfoTest extends BaseTest {
@@ -174,7 +173,6 @@ class CMDBCategoryInfoTest extends BaseTest {
 
     /**
      * @group API-189
-     * @group unreleased
      * @throws Exception on error
      * @dataProvider provideVirtualCategories
      * @param string $categoryConstant Category constant

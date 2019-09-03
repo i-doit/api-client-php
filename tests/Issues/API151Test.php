@@ -37,7 +37,6 @@ use bheisig\idoitapi\tests\BaseTest;
  * @group API-188
  * @group ID-6994
  * @group ID-6998
- * @group unreleased
  * @see https://i-doit.atlassian.net/browse/API-151
  * @see https://i-doit.atlassian.net/browse/API-187
  * @see https://i-doit.atlassian.net/browse/API-188

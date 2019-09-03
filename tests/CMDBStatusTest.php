@@ -30,7 +30,7 @@ use \Exception;
 use bheisig\idoitapi\CMDBStatus;
 
 /**
- * @group unreleased
+ * @group API-202
  */
 class CMDBStatusTest extends BaseTest {
 

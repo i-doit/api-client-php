@@ -34,7 +34,6 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group ID-6996
- * @group unreleased
  * @see https://i-doit.atlassian.net/browse/ID-6996
  */
 class ID6996Test extends BaseTest {

@@ -67,32 +67,32 @@ class CMDBLocationTree extends Request {
      * @param int $objectID Object identifier
      * @param int $status Filter relations by status: 2 = normal, 3 = archived, 4 = deleted
      * @param int $level Level of recursion, negative values for no limit. Default: No Limit
+
      * @return array
      *
      * @throws Exception on error
      */
     public function readRecursively(int $objectID, int $status = null, $level = -1): array {
-        
+
         $children = $this->read($objectID, $status);
 
         $tree = [];
-        if($level != 0)
-        {
-          foreach ($children as $child) {
-              if (!array_key_exists('id', $child)) {
-                  throw new RuntimeException('Broken result');
-              }
+        if ($level != 0) {
+            foreach ($children as $child) {
+                if (!array_key_exists('id', $child)) {
+                    throw new RuntimeException('Broken result');
+                }
 
-              $node = $child;
+                $node = $child;
 
-              $childChildren = $this->readRecursively((int) $child['id'], $status, $level-1);
+                $childChildren = $this->readRecursively((int) $child['id'], $status, $level-1);
 
-              if (count($childChildren) > 0) {
-                  $node['children'] = $childChildren;
-              }
+                if (count($childChildren) > 0) {
+                    $node['children'] = $childChildren;
+                }
 
-              $tree[] = $node;
-          }
+                $tree[] = $node;
+            }
         }
 
         return $tree;

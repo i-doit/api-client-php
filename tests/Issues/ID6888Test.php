@@ -41,6 +41,10 @@ class ID6888Test extends BaseTest {
      * @throws Exception on error
      */
     public function testIssue() {
+        $this->markTestSkipped(
+            'Custom category needed!'
+        );
+
         $amountOfObjects = 500;
         $amountOfEntries = 1000;
 

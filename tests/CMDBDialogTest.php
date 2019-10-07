@@ -253,56 +253,58 @@ class CMDBDialogTest extends BaseTest {
         $this->assertNull($entry['parent']['title']);
     }
 
-//    /**
-//     * @throws Exception on error
-//     * @todo There must exist a custom category before the tests are running
-//     * because it's not possible to create custom categories via API.
-//     */
-//    public function testCreateCustomMultiDialog() {
-//        // Category "Firewall Rules":
-//        $customCategoryConst = 'C__CATG__CUSTOM_FIELDS__FIREWALL_RULES';
-//        // Attribute "IP Protocol":
-//        $customAttributeKey = 'f_popup_c_1504172658823';
-//        // Random transport protocol:
-//        $customAttributeValue = $this->generateRandomString();
-//
-//        $result = $this->cmdbDialog->create(
-//            $customCategoryConst,
-//            $customAttributeKey,
-//            $customAttributeValue
-//        );
-//
-//        $this->assertIsInt($result);
-//        $this->assertGreaterThanOrEqual(1, $result);
-//
-//        $values = $this->cmdbDialog->read(
-//            $customCategoryConst,
-//            $customAttributeKey
-//        );
-//
-//        $this->assertIsArray($values);
-//        $this->assertNotCount(0, $values);
-//
-//        // Look for new value:
-//        $found = false;
-//
-//        foreach ($values as $value) {
-//            $this->assertIsArray($value);
-//            $this->assertArrayHasKey('id', $value);
-//            $this->assertIsString($value['id']);
-//            $this->assertArrayHasKey('title', $value);
-//            $this->assertIsString($value['title']);
-//
-//            if ($value['title'] === $customAttributeValue) {
-//                $found = true;
-//                $id = (int) $value['id'];
-//                $this->assertSame($result, $id);
-//                break;
-//            }
-//        }
-//
-//        $this->assertTrue($found);
-//    }
+    /**
+     * @throws Exception on error
+     */
+    public function testCreateCustomMultiDialog() {
+        // Category "Firewall Rules":
+        $customCategoryConst = 'C__CATG__CUSTOM_FIELDS__FIREWALL_RULES';
+        // Attribute "IP Protocol":
+        $customAttributeKey = 'f_popup_c_1504172658823';
+        // Random transport protocol:
+        $customAttributeValue = $this->generateRandomString();
+
+        $this->markTestSkipped(
+            'Custom category needed!'
+        );
+
+        $result = $this->cmdbDialog->create(
+            $customCategoryConst,
+            $customAttributeKey,
+            $customAttributeValue
+        );
+
+        $this->assertIsInt($result);
+        $this->assertGreaterThanOrEqual(1, $result);
+
+        $values = $this->cmdbDialog->read(
+            $customCategoryConst,
+            $customAttributeKey
+        );
+
+        $this->assertIsArray($values);
+        $this->assertNotCount(0, $values);
+
+        // Look for new value:
+        $found = false;
+
+        foreach ($values as $value) {
+            $this->assertIsArray($value);
+            $this->assertArrayHasKey('id', $value);
+            $this->assertIsString($value['id']);
+            $this->assertArrayHasKey('title', $value);
+            $this->assertIsString($value['title']);
+
+            if ($value['title'] === $customAttributeValue) {
+                $found = true;
+                $id = (int) $value['id'];
+                $this->assertSame($result, $id);
+                break;
+            }
+        }
+
+        $this->assertTrue($found);
+    }
 
     /**
      * @throws Exception on error

@@ -33,7 +33,6 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group issues
  * @group API-205
- * @group open
  * @see https://i-doit.atlassian.net/browse/API-205
  */
 class API205Test extends BaseTest {
@@ -262,6 +261,10 @@ class API205Test extends BaseTest {
      * @throws Exception on error
      */
     public function testVirtualCustomAttribute(string $attributeIdentifier) {
+        $this->markTestSkipped(
+            'Custom category needed!'
+        );
+
         /**
          * Create test data:
          */

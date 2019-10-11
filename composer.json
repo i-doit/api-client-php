@@ -83,9 +83,9 @@
             "@composer phpmnd",
             "@composer phpstan"
         ],
-        "ci-phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon,open --log-junit ./phpunit_log.xml --no-coverage",
+        "ci-phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --exclude-group unreleased,addon,open --log-junit ./phpunit_log.xml --no-coverage",
         "ci-phpunit-parallel": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon,open --log-junit=./phpunit_parallel_log.xml ./tests/",
-        "ci-phpunit-unreleased": "./vendor/bin/phpunit --configuration ./phpunit.xml --group unreleased --log-junit ./phpunit_unreleased_log.xml --no-coverage",
+        "ci-phpunit-unreleased": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --group unreleased --log-junit ./phpunit_unreleased_log.xml --no-coverage",
         "find-forbidden": [
             "! grep -rEn \"(echo|var_dump|die|exit)\" src/* tests/*"
         ],

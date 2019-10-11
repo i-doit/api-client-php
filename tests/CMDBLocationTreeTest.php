@@ -30,7 +30,9 @@ use \Exception;
 use bheisig\idoitapi\CMDBLocationTree;
 
 /**
- * @coversDefaultClass \bheisig\idoitapi\CMDBLocationTree
+ * @todo Test various self-defined location trees
+ * @todo Test various object states (normal, archive, deleted, …)
+ * @todo Test more root nodes than only root location object
  */
 class CMDBLocationTreeTest extends BaseTest {
 
@@ -55,15 +57,20 @@ class CMDBLocationTreeTest extends BaseTest {
         $result = $this->instance->read($this->getRootLocation());
 
         $this->assertIsArray($result);
+        $this->assertNotCount(0, $result);
+        $this->isLocationTree($result);
     }
 
     /**
      * @throws Exception on error
+     * @todo Test various levels
      */
     public function testReadRecursively() {
         $result = $this->instance->readRecursively($this->getRootLocation());
 
         $this->assertIsArray($result);
+        $this->assertNotCount(0, $result);
+        $this->isLocationTree($result);
     }
 
 }

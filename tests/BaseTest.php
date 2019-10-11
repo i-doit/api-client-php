@@ -562,6 +562,52 @@ abstract class BaseTest extends TestCase {
         $this->isOneLiner($object['type_title']);
     }
 
+    protected function isLocationTree(array $locationTree) {
+        foreach ($locationTree as $index => $object) {
+            $this->assertIsInt($index);
+            $this->assertGreaterThanOrEqual(0, $index);
+
+            $this->assertIsArray($object);
+            $this->isLocationObject($object);
+
+            if (array_key_exists('children', $object)) {
+                $this->assertIsArray($object['children']);
+                $this->assertNotCount(0, $object['children']);
+                $this->isLocationTree($object['children']);
+            }
+        }
+    }
+
+    protected function isLocationObject(array $object) {
+        $this->assertArrayHasKey('id', $object);
+        $this->assertIsInt($object['id']);
+        $this->isID($object['id']);
+
+        $this->assertArrayHasKey('title', $object);
+        $this->assertIsString($object['title']);
+        $this->isOneLiner($object['title']);
+
+        $this->assertArrayHasKey('sysid', $object);
+        $this->assertIsString($object['sysid']);
+        $this->isOneLiner($object['sysid']);
+
+        $this->assertArrayHasKey('type', $object);
+        $this->assertIsInt($object['type']);
+        $this->isID($object['type']);
+
+        $this->assertArrayHasKey('type_title', $object);
+        $this->assertIsString($object['type_title']);
+        $this->isOneLiner($object['type_title']);
+
+        $this->assertArrayHasKey('cmdb_status', $object);
+        $this->assertIsInt($object['cmdb_status']);
+        $this->isID($object['cmdb_status']);
+
+        $this->assertArrayHasKey('cmdb_status_title', $object);
+        $this->assertIsString($object['cmdb_status_title']);
+        $this->isOneLiner($object['cmdb_status_title']);
+    }
+
     protected function isDialog(array $dialog) {
         $this->assertArrayHasKey('id', $dialog);
         $this->isIDAsString($dialog['id']);

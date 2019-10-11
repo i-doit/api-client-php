@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased][]
 
 **Notice: Support for PHP 5.6 is finally dropped. Version 7.0 is deprecated. Support will be dropped in a further release. Please upgrade to at least version 7.1. Version 7.3 is recommended.**
 
@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   `CMDBStatus`: Provide API calls for namespace `cmdb.status`
 -   Provide cURL error code in case of connection problems
 -   Check for errors when initiating cURL
--   Add virtual category constant "C__CATG__DATABASE_FOLDER" which will be blacklisted by some methods
+-   Add virtual category constant `C__CATG__DATABASE_FOLDER` which will be blacklisted by some methods
 -   Run environment in a Docker container
 
 ### Changed
@@ -24,7 +24,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Recommend PHP 7.3
 -   Declare strict types
 
-## [0.8] – 2019-04-16
+### Fixed
+
+-   `CMDBLocationTree::readRecursively()`: Make method really recursively (contribution by @Pta42)
+
+## [0.8][] – 2019-04-16
 
 It's spring time! 🌱
 
@@ -48,7 +52,7 @@ To get the full experience, please update your i-doit to version >= 1.12.2 and A
 
 -   `API::disconnect()`: Let `curl_close()` delete resource is enough
 
-## [0.7] – 2018-12-17
+## [0.7][] – 2018-12-17
 
 This release comes with new features and tons of unit tests. To get the full experience, please update your i-doit to version >= 1.11.2 and API add-on to version >= 1.10.
 
@@ -96,7 +100,7 @@ This release comes with new features and tons of unit tests. To get the full exp
 -   `File::add()`, `File::batchAdd()`: Use renamed constant for category "file versions"
 -   Avoid "PHP Notice" when there is a detailed error description available
 
-## [0.6] – 2018-06-21
+## [0.6][] – 2018-06-21
 
 Happy summer time ⛱️
 
@@ -110,7 +114,7 @@ Happy summer time ⛱️
 
 -   `CMDBCategory::clear()`: Archiving zero category entries results in a broken API request
 
-##  [0.5] – 2018-04-25
+## [0.5][] – 2018-04-25
 
 ### Added
 
@@ -128,7 +132,7 @@ Happy summer time ⛱️
 -   `CMDBCategory::readFirst()` now returns an empty array `[]` instead of `false` (boolean)
 -   Validation error for missing proxy settings while proxy is disabled by `proxy.active=false`
 
-## [0.4] – 2018-02-21
+## [0.4][] – 2018-02-21
 
 ### Added
 
@@ -153,7 +157,7 @@ Happy summer time ⛱️
 
 -   Use correct setting for proxy type and check if username is set
 
-## [0.3] – 2017-07-25
+## [0.3][] – 2017-07-25
 
 ### Added
 
@@ -162,7 +166,7 @@ Happy summer time ⛱️
 -   Throw exception in method `CMDBObject::load()` when object not found
 -   Limit batch requests in `Select::find()`
 
-## [0.2] – 2017-04-05
+## [0.2][] – 2017-04-05
 
 ### Added
 
@@ -180,7 +184,7 @@ Happy summer time ⛱️
 -   Broken Exception message in `CMDBObject::upsert()`
 -   Typos in `README.md`
 
-## [0.1] – 2017-02-09
+## 0.1 – 2017-02-09
 
 Initial release
 

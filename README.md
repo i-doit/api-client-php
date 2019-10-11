@@ -29,7 +29,7 @@ Why should you use this API client library? There are some good reasons:
 -   Many examples
 -   Well-documented
 -   Easy to install via Composer
--   Well-tested with dozens of unit tests
+-   Well-tested with tons of integration tests
 
 What's new? Take a look at the [changelog](CHANGELOG.md).
 
@@ -39,18 +39,20 @@ Meet these simple requirements before using the client:
 
 -   A running instance of i-doit, version 1.12.2 or higher
 -   i-doit API add-on, version 1.10.2 or higher
--   PHP, version 7.1 or higher (7.0 works but is deprecated, 7.3 is recommended)
+-   PHP, version 7.1 or higher (7.0 works but is deprecated, 7.3 is recommended, unreleased 7.4 should work)
 -   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
+
+As a rule of thumb, always use the latest stable releases to benefit from new features, improvements and bug fixes.
 
 ## Installation
 
 It is recommended to install this client via [Composer](https://getcomposer.org/). Change to your project's root directory and fetch the latest stable version:
 
 ~~~ {.bash}
-composer require "bheisig/idoitapi=>=0.8"
+composer require bheisig/idoitapi
 ~~~
 
-This installs version `0.8` or higher if available. Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
+Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
 
 ~~~ {.bash}
 composer require "bheisig/idoitapi=@DEV"

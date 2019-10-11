@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
-**Notice: Support for PHP 5.6 is finally dropped. Version 7.0 is deprecated. Support will be dropped in a further release. Please upgrade to at least version 7.1. Version 7.3 is recommended.**
+_tbd_
+
+## [0.9][] – 2019-10-11
+
+**Note: Support for PHP 5.6 is finally dropped. Version 7.0 is deprecated. Support will be dropped in a further release. Please upgrade to at least version 7.1. Version 7.3 is recommended.**
 
 ### Added
 

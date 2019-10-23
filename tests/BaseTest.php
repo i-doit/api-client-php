@@ -96,7 +96,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws Exception on error
      */
-    public static function setUpBeforeClass() {
+    public static function setUpBeforeClass(): void {
         self::$dotEnv = new Dotenv(true);
         self::$dotEnv->load(__DIR__ . '/../.env');
 
@@ -116,7 +116,7 @@ abstract class BaseTest extends TestCase {
      *
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         $config = [
             API::URL => getenv('URL'),
             API::KEY => getenv('KEY'),

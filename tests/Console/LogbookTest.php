@@ -43,7 +43,7 @@ class LogbookTest extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->logbook = new Logbook($this->api);

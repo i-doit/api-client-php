@@ -43,7 +43,7 @@ class CMDBLogbookTest extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->instance = new CMDBLogbook($this->api);

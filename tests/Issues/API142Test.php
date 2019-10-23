@@ -47,7 +47,7 @@ class API142Test extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->idoit = new Idoit($this->api);

@@ -42,7 +42,7 @@ class CMDBStatusTest extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->instance = new CMDBStatus($this->api);

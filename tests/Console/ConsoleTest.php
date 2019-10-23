@@ -44,7 +44,7 @@ class ConsoleTest extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->console = new Console($this->api);

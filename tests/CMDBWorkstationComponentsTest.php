@@ -43,7 +43,7 @@ class CMDBWorkstationComponentsTest extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->cmdbWorkstationComponents = new CMDBWorkstationComponents($this->api);

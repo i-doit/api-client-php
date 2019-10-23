@@ -43,7 +43,7 @@ class SystemTest extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->system = new System($this->api);

@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
-_tbd_
+### Changed
+
+-   Require at least PHP version 7.2 on dev/CI environments
 
 ## [0.9][] – 2019-10-11
 

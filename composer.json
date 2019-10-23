@@ -27,8 +27,8 @@
         "ext-zlib": "*"
     },
     "require-dev": {
-        "php": ">=7.1.0",
-        "brianium/paratest": "^2.0",
+        "php": ">=7.2.0",
+        "brianium/paratest": "^3",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
         "j13k/yaml-lint": "^1.1",
         "jakub-onderka/php-parallel-lint": "^1.0",
@@ -37,7 +37,7 @@
         "phploc/phploc": "^4.0",
         "phpmd/phpmd": "@stable",
         "phpstan/phpstan": "^0.11.5",
-        "phpunit/phpunit": "^7",
+        "phpunit/phpunit": "^8",
         "povils/phpmnd": "^2",
         "sclable/xml-lint": "^0.2.4",
         "sebastian/phpcpd": "^4.1.0",
@@ -84,7 +84,7 @@
             "@composer phpstan"
         ],
         "ci-phpunit": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --exclude-group unreleased,addon,open --log-junit ./phpunit_log.xml --no-coverage",
-        "ci-phpunit-parallel": "./vendor/bin/paratest -p8 --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon,open --log-junit=./phpunit_parallel_log.xml ./tests/",
+        "ci-phpunit-parallel": "./vendor/bin/paratest --phpunit ./vendor/bin/phpunit --configuration ./phpunit.xml --exclude-group unreleased,addon,open --log-junit=./phpunit_parallel_log.xml ./tests/",
         "ci-phpunit-unreleased": "./vendor/bin/phpunit --configuration ./phpunit.xml --testdox --group unreleased --log-junit ./phpunit_unreleased_log.xml --no-coverage",
         "find-forbidden": [
             "! grep -rEn \"(echo|var_dump|die|exit)\" src/* tests/*"
@@ -104,7 +104,7 @@
         "phan": "./vendor/bin/phan",
         "phpcompatibility": [
             "./vendor/bin/phpcs -p --colors --extensions=php --standard=PHPCompatibility --runtime-set testVersion 7.0 src/",
-            "./vendor/bin/phpcs -p --colors --extensions=php --standard=PHPCompatibility --runtime-set testVersion 7.1 tests/"
+            "./vendor/bin/phpcs -p --colors --extensions=php --standard=PHPCompatibility --runtime-set testVersion 7.2 tests/"
         ],
         "phpcpd": "./vendor/bin/phpcpd src/",
         "phpcs": "./vendor/bin/phpcs --extensions=php --standard=PSR1,PSR2 --exclude=PSR2.Classes.ClassDeclaration,Squiz.Functions.MultiLineFunctionDeclaration src/ tests/",

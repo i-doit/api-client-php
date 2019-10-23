@@ -43,7 +43,7 @@ class NotificationsTest extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->notifications = new Notifications($this->api);

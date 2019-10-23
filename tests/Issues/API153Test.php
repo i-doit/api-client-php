@@ -42,7 +42,7 @@ class API153Test extends BaseTest {
      *
      * @throws Exception on error
      */
-    public function setUp() {
+    public function setUp(): void {
         // Do nothing.
     }
 

@@ -49,7 +49,7 @@ Notice, that any of your contributions merged into this repository will be [lice
 Developers must meet some more requirements:
 
 -   See requirements mentioned in the [documentation](README.md)
--   You need at least PHP 7.1 (7.3 is recommended), for example to run unit tests
+-   You need at least PHP 7.2 (7.3 is recommended), for example to run unit tests
 -   [Xdebug](https://xdebug.org/), needed for code coverage with phpunit
 -   [Composer](https://getcomposer.org/)
 -   [Git](https://git-scm.com/)

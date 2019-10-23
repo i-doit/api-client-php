@@ -16,7 +16,7 @@ If you have questions how to use it properly read the [documentation](README.md)
 
 If you find something strange please report it to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues).
 
-## Find security issues
+## Report security issues
 
 [Found a security-related issue?](SECURITY.md)
 
@@ -169,4 +169,8 @@ For example, execute `composer phpstan`.
 
 ## Donate
 
-Last but not least, if you think this script is useful for your daily work, consider a donation. What about a beer?
+If you think this script is useful for your daily work, consider a donation. What about a beer?
+
+## Further reading
+
+-   [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)

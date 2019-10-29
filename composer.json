@@ -39,6 +39,7 @@
         "phpstan/phpstan": "^0.11.5",
         "phpunit/phpunit": "^8",
         "povils/phpmnd": "^2",
+        "roave/security-advisories": "dev-master",
         "sclable/xml-lint": "^0.2.4",
         "sebastian/phpcpd": "^4.1.0",
         "seld/jsonlint": "^1.7",

@@ -583,6 +583,8 @@ $category->save(
 
 Alternatively, use method `CMDBCategory::batchUpdate()` for batch requests.
 
+Hint: To update specific entrys inside a multi-value category you'll need to append the `categoryDataID` (mv entry identifier) after the attribute array as integer.
+
 #### Change documentation status of a category and its attributes
 
 ~~~ {.php}

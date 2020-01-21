@@ -150,6 +150,7 @@ This project comes with some useful composer scripts:
 | `composer lint-json`          | Check syntax of JSON files                                |
 | `composer lint-xml`           | Check syntax of XML files                                 |
 | `composer lint-yaml`          | Check syntax of YAML files                                |
+| `composer outdated-packages`  | Report outdated composer packages                         |
 | `composer phan`               | Perform static code analysis with phan                    |
 | `composer phpcompatibility`   | Run PHP compatibility checks                              |
 | `composer phpcpd`             | Detect copy/paste in source code                          |

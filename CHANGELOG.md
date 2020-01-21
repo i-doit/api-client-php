@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
+**Note: Support for PHP 7.0 is finally dropped. Version 7.1 is deprecated. Support will be dropped in a further release. Please upgrade to at least version 7.2. Version 7.4 is recommended.
+
 ### Changed
 
+-   Require at least PHP version 7.1 on production environments
 -   Require at least PHP version 7.2 on dev/CI environments
+-   Mark PHP version 7.1 as deprecated
+-   Recommend PHP version 7.4
 
 ## [0.9][] – 2019-10-11
 

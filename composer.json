@@ -18,7 +18,7 @@
         "source": "https://github.com/bheisig/i-doit-api-client-php"
     },
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.1.0",
         "ext-curl": "*",
         "ext-date": "*",
         "ext-json": "*",
@@ -104,7 +104,7 @@
         "lint-yaml": "./vendor/bin/yaml-lint .travis.yml",
         "phan": "./vendor/bin/phan",
         "phpcompatibility": [
-            "./vendor/bin/phpcs -p --colors --extensions=php --standard=PHPCompatibility --runtime-set testVersion 7.0 src/",
+            "./vendor/bin/phpcs -p --colors --extensions=php --standard=PHPCompatibility --runtime-set testVersion 7.1 src/",
             "./vendor/bin/phpcs -p --colors --extensions=php --standard=PHPCompatibility --runtime-set testVersion 7.2 tests/"
         ],
         "phpcpd": "./vendor/bin/phpcpd src/",
@@ -158,6 +158,6 @@
         "system-check": "Run some system checks"
     },
     "extra": {
-        "version": "0.9"
+        "version": "0.10-dev"
     }
 }

@@ -31,7 +31,6 @@ use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
- * @group unreleased
  * @group issues
  * @group ID-7100
  * @see https://i-doit.atlassian.net/browse/ID-7100

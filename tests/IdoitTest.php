@@ -51,6 +51,7 @@ class IdoitTest extends BaseTest {
     }
 
     /**
+     * @group API-82
      * @throws Exception on error
      */
     public function testReadVersion() {
@@ -77,8 +78,8 @@ class IdoitTest extends BaseTest {
         $this->assertArrayHasKey('username', $result['login']);
         $this->assertIsString($result['login']['username']);
 
-        $this->assertArrayHasKey('mandator', $result['login']);
-        $this->assertIsString($result['login']['mandator']);
+        $this->assertArrayHasKey('tenant', $result['login']);
+        $this->assertIsString($result['login']['tenant']);
 
         $this->assertArrayHasKey('language', $result['login']);
         $this->assertIsString($result['login']['language']);

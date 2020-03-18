@@ -106,16 +106,29 @@ final class PrintMetaData implements BeforeFirstTestHook {
         try {
             $config = [
                 API::URL => getenv('URL'),
-                API::KEY => getenv('KEY')
+                API::KEY => getenv('KEY'),
+                API::BYPASS_SECURE_CONNECTION => getenv('BYPASS_SECURE_CONNECTION')
             ];
+
+            if (getenv('PORT') !== false) {
+                $config[API::PORT] = (int) getenv('PORT');
+            }
 
             if (getenv('IDOIT_LANGUAGE') !== false) {
                 $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
             }
 
             if (getenv('USERNAME') !== false && getenv('PASSWORD') !== false) {
-                $config['username'] = getenv('USERNAME');
-                $config['password'] = getenv('PASSWORD');
+                $config[API::USERNAME] = getenv('USERNAME');
+                $config[API::PASSWORD] = getenv('PASSWORD');
+            }
+
+            if (getenv('BYPASS_SECURE_CONNECTION') !== false) {
+                $config[API::BYPASS_SECURE_CONNECTION] = filter_var(
+                    getenv('BYPASS_SECURE_CONNECTION'),
+                    FILTER_VALIDATE_BOOLEAN,
+                    FILTER_NULL_ON_FAILURE
+                );
             }
 
             $this->api = new API($config);
@@ -186,12 +199,12 @@ final class PrintMetaData implements BeforeFirstTestHook {
             is_array($this->idoitInfo['login']) &&
             array_key_exists('username', $this->idoitInfo['login']) &&
             array_key_exists('language', $this->idoitInfo['login']) &&
-            array_key_exists('mandator', $this->idoitInfo['login'])) {
+            array_key_exists('tenant', $this->idoitInfo['login'])) {
             $user = sprintf(
                 '%s (%s) @ %s',
                 $this->idoitInfo['login']['username'],
                 $this->idoitInfo['login']['language'],
-                $this->idoitInfo['login']['mandator']
+                $this->idoitInfo['login']['tenant']
             );
         }
 

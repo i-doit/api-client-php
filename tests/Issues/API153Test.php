@@ -121,6 +121,18 @@ class API153Test extends BaseTest {
             $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
         }
 
+        if (getenv('PORT') !== false) {
+            $config[API::PORT] = (int) getenv('PORT');
+        }
+
+        if (getenv('BYPASS_SECURE_CONNECTION') !== false) {
+            $config[API::BYPASS_SECURE_CONNECTION] = filter_var(
+                getenv('BYPASS_SECURE_CONNECTION'),
+                FILTER_VALIDATE_BOOLEAN,
+                FILTER_NULL_ON_FAILURE
+            );
+        }
+
         $this->api = new API($config);
 
         $request = [
@@ -155,6 +167,18 @@ class API153Test extends BaseTest {
 
         if (getenv('IDOIT_LANGUAGE') !== false) {
             $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
+        }
+
+        if (getenv('PORT') !== false) {
+            $config[API::PORT] = (int) getenv('PORT');
+        }
+
+        if (getenv('BYPASS_SECURE_CONNECTION') !== false) {
+            $config[API::BYPASS_SECURE_CONNECTION] = filter_var(
+                getenv('BYPASS_SECURE_CONNECTION'),
+                FILTER_VALIDATE_BOOLEAN,
+                FILTER_NULL_ON_FAILURE
+            );
         }
 
         $this->api = new API($config);

@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Mark PHP version 7.1 as deprecated
 -   Recommend PHP version 7.4
 
+### Removed
+
+-   Drop support of PHP version 7.0
+
 ## [0.9][] – 2019-10-11
 
 **Note: Support for PHP 5.6 is finally dropped. Version 7.0 is deprecated. Support will be dropped in a further release. Please upgrade to at least version 7.1. Version 7.3 is recommended.**
@@ -30,7 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Drop support for PHP version 5.6
 -   Mark PHP version 7.0 as deprecated
 -   Recommend PHP 7.3
 -   Declare strict types
@@ -38,6 +41,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 -   `CMDBLocationTree::readRecursively()`: Make method really recursively (contribution by @Pta42)
+
+### Removed
+
+-   Drop support of PHP version 5.6
 
 ## [0.8][] – 2019-04-16
 
@@ -157,16 +164,19 @@ Happy summer time ⛱️
 ### Changed
 
 -   Bump required versions of i-doit (>= 1.10) and its API add-on (>= 1.9)
--   Remove `idoitapi.php` because Composer is the prefered way to use
 -   Require entry identifier in methods `CMDBCategory::archive()`, `delete()` and `purge()`
 -   Methods `cmdb.category.create`, `cmdb.category_info.read` (and others, too) do not need parameters `catg` or `cats`. Parameter `category` seems to be sufficient.
 -   Make `CMDBCategory::purge()` a lot faster due to method `cmdb.category.quickpurge`
 -   Return empty array for reports with no results (class `CMDBReports`)
--   Remove many dependencies from unit tests
 
 ### Fixed
 
 -   Use correct setting for proxy type and check if username is set
+
+### Removed
+
+-   Remove `idoitapi.php` because Composer is the prefered way to use
+-   Remove many dependencies from unit tests
 
 ## [0.3][] – 2017-07-25
 
@@ -185,21 +195,22 @@ Happy summer time ⛱️
 -   Get last server response with method `API::getLastResponse()`
 -   Find more objects by their attributes with method `Select::find()`
 -   Script for debugging purposes in `README.md`
--   Many more unit tests
+-   Add many more unit tests
 
 ### Fixed
 
--   Broken batch request in method `Image::batchAdd()`
--   Broken error message in method `CMDBCategory::batchCreate()`
--   In a batch request sub results have no key id in method `CMDBCategory::batchCreate()`
--   Broken Exception message in `CMDBObject::upsert()`
--   Typos in `README.md`
+-   Fix broken batch request in method `Image::batchAdd()`
+-   Fix broken error message in method `CMDBCategory::batchCreate()`
+-   Fix in a batch request that sub results have no key id in method `CMDBCategory::batchCreate()`
+-   Fix broken Exception message in `CMDBObject::upsert()`
+-   Fix typos in `README.md`
 
 ## 0.1 – 2017-02-09
 
 Initial release
 
-[Unreleased]: https://github.com/bheisig/i-doit-api-client-php/compare/0.8...HEAD
+[Unreleased]: https://github.com/bheisig/i-doit-api-client-php/compare/0.9...HEAD
+[0.9]: https://github.com/bheisig/i-doit-api-client-php/compare/0.8...0.9
 [0.8]: https://github.com/bheisig/i-doit-api-client-php/compare/0.7...0.8
 [0.7]: https://github.com/bheisig/i-doit-api-client-php/compare/0.6...0.7
 [0.6]: https://github.com/bheisig/i-doit-api-client-php/compare/0.5...0.6

@@ -32,10 +32,12 @@ use bheisig\idoitapi\tests\BaseTest;
 /**
  * @group unreleased
  * @group issues
+ * @group API-227
  * @group ID-7366
+ * @see https://i-doit.atlassian.net/browse/API-227
  * @see https://i-doit.atlassian.net/browse/ID-7366
  */
-class ID7366Test extends BaseTest {
+class API227Test extends BaseTest {
 
     /**
      * @throws Exception on error

@@ -39,27 +39,38 @@ use bheisig\idoitapi\tests\BaseTest;
  */
 class API227Test extends BaseTest {
 
+    public function provideCustomCategory(): array {
+        return [
+            [
+                // Category "ID-7366", single value, assigned to "Server":
+                'C__CATG__CUSTOM_FIELDS_ID_7366',
+                // Dialog+ attribute "Select":
+                'f_popup_c_1586186740537',
+                // Value in attribute:
+                'First value',
+                // Its constant:
+                'FIRST_VALUE'
+            ]
+        ];
+    }
+
     /**
+     * @dataProvider provideCustomCategory
+     * @param string $customCategoryConst
+     * @param string $customAttributeKey
+     * @param string $customAttributeValue
+     * @param string $customAttributeConst
      * @throws Exception on error
      */
-    public function testAssignSingleObject() {
+    public function testSaveSingleObject(
+        string $customCategoryConst,
+        string $customAttributeKey,
+        string $customAttributeValue,
+        string $customAttributeConst
+    ) {
         $this->markTestSkipped(
             'Custom category needed!'
         );
-
-        /**
-         * Prepare test environment:
-         */
-
-        // Category "ID-7366", single value, assigned to "Server":
-        $customCategoryConst = 'C__CATG__CUSTOM_FIELDS_ID_7366';
-
-        // Dialog+ attribute "Select":
-        $customAttributeKey = 'f_popup_c_1584542930226';
-
-        // Value in attribute:
-        $customAttributeValue = 'First value';
-        $customAttributeConst = 'FIRST_VALUE';
 
         /**
          * Create test data:
@@ -79,6 +90,93 @@ class API227Test extends BaseTest {
 
         /**
          * Run tests:
+         */
+
+        $entries = $this->useCMDBCategory()->read(
+            $objectID,
+            $customCategoryConst
+        );
+
+        $this->assertIsArray($entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+        $this->assertIsArray($entries[0]);
+        $this->assertArrayHasKey($customAttributeKey, $entries[0]);
+        $this->assertIsArray($entries[0][$customAttributeKey]);
+        $this->isDialog($entries[0][$customAttributeKey]);
+        $this->assertSame($customAttributeConst, $entries[0][$customAttributeKey]['const']);
+        $this->assertSame($customAttributeValue, $entries[0][$customAttributeKey]['title']);
+    }
+
+
+    /**
+     * @dataProvider provideCustomCategory
+     * @param string $customCategoryConst
+     * @param string $customAttributeKey
+     * @param string $customAttributeValue
+     * @param string $customAttributeConst
+     * @throws Exception on error
+     */
+    public function testCreateAndUpdateSingleObject(
+        string $customCategoryConst,
+        string $customAttributeKey,
+        string $customAttributeValue,
+        string $customAttributeConst
+    ) {
+        $this->markTestSkipped(
+            'Custom category needed!'
+        );
+
+        /**
+         * Create test data:
+         */
+
+        $objectID = $this->createServer();
+        $this->isID($objectID);
+
+        $entryID = $this->useCMDBCategory()->create(
+            $objectID,
+            $customCategoryConst,
+            [
+                $customAttributeKey => $customAttributeConst
+            ]
+        );
+        $this->isID($entryID);
+
+        /**
+         * Run tests:
+         */
+
+        $entries = $this->useCMDBCategory()->read(
+            $objectID,
+            $customCategoryConst
+        );
+
+        $this->assertIsArray($entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+        $this->assertIsArray($entries[0]);
+        $this->assertArrayHasKey($customAttributeKey, $entries[0]);
+        $this->assertIsArray($entries[0][$customAttributeKey]);
+        $this->isDialog($entries[0][$customAttributeKey]);
+        $this->assertSame($customAttributeConst, $entries[0][$customAttributeKey]['const']);
+        $this->assertSame($customAttributeValue, $entries[0][$customAttributeKey]['title']);
+
+        /**
+         * Update category entry:
+         */
+
+        $this->useCMDBCategory()->update(
+            $objectID,
+            $customCategoryConst,
+            [
+                $customAttributeKey => $customAttributeConst
+            ],
+            $entryID
+        );
+
+        /**
+         * Run tests again:
          */
 
         $entries = $this->useCMDBCategory()->read(

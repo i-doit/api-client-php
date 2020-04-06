@@ -41,7 +41,7 @@ class API194Test extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function testIssue() {
+    public function testSave() {
         /**
          * Create test data:
          */
@@ -143,6 +143,143 @@ class API194Test extends BaseTest {
             ]
         );
         $this->assertSame($wanConnectionID, $updatedWANConnectionID);
+
+        /**
+         * Run final tests:
+         */
+
+        $entries = $this->useCMDBCategory()->read(
+            $wanID,
+            Category::CATG__WAN
+        );
+
+        $this->assertIsArray($entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+        $this->assertIsArray($entries[0]);
+        $this->isCategoryEntry($entries[0]);
+
+        $this->assertArrayHasKey('router', $entries[0]);
+        $this->assertIsArray($entries[0]['router']);
+        $this->assertCount(1, $entries[0]['router']);
+        $this->assertArrayHasKey(0, $entries[0]['router']);
+        $this->assertIsArray($entries[0]['router'][0]);
+        $this->isAssignedObject($entries[0]['router'][0]);
+        $this->assertArrayHasKey('id', $entries[0]['router'][0]);
+        $this->assertSame($routerID, (int) $entries[0]['router'][0]['id']);
+
+        $this->assertArrayHasKey('net', $entries[0]);
+        $this->assertIsArray($entries[0]['net']);
+        $this->assertCount(1, $entries[0]['net']);
+        $this->assertArrayHasKey(0, $entries[0]['net']);
+        $this->assertIsArray($entries[0]['net'][0]);
+        $this->isAssignedObject($entries[0]['net'][0]);
+        $this->assertArrayHasKey('id', $entries[0]['net'][0]);
+        $this->assertSame($networkID, (int) $entries[0]['net'][0]['id']);
+    }
+
+    /**
+     * @throws Exception on error
+     */
+    public function testUpdate() {
+        /**
+         * Create test data:
+         */
+
+        $wanID = $this->useCMDBObject()->create(
+            ObjectType::WAN,
+            $this->generateRandomString()
+        );
+        $this->isID($wanID);
+
+        $routerID = $this->useCMDBObject()->create(
+            ObjectType::ROUTER,
+            $this->generateRandomString()
+        );
+        $this->isID($routerID);
+
+        $networkID = $this->useCMDBObject()->create(
+            ObjectType::LAYER3_NET,
+            $this->generateRandomString()
+        );
+        $this->isID($networkID);
+
+        $this->useCMDBCategory()->create(
+            $wanID,
+            Category::CATG__WAN,
+            [
+                'title' => $this->generateRandomString()
+            ]
+        );
+
+        /**
+         * Run tests:
+         */
+
+        $entries = $this->useCMDBCategory()->read(
+            $wanID,
+            Category::CATG__WAN
+        );
+
+        $this->assertIsArray($entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+        $this->assertIsArray($entries[0]);
+        $this->isCategoryEntry($entries[0]);
+
+        $this->assertArrayHasKey('router', $entries[0]);
+        $this->assertNull($entries[0]['router']);
+
+        $this->assertArrayHasKey('net', $entries[0]);
+        $this->assertNull($entries[0]['net']);
+
+        /**
+         * Update test data:
+         */
+
+        $this->useCMDBCategory()->update(
+            $wanID,
+            Category::CATG__WAN,
+            [
+                'title' => $this->generateRandomString()
+            ]
+        );
+
+        /**
+         * Run tests again:
+         */
+
+        $entries = $this->useCMDBCategory()->read(
+            $wanID,
+            Category::CATG__WAN
+        );
+
+        $this->assertIsArray($entries);
+        $this->assertCount(1, $entries);
+        $this->assertArrayHasKey(0, $entries);
+        $this->assertIsArray($entries[0]);
+        $this->isCategoryEntry($entries[0]);
+
+        $this->assertArrayHasKey('router', $entries[0]);
+        $this->assertNull($entries[0]['router']);
+
+        $this->assertArrayHasKey('net', $entries[0]);
+        $this->assertNull($entries[0]['net']);
+
+
+        /**
+         * Update test data again:
+         */
+
+        $this->useCMDBCategory()->update(
+            $wanID,
+            Category::CATG__WAN,
+            [
+                'title' => $this->generateRandomString(),
+                'router' => [$routerID],
+                'net' => [$networkID]
+            ]
+        );
 
         /**
          * Run final tests:

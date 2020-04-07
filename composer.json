@@ -160,6 +160,6 @@
         "system-check": "Run some system checks"
     },
     "extra": {
-        "version": "0.10-dev"
+        "version": "0.10"
     }
 }

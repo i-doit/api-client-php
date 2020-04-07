@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
+_tbd_
+
+## [0.10][] – 2020-04-07
+
 **Note: Support for PHP 7.0 is finally dropped. Version 7.1 is deprecated. Support will be dropped in a further release. Please upgrade to at least version 7.2. Version 7.4 is recommended.
 
 ### Changed
@@ -209,7 +213,8 @@ Happy summer time ⛱️
 
 Initial release
 
-[Unreleased]: https://github.com/bheisig/i-doit-api-client-php/compare/0.9...HEAD
+[Unreleased]: https://github.com/bheisig/i-doit-api-client-php/compare/0.10...HEAD
+[0.10]: https://github.com/bheisig/i-doit-api-client-php/compare/0.9...0.10
 [0.9]: https://github.com/bheisig/i-doit-api-client-php/compare/0.8...0.9
 [0.8]: https://github.com/bheisig/i-doit-api-client-php/compare/0.7...0.8
 [0.7]: https://github.com/bheisig/i-doit-api-client-php/compare/0.6...0.7

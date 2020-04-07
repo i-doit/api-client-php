@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
-_tbd_
+**Note: Support for PHP 7.1 is finally dropped. Please upgrade to at least version 7.2. Version 7.4 is recommended.
+
+### Changed
+
+-   Require at least PHP version 7.2
+
+### Removed
+
+-   Drop support of PHP version 7.1
 
 ## [0.10][] – 2020-04-07
 

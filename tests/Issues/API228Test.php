@@ -130,21 +130,20 @@ class API228Test extends BaseTest {
         );
 
         $this->assertIsArray($entries);
-        $this->validateEntries($entries, $vhostID, $licenseHostID, $serviceID);
+        $this->validateEntries($entries, $vhostID, $licenseHostID, $vmID, $appID);
 
         /**
          * Update entry:
          */
 
-        $sameEntryID = $this->useCMDBCategory()->save(
+        $this->useCMDBCategory()->save(
             $vhostID,
             Category::CATG__VIRTUAL_HOST,
             [
                 'description' => $this->generateDescription()
-            ]
+            ],
+            $entryID
         );
-
-        $this->assertSame($entryID, $sameEntryID);
 
         /**
          * Run tests again:
@@ -156,7 +155,7 @@ class API228Test extends BaseTest {
         );
 
         $this->assertIsArray($entries);
-        $this->validateEntries($entries, $vhostID, $licenseHostID, $serviceID);
+        $this->validateEntries($entries, $vhostID, $licenseHostID, $vmID, $appID);
     }
 
     /**
@@ -250,7 +249,7 @@ class API228Test extends BaseTest {
         );
 
         $this->assertIsArray($entries);
-        $this->validateEntries($entries, $vhostID, $licenseHostID, $serviceID);
+        $this->validateEntries($entries, $vhostID, $licenseHostID, $vmID, $appID);
 
         /**
          * Update entry:
@@ -261,7 +260,8 @@ class API228Test extends BaseTest {
             Category::CATG__VIRTUAL_HOST,
             [
                 'description' => $this->generateDescription()
-            ]
+            ],
+            $entryID
         );
 
         /**
@@ -274,10 +274,10 @@ class API228Test extends BaseTest {
         );
 
         $this->assertIsArray($entries);
-        $this->validateEntries($entries, $vhostID, $licenseHostID, $serviceID);
+        $this->validateEntries($entries, $vhostID, $licenseHostID, $vmID, $appID);
     }
 
-    protected function validateEntries(array $entries, int $vhostID, int $licenseHostID, $serviceID) {
+    protected function validateEntries(array $entries, int $vhostID, int $licenseHostID, $vmID, $appID) {
         $this->assertCount(1, $entries);
         $this->assertArrayHasKey(0, $entries);
         $this->assertIsArray($entries[0]);
@@ -298,9 +298,27 @@ class API228Test extends BaseTest {
 
         $this->assertArrayHasKey('administration_service', $entries[0]);
         $this->assertIsArray($entries[0]['administration_service']);
+        $this->assertCount(3, $entries[0]['administration_service']);
 
-        // @todo Implement proper tests!
-        $this->assertIsInt($serviceID);
+        $this->assertArrayHasKey(0, $entries[0]['administration_service']);
+        $this->assertIsArray($entries[0]['administration_service'][0]);
+        $this->assertArrayHasKey('id', $entries[0]['administration_service'][0]);
+        $this->assertSame($vmID, (int) $entries[0]['administration_service'][0]['id']);
+        $this->assertArrayHasKey('type', $entries[0]['administration_service'][0]);
+        $this->assertSame(ObjectType::VIRTUAL_SERVER, $entries[0]['administration_service'][0]['type']);
+
+        $this->assertArrayHasKey(1, $entries[0]['administration_service']);
+        $this->assertIsArray($entries[0]['administration_service'][1]);
+        $this->assertArrayHasKey('id', $entries[0]['administration_service'][1]);
+        $this->assertSame($appID, (int) $entries[0]['administration_service'][1]['id']);
+        $this->assertArrayHasKey('type', $entries[0]['administration_service'][1]);
+        $this->assertSame(ObjectType::APPLICATION, $entries[0]['administration_service'][1]['type']);
+
+        $this->assertArrayHasKey(2, $entries[0]['administration_service']);
+        $this->assertIsArray($entries[0]['administration_service'][2]);
+        $this->assertArrayHasKey('id', $entries[0]['administration_service'][2]);
+        $this->assertArrayHasKey('title_lang', $entries[0]['administration_service'][2]);
+        $this->assertSame('LC__CMDB__CATG__APPLICATION', $entries[0]['administration_service'][2]['title_lang']);
     }
 
 }

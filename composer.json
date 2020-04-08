@@ -76,7 +76,6 @@
             "@composer lint",
             "@composer find-forbidden",
             "@composer security-checker",
-            "@composer outdated-packages",
             "@composer phpcompatibility",
             "@composer phpcpd",
             "@composer phpcs",

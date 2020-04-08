@@ -34,6 +34,10 @@ use \RuntimeException;
  */
 class Idoit extends Request {
 
+    const NORMAL_SEARCH = 'normal';
+    const DEEP_SEARCH = 'deep';
+    const AUTO_DEEP_SEARCH = 'auto-deep';
+
     /**
      * Read information about i-doit
      *
@@ -88,15 +92,19 @@ class Idoit extends Request {
      * Search i-doit's database
      *
      * @param string $query Query
+     * @param string $mode Search mode: "normal" (default), "deep" and "auto-deep"
      *
      * @return array Search results
      *
      * @throws Exception on error
      */
-    public function search(string $query): array {
+    public function search(string $query, string $mode = self::NORMAL_SEARCH): array {
         return $this->api->request(
             'idoit.search',
-            ['q' => $query]
+            [
+                'q' => $query,
+                'mode' => $mode
+            ]
         );
     }
 
@@ -104,19 +112,21 @@ class Idoit extends Request {
      * Perform one or more searches at once
      *
      * @param array $queries Queries as strings
+     * @param string $mode Search mode: "normal" (default), "deep" and "auto-deep"
      *
      * @return array Search results
      *
      * @throws Exception on error
      */
-    public function batchSearch(array $queries): array {
+    public function batchSearch(array $queries, string $mode = self::NORMAL_SEARCH): array {
         $requests = [];
 
         foreach ($queries as $query) {
             $requests[] = [
                 'method' => 'idoit.search',
                 'params' => [
-                    'q' => $query
+                    'q' => $query,
+                    'mode' => $mode
                 ]
             ];
         }

@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Note:** Support for PHP 7.1 is finally dropped. Please upgrade to at least version 7.2. Version 7.4 is recommended.
 
+### Added
+
+-   `Idoit::search()`, `Idoit::batchSearch`: Add search modes "normal" (default), "deep" and "auto-deep"
+
 ### Changed
 
 -   Require at least PHP version 7.2

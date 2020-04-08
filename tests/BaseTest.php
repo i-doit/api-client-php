@@ -27,6 +27,7 @@ declare(strict_types=1);
 namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\CMDBDialog;
+use bheisig\idoitapi\Idoit;
 use bheisig\idoitapi\tests\Constants\Category;
 use bheisig\idoitapi\tests\Constants\ObjectType;
 use bheisig\idoitapi\tests\Extension\Statistics;
@@ -64,6 +65,11 @@ abstract class BaseTest extends TestCase {
      * @var CMDBDialog
      */
     protected $cmdbDialog;
+
+    /**
+     * @var Idoit
+     */
+    protected $idoit;
 
     /**
      * Information about this project
@@ -186,6 +192,14 @@ abstract class BaseTest extends TestCase {
         return $this->cmdbDialog;
     }
 
+    public function useIdoit(): Idoit {
+        if (!isset($this->idoit)) {
+            $this->idoit = new Idoit($this->api);
+        }
+
+        return $this->idoit;
+    }
+
     /**
      * Create a new server object with random title
      *
@@ -247,12 +261,10 @@ abstract class BaseTest extends TestCase {
      * @throws Exception
      */
     protected function createWorkstation(): int {
-        $workstationID = $this->useCMDBObject()->create(
+        return $this->useCMDBObject()->create(
             ObjectType::WORKSTATION,
             $this->generateRandomString()
         );
-
-        return $workstationID;
     }
 
     /**
@@ -460,6 +472,22 @@ abstract class BaseTest extends TestCase {
             mt_rand(1, 254),
             mt_rand(1, 254)
         );
+    }
+
+    /**
+     * Generate random MAC address
+     *
+     * @return string
+     */
+    protected function generateMACAddress(): string {
+        $parts = [];
+
+        for ($part = 0; $part < 6; $part++) {
+            $parts[] = substr(sha1((string) microtime(true)), 0, 2);
+            usleep(mt_rand(0, 10));
+        }
+
+        return implode(':', $parts);
     }
 
     /**

@@ -28,34 +28,15 @@ namespace bheisig\idoitapi\tests;
 
 use bheisig\idoitapi\tests\Constants\ObjectType;
 use \Exception;
-use bheisig\idoitapi\Idoit;
-use bheisig\idoitapi\CMDBObject;
 
-/**
- * @coversDefaultClass \bheisig\idoitapi\Idoit
- */
 class IdoitTest extends BaseTest {
-
-    /**
-     * @var Idoit
-     */
-    protected $instance;
-
-    /**
-     * @throws Exception on error
-     */
-    public function setUp(): void {
-        parent::setUp();
-
-        $this->instance = new Idoit($this->api);
-    }
 
     /**
      * @group API-82
      * @throws Exception on error
      */
     public function testReadVersion() {
-        $result = $this->instance->readVersion();
+        $result = $this->useIdoit()->readVersion();
 
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
@@ -101,7 +82,7 @@ class IdoitTest extends BaseTest {
      * @throws Exception on error
      */
     public function testGetAddOns() {
-        $result = $this->instance->getAddOns();
+        $result = $this->useIdoit()->getAddOns();
 
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
@@ -147,7 +128,7 @@ class IdoitTest extends BaseTest {
      * @throws Exception on error
      */
     public function testReadLicense() {
-        $result = $this->instance->getLicense();
+        $result = $this->useIdoit()->getLicense();
 
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
@@ -241,7 +222,7 @@ class IdoitTest extends BaseTest {
      * @throws Exception on error
      */
     public function testReadConstants() {
-        $result = $this->instance->readConstants();
+        $result = $this->useIdoit()->readConstants();
 
         $this->assertIsArray($result);
         $this->assertNotCount(0, $result);
@@ -296,10 +277,9 @@ class IdoitTest extends BaseTest {
     public function testSearch() {
         // We need something to look for:
         $objectTitle = 'demo';
-        $cmdbObject = new CMDBObject($this->api);
-        $cmdbObject->create(ObjectType::SERVER, $objectTitle);
+        $this->useCMDBObject()->create(ObjectType::SERVER, $objectTitle);
 
-        $results = $this->instance->search('demo');
+        $results = $this->useIdoit()->search('demo');
 
         $this->assertIsArray($results);
         $this->assertNotCount(0, $results);
@@ -314,7 +294,7 @@ class IdoitTest extends BaseTest {
      * @throws Exception on error
      */
     public function testBatchSearch() {
-        $batch = $this->instance->batchSearch(['demo', 'test', 'server']);
+        $batch = $this->useIdoit()->batchSearch(['demo', 'test', 'server']);
 
         $this->assertIsArray($batch);
         $this->assertNotCount(0, $batch);
@@ -332,9 +312,8 @@ class IdoitTest extends BaseTest {
      */
     public function testSearchForNewObject() {
         $objectTitle = $this->generateRandomString();
-        $cmdbObject = new CMDBObject($this->api);
-        $objectID = $cmdbObject->create(ObjectType::SERVER, $objectTitle);
-        $results = $this->instance->search($objectTitle);
+        $objectID = $this->useCMDBObject()->create(ObjectType::SERVER, $objectTitle);
+        $results = $this->useIdoit()->search($objectTitle);
 
         $this->assertIsArray($results);
         $this->assertCount(1, $results);

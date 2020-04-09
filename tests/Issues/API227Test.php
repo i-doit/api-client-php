@@ -30,7 +30,6 @@ use \Exception;
 use bheisig\idoitapi\tests\BaseTest;
 
 /**
- * @group unreleased
  * @group issues
  * @group API-227
  * @group ID-7366

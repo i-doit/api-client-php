@@ -729,8 +729,8 @@ abstract class BaseTest extends TestCase {
      */
     protected function isConstant(string $value) {
         $this->assertNotEmpty($value);
-        $this->assertRegExp('/([A-Z0-9_]+)/', $value);
-        $this->assertRegExp('/^([A-Z]+)/', $value);
+        $this->assertMatchesRegularExpression('/([A-Z0-9_]+)/', $value);
+        $this->assertMatchesRegularExpression('/^([A-Z]+)/', $value);
     }
 
     protected function isValidResponse(array $response, array $request) {

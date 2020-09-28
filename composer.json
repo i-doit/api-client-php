@@ -122,7 +122,7 @@
             "@composer validate",
             "@composer diagnose || echo \"Ignore warnings\"",
             "@composer check-platform-reqs",
-            "@composer outdated --direct --strict",
+            "@composer outdated --direct",
             "@composer config extra.version"
         ]
     },

@@ -57,7 +57,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "bheisig\\idoitapi\\tests\\": "tests/"
+            "bheisig\\idoitapi\\": "tests/bheisig/idoitapi/"
         }
     },
     "config": {

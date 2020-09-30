@@ -30,7 +30,7 @@ use \Exception;
 use bheisig\idoitapi\BaseTest;
 
 /**
- * @group open
+ * @group unreleased
  * @group issues
  * @group API-145
  * @see https://i-doit.atlassian.net/browse/API-145
@@ -44,7 +44,6 @@ class API145Test extends BaseTest {
         return [
             ['C__CATG__ASSIGNED_CARDS', 'connected_obj'],
             ['C__CATG__ASSIGNED_LOGICAL_UNIT', 'assigned_object'],
-            ['C__CATG__ASSIGNED_SIM_CARDS', 'isys_catg_cards_list__id'],
             ['C__CATG__CLUSTER_ADM_SERVICE', 'connected_object'],
             ['C__CATG__CLUSTER_MEMBERS', 'member'],
             ['C__CATG__CLUSTER_MEMBERSHIPS', 'connected_object'],
@@ -60,7 +59,6 @@ class API145Test extends BaseTest {
             ['C__CATS__DATABASE_ACCESS', 'access'],
             ['C__CATS__GROUP', 'object'],
             ['C__CATS__LAYER2_NET_ASSIGNED_LOGICAL_PORTS', 'isys_catg_log_port_list__id'],
-            ['C__CATS__LAYER2_NET_ASSIGNED_PORTS', 'isys_catg_port_list__id'],
             ['C__CATS__ORGANIZATION_PERSONS', 'object'],
             ['C__CATS__PERSON_ASSIGNED_GROUPS', 'connected_object'],
             ['C__CATS__PERSON_GROUP_MEMBERS', 'connected_object'],

@@ -725,8 +725,15 @@ abstract class BaseTest extends TestCase {
      */
     protected function isConstant(string $value) {
         $this->assertNotEmpty($value);
-        $this->assertRegExp('/([A-Z0-9_]+)/', $value);
-        $this->assertRegExp('/^([A-Z]+)/', $value);
+
+        // @todo Remove this method switch if PHPunit >= v9 is in use:
+        if (method_exists($this, 'assertMatchesRegularExpression')) {
+            $this->assertMatchesRegularExpression('/([A-Z0-9_]+)/', $value);
+            $this->assertMatchesRegularExpression('/^([A-Z]+)/', $value);
+        } else {
+            $this->assertRegExp('/([A-Z0-9_]+)/', $value);
+            $this->assertRegExp('/^([A-Z]+)/', $value);
+        }
     }
 
     protected function isValidResponse(array $response, array $request) {

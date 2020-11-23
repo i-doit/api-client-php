@@ -27,7 +27,10 @@ RUN apt-get update; \
         -o composer-setup.php; \
     sha384sum --check --strict \
         composer-setup.php.checksum; \
-    php composer-setup.php --install-dir=/usr/bin --filename=composer; \
+    php composer-setup.php \
+        --version=1.10.17 \
+        --install-dir=/usr/bin \
+        --filename=composer; \
     rm composer-setup.php*; \
     echo "memory_limit = -1" > /usr/local/etc/php/conf.d/zzz-idoitapi.ini;
 

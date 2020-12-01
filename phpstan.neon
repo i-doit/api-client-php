@@ -4,3 +4,8 @@ parameters:
     paths:
         - src
         - tests
+    ignoreErrors:
+        # Ignore skipped tests:
+        - message: "#Unreachable statement#"
+          paths:
+              - tests/bheisig/idoitapi/*

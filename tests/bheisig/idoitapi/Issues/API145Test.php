@@ -30,7 +30,7 @@ use \Exception;
 use bheisig\idoitapi\BaseTest;
 
 /**
- * @group unreleased
+ * @group open
  * @group issues
  * @group API-145
  * @see https://i-doit.atlassian.net/browse/API-145

@@ -43,7 +43,6 @@
         "sebastian/phpcpd": "^5 || ^4",
         "seld/jsonlint": "^1.7",
         "sensiolabs/security-checker": "^6.0.3",
-        "sllh/composer-lint": "^1.0",
         "squizlabs/php_codesniffer": "^3.5.4",
         "symfony/dotenv": "^5.0.3"
     },
@@ -62,12 +61,6 @@
     },
     "config": {
         "process-timeout": 86400,
-        "sllh-composer-lint": {
-            "php": false,
-            "type": true,
-            "minimum-stability": true,
-            "version-constraints": true
-        },
         "sort-packages": true
     },
     "scripts": {

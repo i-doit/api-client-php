@@ -189,6 +189,7 @@ For almost every case there is a remote procedure you may call to read from or m
 |                               | `cmdb.category.archive`               |                               | `archive()`                                               |
 |                               | `cmdb.category.delete`                |                               | `delete()`                                                |
 |                               | `cmdb.category.purge`                 |                               | `purge()`                                                 |
+|                               | `cmdb.category.quickPurge`            |                               | `quickpurge()`                                            |
 | `cmdb.category_info`          | `cmdb.category_info.read`             | `CMDBCategoryInfo`            | `read()`                                                  |
 | `cmdb.dialog`                 | `cmdb.dialog.create`                  | `CMDBDialog`                  | `create()`                                                |
 |                               | `cmdb.dialog.read`                    |                               | `read()`                                                  |
@@ -598,6 +599,8 @@ $category->archive(42, 'C__CATG__CPU', 1);
 $category->delete(42, 'C__CATG__CPU', 2);
 // Purge from database:
 $category->purge(42, 'C__CATG__CPU', 3);
+// Quickpurge from database:
+$category->quickPurge(42, 'C__CATG__CPU', 4);
 ~~~
 
 #### Create values in drop-down menus

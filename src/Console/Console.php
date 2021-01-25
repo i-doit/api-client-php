@@ -69,8 +69,8 @@ class Console extends Request {
         }
 
         if ($result['success'] === false) {
-            if(!strpos($method, 'console.ldap.sync') || !strpos($method, 'console.import.csv')
-                || !strpos($method, 'console.import.syslog'))
+            if(!strpos($method, 'console.ldap.sync') && !strpos($method, 'console.import.csv')
+                && !strpos($method, 'console.import.syslog'))
             {
                 throw new RuntimeException('Command failed');
             }

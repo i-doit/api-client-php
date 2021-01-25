@@ -67,11 +67,12 @@ class Console extends Request {
         if (!is_bool($result['success'])) {
             throw new RuntimeException('Command failed');
         }
-        
+
         if ($result['success'] === false) {
-            if ($method != 'console.ldap.sync' && $method != 'console.import.csv' && $method != 'console.import.syslog'
-                && $method != 'console.import.csvprofiles'){
-                throw new RuntimeException('Success is false');
+            if(!strpos($method, 'console.ldap.sync') || !strpos($method, 'console.import.csv')
+                || !strpos($method, 'console.import.syslog'))
+            {
+                throw new RuntimeException('Command failed');
             }
         }
 

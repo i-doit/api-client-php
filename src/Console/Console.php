@@ -66,8 +66,16 @@ class Console extends Request {
             throw new RuntimeException('Missing success status');
         }
 
-        if (!is_bool($result['success']) || $result['success'] === false) {
+        if (!is_bool($result['success'])) {
             throw new RuntimeException('Command failed');
+        }
+
+        if ($result['success'] === false) {
+            if(!strpos($method, 'console.ldap.sync') && !strpos($method, 'console.import.csv')
+                && !strpos($method, 'console.import.syslog'))
+            {
+                throw new RuntimeException('Command failed');
+            }
         }
 
         if (!array_key_exists('output', $result)) {

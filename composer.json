@@ -18,7 +18,7 @@
         "source": "https://github.com/bheisig/i-doit-api-client-php"
     },
     "require": {
-        "php": ">=7.2.0",
+        "php": "^7.2|^8.0",
         "ext-curl": "*",
         "ext-date": "*",
         "ext-json": "*",

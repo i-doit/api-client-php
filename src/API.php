@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace bheisig\idoitapi;
 
+use CurlHandle;
 use \Exception;
 use \BadMethodCallException;
 use \DomainException;
@@ -244,7 +245,7 @@ class API {
      * @return bool
      */
     public function isConnected(): bool {
-        return is_resource($this->resource);
+        return is_resource($this->resource) || $this->resource instanceof CurlHandle;
     }
 
     /**
@@ -345,7 +346,7 @@ class API {
     public function connect(): self {
         $this->resource = curl_init();
 
-        if (!is_resource($this->resource)) {
+        if (!is_resource($this->resource) && !$this->resource instanceof CurlHandle) {
             throw new RuntimeException('Unable to initiate cURL session');
         }
 

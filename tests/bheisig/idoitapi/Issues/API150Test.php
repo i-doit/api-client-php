@@ -55,16 +55,15 @@ class API150Test extends BaseTest {
             $this->generateRandomString()
         );
         $this->isID($personGroupID);
-
+        /*print_r (['data' => [$person['id']]]);*/
         $entryID = $this->useCMDBCategory()->save(
             $personGroupID,
             Category::CATS__PERSON_GROUP_MEMBERS,
             [
-                'connected_object' => $person['id']
+                'connected_object' => [$person['id']]
             ]
         );
         $this->isID($entryID);
-
         /**
          * Verify test data:
          */
@@ -169,7 +168,7 @@ class API150Test extends BaseTest {
             $personGroupID,
             Category::CATS__PERSON_GROUP_MEMBERS,
             [
-                'connected_object' => $person['id']
+                'connected_object' => [$person['id']]
             ]
         );
         $this->isID($entryID);

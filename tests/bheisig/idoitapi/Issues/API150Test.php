@@ -55,7 +55,7 @@ class API150Test extends BaseTest {
             $this->generateRandomString()
         );
         $this->isID($personGroupID);
-        /*print_r (['data' => [$person['id']]]);*/
+
         $entryID = $this->useCMDBCategory()->save(
             $personGroupID,
             Category::CATS__PERSON_GROUP_MEMBERS,

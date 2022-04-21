@@ -60,11 +60,10 @@ class API150Test extends BaseTest {
             $personGroupID,
             Category::CATS__PERSON_GROUP_MEMBERS,
             [
-                'connected_object' => $person['id']
+                'connected_object' => [$person['id']]
             ]
         );
         $this->isID($entryID);
-
         /**
          * Verify test data:
          */
@@ -169,7 +168,7 @@ class API150Test extends BaseTest {
             $personGroupID,
             Category::CATS__PERSON_GROUP_MEMBERS,
             [
-                'connected_object' => $person['id']
+                'connected_object' => [$person['id']]
             ]
         );
         $this->isID($entryID);

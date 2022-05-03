@@ -137,7 +137,7 @@ class API {
     /**
      * cURL resource
      *
-     * @var resource
+     * @var resource|CurlHandle
      */
     protected $resource;
 

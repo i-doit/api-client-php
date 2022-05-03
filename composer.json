@@ -18,7 +18,7 @@
         "source": "https://github.com/bheisig/i-doit-api-client-php"
     },
     "require": {
-        "php": ">=7.2.0",
+        "php": "^7.2|^8.0",
         "ext-curl": "*",
         "ext-date": "*",
         "ext-json": "*",
@@ -27,21 +27,21 @@
         "ext-zlib": "*"
     },
     "require-dev": {
-        "brianium/paratest": "^4",
+        "brianium/paratest": "^6.2",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
         "j13k/yaml-lint": "^1.1",
         "phan/phan": "^3.2.2",
         "php-parallel-lint/php-parallel-lint": "^1.0",
         "phpcompatibility/php-compatibility": "^9.3.5",
-        "phploc/phploc": "^6 || ^5",
+        "phploc/phploc": "^7.0",
         "phpmd/phpmd": "^2.8.2",
         "phpstan/phpstan": "^0.12.46",
         "phpunit/phpunit": "^9 || ^8",
         "povils/phpmnd": "^2",
-        "roave/security-advisories": "dev-master",
-        "sclable/xml-lint": "^0.3.0",
-        "sebastian/phpcpd": "^5 || ^4",
-        "seld/jsonlint": "^1.7",
+        "roave/security-advisories": "dev-latest",
+        "sclable/xml-lint": "^0.4.0",
+        "sebastian/phpcpd": "^6.0",
+        "seld/jsonlint": "^1.8",
         "squizlabs/php_codesniffer": "^3.5.4",
         "symfony/dotenv": "^5.0.3"
     },
@@ -87,7 +87,7 @@
             "@composer lint-xml",
             "@composer lint-yaml"
         ],
-        "lint-json": "./vendor/bin/jsonlint *.json",
+        "lint-json": "./vendor/bin/jsonlint composer.json",
         "lint-php": "./vendor/bin/parallel-lint --exclude vendor --blame .",
         "lint-xml": "./vendor/bin/xmllint --recursive --exclude=vendor --skip-xsd --verbose .",
         "lint-yaml": "./vendor/bin/yaml-lint .travis.yml",

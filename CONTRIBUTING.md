@@ -162,7 +162,6 @@ This project comes with some useful composer scripts:
 | `composer phpunit-addon`      | Perform unit tests for add-on related API requests        |
 | `composer phpunit-parallel`   | Perform unit tests in parallel                            |
 | `composer phpunit-unreleased` | Perform unit tests for unreleased features                |
-| `composer security-checker`   | Look for dependencies with known security vulnerabilities |
 | `composer system-check`       | Run some system checks                                    |
 
 For example, execute `composer ci`.

@@ -95,7 +95,7 @@
         "lint-json": "./vendor/bin/jsonlint composer.json",
         "lint-php": "./vendor/bin/parallel-lint --exclude vendor --blame .",
         "lint-xml": "./vendor/bin/xmllint --recursive --exclude=vendor --skip-xsd --verbose .",
-        "lint-yaml": "./vendor/bin/yaml-lint .travis.yml",
+        "lint-yaml": "git ls-files | grep -E '\\.(yml|yaml|.yml.dist)$' | xargs ./vendor/bin/yaml-lint",
         "outdated-packages": "@composer outdated --strict --direct",
         "phan": "./vendor/bin/phan",
         "phpcompatibility": "./vendor/bin/phpcs -p --colors --extensions=php --standard=PHPCompatibility --runtime-set testVersion 7.4- src/ tests/",

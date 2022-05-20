@@ -1019,6 +1019,8 @@ Send pull requests to add yours.
 
 ## Copyright & License
 
-Copyright (C) 2016-2020 [Benjamin Heisig](https://benjamin.heisig.name/)
+Copyright (C) 2022 [synetics GmbH](https://i-doit.com/)
+
+Copyright (C) 2016-2022 [Benjamin Heisig](https://benjamin.heisig.name/)
 
 Licensed under the [GNU Affero GPL version 3 or later (AGPLv3+)](https://gnu.org/licenses/agpl.html). This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.

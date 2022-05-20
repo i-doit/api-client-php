@@ -56,18 +56,12 @@ class CMDBReports extends Request {
      * @throws Exception on error
      */
     public function read(int $reportID): array {
-        $result = $this->api->request(
+        return $this->api->request(
             'cmdb.reports',
             [
                 'id' => $reportID
             ]
         );
-
-        if (!is_array($result)) {
-            return [];
-        }
-
-        return $result;
     }
 
     /**

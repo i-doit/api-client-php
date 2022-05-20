@@ -75,7 +75,7 @@ There is a huge amount of tests located under `tests/`. These tests can be execu
 
 ### Prerequisites
 
-1.  Copy fiel `.env.dist` to `.env`
+1.  Copy file `.env.dist` to `.env`
 2.  Put your configuration settings to `.env`
 
 ### Usage

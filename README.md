@@ -2,9 +2,9 @@
 
 Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/bheisig/idoitapi.svg)](https://packagist.org/packages/bheisig/idoitapi)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
-[![Build Status](https://travis-ci.org/bheisig/i-doit-api-client-php.svg?branch=master)](https://travis-ci.org/bheisig/i-doit-api-client-php)
+[![Latest stable version](https://img.shields.io/packagist/v/bheisig/idoitapi.svg)](https://packagist.org/packages/bheisig/idoitapi)
+[![Minimum PHP version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
+[![Build status](https://github.com/bheisig/i-doit-api-client-php/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/bheisig/i-doit-api-client-php/actions)
 
 ## About
 

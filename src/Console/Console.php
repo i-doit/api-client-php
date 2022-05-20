@@ -21,16 +21,16 @@
  * @copyright Copyright (C) 2022 synetics GmbH
  * @copyright Copyright (C) 2016-2022 Benjamin Heisig
  * @license http://www.gnu.org/licenses/agpl-3.0 GNU Affero General Public License (AGPL)
- * @link https://github.com/bheisig/i-doit-api-client-php
+ * @link https://github.com/i-doit/api-client-php
  */
 
 declare(strict_types=1);
 
-namespace bheisig\idoitapi\Console;
+namespace Idoit\APIClient\Console;
 
 use \Exception;
 use \RuntimeException;
-use \bheisig\idoitapi\Request;
+use \Idoit\APIClient\Request;
 
 /**
  * Requests for API namespace 'console'

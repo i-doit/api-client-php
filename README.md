@@ -3,7 +3,7 @@
 Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/bheisig/idoitapi.svg)](https://packagist.org/packages/bheisig/idoitapi)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
 [![Build Status](https://travis-ci.org/bheisig/i-doit-api-client-php.svg?branch=master)](https://travis-ci.org/bheisig/i-doit-api-client-php)
 
 ## About
@@ -37,9 +37,9 @@ What's new? Take a look at the [changelog](CHANGELOG.md).
 
 Meet these simple requirements before using the client:
 
--   A running instance of i-doit pro/open, version 1.14.1 or higher (older versions may work but are not supported)
--   i-doit API add-on, version 1.11 or higher (older versions may work but are not supported)
--   PHP, version 7.2 or higher (7.4 is recommended, unreleased 8.0 should work)
+-   A running instance of i-doit pro/open, version `1.14.1` or higher (older versions may work but are not supported)
+-   i-doit API add-on, version `1.11` or higher (older versions may work but are not supported)
+-   PHP, version `7.4` or higher (`8.0` is recommended)
 -   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
 
 As a rule of thumb, always use the latest stable releases to benefit from new features, improvements and bug fixes.
@@ -113,7 +113,7 @@ $api = new API([
     -   `API::PROXY_HOST`: FQDN or IP address to proxy
     -   `API::PROXY_PORT`: port on which the proxy server listens
     -   `API::PROXY_USERNAME` and `API::PROXY_PASSWORD`: optional credentials used to authenticate against the proxy
--   `API::BYPASS_SECURE_CONNECTION`: Set to `true` to disable security-related cURL options; defaults to `false`; do not set this in production! 
+-   `API::BYPASS_SECURE_CONNECTION`: Set to `true` to disable security-related cURL options; defaults to `false`; do not set this in production!
 
 ## Examples
 

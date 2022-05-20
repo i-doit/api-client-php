@@ -4,7 +4,7 @@ Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
 [![Latest stable version](https://img.shields.io/packagist/v/idoit/apiclient.svg)](https://packagist.org/packages/idoit/apiclient)
 [![Minimum PHP version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
-[![Build status](https://github.com/i-doit/api-client-php/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/i-doit/api-client-php/actions)
+[![Build status](https://github.com/i-doit/api-client-php/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/i-doit/api-client-php/actions)
 
 **Please note: This project is not an official product by synetics GmbH. synetics GmbH doesn't provide any commercial support.**
 

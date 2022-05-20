@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Require at least PHP version `7.4`
 -   Recommend PHP version `8.0`
+-   Require at least i-doit `1.18.1` and its API add-on `1.12.3`
 
 ### Removed
 

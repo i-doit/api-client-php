@@ -37,8 +37,8 @@ What's new? Take a look at the [changelog](CHANGELOG.md).
 
 Meet these simple requirements before using the client:
 
--   A running instance of i-doit pro/open, version `1.14.1` or higher (older versions may work but are not supported)
--   i-doit API add-on, version `1.11` or higher (older versions may work but are not supported)
+-   A running instance of i-doit pro/open, version `1.18.1` or higher (older versions may work but are not supported)
+-   i-doit API add-on, version `1.12.3` or higher (older versions may work but are not supported)
 -   PHP, version `7.4` or higher (`8.0` is recommended)
 -   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
 

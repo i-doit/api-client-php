@@ -39,7 +39,7 @@ Meet these simple requirements before using the client:
 
 -   A running instance of i-doit pro/open, version `1.18.1` or higher (older versions may work but are not supported)
 -   i-doit API add-on, version `1.12.3` or higher (older versions may work but are not supported)
--   PHP, version `7.4` or higher (`8.0` is recommended)
+-   PHP, version `8.0` or higher (`8.1` is recommended, `7.4` should work but is deprecated)
 -   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
 
 As a rule of thumb, always use the latest stable releases to benefit from new features, improvements and bug fixes.

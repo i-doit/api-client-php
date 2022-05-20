@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
-**Note:** Support of all PHP versions which are end-of-life is finally dropped. Please upgrade to at least version `7.4`. Version `8.0` is recommended.
+**Note:** Support of all PHP versions which are end-of-life is finally dropped. Please upgrade to at least version `8.0`. Version `8.1` is recommended. Version `7.4` should work but is deprecated.
 
 ### Added
 
@@ -15,9 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Require at least PHP version `7.4`
--   Recommend PHP version `8.0`
+-   Require at least PHP version `8.0`
+-   Recommend PHP version `8.1`
 -   Require at least i-doit `1.18.1` and its API add-on `1.12.3`
+
+### Deprecated
+
+-   Deprecate support of PHP version `7.4`
 
 ### Removed
 

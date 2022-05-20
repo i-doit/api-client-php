@@ -17,7 +17,7 @@ jobs:
         php-versions: ['7.4', '8.0', '8.1']
         experimental: [false]
         include:
-          - versions: nightly
+          - php-versions: nightly
             experimental: true
     steps:
       - name: Checkout repository
@@ -28,15 +28,16 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           update: true
           extensions: curl, date, dom, json, openssl, spl, xml, zlib
+          tools: composer:v2
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
       - name: Cache Composer dependencies
         uses: actions/cache@v2
         with:
-          path: /tmp/composer-cache
-          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-      - name: Install composer
-        uses: php-actions/composer@v6
-        with:
-          version: 2.x
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
       - name: Install dependencies
         run: composer install
       - name: Lint

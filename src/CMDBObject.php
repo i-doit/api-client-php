@@ -149,8 +149,7 @@ class CMDBObject extends Request {
             $params
         );
 
-        if (!is_array($result) ||
-            !array_key_exists('success', $result) ||
+        if (!array_key_exists('success', $result) ||
             $result['success'] === false) {
             throw new RuntimeException(sprintf(
                 'Unable to archive object %s',

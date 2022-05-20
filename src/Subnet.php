@@ -45,7 +45,7 @@ class Subnet extends Request {
     /**
      * Current IP address as long integer
      *
-     * @var int
+     * @var int|null
      */
     protected $current;
 

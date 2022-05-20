@@ -41,27 +41,27 @@ abstract class BaseTest extends TestCase {
     protected $api;
 
     /**
-     * @var CMDBObject
+     * @var CMDBObject|null
      */
     protected $cmdbObject;
 
     /**
-     * @var CMDBObjects
+     * @var CMDBObjects|null
      */
     protected $cmdbObjects;
 
     /**
-     * @var CMDBCategory
+     * @var CMDBCategory|null
      */
     protected $cmdbCategory;
 
     /**
-     * @var CMDBDialog
+     * @var CMDBDialog|null
      */
     protected $cmdbDialog;
 
     /**
-     * @var Idoit
+     * @var Idoit|null
      */
     protected $idoit;
 

@@ -137,7 +137,7 @@ class API {
     /**
      * cURL resource
      *
-     * @var resource
+     * @var CurlHandle|resource|false|null
      */
     protected $resource;
 
@@ -346,7 +346,7 @@ class API {
     public function connect(): self {
         $this->resource = curl_init();
 
-        if (!is_resource($this->resource) && !$this->resource instanceof CurlHandle) {
+        if ($this->resource == false) {
             throw new RuntimeException('Unable to initiate cURL session');
         }
 

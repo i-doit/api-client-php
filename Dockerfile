@@ -1,4 +1,4 @@
-FROM php:7.4-cli-buster
+FROM php:8.0-cli
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -16,9 +16,10 @@ RUN apt-get update; \
     docker-php-ext-install \
         zip; \
     pecl install \
-        xdebug-2.9.1; \
+        xdebug; \
     docker-php-ext-enable \
         xdebug; \
+    echo "memory_limit = -1" > /usr/local/etc/php/conf.d/zzz-idoitapi.ini; \
     curl -fsSL \
         "https://composer.github.io/installer.sha384sum" \
         -o composer-setup.php.checksum; \
@@ -28,11 +29,12 @@ RUN apt-get update; \
     sha384sum --check --strict \
         composer-setup.php.checksum; \
     php composer-setup.php \
-        --version=1.10.17 \
-        --install-dir=/usr/bin \
+        --2 \
+        --install-dir=/usr/local/bin \
         --filename=composer; \
-    rm composer-setup.php*; \
-    echo "memory_limit = -1" > /usr/local/etc/php/conf.d/zzz-idoitapi.ini;
+    rm \
+        composer-setup.php \
+        composer-setup.php.checksum
 
 WORKDIR /usr/src
 

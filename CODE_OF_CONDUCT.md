@@ -43,4 +43,4 @@ Project maintainers who do not follow or enforce the Code of Conduct in good fai
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4, available at <https://www.contributor-covenant.org/version/1/4/code-of-conduct/>
 
 [homepage]: https://www.contributor-covenant.org
-[mail]: mailto:benjamin@heisig.name
+[mail]: mailto:bheisig@i-doit.com

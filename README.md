@@ -6,6 +6,8 @@ Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 [![Minimum PHP version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
 [![Build status](https://github.com/bheisig/i-doit-api-client-php/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/bheisig/i-doit-api-client-php/actions)
 
+**Please note: This project is not an official product by synetics GmbH. synetics GmbH doesn't provide any commercial support.**
+
 ## About
 
 [i-doit](https://i-doit.com) is a software application for IT documentation and a CMDB (Configuration Management Database). This application is very useful to collect all your knowledge about the IT infrastructure you are dealing with. i-doit is a Web application and [has an exhausting API](https://kb.i-doit.com/pages/viewpage.action?pageId=37355644) which is very useful to automate your infrastructure.

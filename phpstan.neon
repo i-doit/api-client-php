@@ -8,4 +8,4 @@ parameters:
         # Ignore skipped tests:
         - message: "#Unreachable statement#"
           paths:
-              - tests/bheisig/idoitapi/*
+              - tests/Idoit/APIClient/*

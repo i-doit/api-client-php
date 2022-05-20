@@ -21,7 +21,7 @@ Please note:
 
 | Question                  | Answer            |
 | ------------------------- | ----------------- |
-| bheisig/idoitapi version  | x.y.z             |
+| idoit/apiclient version  | x.y.z             |
 | i-doit version            | x.y.z open/pro    |
 | i-doit API add-on version | x.y.z             |
 

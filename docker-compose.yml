@@ -1,0 +1,10 @@
+---
+version: "3.8"
+
+services:
+
+  api-client-php:
+    hostname: api-client-php
+    build:
+      context: .
+      dockerfile: Dockerfile

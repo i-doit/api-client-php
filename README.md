@@ -2,9 +2,11 @@
 
 Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/bheisig/idoitapi.svg)](https://packagist.org/packages/bheisig/idoitapi)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
-[![Build Status](https://travis-ci.org/bheisig/i-doit-api-client-php.svg?branch=master)](https://travis-ci.org/bheisig/i-doit-api-client-php)
+[![Latest stable version](https://img.shields.io/packagist/v/idoit/apiclient.svg)](https://packagist.org/packages/idoit/apiclient)
+[![Minimum PHP version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
+[![Build status](https://github.com/i-doit/api-client-php/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/i-doit/api-client-php/actions)
+
+**Please note: This project is not an official product by synetics GmbH. synetics GmbH doesn't provide any commercial support.**
 
 ## About
 
@@ -37,9 +39,9 @@ What's new? Take a look at the [changelog](CHANGELOG.md).
 
 Meet these simple requirements before using the client:
 
--   A running instance of i-doit pro/open, version 1.14.1 or higher (older versions may work but are not supported)
--   i-doit API add-on, version 1.11 or higher (older versions may work but are not supported)
--   PHP, version 7.2 or higher (7.4 is recommended, unreleased 8.0 should work)
+-   A running instance of i-doit pro/open, version `1.18.1` or higher (older versions may work but are not supported)
+-   i-doit API add-on, version `1.12.3` or higher (older versions may work but are not supported)
+-   PHP, version `8.0` or higher (`8.1` is recommended, `7.4` should work but is deprecated)
 -   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
 
 As a rule of thumb, always use the latest stable releases to benefit from new features, improvements and bug fixes.
@@ -49,13 +51,13 @@ As a rule of thumb, always use the latest stable releases to benefit from new fe
 It is recommended to install this client via [Composer](https://getcomposer.org/). Change to your project's root directory and fetch the latest stable version:
 
 ~~~ {.bash}
-composer require bheisig/idoitapi
+composer require idoit/apiclient
 ~~~
 
 Instead of sticking to a specific/minimum version you may switch to the current development branch by using `@DEV`:
 
 ~~~ {.bash}
-composer require "bheisig/idoitapi=@DEV"
+composer require "idoit/apiclient=@DEV"
 ~~~
 
 ## Updates
@@ -81,7 +83,7 @@ This is it. All other files will be auto-loaded on-the-fly if needed.
 The API client library class requires a configuration:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
+use Idoit\APIClient\API;
 
 $api = new API([
     API::URL => 'https://demo.i-doit.com/src/jsonrpc.php',
@@ -113,15 +115,15 @@ $api = new API([
     -   `API::PROXY_HOST`: FQDN or IP address to proxy
     -   `API::PROXY_PORT`: port on which the proxy server listens
     -   `API::PROXY_USERNAME` and `API::PROXY_PASSWORD`: optional credentials used to authenticate against the proxy
--   `API::BYPASS_SECURE_CONNECTION`: Set to `true` to disable security-related cURL options; defaults to `false`; do not set this in production! 
+-   `API::BYPASS_SECURE_CONNECTION`: Set to `true` to disable security-related cURL options; defaults to `false`; do not set this in production!
 
 ## Examples
 
 A basic "Hello, World!" example is to fetch some basic information about your i-doit instance:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\Idoit;
+use Idoit\APIClient\API;
+use Idoit\APIClient\Idoit;
 
 require_once 'vendor/autoload.php';
 
@@ -147,7 +149,7 @@ One sweet thing about i-doit's API you can (and should) use one user session for
 The session handling is done by the API client library. You just need to login. And if you are nice you want to logout after your work is done.
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
+use Idoit\APIClient\API;
 
 $api = new API([/* … */]);
 
@@ -222,8 +224,8 @@ If it makes sense there are methods to perform batch requests for most RPCs. For
 #### Search in i-doit's database
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\Idoit;
+use Idoit\APIClient\API;
+use Idoit\APIClient\Idoit;
 
 $api = new API([/* … */]);
 
@@ -236,8 +238,8 @@ var_dump($result);
 Perform more than one search at once:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\Idoit;
+use Idoit\APIClient\API;
+use Idoit\APIClient\Idoit;
 
 $api = new API([/* … */]);
 
@@ -254,8 +256,8 @@ var_dump($result);
 #### Create a new object
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObject;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObject;
 
 $api = new API([/* … */]);
 
@@ -271,8 +273,8 @@ var_dump($objectID);
 #### Read common information about an object
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObject;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObject;
 
 $api = new API([/* … */]);
 
@@ -287,8 +289,8 @@ var_dump($objectInfo);
 This will fetch everything about an object: common data, assigned categories and category entries as well.
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObject;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObject;
 
 $api = new API([/* … */]);
 
@@ -305,8 +307,8 @@ The method `load()` triggers round about 4 API calls. So be aware if it is heavi
 Currently, you are able to update an object's title:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObject;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObject;
 
 $api = new API([/* … */]);
 
@@ -324,8 +326,8 @@ $object->update(
 You you like to get an identifier of an object but you are unsure whether or not it exists, try an upsert. This is an "update" and an "insert" at the same time. This means, if the object exists you will get its identifier directly. If not the object will be created and then you will get its identifier. Objects must match against type and title. Additional attributes will be stored.
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObject;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObject;
 
 $api = new API([/* … */]);
 
@@ -344,8 +346,8 @@ $object->upsert(
 Fetch an object identifier by object title and (optional) type:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObjects;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObjects;
 
 $api = new API([/* … */]);
 
@@ -361,8 +363,8 @@ An exception error will be thrown if there is either no object or more than one.
 i-doit has the concept of archiving your IT documentation. Each object has an status (`normal`, `archived`, marked as `deleted`). And last but not least, an object may be purged from the database.
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObject;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObject;
 
 $api = new API([/* … */]);
 
@@ -381,8 +383,8 @@ $object->purge($objectID);
 Create multiple objects at once:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObjects;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObjects;
 
 $api = new API([/* … */]);
 
@@ -404,8 +406,8 @@ var_dump($objectIDs);
 Reading multiple objects at once is provided by several methods. Let's see:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObjects;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObjects;
 
 $api = new API([/* … */]);
 
@@ -441,8 +443,8 @@ var_dump($objects);
 Update multiple objects at once:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObjects;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObjects;
 
 $api = new API([/* … */]);
 
@@ -461,8 +463,8 @@ $cmdbObjects->update([
 Archive objects, mark them as deleted or even purge them from database:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObjects;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObjects;
 
 $api = new API([/* … */]);
 
@@ -477,8 +479,8 @@ $cmdbObjects
 #### Create category entries with attributes
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBCategory;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBCategory;
 
 $api = new API([/* … */]);
 
@@ -507,8 +509,8 @@ Alternatively, use method `CMDBCategory::batchCreate()` for batch requests.
 Read one or more category entries for one specific object:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBCategory;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBCategory;
 
 $api = new API([/* … */]);
 
@@ -521,8 +523,8 @@ var_dump($result);
 Read one specific categoy entry for one specific object:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBCategory;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBCategory;
 
 $api = new API([/* … */]);
 
@@ -535,8 +537,8 @@ var_dump($result);
 Read just one category entry (easier than `read()` when using single-valued categories):
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBCategory;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBCategory;
 
 $api = new API([/* … */]);
 
@@ -549,8 +551,8 @@ var_dump($result);
 Read data for multiple objects and categories at once:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBCategory;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBCategory;
 
 $api = new API([/* … */]);
 
@@ -566,8 +568,8 @@ var_dump($result);
 #### Update categories and attributes
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBCategory;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBCategory;
 
 $api = new API([/* … */]);
 
@@ -586,8 +588,8 @@ Alternatively, use method `CMDBCategory::batchUpdate()` for batch requests.
 #### Change documentation status of a category and its attributes
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBCategory;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBCategory;
 
 $api = new API([/* … */]);
 
@@ -603,8 +605,8 @@ $category->purge(42, 'C__CATG__CPU', 3);
 #### Create values in drop-down menus
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBDialog;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBDialog;
 
 $api = new API([/* … */]);
 
@@ -635,8 +637,8 @@ var_dump($entryIDs);
 Drop-down menus in i-doit are called "dialog" (read-only) or "dialog+" (editable).
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBDialog;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBDialog;
 
 $api = new API([/* … */]);
 
@@ -659,8 +661,8 @@ var_dump($modelsAndManufacturers);
 Read objects located directly under an object:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBLocationTree;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBLocationTree;
 
 $api = new API([/* … */]);
 
@@ -673,8 +675,8 @@ var_dump($result);
 Read recursively objects located under an object:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBLocationTree;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBLocationTree;
 
 $api = new API([/* … */]);
 
@@ -687,8 +689,8 @@ var_dump($result);
 #### Fetch relations between objects
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObjectsByRelation;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObjectsByRelation;
 
 $api = new API([/* … */]);
 $relation = new CMDBObjectsByRelation($api);
@@ -706,8 +708,8 @@ var_dump($result);
 A Person may be assigned to a workplace with several components like a PC, a monitor and a telephone. These components can be fetched by the person. You either need the object ID or the email address. Even more than one workplaces are supported.
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBWorkstationComponents;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBWorkstationComponents;
 
 $api = new API([/* … */]);
 $components = new CMDBWorkstationComponents($api);
@@ -730,8 +732,8 @@ var_dump($result);
 List all reports:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBReports;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBReports;
 
 $api = new API([/* … */]);
 $reports = new CMDBReports($api);
@@ -744,8 +746,8 @@ var_dump($result);
 Fetch the result of a report:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBReports;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBReports;
 
 $api = new API([/* … */]);
 $reports = new CMDBReports($api);
@@ -758,8 +760,8 @@ var_dump($result);
 Fetch the result of one or more reports:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBReports;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBReports;
 
 $api = new API([/* … */]);
 $reports = new CMDBReports($api);
@@ -772,8 +774,8 @@ var_dump($result);
 ### Fetch next free IP address from subnet
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\Subnet;
+use Idoit\APIClient\API;
+use Idoit\APIClient\Subnet;
 
 $api = new API([/* … */]);
 
@@ -789,8 +791,8 @@ echo 'Next IP address: ' . $nextIP . PHP_EOL;
 This API client library is able to upload a file, create a new "File" object an assigned it to an existing object identified by its ID:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\File;
+use Idoit\APIClient\API;
+use Idoit\APIClient\File;
 
 $api = new API([/* … */]);
 
@@ -815,8 +817,8 @@ $file->batchAdd(
 Each object may have an image gallery provided by assigned category "images". This is the way to upload image files and assign them to an existing object:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\Image;
+use Idoit\APIClient\API;
+use Idoit\APIClient\Image;
 
 $api = new API([/* … */]);
 
@@ -842,7 +844,7 @@ $file->batchAdd(
 Sometimes it is better to define a request on your own instead of using pre-defined methods provided by this API client library. Here is the way to perform a self-defined request:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
+use Idoit\APIClient\API;
 
 $api = new API([/* … */]);
 
@@ -858,7 +860,7 @@ var_dump($result);
 Similar to a simple requests you may perform a batch requests with many sub-requests as you need:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
+use Idoit\APIClient\API;
 
 $api = new API([/* … */]);
 
@@ -880,11 +882,11 @@ var_dump($result);
 Fetch information about object types, object types per group, categories assigned to object types, and attributes available in categories:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\CMDBObjectTypes;
-use bheisig\idoitapi\CMDBObjectTypeGroups;
-use bheisig\idoitapi\CMDBObjectTypeCategories;
-use bheisig\idoitapi\CMDBCategoryInfo;
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBObjectTypes;
+use Idoit\APIClient\CMDBObjectTypeGroups;
+use Idoit\APIClient\CMDBObjectTypeCategories;
+use Idoit\APIClient\CMDBCategoryInfo;
 
 $api = new API([/* … */]);
 
@@ -925,8 +927,8 @@ var_dump($categories);
 ### Read information about i-doit itself
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\Idoit;
+use Idoit\APIClient\API;
+use Idoit\APIClient\Idoit;
 
 $api = new API([/* … */]);
 $idoit = new Idoit($api);
@@ -944,7 +946,7 @@ var_dump($version, $constants, $addOns, $license);
 Sometimes you need a fresh connection. You may explicitly disconnect from the i-doit server and re-connect to it:
 
 ~~~ {.php}
-use bheisig\idoitapi\API;
+use Idoit\APIClient\API;
 
 $api = new API([/* … */]);
 
@@ -963,8 +965,8 @@ For debugging purposes it is great to fetch some details about your API calls. T
 #!/usr/bin/env php
 <?php
 
-use bheisig\idoitapi\API;
-use bheisig\idoitapi\Idoit;
+use Idoit\APIClient\API;
+use Idoit\APIClient\Idoit;
 
 $start = time();
 
@@ -1008,7 +1010,7 @@ fwrite(STDERR, sprintf('Duration: %s seconds', $duration) . PHP_EOL);
 
 ## Contribute
 
-Please, report any issues to [our issue tracker](https://github.com/bheisig/i-doit-api-client-php/issues). Pull requests are very welcomed. If you like to get involved see file [`CONTRIBUTING.md`](CONTRIBUTING.md) for details.
+Please, report any issues to [our issue tracker](https://github.com/i-doit/api-client-php/issues). Pull requests are very welcomed. If you like to get involved see file [`CONTRIBUTING.md`](CONTRIBUTING.md) for details.
 
 ## Projects using this API client library
 
@@ -1019,6 +1021,8 @@ Send pull requests to add yours.
 
 ## Copyright & License
 
-Copyright (C) 2016-2020 [Benjamin Heisig](https://benjamin.heisig.name/)
+Copyright (C) 2022 [synetics GmbH](https://i-doit.com/)
+
+Copyright (C) 2016-2022 [Benjamin Heisig](https://benjamin.heisig.name/)
 
 Licensed under the [GNU Affero GPL version 3 or later (AGPLv3+)](https://gnu.org/licenses/agpl.html). This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.

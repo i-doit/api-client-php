@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
-**Note:** Support for PHP 7.1 is finally dropped. Please upgrade to at least version 7.2. Version 7.4 is recommended.
+Spring clean 2022!
 
 ### Added
 
@@ -15,30 +15,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Require at least PHP version 7.2
+-   **Breaking:** Change Composer package to `idoit/apiclient`
+-   **Breaking:** Change PHP namespace to `Idoit\APIClient`
+-   **Breaking:** Move repository to `github.com/i-doit/api-client-php`
+-   **Breaking:** Require at least PHP version `8.0`
+-   Recommend PHP version `8.1`
+-   **Breaking:** Require at least i-doit `1.18.1` and its API add-on `1.12.3`
+
+### Deprecated
+
+-   Deprecate support of PHP version `7.4`
 
 ### Removed
 
--   Drop support of PHP version 7.1
+-   **Breaking:** Drop support of PHP version `7.1`, `7.2`, and `7.3`
 
 ## [0.10][] – 2020-04-07
 
-**Note:** Support for PHP 7.0 is finally dropped. Version 7.1 is deprecated. Support will be dropped in a further release. Please upgrade to at least version 7.2. Version 7.4 is recommended.
+**Note:** Support for PHP `7.0` is finally dropped. Version `7.1` is deprecated. Support will be dropped in a further release. Please upgrade to at least version `7.2`. Version `7.4` is recommended.
 
 ### Changed
 
--   Require at least PHP version 7.1 on production environments
--   Require at least PHP version 7.2 on dev/CI environments
--   Mark PHP version 7.1 as deprecated
--   Recommend PHP version 7.4
+-   Require at least PHP version `7.1` on production environments
+-   Require at least PHP version `7.2` on dev/CI environments
+-   Mark PHP version `7.1` as deprecated
+-   Recommend PHP version `7.4`
 
 ### Removed
 
--   Drop support of PHP version 7.0
+-   Drop support of PHP version `7.0`
 
 ## [0.9][] – 2019-10-11
 
-**Note:** Support for PHP 5.6 is finally dropped. Version 7.0 is deprecated. Support will be dropped in a further release. Please upgrade to at least version 7.1. Version 7.3 is recommended.
+**Note:** Support of PHP `5.6` is finally dropped. Version `7.0` is deprecated. Support will be dropped in a further release. Please upgrade to at least version `7.1`. Version `7.3` is recommended.
 
 ### Added
 
@@ -50,8 +59,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Mark PHP version 7.0 as deprecated
--   Recommend PHP 7.3
+-   Mark PHP version `7.0` as deprecated
+-   Recommend PHP `7.3`
 -   Declare strict types
 
 ### Fixed
@@ -60,13 +69,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
--   Drop support of PHP version 5.6
+-   Drop support of PHP version `5.6`
 
 ## [0.8][] – 2019-04-16
 
 It's spring time! 🌱
 
-To get the full experience, please update your i-doit to version >= 1.12.2 and API add-on to version >= 1.10.2.
+To get the full experience, please update your i-doit to version `>= 1.12.2` and API add-on to version `>= 1.10.2`.
 
 ### Added
 
@@ -88,7 +97,7 @@ To get the full experience, please update your i-doit to version >= 1.12.2 and A
 
 ## [0.7][] – 2018-12-17
 
-This release comes with new features and tons of unit tests. To get the full experience, please update your i-doit to version >= 1.11.2 and API add-on to version >= 1.10.
+This release comes with new features and tons of unit tests. To get the full experience, please update your i-doit to version `>= 1.11.2` and API add-on to version `>= 1.10`.
 
 ### Added
 
@@ -154,7 +163,7 @@ Happy summer time ⛱️
 
 -   `CMDBCategoryInfo::readAll()`: Try to fetch information about all available categories
 -   `API::request()`: Allow to overwrite `language` parameter
--   Enhance unit tests, mostly for testing fixed bugs in i-doit 1.10.2 and API add-on 1.9.1
+-   Enhance unit tests, mostly for testing fixed bugs in i-doit `1.10.2` and API add-on `1.9.1`
 
 ### Changed
 
@@ -179,7 +188,7 @@ Happy summer time ⛱️
 
 ### Changed
 
--   Bump required versions of i-doit (>= 1.10) and its API add-on (>= 1.9)
+-   Bump required versions of i-doit (`>= 1.10`) and its API add-on (`>= 1.9`)
 -   Require entry identifier in methods `CMDBCategory::archive()`, `delete()` and `purge()`
 -   Methods `cmdb.category.create`, `cmdb.category_info.read` (and others, too) do not need parameters `catg` or `cats`. Parameter `category` seems to be sufficient.
 -   Make `CMDBCategory::purge()` a lot faster due to method `cmdb.category.quickpurge`
@@ -225,13 +234,13 @@ Happy summer time ⛱️
 
 Initial release
 
-[Unreleased]: https://github.com/bheisig/i-doit-api-client-php/compare/0.10...HEAD
-[0.10]: https://github.com/bheisig/i-doit-api-client-php/compare/0.9...0.10
-[0.9]: https://github.com/bheisig/i-doit-api-client-php/compare/0.8...0.9
-[0.8]: https://github.com/bheisig/i-doit-api-client-php/compare/0.7...0.8
-[0.7]: https://github.com/bheisig/i-doit-api-client-php/compare/0.6...0.7
-[0.6]: https://github.com/bheisig/i-doit-api-client-php/compare/0.5...0.6
-[0.5]: https://github.com/bheisig/i-doit-api-client-php/compare/0.4...0.5
-[0.4]: https://github.com/bheisig/i-doit-api-client-php/compare/0.3...0.4
-[0.3]: https://github.com/bheisig/i-doit-api-client-php/compare/0.2...0.3
-[0.2]: https://github.com/bheisig/i-doit-api-client-php/compare/0.1...0.2
+[Unreleased]: https://github.com/i-doit/api-client-php/compare/0.10...HEAD
+[0.10]: https://github.com/i-doit/api-client-php/compare/0.9...0.10
+[0.9]: https://github.com/i-doit/api-client-php/compare/0.8...0.9
+[0.8]: https://github.com/i-doit/api-client-php/compare/0.7...0.8
+[0.7]: https://github.com/i-doit/api-client-php/compare/0.6...0.7
+[0.6]: https://github.com/i-doit/api-client-php/compare/0.5...0.6
+[0.5]: https://github.com/i-doit/api-client-php/compare/0.4...0.5
+[0.4]: https://github.com/i-doit/api-client-php/compare/0.3...0.4
+[0.3]: https://github.com/i-doit/api-client-php/compare/0.2...0.3
+[0.2]: https://github.com/i-doit/api-client-php/compare/0.1...0.2

@@ -29,7 +29,7 @@ Of course, there are some features in the pipeline. However, if you have good id
 If you like to contribute source code, documentation snippets, self-explaining examples or other useful bits, fork this repository, setup the environment and make a pull request.
 
 ~~~ {.bash}
-git clone https://github.com/bheisig/i-doit-api-client-php.git
+git clone https://github.com/i-doit/api-client-php.git
 ~~~
 
 If you have a GitHub account create a fork first and then clone the repository.
@@ -75,7 +75,7 @@ There is a huge amount of tests located under `tests/`. These tests can be execu
 
 ### Prerequisites
 
-1.  Copy fiel `.env.dist` to `.env`
+1.  Copy file `.env.dist` to `.env`
 2.  Put your configuration settings to `.env`
 
 ### Usage
@@ -105,7 +105,7 @@ If you configure your system properly, you will be able to set breakpoints in yo
 You may add arguments and options, for example:
 
 ~~~ {.bash}
-bin/phpunit-dbg --group unreleased tests/APITest.php
+bin/phpunit-dbg --group unreleased tests/Idoit/APIClient/APITest.php
 ~~~
 
 ### Available test groups
@@ -162,7 +162,6 @@ This project comes with some useful composer scripts:
 | `composer phpunit-addon`      | Perform unit tests for add-on related API requests        |
 | `composer phpunit-parallel`   | Perform unit tests in parallel                            |
 | `composer phpunit-unreleased` | Perform unit tests for unreleased features                |
-| `composer security-checker`   | Look for dependencies with known security vulnerabilities |
 | `composer system-check`       | Run some system checks                                    |
 
 For example, execute `composer ci`.
@@ -175,5 +174,5 @@ If you think this project is useful for your daily work, consider a donation. Wh
 
 -   [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
 
-[issues]: https://github.com/bheisig/i-doit-api-client-php/issues
-[packagist]: https://packagist.org/packages/bheisig/idoitapi
+[issues]: https://github.com/i-doit/api-client-php/issues
+[packagist]: https://packagist.org/packages/idoit/apiclient

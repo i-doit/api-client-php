@@ -10,7 +10,7 @@
     verbose="true">
     <testsuites>
         <testsuite name="Unit Tests">
-            <directory>./tests/bheisig/idoitapi/</directory>
+            <directory>./tests/Idoit/APIClient/</directory>
         </testsuite>
     </testsuites>
     <logging>
@@ -22,7 +22,7 @@
         </whitelist>
     </filter>
     <extensions>
-        <extension class="bheisig\idoitapi\Extension\PrintMetaData"/>
-        <extension class="bheisig\idoitapi\Extension\PrintStatistics"/>
+        <extension class="Idoit\APIClient\Extension\PrintMetaData"/>
+        <extension class="Idoit\APIClient\Extension\PrintStatistics"/>
     </extensions>
 </phpunit>

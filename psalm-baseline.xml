@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.x-dev@">
+  <file src="src/API.php">
+    <UndefinedClass occurrences="2">
+      <code>CurlHandle</code>
+      <code>CurlHandle</code>
+    </UndefinedClass>
+  </file>
+</files>

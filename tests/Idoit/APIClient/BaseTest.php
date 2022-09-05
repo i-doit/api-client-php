@@ -182,6 +182,14 @@ abstract class BaseTest extends TestCase {
         return $this->cmdbCategory;
     }
 
+    public function useCMDBCondition(): CMDBCondition {
+        if (!isset($this->cmdbCondition)) {
+            $this->cmdbCondition = new CMDBCondition($this->api);
+        }
+
+        return $this->cmdbCondition;
+    }
+
     public function useCMDBDialog(): CMDBDialog {
         if (!isset($this->cmdbDialog)) {
             $this->cmdbDialog = new CMDBDialog($this->api);

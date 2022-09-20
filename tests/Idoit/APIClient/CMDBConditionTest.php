@@ -79,9 +79,8 @@ class CMDBConditionTest extends BaseTest {
                             'value'      => $value,
                             ]];
             $objects = $cmdbCondition->read($conditions);
-            $this->assertSame($objectID, intval($objects[0]['id']));         
+            $this->assertSame($objectID, intval($objects[0]['id']));
         }
-
     }
 
 }

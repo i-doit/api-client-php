@@ -58,6 +58,11 @@ abstract class BaseTest extends TestCase {
     protected $cmdbCategory;
 
     /**
+     * @var CMDBCondition|null
+     */
+    protected $cmdbCondition;
+
+    /**
      * @var CMDBDialog|null
      */
     protected $cmdbDialog;

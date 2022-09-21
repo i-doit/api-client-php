@@ -192,6 +192,7 @@ For almost every case there is a remote procedure you may call to read from or m
 |                               | `cmdb.category.delete`                |                               | `delete()`                                                |
 |                               | `cmdb.category.purge`                 |                               | `purge()`                                                 |
 | `cmdb.category_info`          | `cmdb.category_info.read`             | `CMDBCategoryInfo`            | `read()`                                                  |
+| `cmdb.condition`              | `cmdb.condition.read`                 | `CMDBCondition`               | `read()`                                                  |
 | `cmdb.dialog`                 | `cmdb.dialog.create`                  | `CMDBDialog`                  | `create()`                                                |
 |                               | `cmdb.dialog.read`                    |                               | `read()`                                                  |
 |                               | `cmdb.dialog.delete`                  |                               | `delete()`                                                |

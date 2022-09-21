@@ -58,6 +58,11 @@ abstract class BaseTest extends TestCase {
     protected $cmdbCategory;
 
     /**
+     * @var CMDBCondition|null
+     */
+    protected $cmdbCondition;
+
+    /**
      * @var CMDBDialog|null
      */
     protected $cmdbDialog;
@@ -180,6 +185,14 @@ abstract class BaseTest extends TestCase {
         }
 
         return $this->cmdbCategory;
+    }
+
+    public function useCMDBCondition(): CMDBCondition {
+        if (!isset($this->cmdbCondition)) {
+            $this->cmdbCondition = new CMDBCondition($this->api);
+        }
+
+        return $this->cmdbCondition;
     }
 
     public function useCMDBDialog(): CMDBDialog {

@@ -29,19 +29,125 @@ declare(strict_types=1);
 namespace Idoit\APIClient;
 
 use \Exception;
-use \BadMethodCallException;
-use \RuntimeException;
 
 /**
- * Requests for assigned files
+ * Conditional helper for more readable code
  */
-class Condition {
+class Condition  {
 
-    private string $message;
+    public $property;
 
-    public function __construct()
+    public $comparison;
+
+    public $value;
+
+    public $operator;
+
+    public function where($const, $property):self {
+        $this->property = $const . "-" . $property;
+        return $this;
+    }
+
+    public function andWhere($const, $property):self {
+        $this->operator = 'AND';
+        $this->where($const, $property);
+        return $this;
+    }
+
+    public function orWhere($const, $property):self {
+        $this->operator = 'OR';
+        $this->where($const, $property);
+        return $this;
+    }
+
+    public function isLike($value):self {
+        $this->comparison = 'like';
+        $this->value = $value;
+        return $this;
+    }
+
+    public function isNotLike($value):self {
+        $this->comparison = 'notlike';
+        $this->value = $value;
+        return $this;
+    }
+
+    public function isEqualTo($value):self {
+        $this->comparison = '=';
+        $this->value = $value;
+        return $this;
+    }
+
+    public function isNotEqualTo($value):self {
+        $this->comparison = '!=';
+        $this->value = $value;
+        return $this;
+    }
+
+    public function isGreaterThan($value):self {
+        $this->comparison = '>';
+        $this->value = $value;
+        return $this;
+    }
+
+    public function isGreaterOrEqaulThan($value):self {
+        $this->comparison = '>=';
+        $this->value = $value;
+        return $this;
+    }
+
+    public function isLowerThan($value):self {
+        $this->comparison = '<';
+        $this->value = $value;
+        return $this;
+    }
+
+    public function isLowerOrEaqualThan($value):self {
+        $this->comparison = '<=';
+        $this->value = $value;
+        return $this;
+    }
+
+    public function isLowerOrGreaterThan($value):self {
+        $this->comparison = '<>';
+        $this->value = $value;
+        return $this;
+    }
+
+    public function __construct($const = null, $property = null, $comparison = null, $value = null, $operator = null)
     {
-        $this->message = "Hello World!";
+
+        if (!is_null($const) && !is_null($property)) {
+            $this->property = $const . "-" . $property;
+        }
+
+        $allowedComparison = ['=', '!=', 'like', 'not like', '>', '>=', '<', '<=', '<>'];
+        if (!is_null($comparison) && !is_null($value) && in_array($comparison, $allowedComparison)) {
+            $this->comparison = $comparison;
+            $this->value = $value;
+        }
+        
+        $allowedOperators = ['AND', 'OR'];
+        if (!is_null($operator) && in_array(strtoupper($operator), $allowedOperators)) {
+             $this->operator = strtoupper($operator);
+        }
+    }
+
+    public function toArray(): array
+    {
+
+        $condition = [
+            'property' => $this->property,
+            'comparison' => $this->comparison,
+            'value' => $this->value
+        ];
+
+        if (isset($this->operator)) {
+            $condition['operator'] = $this->operator;
+        }
+
+        return $condition;
+
     }
 
 }

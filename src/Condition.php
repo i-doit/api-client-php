@@ -17,11 +17,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * @author Benjamin Heisig <https://benjamin.heisig.name/>
+ * @author    Benjamin Heisig <https://benjamin.heisig.name/>
  * @copyright Copyright (C) 2022 synetics GmbH
  * @copyright Copyright (C) 2016-2022 Benjamin Heisig
- * @license http://www.gnu.org/licenses/agpl-3.0 GNU Affero General Public License (AGPL)
- * @link https://github.com/i-doit/api-client-php
+ * @license   http://www.gnu.org/licenses/agpl-3.0 GNU Affero General Public License (AGPL)
+ * @link      https://github.com/i-doit/api-client-php
  */
 
 declare(strict_types=1);
@@ -33,7 +33,18 @@ use \Exception;
 /**
  * Conditional helper for more readable code
  */
-class Condition  {
+class Condition
+{
+
+    /**
+     * Operator: AND
+     */
+    const AND = 'AND';
+
+    /**
+     * Operator: URL
+     */
+    const OR = 'OR';
 
     public $property;
 
@@ -43,72 +54,84 @@ class Condition  {
 
     public $operator;
 
-    public function where($const, $property):self {
+    public function where($const, $property):self
+    {
         $this->property = $const . "-" . $property;
         return $this;
     }
 
-    public function andWhere($const, $property):self {
-        $this->operator = 'AND';
+    public function andWhere($const, $property):self
+    {
+        $this->operator = self::AND;
         $this->where($const, $property);
         return $this;
     }
 
-    public function orWhere($const, $property):self {
-        $this->operator = 'OR';
+    public function orWhere($const, $property):self
+    {
+        $this->operator = self::OR;
         $this->where($const, $property);
         return $this;
     }
 
-    public function isLike($value):self {
+    public function isLike($value):self
+    {
         $this->comparison = 'like';
         $this->value = $value;
         return $this;
     }
 
-    public function isNotLike($value):self {
-        $this->comparison = 'notlike';
+    public function isNotLike($value):self
+    {
+        $this->comparison = 'not like';
         $this->value = $value;
         return $this;
     }
 
-    public function isEqualTo($value):self {
+    public function isEqualTo($value):self
+    {
         $this->comparison = '=';
         $this->value = $value;
         return $this;
     }
 
-    public function isNotEqualTo($value):self {
+    public function isNotEqualTo($value):self
+    {
         $this->comparison = '!=';
         $this->value = $value;
         return $this;
     }
 
-    public function isGreaterThan($value):self {
+    public function isGreaterThan($value):self
+    {
         $this->comparison = '>';
         $this->value = $value;
         return $this;
     }
 
-    public function isGreaterOrEqaulThan($value):self {
+    public function isGreaterOrEqaulThan($value):self
+    {
         $this->comparison = '>=';
         $this->value = $value;
         return $this;
     }
 
-    public function isLowerThan($value):self {
+    public function isLowerThan($value):self
+    {
         $this->comparison = '<';
         $this->value = $value;
         return $this;
     }
 
-    public function isLowerOrEaqualThan($value):self {
+    public function isLowerOrEaqualThan($value):self
+    {
         $this->comparison = '<=';
         $this->value = $value;
         return $this;
     }
 
-    public function isLowerOrGreaterThan($value):self {
+    public function isLowerOrGreaterThan($value):self
+    {
         $this->comparison = '<>';
         $this->value = $value;
         return $this;
@@ -127,7 +150,7 @@ class Condition  {
             $this->value = $value;
         }
         
-        $allowedOperators = ['AND', 'OR'];
+        $allowedOperators = [self::AND, self::OR];
         if (!is_null($operator) && in_array(strtoupper($operator), $allowedOperators)) {
              $this->operator = strtoupper($operator);
         }
@@ -147,7 +170,6 @@ class Condition  {
         }
 
         return $condition;
-
     }
 
 }

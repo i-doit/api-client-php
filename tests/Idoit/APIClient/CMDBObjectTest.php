@@ -235,7 +235,7 @@ class CMDBObjectTest extends BaseTest {
         $objectID = $result['id'];
         $modelEntryID = (int) $result['categories'][Category::CATG__MODEL][0];
         $firstIPEntryID = $result['categories'][Category::CATG__IP][0];
-        $secondIPEntryID = $result['categories'][Category::CATG__IP][0];
+        $secondIPEntryID = $result['categories'][Category::CATG__IP][1];
 
         $model = $this->useCMDBCategory()->readOneByID($objectID, Category::CATG__MODEL, $modelEntryID);
         $this->assertArrayHasKey('id', $model);

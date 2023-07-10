@@ -109,7 +109,7 @@ class API30Test extends BaseTest {
             $hostAID,
             Category::CATG__CONNECTOR,
             [
-                // … before selecting wich wire is rx/tx:
+                // … before selecting which wire is rx/tx:
                 'used_fiber_lead_rx' => $rxID,
                 'used_fiber_lead_tx' => $txID
             ],

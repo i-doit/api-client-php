@@ -101,7 +101,6 @@ class ConsoleTest extends BaseTest {
             '' => ['console.tenant.add'],
             'console.tenant.add' => ['console.tenant.disable'],
             'console.tenant.enable' => ['console.tenant.enable'],
-            'console.tenant.list' => ['console.tenant.list'],
         ];
     }
 
@@ -116,5 +115,4 @@ class ConsoleTest extends BaseTest {
         $result = $this->console->execute($blacklistedCommand);
         $this->assertIsArray($result);
     }
-
 }

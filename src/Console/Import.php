@@ -113,22 +113,6 @@ class Import extends Console {
     }
 
     /**
-     * Import data from OCS Inventory NG instance
-     *
-     * @param array $options Options
-     *
-     * @return array Output (one value per line)
-     *
-     * @throws Exception on error
-     */
-    public function importFromOCSInventoryNG(array $options = []): array {
-        return $this->execute(
-            'console.import.ocs',
-            $options
-        );
-    }
-
-    /**
      * Import data from syslog
      *
      * @param array $options Options

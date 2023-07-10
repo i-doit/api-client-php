@@ -218,8 +218,6 @@ class API131Test extends BaseTest {
 
         $entry = $this->useCMDBCategory()->readFirst($objectID, $categoryConstant);
 
-        print_r($entry);
-
         $this->assertIsArray($entry);
         $this->assertArrayHasKey('id', $entry);
         $this->isIDAsString($entry['id']);

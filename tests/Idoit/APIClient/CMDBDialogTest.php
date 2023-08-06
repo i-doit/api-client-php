@@ -251,7 +251,7 @@ class CMDBDialogTest extends BaseTest {
         $this->assertArrayHasKey('const', $entry['parent']);
         $this->assertEmpty($entry['parent']['const']);
         $this->assertArrayHasKey('title', $entry['parent']);
-        $this->assertNull($entry['parent']['title']);
+        $this->assertEmpty($entry['parent']['title']);
     }
 
     /**

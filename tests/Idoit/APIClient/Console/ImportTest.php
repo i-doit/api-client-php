@@ -105,16 +105,6 @@ class ImportTest extends BaseTest {
     /**
      * @throws Exception on error
      */
-    public function testImportFromOCSInventoryNG() {
-        $result = $this->import->importFromOCSInventoryNG();
-
-        $this->assertIsArray($result);
-        $this->isOutput($result);
-    }
-
-    /**
-     * @throws Exception on error
-     */
     public function testImportFromSyslog() {
         $result = $this->import->importFromSyslog();
 

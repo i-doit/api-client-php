@@ -499,7 +499,7 @@ $result = $condition->read(
 ~~~
 
 You can use more than one condition and add an operator to them.
-Allowed oprerators are 'AND' and 'OR'.
+Allowed operators are 'AND' and 'OR'.
 
 ~~~ {.php}
 $result = $condition->read(

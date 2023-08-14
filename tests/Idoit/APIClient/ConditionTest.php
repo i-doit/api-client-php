@@ -295,7 +295,7 @@ class ConditionTest extends BaseTest {
         $conditions = [];
         foreach ($attributes as $attribute => $value) {
             $condition = new Condition();
-            $conditions[] = $condition->where("C__CATG__ACCOUNTING", $attribute, Condition::AND)->isEqualTo($value);
+            $conditions[] = $condition->andWhere("C__CATG__ACCOUNTING", $attribute)->isEqualTo($value);
         }
         $objects = $cmdbCondition->read($conditions);
         $this->assertSame($objectID, intval($objects[0]['id']));
@@ -319,7 +319,7 @@ class ConditionTest extends BaseTest {
         $conditions = [];
         foreach ($attributes as $attribute => $value) {
             $condition = new Condition();
-            $conditions[] = $condition->where("C__CATG__ACCOUNTING", $attribute, Condition::OR)->isEqualTo($value);
+            $conditions[] = $condition->orWhere("C__CATG__ACCOUNTING", $attribute)->isEqualTo($value);
         }
         $objects = $cmdbCondition->read($conditions);
         $this->assertSame($objectID, intval($objects[0]['id']));

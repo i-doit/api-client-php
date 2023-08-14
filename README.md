@@ -477,6 +477,60 @@ $cmdbObjects
     ->purge([1, 2, 3]);
 ~~~
 
+#### Read object by condition
+
+Allowed comparison are '=', '!=', 'like', 'not like', '>', '>=', '<', '<=', '<>'.
+
+~~~ {.php}
+use Idoit\APIClient\API;
+use Idoit\APIClient\CMDBCondition;
+
+$api = new API([/* … */]);
+$condition = new CMDBCondition($api);
+$result = $condition->read(
+    [
+        [
+            'property' => "C__CATG__ACCOUNTING-order_no",
+            'comparison' => "=",
+            'value' => "ORDER4711",
+        ]
+    ]
+);
+~~~
+
+You can use more than one condition and add an operator to them.
+Allowed operators are 'AND' and 'OR'.
+
+~~~ {.php}
+$result = $condition->read(
+    [
+        [
+            'property' => "C__CATG__ACCOUNTING-order_no",
+            'comparison' => "=",
+            'value' => "ORDER4711",
+        ],
+        [
+            'property' => "C__CATG__ACCOUNTING-order_no",
+            'comparison' => "=",
+            'value' => "ORDER0815",
+            'operator' => 'OR',
+        ]
+    ]
+);
+~~~
+
+For more readable code you can use the condition helper class.
+
+~~~ {.php}
+use Idoit\APIClient\Condition;
+
+$conditions = [
+    new Condition("C__CATG__ACCOUNTING", "order_no", "=", "ORDER4711"),
+    new Condition("C__CATG__ACCOUNTING", "order_no", "=", "ORDER4711", Condition::OR),
+];
+$result = $condition->read($conditions);
+~~~
+
 #### Create category entries with attributes
 
 ~~~ {.php}

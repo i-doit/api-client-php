@@ -28,6 +28,7 @@ declare(strict_types=1);
 namespace Idoit\APIClient;
 
 use \Exception;
+use Idoit\APIClient\Constants\Category;
 
 class ConditionTest extends BaseTest {
 
@@ -274,6 +275,52 @@ class ConditionTest extends BaseTest {
         $entry = (new Condition())->where("C__CATG__ACCOUNTING", "inventory_no")->isLowerOrGreaterThan("INV4711");
 
         $this->assertSame($condition, $entry->toArray());
+    }
+
+    /**
+     * @throws Exception on error
+     */
+    public function testReadObjectByConditionWhereIsEqualToWithAndOperator() {
+        $objectID = $this->createServer();
+
+        $attributes = [
+            'inventory_no' => $this->generateRandomString(),
+            'order_no'     => $this->generateRandomString(),
+            'invoice_no'   => $this->generateRandomString()
+        ];
+
+        $entryID = $this->useCMDBCategory()->save( $objectID, Category::CATG__ACCOUNTING, $attributes );
+
+        $cmdbCondition = $this->useCMDBCondition();
+        $conditions = [];
+        foreach ($attributes as $attribute => $value) {
+            $conditions[] = (new Condition())->where("C__CATG__ACCOUNTING", $attribute, Condition::AND)->isEqualTo($value);
+        }
+        $objects = $cmdbCondition->read($conditions);
+        $this->assertSame($objectID, intval($objects[0]['id']));
+    }
+
+    /**
+     * @throws Exception on error
+     */
+    public function testReadObjectByConditionWhereIsEqualToWithOrOperator() {
+        $objectID = $this->createServer();
+
+        $attributes = [
+            'inventory_no' => $this->generateRandomString(),
+            'order_no'     => $this->generateRandomString(),
+            'invoice_no'   => $this->generateRandomString()
+        ];
+
+        $entryID = $this->useCMDBCategory()->save( $objectID, Category::CATG__ACCOUNTING, $attributes );
+
+        $cmdbCondition = $this->useCMDBCondition();
+        $conditions = [];
+        foreach ($attributes as $attribute => $value) {
+            $conditions[] = (new Condition())->where("C__CATG__ACCOUNTING", $attribute, Condition::OR)->isEqualTo($value);
+        }
+        $objects = $cmdbCondition->read($conditions);
+        $this->assertSame($objectID, intval($objects[0]['id']));
     }
 
 }

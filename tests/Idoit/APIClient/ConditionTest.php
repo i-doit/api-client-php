@@ -289,12 +289,13 @@ class ConditionTest extends BaseTest {
             'invoice_no'   => $this->generateRandomString()
         ];
 
-        $entryID = $this->useCMDBCategory()->save( $objectID, Category::CATG__ACCOUNTING, $attributes );
+        $entryID = $this->useCMDBCategory()->save($objectID, Category::CATG__ACCOUNTING, $attributes);
 
         $cmdbCondition = $this->useCMDBCondition();
         $conditions = [];
         foreach ($attributes as $attribute => $value) {
-            $conditions[] = (new Condition())->where("C__CATG__ACCOUNTING", $attribute, Condition::AND)->isEqualTo($value);
+            $condition = new Condition();
+            $conditions[] = $condition->where("C__CATG__ACCOUNTING", $attribute, Condition::AND)->isEqualTo($value);
         }
         $objects = $cmdbCondition->read($conditions);
         $this->assertSame($objectID, intval($objects[0]['id']));
@@ -312,12 +313,13 @@ class ConditionTest extends BaseTest {
             'invoice_no'   => $this->generateRandomString()
         ];
 
-        $entryID = $this->useCMDBCategory()->save( $objectID, Category::CATG__ACCOUNTING, $attributes );
+        $entryID = $this->useCMDBCategory()->save($objectID, Category::CATG__ACCOUNTING, $attributes);
 
         $cmdbCondition = $this->useCMDBCondition();
         $conditions = [];
         foreach ($attributes as $attribute => $value) {
-            $conditions[] = (new Condition())->where("C__CATG__ACCOUNTING", $attribute, Condition::OR)->isEqualTo($value);
+            $condition = new Condition();
+            $conditions[] = $condition->where("C__CATG__ACCOUNTING", $attribute, Condition::OR)->isEqualTo($value);
         }
         $objects = $cmdbCondition->read($conditions);
         $this->assertSame($objectID, intval($objects[0]['id']));

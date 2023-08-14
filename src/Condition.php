@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * @author    Benjamin Heisig <https://benjamin.heisig.name/>
  * @copyright Copyright (C) 2022 synetics GmbH
  * @copyright Copyright (C) 2016-2022 Benjamin Heisig
  * @license   http://www.gnu.org/licenses/agpl-3.0 GNU Affero General Public License (AGPL)
@@ -46,98 +45,98 @@ class Condition
      */
     const OR = 'OR';
 
-    public $property;
+    public string $property;
 
-    public $comparison;
+    public string $comparison;
 
-    public $value;
+    public string $value;
 
-    public $operator;
+    public string $operator;
 
-    public function where($const, $property):self
+    public function where(string $const, string $property):self
     {
         $this->property = $const . "-" . $property;
         return $this;
     }
 
-    public function andWhere($const, $property):self
+    public function andWhere(string $const, string $property):self
     {
         $this->operator = self::AND;
         $this->where($const, $property);
         return $this;
     }
 
-    public function orWhere($const, $property):self
+    public function orWhere(string $const, string $property):self
     {
         $this->operator = self::OR;
         $this->where($const, $property);
         return $this;
     }
 
-    public function isLike($value):self
+    public function isLike(string $value):self
     {
         $this->comparison = 'like';
         $this->value = $value;
         return $this;
     }
 
-    public function isNotLike($value):self
+    public function isNotLike(string $value):self
     {
         $this->comparison = 'not like';
         $this->value = $value;
         return $this;
     }
 
-    public function isEqualTo($value):self
+    public function isEqualTo(string $value):self
     {
         $this->comparison = '=';
         $this->value = $value;
         return $this;
     }
 
-    public function isNotEqualTo($value):self
+    public function isNotEqualTo(string $value):self
     {
         $this->comparison = '!=';
         $this->value = $value;
         return $this;
     }
 
-    public function isGreaterThan($value):self
+    public function isGreaterThan(string $value):self
     {
         $this->comparison = '>';
         $this->value = $value;
         return $this;
     }
 
-    public function isGreaterOrEqaulThan($value):self
+    public function isGreaterOrEqaulThan(string $value):self
     {
         $this->comparison = '>=';
         $this->value = $value;
         return $this;
     }
 
-    public function isLowerThan($value):self
+    public function isLowerThan(string $value):self
     {
         $this->comparison = '<';
         $this->value = $value;
         return $this;
     }
 
-    public function isLowerOrEaqualThan($value):self
+    public function isLowerOrEaqualThan(string $value):self
     {
         $this->comparison = '<=';
         $this->value = $value;
         return $this;
     }
 
-    public function isLowerOrGreaterThan($value):self
+    public function isLowerOrGreaterThan(string $value):self
     {
         $this->comparison = '<>';
         $this->value = $value;
         return $this;
     }
 
-    public function __construct($const = null, $property = null, $comparison = null, $value = null, $operator = null)
+    public function __construct(string $const = null, string $property = null, string $comparison = null, string $value = null, string $operator = null)
     {
 
         if (!is_null($const) && !is_null($property)) {

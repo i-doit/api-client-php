@@ -136,7 +136,7 @@ class Condition
         return $this;
     }
 
-    public function __construct ($const = null, $property = null, $comparison = null, $value = null, $operator = null)
+    public function __construct($const = null, $property = null, $comparison = null, $value = null, $operator = null)
     {
 
         if (!is_null($const) && !is_null($property)) {

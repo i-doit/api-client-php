@@ -230,7 +230,7 @@ class APITest extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -252,7 +252,7 @@ class APITest extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -460,7 +460,7 @@ class APITest extends BaseTest {
         $request = [
             'method' => 'idoit.version',
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -502,7 +502,7 @@ class APITest extends BaseTest {
             'jsonrpc' => $versionNumber,
             'method' => 'idoit.version',
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -541,7 +541,7 @@ class APITest extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => $identifier
         ];
@@ -579,7 +579,7 @@ class APITest extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => $identifier
         ];
@@ -600,7 +600,7 @@ class APITest extends BaseTest {
         $request = [
             'jsonrpc' => '2.0',
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -643,7 +643,7 @@ class APITest extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => $method,
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -681,7 +681,7 @@ class APITest extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => $method,
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -705,7 +705,7 @@ class APITest extends BaseTest {
                 'jsonrpc' => '2.0',
                 'method' => 'idoit.version',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ],
                 'id' => 1
             ],
@@ -713,7 +713,7 @@ class APITest extends BaseTest {
                 'jsonrpc' => '2.0',
                 'method' => 'idoit.version',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ],
                 'id' => $this->generateRandomString()
             ],
@@ -721,7 +721,7 @@ class APITest extends BaseTest {
                 'jsonrpc' => '2.0',
                 'method' => 'idoit.version',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ],
                 'id' => 1
             ]
@@ -746,7 +746,7 @@ class APITest extends BaseTest {
                 'jsonrpc' => '2.0',
                 'method' => 'idoit.version',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ],
                 'id' => 1
             ],
@@ -789,7 +789,7 @@ class APITest extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ]
         ];
 
@@ -812,21 +812,21 @@ class APITest extends BaseTest {
                 'jsonrpc' => '2.0',
                 'method' => 'idoit.version',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ]
             ],
             [
                 'jsonrpc' => '2.0',
                 'method' => 'cmdb.object.read',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ]
             ],
             [
                 'jsonrpc' => '2.0',
                 'method' => 'cmdb.category.read',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ]
             ]
         ];
@@ -847,7 +847,7 @@ class APITest extends BaseTest {
                 'jsonrpc' => '2.0',
                 'method' => 'idoit.version',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ],
                 'id' => 1
             ],
@@ -855,14 +855,14 @@ class APITest extends BaseTest {
                 'jsonrpc' => '2.0',
                 'method' => 'cmdb.object.read',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ]
             ],
             [
                 'jsonrpc' => '2.0',
                 'method' => 'cmdb.category.read',
                 'params' => [
-                    'apikey' => getenv('KEY')
+                    'apikey' => getenv('IDOIT_KEY')
                 ],
                 'id' => 2
             ]

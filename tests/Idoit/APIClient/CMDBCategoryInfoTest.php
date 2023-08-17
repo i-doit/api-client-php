@@ -158,7 +158,7 @@ class CMDBCategoryInfoTest extends BaseTest {
             'method' => 'cmdb.category_info',
             'params' => array(
                 'category' => $categoryConstant,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ),
             'id' => 1
         ];
@@ -187,7 +187,7 @@ class CMDBCategoryInfoTest extends BaseTest {
             'params' => array(
                 'category' => $categoryConstant,
                 'objID' => $objectID,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ),
             'id' => 1
         ];

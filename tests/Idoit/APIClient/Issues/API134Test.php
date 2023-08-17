@@ -74,7 +74,7 @@ class API134Test extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => $method,
             'params' => [
-                'apikey' => getenv('KEY'),
+                'apikey' => getenv('IDOIT_KEY'),
                 'objID' => $objectID,
                 'category' => Category::CATG__MODEL,
                 'data' => [

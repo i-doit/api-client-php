@@ -109,27 +109,27 @@ final class PrintMetaData implements BeforeFirstTestHook {
     protected function connectToAPI(): self {
         try {
             $config = [
-                API::URL => getenv('URL'),
-                API::KEY => getenv('KEY'),
-                API::BYPASS_SECURE_CONNECTION => getenv('BYPASS_SECURE_CONNECTION')
+                API::URL => getenv('IDOIT_URL'),
+                API::KEY => getenv('IDOIT_KEY'),
+                API::BYPASS_SECURE_CONNECTION => getenv('IDOIT_BYPASS_SECURE_CONNECTION')
             ];
 
-            if (getenv('PORT') !== false) {
-                $config[API::PORT] = (int) getenv('PORT');
+            if (getenv('IDOIT_PORT') !== false) {
+                $config[API::PORT] = (int) getenv('IDOIT_PORT');
             }
 
             if (getenv('IDOIT_LANGUAGE') !== false) {
                 $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
             }
 
-            if (getenv('USERNAME') !== false && getenv('PASSWORD') !== false) {
-                $config[API::USERNAME] = getenv('USERNAME');
-                $config[API::PASSWORD] = getenv('PASSWORD');
+            if (getenv('IDOIT_USERNAME') !== false && getenv('IDOIT_PASSWORD') !== false) {
+                $config[API::USERNAME] = getenv('IDOIT_USERNAME');
+                $config[API::PASSWORD] = getenv('IDOIT_PASSWORD');
             }
 
-            if (getenv('BYPASS_SECURE_CONNECTION') !== false) {
+            if (getenv('IDOIT_BYPASS_SECURE_CONNECTION') !== false) {
                 $config[API::BYPASS_SECURE_CONNECTION] = filter_var(
-                    getenv('BYPASS_SECURE_CONNECTION'),
+                    getenv('IDOIT_BYPASS_SECURE_CONNECTION'),
                     FILTER_VALIDATE_BOOLEAN,
                     FILTER_NULL_ON_FAILURE
                 );
@@ -180,7 +180,7 @@ final class PrintMetaData implements BeforeFirstTestHook {
      * @return self Returns itself
      */
     protected function printMetaData(): self {
-        $url = getenv('URL');
+        $url = getenv('IDOIT_URL');
         $libName = $this->composer['name'];
         $libVersion = $this->composer['extra']['version'];
         $phpVersion = PHP_VERSION;

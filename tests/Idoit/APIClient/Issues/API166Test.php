@@ -62,7 +62,7 @@ class API166Test extends BaseTest {
                 'object' => $objectID,
                 'category' => Category::CATG__ACCOUNTING,
                 'entry' => $entryID,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -104,7 +104,7 @@ class API166Test extends BaseTest {
                 'object' => $objectID,
                 'category' => Category::CATG__ACCOUNTING,
                 'entry' => $entryID,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -146,7 +146,7 @@ class API166Test extends BaseTest {
                 'object' => $objectID,
                 'category' => Category::CATG__ACCOUNTING,
                 'entry' => $entryID,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -188,7 +188,7 @@ class API166Test extends BaseTest {
                 'objID' => $objectID,
                 'category' => Category::CATG__ACCOUNTING,
                 'cateID' => $entryID,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -230,7 +230,7 @@ class API166Test extends BaseTest {
                 'object' => $objectID,
                 'category' => Category::CATG__NETWORK_PORT,
                 'entry' => $entryID,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -273,7 +273,7 @@ class API166Test extends BaseTest {
                 'object' => $objectID,
                 'category' => Category::CATG__NETWORK_PORT,
                 'entry' => $entryID,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -316,7 +316,7 @@ class API166Test extends BaseTest {
                 'object' => $objectID,
                 'category' => Category::CATG__NETWORK_PORT,
                 'entry' => $entryID,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -359,7 +359,7 @@ class API166Test extends BaseTest {
                 'objID' => $objectID,
                 'category' => Category::CATG__NETWORK_PORT,
                 'cateID' => $entryID,
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];

@@ -231,7 +231,7 @@ class API205Test extends BaseTest {
 //            'jsonrpc' => '2.0',
 //            'method' => 'cmdb.category.save',
 //            'params' => [
-//                'apikey' => getenv('KEY'),
+//                'apikey' => getenv('IDOIT_KEY'),
 //                'object' => $objectID,
 //                'category' => $categoryConstant,
 //                'data' => [
@@ -282,7 +282,7 @@ class API205Test extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => 'cmdb.category.save',
             'params' => [
-                'apikey' => getenv('KEY'),
+                'apikey' => getenv('IDOIT_KEY'),
                 'object' => $objectID,
                 'category' => 'C__CATG__CUSTOM_FIELDS_API_205_VIRTUAL_PROPERTIES',
                 'data' => [

@@ -105,31 +105,31 @@ class API153Test extends BaseTest {
      */
     public function testFaultyCredentials(string $username, string $password) {
         if (empty($username)) {
-            $username = getenv('USERNAME');
+            $username = getenv('IDOIT_USERNAME');
         }
 
         if (empty($password)) {
-            $password = getenv('PASSWORD');
+            $password = getenv('IDOIT_PASSWORD');
         }
 
         $config = [
             API::USERNAME => $username,
             API::PASSWORD => $password,
-            API::KEY => getenv('KEY'),
-            API::URL => getenv('URL')
+            API::KEY => getenv('IDOIT_KEY'),
+            API::URL => getenv('IDOIT_URL')
         ];
 
         if (getenv('IDOIT_LANGUAGE') !== false) {
             $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
         }
 
-        if (getenv('PORT') !== false) {
-            $config[API::PORT] = (int) getenv('PORT');
+        if (getenv('IDOIT_PORT') !== false) {
+            $config[API::PORT] = (int) getenv('IDOIT_PORT');
         }
 
-        if (getenv('BYPASS_SECURE_CONNECTION') !== false) {
+        if (getenv('IDOIT_BYPASS_SECURE_CONNECTION') !== false) {
             $config[API::BYPASS_SECURE_CONNECTION] = filter_var(
-                getenv('BYPASS_SECURE_CONNECTION'),
+                getenv('IDOIT_BYPASS_SECURE_CONNECTION'),
                 FILTER_VALIDATE_BOOLEAN,
                 FILTER_NULL_ON_FAILURE
             );
@@ -141,7 +141,7 @@ class API153Test extends BaseTest {
             'jsonrpc' => '2.0',
             'method' => 'idoit.version',
             'params' => [
-                'apikey' => getenv('KEY')
+                'apikey' => getenv('IDOIT_KEY')
             ],
             'id' => 1
         ];
@@ -162,22 +162,22 @@ class API153Test extends BaseTest {
     public function testFaultyKey(string $apiKey) {
         $config = [
             API::KEY => $apiKey,
-            API::USERNAME => getenv('USERNAME'),
-            API::PASSWORD => getenv('PASSWORD'),
-            API::URL => getenv('URL')
+            API::USERNAME => getenv('IDOIT_USERNAME'),
+            API::PASSWORD => getenv('IDOIT_PASSWORD'),
+            API::URL => getenv('IDOIT_URL')
         ];
 
         if (getenv('IDOIT_LANGUAGE') !== false) {
             $config[API::LANGUAGE] = getenv('IDOIT_LANGUAGE');
         }
 
-        if (getenv('PORT') !== false) {
-            $config[API::PORT] = (int) getenv('PORT');
+        if (getenv('IDOIT_PORT') !== false) {
+            $config[API::PORT] = (int) getenv('IDOIT_PORT');
         }
 
-        if (getenv('BYPASS_SECURE_CONNECTION') !== false) {
+        if (getenv('IDOIT_BYPASS_SECURE_CONNECTION') !== false) {
             $config[API::BYPASS_SECURE_CONNECTION] = filter_var(
-                getenv('BYPASS_SECURE_CONNECTION'),
+                getenv('IDOIT_BYPASS_SECURE_CONNECTION'),
                 FILTER_VALIDATE_BOOLEAN,
                 FILTER_NULL_ON_FAILURE
             );

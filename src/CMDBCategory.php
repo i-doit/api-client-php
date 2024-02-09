@@ -100,7 +100,7 @@ class CMDBCategory extends Request {
         ];
 
         $result = $this->api->request(
-            'cmdb.category.create',
+            'cmdb.category.save',
             $params
         );
 
@@ -217,7 +217,7 @@ class CMDBCategory extends Request {
         }
 
         $result = $this->api->request(
-            'cmdb.category.update',
+            'cmdb.category.save',
             [
                 'objID' => $objectID,
                 'category' => $categoryConst,
@@ -382,7 +382,7 @@ class CMDBCategory extends Request {
                 ];
 
                 $requests[] = [
-                    'method' => 'cmdb.category.create',
+                    'method' => 'cmdb.category.save',
                     'params' => $params
                 ];
             }
@@ -493,7 +493,7 @@ class CMDBCategory extends Request {
 
         foreach ($objectIDs as $objectID) {
             $requests[] = [
-                'method' => 'cmdb.category.update',
+                'method' => 'cmdb.category.save',
                 'params' => [
                     'objID' => $objectID,
                     'category' => $categoryConst,

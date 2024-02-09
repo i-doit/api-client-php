@@ -348,7 +348,8 @@ class API {
     public function connect(): self {
         $this->resource = curl_init();
 
-        if ($this->resource == false) {
+        // @phpstan-ignore-next-line
+        if (!$this->resource) {
             throw new RuntimeException('Unable to initiate cURL session');
         }
 
@@ -371,6 +372,7 @@ class API {
         }
 
         curl_close($this->resource);
+        $this->resource = null;
 
         return $this;
     }

@@ -59,7 +59,7 @@ class CMDBObject extends Request {
         $attributes['title'] = $title;
 
         $result = $this->api->request(
-            'cmdb.object.create',
+            'cmdb.object.save',
             $attributes
         );
 
@@ -147,7 +147,7 @@ class CMDBObject extends Request {
         }
 
         $result = $this->api->request(
-            'cmdb.object.update',
+            'cmdb.object.save',
             $params
         );
 

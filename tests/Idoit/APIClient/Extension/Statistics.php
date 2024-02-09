@@ -40,7 +40,7 @@ class Statistics {
         // Make constructor non-public!
     }
 
-    final private function __clone() {
+    private function __clone() {
         // Prohibit cloning object!
     }
 

@@ -348,7 +348,7 @@ class API {
     public function connect(): self {
         $this->resource = curl_init();
 
-        if ($this->resource == false) {
+        if (!$this->resource) {
             throw new RuntimeException('Unable to initiate cURL session');
         }
 

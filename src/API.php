@@ -371,6 +371,7 @@ class API {
         }
 
         curl_close($this->resource);
+        $this->resource = null;
 
         return $this;
     }

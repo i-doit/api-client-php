@@ -233,8 +233,8 @@ Happy summer time ⛱️
 
 Initial release
 
-[Unreleased]: https://github.com/i-doit/api-client-php/compare/1.0...HEAD
-[1.0]: https://github.com/i-doit/api-client-php/compare/0.10...1.0
+[Unreleased]: https://github.com/i-doit/api-client-php/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/i-doit/api-client-php/compare/0.10...1.0.0
 [0.10]: https://github.com/i-doit/api-client-php/compare/0.9...0.10
 [0.9]: https://github.com/i-doit/api-client-php/compare/0.8...0.9
 [0.8]: https://github.com/i-doit/api-client-php/compare/0.7...0.8

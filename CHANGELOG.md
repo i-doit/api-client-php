@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
-Spring clean 2022!
+## [1.0][] – 2024-12-16
+
+**Note:** Support for all PHP `7` versions has been dropped. PHP `8+` only, from now on :)
 
 ### Added
 
@@ -19,16 +21,12 @@ Spring clean 2022!
 -   **Breaking:** Change PHP namespace to `Idoit\APIClient`
 -   **Breaking:** Move repository to `github.com/i-doit/api-client-php`
 -   **Breaking:** Require at least PHP version `8.0`
--   Recommend PHP version `8.1`
+-   Recommend PHP version `8.2`
 -   **Breaking:** Require at least i-doit `1.18.1` and its API add-on `1.12.3`
-
-### Deprecated
-
--   Deprecate support of PHP version `7.4`
 
 ### Removed
 
--   **Breaking:** Drop support of PHP version `7.1`, `7.2`, and `7.3`
+-   **Breaking:** Drop support of PHP version `7.1`, `7.2`, `7.3` and `7.4`
 
 ## [0.10][] – 2020-04-07
 
@@ -234,7 +232,8 @@ Happy summer time ⛱️
 
 Initial release
 
-[Unreleased]: https://github.com/i-doit/api-client-php/compare/0.10...HEAD
+[Unreleased]: https://github.com/i-doit/api-client-php/compare/1.0...HEAD
+[1.0]: https://github.com/i-doit/api-client-php/compare/0.10...1.0
 [0.10]: https://github.com/i-doit/api-client-php/compare/0.9...0.10
 [0.9]: https://github.com/i-doit/api-client-php/compare/0.8...0.9
 [0.8]: https://github.com/i-doit/api-client-php/compare/0.7...0.8

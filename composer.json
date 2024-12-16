@@ -158,5 +158,8 @@
         "phpunit-parallel": "Perform unit tests in parallel",
         "phpunit-unreleased": "Perform unit tests for unreleased features",
         "system-check": "Run some system checks"
+    },
+    "extra": {
+        "version": "0.11-dev"
     }
 }

@@ -622,7 +622,7 @@ class API {
         $lastResponse = json_decode(trim($body), true);
 
         if (!is_array($lastResponse)) {
-            if (is_string($body) && strlen($body) > 0) {
+            if (strlen($body) > 0) {
                 throw new RuntimeException(sprintf(
                     'i-doit responded with an unknown message: %s',
                     $body

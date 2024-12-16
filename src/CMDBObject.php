@@ -147,7 +147,7 @@ class CMDBObject extends Request {
         }
 
         $result = $this->api->request(
-            'cmdb.object.create',
+            'cmdb.object.update',
             $params
         );
 

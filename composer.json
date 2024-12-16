@@ -11,6 +11,12 @@
             "email": "benjamin@heisig.name",
             "homepage": "https://benjamin.heisig.name/",
             "role": "Developer"
+        },
+        {
+            "name": "Leonard Fischer",
+            "email": "lfischer@i-doit.com",
+            "homepage": "https://www.i-doit.com/",
+            "role": "Developer"
         }
     ],
     "support": {
@@ -18,7 +24,7 @@
         "source": "https://github.com/i-doit/api-client-php"
     },
     "require": {
-        "php": "^7.4 || ^8.0 || ^8.1 || ^8.2",
+        "php": "^8.0 || ^8.1 || ^8.2",
         "ext-curl": "*",
         "ext-date": "*",
         "ext-json": "*",

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   `Idoit::search()`, `Idoit::batchSearch`: Add search modes "normal" (default), "deep" and "auto-deep"
+-   Support for PHP `8.3`
 
 ### Changed
 

@@ -62,6 +62,9 @@
         }
     },
     "config": {
+        "platform": {
+            "php": "8.0.0"
+        },
         "process-timeout": 86400,
         "sort-packages": true,
         "allow-plugins": {

@@ -62,7 +62,7 @@ abstract class Request implements Calls {
      */
     protected function requireSuccessFor(array $result): int {
         $idExists = array_key_exists('id', $result) || array_key_exists('entry', $result);
-        $idIsNumeric = is_numeric($result['id'] ?? 0) || is_numeric($result['entry'] ?? 0);
+        $idIsNumeric = is_numeric($result['id'] ?? $result['entry'] ?? null);
         $isSuccess = array_key_exists('success', $result) && $result['success'] === true;
 
         if (!$idExists || !$idIsNumeric || !$isSuccess) {

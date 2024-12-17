@@ -401,7 +401,7 @@ class CMDBCategory extends Request {
                 }
             }
 
-            $entryIDs[] = (int) $entry['id'];
+            $entryIDs[] = (int) ($entry['id'] ?? $entry['entry']);
         }
 
         return $entryIDs;

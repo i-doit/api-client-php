@@ -139,9 +139,9 @@ class API {
     /**
      * cURL resource
      *
-     * @var CurlHandle|resource|false|null
+     * @var CurlHandle|null
      */
-    protected $resource;
+    protected CurlHandle|null $resource = null;
 
     /**
      * Information about last client request
@@ -247,7 +247,7 @@ class API {
      * @return bool
      */
     public function isConnected(): bool {
-        return is_resource($this->resource) || $this->resource instanceof CurlHandle;
+        return $this->resource instanceof CurlHandle;
     }
 
     /**
@@ -346,11 +346,13 @@ class API {
      * @throws RuntimeException on error
      */
     public function connect(): self {
-        $this->resource = curl_init();
+        $curl = curl_init();
 
-        if ($this->resource == false) {
+        if (!$curl instanceof CurlHandle) {
             throw new RuntimeException('Unable to initiate cURL session');
         }
+
+        $this->resource = $curl;
 
         return $this;
     }
@@ -371,6 +373,7 @@ class API {
         }
 
         curl_close($this->resource);
+        $this->resource = null;
 
         return $this;
     }
@@ -619,7 +622,7 @@ class API {
         $lastResponse = json_decode(trim($body), true);
 
         if (!is_array($lastResponse)) {
-            if (is_string($body) && strlen($body) > 0) {
+            if (strlen($body) > 0) {
                 throw new RuntimeException(sprintf(
                     'i-doit responded with an unknown message: %s',
                     $body

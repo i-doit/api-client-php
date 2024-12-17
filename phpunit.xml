@@ -1,28 +1,21 @@
-<phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.0/phpunit.xsd"
-    bootstrap="./vendor/autoload.php"
-    cacheTokens="false"
-    colors="true"
-    timeoutForSmallTests="10"
-    timeoutForMediumTests="30"
-    timeoutForLargeTests="120"
-    verbose="true">
-    <testsuites>
-        <testsuite name="Unit Tests">
-            <directory>./tests/Idoit/APIClient/</directory>
-        </testsuite>
-    </testsuites>
-    <logging>
-        <log type="coverage-text" target="php://stdout"/>
-    </logging>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src/</directory>
-        </whitelist>
-    </filter>
-    <extensions>
-        <extension class="Idoit\APIClient\Extension\PrintMetaData"/>
-        <extension class="Idoit\APIClient\Extension\PrintStatistics"/>
-    </extensions>
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="./vendor/autoload.php" colors="true" timeoutForSmallTests="10" timeoutForMediumTests="30" timeoutForLargeTests="120" verbose="true">
+  <coverage>
+    <include>
+      <directory suffix=".php">./src/</directory>
+    </include>
+    <report>
+      <text outputFile="php://stdout"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="Unit Tests">
+      <directory>./tests/Idoit/APIClient/</directory>
+    </testsuite>
+  </testsuites>
+  <logging/>
+  <extensions>
+    <extension class="Idoit\APIClient\Extension\PrintMetaData"/>
+    <extension class="Idoit\APIClient\Extension\PrintStatistics"/>
+  </extensions>
 </phpunit>

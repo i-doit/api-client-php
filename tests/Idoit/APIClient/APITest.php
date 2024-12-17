@@ -327,7 +327,7 @@ class APITest extends BaseTest {
         foreach ($response as $result) {
             $this->isError($result);
             $this->assertNull($result['id']);
-            $this->assertSame(-32600, $result['error']['code']);
+            $this->assertSame(-32604, $result['error']['code']); // <-- Previously 'Invalid request' -32600
         }
     }
 
@@ -347,7 +347,7 @@ class APITest extends BaseTest {
         $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
-        $this->assertSame(-32602, $response['error']['code']);
+        $this->assertSame(-32604, $response['error']['code']); // <-- Previously 'Invalid params' -32602
     }
 
     /**
@@ -385,7 +385,7 @@ class APITest extends BaseTest {
         $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
-        $this->assertSame(-32602, $response['error']['code']);
+        $this->assertSame(-32604, $response['error']['code']); // <-- Previously 'Invalid params' -32602
     }
 
     /**
@@ -406,7 +406,7 @@ class APITest extends BaseTest {
         $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
-        $this->assertSame(-32099, $response['error']['code']);
+        $this->assertSame(-32604, $response['error']['code']); // <-- Previously 'System error' -32099
     }
 
     /**
@@ -449,7 +449,7 @@ class APITest extends BaseTest {
         $this->assertIsArray($response);
         $this->isError($response);
         $this->hasValidJSONRPCIdentifier($request, $response);
-        $this->assertSame(-32099, $response['error']['code']);
+        $this->assertSame(-32604, $response['error']['code']); // <-- Previously 'System error' -32099
     }
 
     /**

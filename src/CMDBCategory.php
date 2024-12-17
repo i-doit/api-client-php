@@ -94,13 +94,13 @@ class CMDBCategory extends Request {
      */
     public function create(int $objectID, string $categoryConst, array $attributes): int {
         $params = [
-            'objID' => $objectID,
+            'object' => $objectID,
             'data' => $attributes,
             'category' => $categoryConst
         ];
 
         $result = $this->api->request(
-            'cmdb.category.create',
+            'cmdb.category.save',
             $params
         );
 
@@ -217,9 +217,9 @@ class CMDBCategory extends Request {
         }
 
         $result = $this->api->request(
-            'cmdb.category.update',
+            'cmdb.category.save',
             [
-                'objID' => $objectID,
+                'object' => $objectID,
                 'category' => $categoryConst,
                 'data' => $attributes
             ]
@@ -376,13 +376,13 @@ class CMDBCategory extends Request {
         foreach ($objectIDs as $objectID) {
             foreach ($attributes as $data) {
                 $params = [
-                    'objID' => $objectID,
+                    'object' => $objectID,
                     'data' => $data,
                     'category' => $categoryConst
                 ];
 
                 $requests[] = [
-                    'method' => 'cmdb.category.create',
+                    'method' => 'cmdb.category.save',
                     'params' => $params
                 ];
             }
@@ -493,9 +493,9 @@ class CMDBCategory extends Request {
 
         foreach ($objectIDs as $objectID) {
             $requests[] = [
-                'method' => 'cmdb.category.update',
+                'method' => 'cmdb.category.save',
                 'params' => [
-                    'objID' => $objectID,
+                    'object' => $objectID,
                     'category' => $categoryConst,
                     'data' => $attributes
                 ]

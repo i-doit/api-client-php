@@ -61,10 +61,11 @@ abstract class Request implements Calls {
      * @throws RuntimeException on error
      */
     protected function requireSuccessFor(array $result): int {
-        if (!array_key_exists('id', $result) ||
-            !is_numeric($result['id']) ||
+        if ((!array_key_exists('id', $result) && !array_key_exists('entry', $result)) ||
+            (!is_numeric($result['id'] ?? 0) && !is_numeric($result['entry'] ?? 0)) ||
             !array_key_exists('success', $result) ||
             $result['success'] !== true) {
+
             if (array_key_exists('message', $result)) {
                 throw new RuntimeException(sprintf('Bad result: %s', $result['message']));
             } else {
@@ -72,7 +73,7 @@ abstract class Request implements Calls {
             }
         }
 
-        return (int) $result['id'];
+        return (int) ($result['id'] ?? $result['entry']);
     }
 
     /**

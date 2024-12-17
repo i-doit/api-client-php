@@ -20,9 +20,9 @@ jobs:
           - '8.2'
           - '8.3'
         experimental: [false]
-        include:
-          - php-versions: nightly
-            experimental: true
+        #include:
+        #  - php-versions: nightly
+        #    experimental: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

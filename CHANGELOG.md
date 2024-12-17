@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
--   `Request::requireSuccessFor()`: Fix misleading error response for (successfully) saving category data
+-   `Request::requireSuccessFor()`: Fix misleading error response for (successfully) saving category data when using `CMDBCategory`
 
 ### Changed
 

@@ -94,7 +94,7 @@ class CMDBCategory extends Request {
      */
     public function create(int $objectID, string $categoryConst, array $attributes): int {
         $params = [
-            'objID' => $objectID,
+            'object' => $objectID,
             'data' => $attributes,
             'category' => $categoryConst
         ];
@@ -219,7 +219,7 @@ class CMDBCategory extends Request {
         $result = $this->api->request(
             'cmdb.category.save',
             [
-                'objID' => $objectID,
+                'object' => $objectID,
                 'category' => $categoryConst,
                 'data' => $attributes
             ]
@@ -376,7 +376,7 @@ class CMDBCategory extends Request {
         foreach ($objectIDs as $objectID) {
             foreach ($attributes as $data) {
                 $params = [
-                    'objID' => $objectID,
+                    'object' => $objectID,
                     'data' => $data,
                     'category' => $categoryConst
                 ];
@@ -495,7 +495,7 @@ class CMDBCategory extends Request {
             $requests[] = [
                 'method' => 'cmdb.category.save',
                 'params' => [
-                    'objID' => $objectID,
+                    'object' => $objectID,
                     'category' => $categoryConst,
                     'data' => $attributes
                 ]

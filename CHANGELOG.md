@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased][]
 
+## [1.0.1][] – 2024-12-17
+
+**Note:** For the next minor version (1.1.0) we plan to drop support for PHP `8.0`.
+
+### Fixed
+
+-   `Request::requireSuccessFor()`: Fix misleading error response for (successfully) saving category data
+
+### Changed
+
+-   Slightly updating the README to represent the current state of the client (PHP and i-doit compatibility)
+
 ## [1.0.0][] – 2024-12-16
 
 **Note:** Support for all PHP `7` versions has been dropped. PHP `8+` only, from now on :)
@@ -233,7 +245,8 @@ Happy summer time ⛱️
 
 Initial release
 
-[Unreleased]: https://github.com/i-doit/api-client-php/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/i-doit/api-client-php/compare/1.0.1...HEAD
+[1.0.1]: https://github.com/i-doit/api-client-php/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/i-doit/api-client-php/compare/0.10...1.0.0
 [0.10]: https://github.com/i-doit/api-client-php/compare/0.9...0.10
 [0.9]: https://github.com/i-doit/api-client-php/compare/0.8...0.9

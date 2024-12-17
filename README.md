@@ -3,7 +3,7 @@
 Easy-to-use, but feature-rich client library for i-doit's JSON-RPC API
 
 [![Latest stable version](https://img.shields.io/packagist/v/idoit/apiclient.svg)](https://packagist.org/packages/idoit/apiclient)
-[![Minimum PHP version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
+[![Minimum PHP version](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF.svg)](https://php.net/)
 [![Build status](https://github.com/i-doit/api-client-php/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/i-doit/api-client-php/actions)
 
 **Please note: This project is not an official product by synetics GmbH. synetics GmbH doesn't provide any commercial support.**
@@ -39,9 +39,9 @@ What's new? Take a look at the [changelog](CHANGELOG.md).
 
 Meet these simple requirements before using the client:
 
--   A running instance of i-doit pro/open, version `1.18.1` or higher (older versions may work but are not supported)
--   i-doit API add-on, version `1.12.3` or higher (older versions may work but are not supported)
--   PHP, version `8.0` or higher (`8.1` is recommended, `7.4` should work but is deprecated)
+-   A running instance of i-doit pro/open, version `30` or higher (older versions may work but are not supported)
+-   i-doit API add-on, version `2.0` or higher (older versions may work but are not supported)
+-   PHP, version `8.0` or higher (`8.2` is recommended)
 -   PHP modules `curl`, `date`, `json`, `openssl` and `zlib`
 
 As a rule of thumb, always use the latest stable releases to benefit from new features, improvements and bug fixes.
